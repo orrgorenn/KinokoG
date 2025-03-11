@@ -4,7 +4,7 @@ import mapleglory.world.item.Item;
 
 public final class PlayerShopItem {
     private final Item item;
-    private final int setCount;
+    private int setCount;
     private final int setSize;
     private final int price;
 
@@ -29,5 +29,9 @@ public final class PlayerShopItem {
 
     public int getPrice() {
         return price;
+    }
+
+    public void setSetCount(int setCount) {
+        this.setCount = setCount;
     }
 }

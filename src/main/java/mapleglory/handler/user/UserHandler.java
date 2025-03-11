@@ -1508,7 +1508,7 @@ public final class UserHandler {
                             }
                             // Check for required item
                             if (mrt == MiniRoomType.PersonalShop) {
-                                if (itemId != ItemConstants.REGULAR_STORE_PERMIT || !user.getInventoryManager().hasItem(itemId, 1)) {
+                                if ((itemId != ItemConstants.REGULAR_STORE_PERMIT || !user.getInventoryManager().hasItem(itemId, 1)) && (itemId != ItemConstants.HOLIDAY_STORE_PERMIT || !user.getInventoryManager().hasItem(itemId, 1))) {
                                     log.error("Tried to create personal shop without the required item");
                                     return;
                                 }
@@ -1642,7 +1642,7 @@ public final class UserHandler {
                     } else if (miniRoom instanceof MiniGameRoom miniGameRoom) {
                         miniGameRoom.leaveUnsafe(user);
                     } else if (miniRoom instanceof PersonalShop personalShop) {
-                        log.debug("Tried to leave from a mini room with unhandled type [PersonalShop]");
+                        personalShop.leaveUnsafe(user);
                     } else {
                         log.error("Tried to leave from a mini room with unhandled type {}", miniRoom.getType());
                         user.setDialog(null);

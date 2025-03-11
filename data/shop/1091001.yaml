@@ -2,14 +2,14 @@
 
 recharge: true
 items:
-  - [ 1002610, 900 ] # Brown Rocky Bandana
-  - [ 1002613, 4000 ] # Brown Lagger Cap
-  - [ 1002616, 12000 ] # Brown Double Marine
-  - [ 1002619, 20000 ] # Brown Pitz Bandana
-  - [ 1052095, 4000 ] # Brown Rocky Suit
-  - [ 1052098, 8000 ] # Brown Cotton Lagger
-  - [ 1052101, 16000 ] # Beige Carribean
-  - [ 1052104, 30000 ] # Brown Turk Gally
-  - [ 1052107, 60000 ] # Brown Pollard
-  - [ 1072285, 5000 ] # Brown Lagger Slipper
-  - [ 1072288, 8000 ] # Brown Skeedy Sandals
+  - [ 1002610, 1800 ] # Brown Rocky Bandana
+  - [ 1002613, 8000 ] # Brown Lagger Cap
+  - [ 1002616, 24000 ] # Brown Double Marine
+  - [ 1002619, 40000 ] # Brown Pitz Bandana
+  - [ 1052095, 8000 ] # Brown Rocky Suit
+  - [ 1052098, 16000 ] # Brown Cotton Lagger
+  - [ 1052101, 32000 ] # Beige Carribean
+  - [ 1052104, 60000 ] # Brown Turk Gally
+  - [ 1052107, 80000 ] # Brown Pollard
+  - [ 1072285, 10000 ] # Brown Lagger Slipper
+  - [ 1072288, 16000 ] # Brown Skeedy Sandals

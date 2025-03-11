@@ -16,6 +16,7 @@ import mapleglory.provider.skill.SkillStat;
 import mapleglory.server.dialog.Dialog;
 import mapleglory.server.dialog.ScriptDialog;
 import mapleglory.server.dialog.miniroom.MiniGameRoom;
+import mapleglory.server.dialog.miniroom.PersonalShop;
 import mapleglory.server.dialog.miniroom.TradingRoom;
 import mapleglory.server.guild.GuildRank;
 import mapleglory.server.node.ChannelServerNode;
@@ -279,6 +280,8 @@ public final class User extends Life implements Lockable<User> {
             tradingRoom.cancelTradeUnsafe(this);
         } else if (getDialog() instanceof MiniGameRoom miniGameRoom) {
             miniGameRoom.leaveUnsafe(this);
+        } else if (getDialog() instanceof PersonalShop personalShop) {
+            personalShop.leaveUnsafe(this);
         } else {
             setDialog(null);
         }

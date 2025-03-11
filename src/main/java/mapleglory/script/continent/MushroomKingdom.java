@@ -73,9 +73,36 @@ public class MushroomKingdom extends ScriptHandler {
     }
 
     @Script("q2301e")
-    // Head Security Officer
-    // Endangered Mushking Empire - End
-    public static void q2301e(ScriptManager sm) {
+    public static void q2301e(ScriptManager sm) { handleMushkingEnd(sm, 2301); }
+
+    @Script("q2302e")
+    public static void q2302e(ScriptManager sm) { handleMushkingEnd(sm, 2302); }
+
+    @Script("q2303e")
+    public static void q2303e(ScriptManager sm) { handleMushkingEnd(sm, 2303); }
+
+    @Script("q2304e")
+    public static void q2304e(ScriptManager sm) { handleMushkingEnd(sm, 2304); }
+
+    @Script("q2305e")
+    public static void q2305e(ScriptManager sm) { handleMushkingEnd(sm, 2305); }
+
+    @Script("q2306e")
+    public static void q2306e(ScriptManager sm) { handleMushkingEnd(sm, 2306); }
+
+    @Script("q2307e")
+    public static void q2307e(ScriptManager sm) { handleMushkingEnd(sm, 2307); }
+
+    @Script("q2308e")
+    public static void q2308e(ScriptManager sm) { handleMushkingEnd(sm, 2308); }
+
+    @Script("q2309e")
+    public static void q2309e(ScriptManager sm) { handleMushkingEnd(sm, 2309); }
+
+    @Script("q2310e")
+    public static void q2310e(ScriptManager sm) { handleMushkingEnd(sm, 2310); }
+
+    private static void handleMushkingEnd(ScriptManager sm, int questId) {
         if (!sm.hasItem(4032375, 1)) {
             sm.sayNext("What do you want, hmmm?");
             return;
@@ -84,7 +111,7 @@ public class MushroomKingdom extends ScriptHandler {
         sm.sayBoth("Hmmm... okay. Since the letter is from the job instructor, I suppose you are really the one. I apologize for not introducing myself to you earlier. I'm the #bHead Security Officer#k in charge of protecting King Mush. As you can see, this temporary hideout is protected by the team of security and soldiers. Our situation may be dire, but nevertheless, welcome to Kingdom of Mushroom.");
         sm.removeItem(4032375);
         sm.getUser().addQuestExp(6000);
-        sm.forceCompleteQuest(2301);
+        sm.forceCompleteQuest(questId);
         sm.forceStartQuest(2312);
     }
 }
