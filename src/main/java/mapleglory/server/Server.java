@@ -90,6 +90,7 @@ public final class Server {
         EtcProvider.initialize();       // Etc.wz
         ShopProvider.initialize();      // data/shop
         RewardProvider.initialize();    // data/reward
+        GachaponProvider.initialize();  // data/gachapon
         CashShop.initialize();          // data/cash
         System.gc();
         log.info("Loaded providers in {} milliseconds", Duration.between(start, Instant.now()).toMillis());

@@ -6,10 +6,53 @@ import mapleglory.script.common.ScriptManager;
 import mapleglory.world.quest.QuestRecordType;
 
 public class MushroomKingdom extends ScriptHandler {
-    @Script("q2301s")
-    // Grendel the Really Old
-    // Endangered Mushking Empire - Start
-    public static void q2301s(ScriptManager sm) {
+    @Script("q2302s")
+    public static void q2302s(ScriptManager sm) {
+        handleMushking(sm, 2302);
+    }
+
+    @Script("q2303s")
+    public static void q2303s(ScriptManager sm) {
+        handleMushking(sm, 2303);
+    }
+
+    @Script("q2304s")
+    public static void q2304s(ScriptManager sm) {
+        handleMushking(sm, 2304);
+    }
+
+    @Script("q2305s")
+    public static void q2305s(ScriptManager sm) {
+        handleMushking(sm, 2305);
+    }
+
+    @Script("q2306s")
+    public static void q2306s(ScriptManager sm) {
+        handleMushking(sm, 2306);
+    }
+
+    @Script("q2307s")
+    public static void q2307s(ScriptManager sm) {
+        handleMushking(sm, 2307);
+    }
+
+    @Script("q2308s")
+    public static void q2308s(ScriptManager sm) {
+        handleMushking(sm, 2308);
+    }
+
+    @Script("q2309s")
+    public static void q2309s(ScriptManager sm) {
+        handleMushking(sm, 2309);
+    }
+
+    @Script("q2310s")
+    public static void q2310s(ScriptManager sm) {
+        handleMushking(sm, 2310);
+    }
+
+
+    private static void handleMushking(ScriptManager sm, int questId) {
         if (sm.askYesNo("Now that you have made the job advancement, you look like you're ready for this. I have something I'd like to ask you for help. Are you willing to listen?")) {
             sm.sayNext("What happened is that the #bKingdom of Mushroom#k is currently in disarray. Kingdom of Mushroom is located near Henesys, featuring the peace-loving, intelligent King Mush. Recently, he began to feel ill, so he decided to appoint his only daughter #bPrincess Violetta#k. Something must have happened since then for the kingdom to be in its current state.");
             sm.sayBoth("I am not aware of the exact details, but it's obvious something terrible had taken place, so I think it'll be better if you go there and assess the damage yourself. An explorer like you seem more than capable of saving Kingdom of Mushroom. I have just written you a #brecommendation letter#k, so I suggest you head over to Kingdom of Mushroom immediately and look for the #bHead Patrol Officer#k.\n" +
@@ -22,7 +65,7 @@ public class MushroomKingdom extends ScriptHandler {
                     sm.addItem(4032375, 1);
                 }
                 sm.warp(106020000);
-                sm.forceStartQuest(2301);
+                sm.forceStartQuest(questId);
             } else {
                 sm.sayOk("Please have a slot available in your Etc inventory.");
             }

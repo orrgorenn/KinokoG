@@ -189,8 +189,9 @@ public final class GuildRequest implements Encodable {
         return request;
     }
 
-    public static GuildRequest createNewGuild(String guildName) {
+    public static GuildRequest createNewGuild(int guildId, String guildName) {
         final GuildRequest request = new GuildRequest(GuildRequestType.CreateNewGuild);
+        request.guildId = guildId;
         request.guildName = guildName;
         return request;
     }

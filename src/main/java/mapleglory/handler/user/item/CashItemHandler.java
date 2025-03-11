@@ -647,6 +647,10 @@ public final class CashItemHandler extends ItemHandler {
                     user.updatePassiveSkillData();
                     user.validateStat();
                 }
+                case SHOPSCANNER -> {
+                    final int sItemId = inPacket.decodeInt();
+                    log.debug(sItemId);
+                }
                 case null -> {
                     log.error("Unknown cash item type for item ID : {}", item.getItemId());
                     user.dispose();

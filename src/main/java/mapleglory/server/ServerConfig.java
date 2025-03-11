@@ -31,4 +31,5 @@ public final class ServerConfig {
     public static final String COMMAND_PREFIX = Util.getEnv("COMMAND_PREFIX", "@");
     public static final boolean DEBUG_MODE = Util.getEnv("DEBUG_MODE", true);
     public static final int MULTICLIENT_MAX_INSTANCES = Util.getEnv("MULTICLIENT_MAX_INSTANCES", 2);
+    public static final boolean GACHAPON_ENABLED = Util.getEnv("GACHAPON_ENABLED", false);
 }

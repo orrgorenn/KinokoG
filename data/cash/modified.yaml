@@ -205,3 +205,7 @@
 # Premium Cash Shop Surprise
 50200135:
   onSale: true
+
+# AP Reset
+10002077:
+  onSale: true

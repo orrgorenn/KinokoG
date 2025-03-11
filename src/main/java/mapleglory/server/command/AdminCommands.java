@@ -1188,6 +1188,10 @@ public final class AdminCommands {
         RewardProvider.initialize();
     }
 
+    @Command("reloadgacha")
+    @Permission("gm")
+    public static void reloadGacha(User user, String[] args) { GachaponProvider.initialize(); }
+
     @Command("reloadshops")
     @Permission("gm")
     public static void reloadShops(User user, String[] args) {

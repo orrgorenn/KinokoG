@@ -84,13 +84,13 @@ public final class CashShop {
         // ~CWvsContext::SetSaleInfo
 
         // this->aBest
-        for (int i = 1; i <= 9; i++) {
-            for (int j = 0; j < 2; j++) {
-                for (int k = 0; k < 5; k++) {
-                    // CS_BEST struct
-                    outPacket.encodeInt(i); // nCategory
-                    outPacket.encodeInt(j); // nGender
-                    outPacket.encodeInt(0); // nCommoditySN
+        for(int j = 0; j < 2; j++){// gender
+            int[] aBest = {50200004, 10000121, 50200117, 50100008, 10002116};
+            for(int i = 0; i < 9; i++){// category
+                for(int sn : aBest){
+                    outPacket.encodeInt(i); // category
+                    outPacket.encodeInt(j); // gender
+                    outPacket.encodeInt(sn); // sn
                 }
             }
         }

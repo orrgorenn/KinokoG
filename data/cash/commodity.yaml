@@ -5549,7 +5549,7 @@
   price: 5500
   period: 90
   gender: 2
-  onSale: false
+  onSale: true
 
 # The Owl of Minerva
 10000619:
@@ -5558,7 +5558,7 @@
   price: 3000
   period: 90
   gender: 2
-  onSale: false
+  onSale: true
 
 # AP Reset + 1 free Gachapon Ticket
 10000620:

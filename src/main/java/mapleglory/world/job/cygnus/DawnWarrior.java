@@ -2,6 +2,7 @@ package mapleglory.world.job.cygnus;
 
 import mapleglory.provider.SkillProvider;
 import mapleglory.provider.skill.SkillInfo;
+import mapleglory.provider.skill.SkillStat;
 import mapleglory.world.field.Field;
 import mapleglory.world.field.mob.Mob;
 import mapleglory.world.skill.Attack;
@@ -47,6 +48,9 @@ public final class DawnWarrior extends SkillProcessor {
         switch (skillId) {
             case FINAL_ATTACK:
                 user.setTemporaryStat(CharacterTemporaryStat.SoulMasterFinal, TemporaryStatOption.of(1, skillId, si.getDuration(slv)));
+                return;
+            case SOUL_CHARGE:
+                user.setTemporaryStat(CharacterTemporaryStat.WeaponCharge, TemporaryStatOption.of(1, skillId, si.getDuration(slv)));
                 return;
         }
         log.error("Unhandled skill {}", skill.skillId);
