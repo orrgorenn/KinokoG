@@ -3,6 +3,7 @@ package mapleglory.script.continent;
 import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
+import mapleglory.script.quest.MushroomCastle;
 import mapleglory.world.quest.QuestRecordType;
 
 public class MushroomKingdom extends ScriptHandler {
@@ -59,16 +60,23 @@ public class MushroomKingdom extends ScriptHandler {
                     "\n" +
                     "#fUI/UIWindow.img/QuestIcon/4/0#\n\n" +
                     "#v4032375# #t4032375#");
-            sm.askYesNo("By the way, do you know where Kingdom of Mushroom is located? It'll be okay if you can find your way there, but if you don't mind, I can take you straight to the entrance.");
-            if (sm.canAddItem(4032375, 1)) {
-                if (!sm.hasItem(4032375, 1)) {
-                    sm.addItem(4032375, 1);
+            if (!sm.askYesNo("By the way, do you know where #bMushroom Kingdom#k is located? It'll be okay if you can find your way there, but if you don't mind, I can take you straight to the entrance.")) {
+                if (!sm.addItem(4032375, 1)) {
+                    sm.sayNext("Please check if your inventory is full or not.");
+                    return;
                 }
-                sm.warp(106020000);
                 sm.forceStartQuest(questId);
-            } else {
-                sm.sayOk("Please have a slot available in your Etc inventory.");
+                sm.sayNext("Okay. In that case, I'll just give you directions to the #bMushroom Kingdom#k.");
+                sm.sayBoth("#bHead to #m100000000#, go to the right and enter Singing Mushroom Forest. Continue through the forest and at end you will find the entrance to <Themed Dungeon : Mushroom Castle>.");
+                sm.sayBoth("Please hurry! There's not much time!");
+                return;
             }
+            if (!sm.addItem(4032375, 1)) {
+                sm.sayNext("Please check if your inventory is full or not.");
+                return;
+            }
+            sm.forceStartQuest(questId);
+            MushroomCastle.enterThemeDungeon(sm);
         }
     }
 

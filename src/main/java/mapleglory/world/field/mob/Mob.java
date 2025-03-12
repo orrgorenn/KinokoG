@@ -1,5 +1,6 @@
 package mapleglory.world.field.mob;
 
+import mapleglory.handler.field.MobHandler;
 import mapleglory.packet.field.MobPacket;
 import mapleglory.packet.world.BroadcastPacket;
 import mapleglory.packet.world.MessagePacket;
@@ -34,6 +35,8 @@ import mapleglory.world.job.resistance.WildHunter;
 import mapleglory.world.quest.QuestRecord;
 import mapleglory.world.user.User;
 import mapleglory.world.user.stat.CharacterTemporaryStat;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -47,6 +50,8 @@ import java.util.function.BiPredicate;
 import static mapleglory.world.GameConstants.*;
 
 public final class Mob extends Life implements ControlledObject, Encodable, Lockable<Mob> {
+    private static final Logger log = LogManager.getLogger(Mob.class);
+
     private final Lock lock = new ReentrantLock();
     private final MobStat mobStat = new MobStat();
     private final AtomicInteger attackCounter = new AtomicInteger(0);
@@ -675,8 +680,11 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
         outPacket.encodeByte(getMoveAction()); // nMoveAction
         outPacket.encodeShort(getFoothold()); // pvcMobActiveObj (current foothold)
         outPacket.encodeShort(startFoothold); // Foothold (start foothold)
+        summonType = MobAppearType.REVIVED.getValue();
         outPacket.encodeByte(summonType); // nAppearType
+        log.warn("MOB encodeByte({})", summonType);
         if (summonType == MobAppearType.REVIVED.getValue() || summonType >= 0) {
+            log.warn("MOB encodeInt(0)");
             outPacket.encodeInt(0); // dwOption
         }
         outPacket.encodeByte(0); // nTeamForMCarnival
