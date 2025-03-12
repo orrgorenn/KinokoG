@@ -56,7 +56,6 @@ public final class MobPacket {
         outPacket.encodeByte(false); // bNotChangeAction
         outPacket.encodeByte(mai.actionMask);
         outPacket.encodeByte(mai.actionAndDir);
-        // CMob::TARGETINFO
         outPacket.encodeInt(mai.targetInfo);
         // aMultiTargetForBall
         outPacket.encodeInt(mai.multiTargetForBall.size());

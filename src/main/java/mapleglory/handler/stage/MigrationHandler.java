@@ -25,6 +25,7 @@ import mapleglory.server.migration.MigrationInfo;
 import mapleglory.server.migration.TransferInfo;
 import mapleglory.server.node.ChannelServerNode;
 import mapleglory.server.node.Client;
+import mapleglory.server.node.ServerExecutor;
 import mapleglory.server.packet.InPacket;
 import mapleglory.server.party.PartyRequest;
 import mapleglory.world.GameConstants;
@@ -128,139 +129,121 @@ public final class MigrationHandler {
             channelServerNode.addClient(c);
             channelServerNode.notifyUserConnect(user);
 
-            try (var locked = user.acquire()) {
-                // Initialize pets
-                final CharacterStat cs = user.getCharacterStat();
-                final long[] pets = new long[]{
-                        cs.getPetSn1(), cs.getPetSn2(), cs.getPetSn3()
-                };
-                cs.setPetSn1(0);
-                cs.setPetSn2(0);
-                cs.setPetSn3(0);
-                // Resolve pets
-                final Inventory cashInventory = user.getInventoryManager().getCashInventory();
-                for (long petSn : pets) {
-                    final Optional<Map.Entry<Integer, Item>> itemEntryResult = cashInventory.getItems().entrySet().stream()
-                            .filter((entry) -> entry.getValue().getItemSn() == petSn)
-                            .findFirst();
-                    if (itemEntryResult.isEmpty()) {
-                        // Item not found
-                        continue;
+            // Initialize pets
+            final CharacterStat cs = user.getCharacterStat();
+            final long[] pets = new long[]{
+                    cs.getPetSn1(), cs.getPetSn2(), cs.getPetSn3()
+            };
+            cs.setPetSn1(0);
+            cs.setPetSn2(0);
+            cs.setPetSn3(0);
+            // Resolve pets
+            final Inventory cashInventory = user.getInventoryManager().getCashInventory();
+            for (long petSn : pets) {
+                final Optional<Map.Entry<Integer, Item>> itemEntryResult = cashInventory.getItems().entrySet().stream()
+                        .filter((entry) -> entry.getValue().getItemSn() == petSn)
+                        .findFirst();
+                if (itemEntryResult.isEmpty()) {
+                    // Item not found
+                    continue;
+                }
+
+                final Item item = itemEntryResult.get().getValue();
+                if (item.getItemType() != ItemType.PET || item.getDateExpire().isBefore(Instant.now())) {
+                    // Invalid pet or expired
+                    continue;
+                }
+
+                final Pet pet = Pet.from(user, item);
+                user.addPet(pet, true);
+            }
+
+            // Initialize dragon
+            if (JobConstants.isDragonJob(user.getJob())) {
+                user.setDragon(new Dragon(user.getJob()));
+            }
+
+            // Initialize user data from MigrationInfo
+            user.getSecondaryStat().getTemporaryStats().putAll(migrationInfo.getTemporaryStats());
+            user.getSkillManager().getSkillSchedules().putAll(migrationInfo.getSchedules());
+            user.getSummoned().putAll(migrationInfo.getSummoned());
+            user.setEffectItemId(migrationInfo.getEffectItemId());
+            user.setAdBoard(migrationInfo.getAdBoard());
+            user.updatePassiveSkillData();
+            user.validateStat();
+            user.write(WvsContext.setGender(user.getGender()));
+            user.write(WvsContext.resetTownPortal());
+
+            // Resolve user field
+            final int fieldId = user.getCharacterStat().getPosMap();
+            final byte portalId = user.getCharacterStat().getPortal();
+            final Field targetField;
+            final Optional<Field> fieldResult = channelServerNode.getFieldById(fieldId);
+            if (fieldResult.isPresent()) {
+                targetField = fieldResult.get();
+            } else {
+                log.error("Could not retrieve field ID : {} for character ID : {}, moving to {}", fieldId, user.getCharacterId(), 100000000);
+                targetField = channelServerNode.getFieldById(100000000).orElseThrow(() -> new IllegalStateException("Could not resolve Field from ChannelServer"));
+            }
+            final PortalInfo targetPortal;
+            final Optional<PortalInfo> portalResult = targetField.getPortalById(portalId);
+            if (portalResult.isPresent()) {
+                targetPortal = portalResult.get();
+            } else {
+                log.error("Could not resolve default portal : {} on field ID : {}", 0, targetField.getFieldId());
+                targetPortal = targetField.getPortalById(0).orElse(PortalInfo.EMPTY);
+            }
+
+            // Add user to field
+            ServerExecutor.submit(targetField, () -> {
+                try (var locked = user.acquire()) {
+                    // Set field packet sent here
+                    user.warp(targetField, targetPortal, true, false);
+
+                    // Initialize func keys and quickslot
+                    final ConfigManager cm = user.getConfigManager();
+                    user.write(WvsContext.macroSysDataInit(cm.getMacroSysData()));
+                    user.write(FieldPacket.funcKeyMappedInit(cm.getFuncKeyMap()));
+                    user.write(FieldPacket.quickslotMappedInit(cm.getQuickslotKeyMap()));
+                    user.write(FieldPacket.petConsumeItemInit(cm.getPetConsumeItem()));
+                    user.write(FieldPacket.petConsumeMpItemInit(cm.getPetConsumeMpItem()));
+
+                    // Load messenger from central server
+                    if (user.getMessengerId() != 0) {
+                        channelServerNode.submitMessengerRequest(user, MessengerRequest.migrated());
                     }
-                    final Item item = itemEntryResult.get().getValue();
-                    boolean isExpired = Optional.ofNullable(item.getDateExpire())
-                            .map(date -> date.isBefore(Instant.now()))
-                            .orElse(false);
-                    if (item.getItemType() != ItemType.PET || isExpired) {
-                        // Invalid pet or expired
-                        continue;
+
+                    // Load party from central server
+                    final int partyId = user.getCharacterData().getPartyId();
+                    if (partyId != 0) {
+                        channelServerNode.submitPartyRequest(user, PartyRequest.loadParty(partyId));
                     }
-                    // Create pet and assign to user
-                    final Pet pet = Pet.from(user, item);
-                    user.addPet(pet, true);
-                }
 
-                // Initialize dragon
-                if (JobConstants.isDragonJob(user.getJob())) {
-                    user.setDragon(new Dragon(user.getJob()));
-                }
+                    // Load guild from central server
+                    final int guildId = user.getCharacterData().getGuildId();
+                    if (guildId != 0) {
+                        channelServerNode.submitGuildRequest(user, GuildRequest.loadGuild(guildId));
+                    }
 
-                // Initialize user data from MigrationInfo
-                user.getSecondaryStat().getTemporaryStats().putAll(migrationInfo.getTemporaryStats());
-                user.getSkillManager().getSkillSchedules().putAll(migrationInfo.getSchedules());
-                user.getSummoned().putAll(migrationInfo.getSummoned());
-                user.setEffectItemId(migrationInfo.getEffectItemId());
-                user.setAdBoard(migrationInfo.getAdBoard());
-                user.updatePassiveSkillData();
-                user.validateStat();
-                user.write(WvsContext.setGender(user.getGender()));
-                user.write(WvsContext.resetTownPortal());
+                    // Load memos
+                    final List<Memo> memos = DatabaseManager.memoAccessor().getMemosByCharacterId(user.getCharacterId());
+                    if (!memos.isEmpty()) {
+                        user.write(MemoPacket.load(memos));
+                    }
 
-                // Add user to field
-                final int fieldId = user.getCharacterStat().getPosMap();
-                final byte portalId = user.getCharacterStat().getPortal();
-                final Field targetField;
-                final Optional<Field> fieldResult = channelServerNode.getFieldById(fieldId);
-                if (fieldResult.isPresent()) {
-                    targetField = fieldResult.get();
-                } else {
-                    log.error("Could not retrieve field ID : {} for character ID : {}, moving to {}", fieldId, user.getCharacterId(), 100000000);
-                    targetField = channelServerNode.getFieldById(100000000).orElseThrow(() -> new IllegalStateException("Could not resolve Field from ChannelServer"));
-                }
-                final PortalInfo targetPortal;
-                final Optional<PortalInfo> portalResult = targetField.getPortalById(portalId);
-                if (portalResult.isPresent()) {
-                    targetPortal = portalResult.get();
-                } else {
-                    log.error("Could not resolve default portal : {} on field ID : {}", 0, targetField.getFieldId());
-                    targetPortal = targetField.getPortalById(0).orElse(PortalInfo.EMPTY);
-                }
-
-                // Special handling for Blessing of the Fairy
-                List<AvatarData> characters = DatabaseManager.characterAccessor().getAvatarDataByAccountId(user.getAccountId());
-
-                AvatarData highestLevelCharacter = characters.stream()
-                        .filter(chr -> !chr.getCharacterName().equals(user.getCharacterName()))
-                        .max(Comparator.comparingInt(AvatarData::getLevel))
-                        .orElse(null);
-
-                if (highestLevelCharacter != null) {
-                    Optional<SkillRecord> skillRecord = user.getSkillManager().getSkillRecords().stream()
-                            .filter(sr -> sr.getSkillId() % 10000 == 12)
-                            .findFirst();
-
-                    skillRecord.ifPresent(sr -> {
-                        sr.setSkillLevel(highestLevelCharacter.getLevel());
-                        user.getCharacterData().setLinkedCharacter(highestLevelCharacter.getCharacterName());
+                    // Load friends
+                    FriendHandler.loadFriends(user, (friendMap) -> {
+                        user.write(FriendPacket.loadFriendDone(friendMap.values()));
+                        final List<Integer> friendIds = friendMap.values().stream()
+                                .filter((friend) -> friend.getStatus() == FriendStatus.NORMAL)
+                                .map(Friend::getFriendId)
+                                .toList();
+                        if (!friendIds.isEmpty()) {
+                            user.getConnectedServer().submitUserPacketBroadcast(friendIds, FriendPacket.notify(user.getCharacterId(), user.getChannelId(), false));
+                        }
                     });
                 }
-
-                // Set field packet sent here
-                user.warp(targetField, targetPortal, true, false);
-
-                // Initialize func keys and quickslot
-                final ConfigManager cm = user.getConfigManager();
-                user.write(WvsContext.macroSysDataInit(cm.getMacroSysData()));
-                user.write(FieldPacket.funcKeyMappedInit(cm.getFuncKeyMap()));
-                user.write(FieldPacket.quickslotMappedInit(cm.getQuickslotKeyMap()));
-                user.write(FieldPacket.petConsumeItemInit(cm.getPetConsumeItem()));
-                user.write(FieldPacket.petConsumeMpItemInit(cm.getPetConsumeMpItem()));
-
-                // Load messenger from central server
-                if (user.getMessengerId() != 0) {
-                    channelServerNode.submitMessengerRequest(user, MessengerRequest.migrated());
-                }
-
-                // Load party from central server
-                final int partyId = user.getCharacterData().getPartyId();
-                if (partyId != 0) {
-                    channelServerNode.submitPartyRequest(user, PartyRequest.loadParty(partyId));
-                }
-
-                // Load guild from central server
-                final int guildId = user.getCharacterData().getGuildId();
-                if (guildId != 0) {
-                    channelServerNode.submitGuildRequest(user, GuildRequest.loadGuild(guildId));
-                }
-
-                // Load memos
-                final List<Memo> memos = DatabaseManager.memoAccessor().getMemosByCharacterId(user.getCharacterId());
-                if (!memos.isEmpty()) {
-                    user.write(MemoPacket.load(memos));
-                }
-
-                // Load friends
-                FriendHandler.loadFriends(user, (friendMap) -> {
-                    user.write(FriendPacket.loadFriendDone(friendMap.values()));
-                    final List<Integer> friendIds = friendMap.values().stream()
-                            .filter((friend) -> friend.getStatus() == FriendStatus.NORMAL)
-                            .map(Friend::getFriendId)
-                            .toList();
-                    if (!friendIds.isEmpty()) {
-                        user.getConnectedServer().submitUserPacketBroadcast(friendIds, FriendPacket.notify(user.getCharacterId(), user.getChannelId(), false));
-                    }
-                });
-            }
+            });
         });
     }
 
