@@ -38,6 +38,15 @@ public final class ExplorerQuest extends ScriptHandler {
         sm.warp(910310000);
     }
 
+    @Script("enter_warrior")
+    public static void enter_warrior(ScriptManager sm) {
+        if (sm.hasQuestStarted(22515) || sm.hasQuestStarted(22516) || sm.hasQuestStarted(22517) || sm.hasQuestStarted(22518)) {
+            sm.warpInstance(910220000, "start", 103010000, 60 * 30);
+            return;
+        }
+        sm.warp(910220000);
+    }
+
     @Script("enter_magicion")
     public static void enter_magicion(ScriptManager sm) {
         if (sm.hasQuestStarted(22515) || sm.hasQuestStarted(22516) || sm.hasQuestStarted(22517) || sm.hasQuestStarted(22518)) {

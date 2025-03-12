@@ -145,7 +145,7 @@ public final class PersonalShop extends MiniRoom {
                 int quantity = setCount * shopItem.getSetSize();
 
                 // Check if quantity exceeds what's available
-                if (quantity > shopItem.getItem().getQuantity()) {
+                if (quantity > shopItem.getSetCount()) {
                     log.error("Requested quantity exceeds available quantity for item at index {}", itemIndex);
                     user.write(MiniRoomPacket.PlayerShop.buyResult(PlayerShopBuyResult.NoStock));
                     user.dispose();
@@ -329,12 +329,8 @@ public final class PersonalShop extends MiniRoom {
             if (guestPosition != null) {
                 // Remove guest from map
                 guests.remove(guestPosition);
-
                 // Notify everyone in the shop that the guest left
                 broadcastPacket(MiniRoomPacket.leave(guestPosition, LeaveType.UserRequest));
-
-                // Remove dialog from the leaving user
-                user.setDialog(null);
             } else {
                 log.error("User {} tried to leave shop but isn't in the guest list", user.getCharacterId());
             }

@@ -15,6 +15,7 @@ import mapleglory.packet.world.MemoPacket;
 import mapleglory.packet.world.WvsContext;
 import mapleglory.provider.MapProvider;
 import mapleglory.provider.map.PortalInfo;
+import mapleglory.script.common.ScriptError;
 import mapleglory.server.cashshop.Gift;
 import mapleglory.server.guild.GuildRequest;
 import mapleglory.server.header.InHeader;
@@ -380,6 +381,21 @@ public final class MigrationHandler {
                 user.write(CashShopPacket.queryCashResult(account));
             }
         }
+    }
+
+    @Handler(InHeader.UserMigrateToITCRequest)
+    public static void handleUserMigrateToITCRequest(User user, InPacket inPacket) {
+        final Field targetField;
+        final Optional<Field> fieldResult = user.getConnectedServer().getFieldById(919191919);
+        if (fieldResult.isEmpty()) {
+            throw new ScriptError("Could not resolve field ID : %d", 919191919);
+        }
+        targetField = fieldResult.get();
+        final Optional<PortalInfo> portalResult = targetField.getRandomStartPoint();
+        if (portalResult.isEmpty()) {
+            throw new ScriptError("Could not resolve start point portal for field ID : %d", targetField.getFieldId());
+        }
+        user.warp(targetField, portalResult.get(), false, false);
     }
 
     private static boolean isWhitelistedTransferField(int currentFieldId, int targetFieldId) {

@@ -392,4 +392,36 @@ public final class CygnusQuest extends ScriptHandler {
         sm.sayOk("As of this moment, you are now the Knight Sergeant. From this moment on, you shall carry yourself with dignity and respect befitting your new title The Knight Sergeant of Knights of cygnus. May your glory shines as bright as it is right now.");
         sm.forceCompleteQuest(questId);
     }
+
+    @Script("q20400s")
+    public static void q20400s(ScriptManager sm) {
+        sm.sayNext("It's been a while since I last saw you. I can't even recognize you now, seeing how powerful you have become since our last encounter. I can honestly say that you just might be one of the most powerful Knights in all of Cygnus Knights. Chief Knights included. Okay, enough pleasantries. Let's get down to business.");
+        sm.sayBoth("It's a new mission. According to the information we've acquired, a member of the #rBlack Wings#k is after the Empress. In order to prevent anything from happening to the Empress, the Advanced Knight #bDunamis#k has been secretly tracing that individual, but it doesn't look too good from here.");
+        if(sm.askAccept("If it's Victoria Island, at least we know everything that goes on there. This one's Ossyria, where not even the intelligence officials here know everything inside out. This means the Advanced Knight will need help. Please provide help to Dunamis. The last place she contacted was at #bEI Nath#k, so try looking for Dunamis.")) {
+            sm.forceCompleteQuest(20400);
+            sm.sayOk("Well, I may have said it in a joking manner, but it is true that you are one of the most talented knights in all of Cygnus Knights. That's why an important mission like this is given to a talented individual in Cygnus Knights. I believe in you. Good Luck.");
+        } else {
+            sm.sayOk("Hmmm... You seem way too at ease. It's a waste of talent and firepower for an accomplished individual like you to just sit around, being content with the way things are...");
+        }
+    }
+
+    @Script("q20600s")
+    public static void q20600s(ScriptManager sm) {
+        // [Skill] Training Never Ends
+        if(sm.askAccept("#h0#. Have you been slacking off on training since reaching Level 90? We all know how powerful you are, but the training is not complete. Take a look at these Knight Commander. They train day and night, preparing themselves for the possible encounter with the Black Wizard.")) {
+            sm.sayOk("I strongly suggest you talk to the Knight Commander for some advice. Who knows? You might be able to find a new #bskill#k...");
+            sm.forceCompleteQuest(20600);
+        }
+    }
+
+    @Script("q20610s")
+    public static void q20610s(ScriptManager sm) {
+        // [Skill] Training Still Never Ends
+        if(sm.askAccept("Have you mastered your new skills? Since it looks like you have mastered those skills, it's time for you to learn a #bnew skill#k, don't you think so?")) {
+            sm.forceCompleteQuest(20610);
+            sm.sayOk("#bChief Knights#k must have acquired another skill. I strongly suggest you go there and learn that skill with them as well. Maybe the Chief Knight may object to it, but mastering the skill is all about your ability to make a specific skill your own.");
+        } else {
+            sm.sayOk("Well, what you're doing right now doesn't make you appear humble. You just look complacent, and that's never a good thing.");
+        }
+    }
 }

@@ -23,6 +23,9 @@ public class JobQuest extends ScriptHandler {
     final static int VALEFOR_PRE_FIELD = 677000008;
     final static int VALEFOR_FIELD = 677000009;
     final static int VALEFOR = 9400613;
+    final static int ANDRAS_PRE_FIELD = 677000004;
+    final static int ANDRAS_FIELD = 677000005;
+    final static int ANDRAS = 9400609;
 
 
     @Script("Enter_Darkportal_P")
@@ -50,6 +53,34 @@ public class JobQuest extends ScriptHandler {
             newField.setMobSpawn(false);
             sm.warp(CROCELL_PRE_FIELD);
             sm.spawnMobInMap(CROCELL, MobAppearType.NORMAL, 342, 75, true, newField);
+        }
+    }
+
+    @Script("Enter_Darkportal_W")
+    public static void enter_darkportal_w(ScriptManager sm) {
+        // Demon's Doorway
+        // North Rocky Mountain : Big Rocky Road
+        if(!sm.hasQuestStarted(28179)) {
+            sm.sayOk("Demon's Doorway is closed right now.");
+            return;
+        }
+        final Field newField;
+        final Optional<Field> tryField = sm.getField().getFieldStorage().getFieldById(ANDRAS_FIELD);
+        if (tryField.isPresent()) {
+            newField = tryField.get();
+            if (newField.getUserPool().getCount() > 0) {
+                sm.sayNext("Someone is already in that map.");
+                return;
+            }
+            sm.sayNext("You are permitted to enter the Demon's Doorway.");
+            newField.getMobPool().forEach((mob) -> {
+                try (var lockedMob = mob.acquire()) {
+                    mob.remove(Instant.now());
+                }
+            });
+            newField.setMobSpawn(false);
+            sm.warp(ANDRAS_PRE_FIELD);
+            sm.spawnMobInMap(ANDRAS, MobAppearType.NORMAL, 294, 96, true, newField);
         }
     }
 

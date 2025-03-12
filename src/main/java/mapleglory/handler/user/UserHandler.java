@@ -1617,6 +1617,13 @@ public final class UserHandler {
                         }
                         user.setDialog(miniGameRoom);
                         user.write(MiniRoomPacket.MiniGame.enterResult(miniGameRoom, user));
+                    } else if (miniRoom instanceof PersonalShop personalShop) {
+                        if(!personalShop.addUser(user)) {
+                            user.write(MiniRoomPacket.enterResult(EnterResultType.Full)); // You can't enter the room due to full capacity.
+                            return;
+                        }
+                        user.setDialog(personalShop);
+                        user.write(MiniRoomPacket.PlayerShop.enterResult(personalShop, user));
                     } else {
                         log.error("Tried to enter mini room with unhandled type : {}", miniRoom.getType());
                         user.write(BroadcastPacket.alert("This request has failed due to an unknown error."));
