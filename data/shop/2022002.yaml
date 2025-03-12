@@ -25,3 +25,4 @@ items:
   - [ 2044500, 70000, 1, 100 ] # Scroll for Bow for ATT 100%
   - [ 2044600, 70000, 1, 100 ] # Scroll for Crossbow for ATT 100%
   - [ 2044700, 70000, 1, 100 ] # Scroll for Claw for ATT 100%
+  - [ 2044900, 70000, 1, 100 ] # Scroll for Gun for ATT 100%

@@ -27,4 +27,5 @@ items:
   - [ 2044500, 69000, 1, 100 ] # Scroll for Bow for ATT 100%
   - [ 2044600, 69000, 1, 100 ] # Scroll for Crossbow for ATT 100%
   - [ 2044700, 69000, 1, 100 ] # Scroll for Claw for ATT 100%
+  - [ 2044900, 69000, 1, 100 ] # Scroll for Gun for ATT 100%
   - [ 4031348, 10000000, 1, 100 ] # Secret Spell Scroll
