@@ -521,7 +521,7 @@ public final class ExplorerQuest extends ScriptHandler {
 
     @Script("thief3")
     public static void thief3(ScriptManager sm) {
-        boolean qualifyForJob3 = sm.getJob() == Job.ASSASSIN || sm.getJob() == Job.BANDIT;
+        boolean qualifyForJob3 = sm.getJob() == Job.ASSASSIN || sm.getJob() == Job.BANDIT || sm.getJob() == Job.BLADE_SPECIALIST;
         if(!qualifyForJob3) {
             sm.sayOk("May the gods be with you!");
             return;
@@ -540,6 +540,9 @@ public final class ExplorerQuest extends ScriptHandler {
                 } else if (sm.getJob() == Job.ASSASSIN) {
                     sm.setJob(Job.HERMIT);
                     sm.sayOk("You are now an #bHermit#k.");
+                } else if(sm.getJob() == Job.BLADE_SPECIALIST) {
+                    sm.setJob(Job.BLADE_LORD);
+                    sm.sayOk("You are not a #bBlade Lord#k.");
                 }
             }
         }
