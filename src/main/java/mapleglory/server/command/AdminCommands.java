@@ -1111,6 +1111,7 @@ public final class AdminCommands {
                 skillRecord.setSkillLevel(0);
                 skillRecord.setMasterLevel(0);
                 removedRecords.add(skillRecord);
+                sm.removeSkill(skillRecord.getSkillId());
             }
             user.write(WvsContext.changeSkillRecordResult(removedRecords, true));
 
