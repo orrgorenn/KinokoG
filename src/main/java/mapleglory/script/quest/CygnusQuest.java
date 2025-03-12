@@ -11,6 +11,8 @@ import mapleglory.world.item.InventoryType;
 import mapleglory.world.job.Job;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 public final class CygnusQuest extends ScriptHandler {
     @Script("enterDisguise0")
@@ -189,6 +191,52 @@ public final class CygnusQuest extends ScriptHandler {
             if (sm.hasQuestStarted(20201 + i)) {
                 sm.playPortalSE();
                 sm.warp(913001000);
+            }
+        }
+    }
+
+    @Script("enterthirdDH")
+    public static void enterthirdDH(ScriptManager sm) {
+        // Empress' Road : Entrance to the Drill Hall (130020000)
+        final List<Integer> destinations = List.of(
+                913010000, // Hidden Street : The 3rd Drill Hall [1]
+                913010100, // Tera Forest : The 3rd Drill Hall [2]
+                913010200, // Tera Forest : The 3rd Drill Hall [3]
+                913010300 // Tera Forest : The 3rd Drill Hall [4]
+        );
+
+        List<Field> maps = destinations.stream()
+                .map(mapId -> sm.getField().getFieldStorage().getFieldById(mapId))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+
+        maps.sort((map1, map2) -> {
+            if (map1.getUserPool().getCount() < 1 && map1.getMobPool().getCount() > 0) {
+                return -1;
+            }
+            if (map2.getUserPool().getCount() < 1 && map2.getMobPool().getCount() > 0) {
+                return 1;
+            }
+            if (map1.getUserPool().getCount() < 1) {
+                return -1;
+            }
+            if (map2.getUserPool().getCount() < 1) {
+                return 1;
+            }
+            if (map1.getMobPool().getCount() > 0) {
+                return -1;
+            }
+            if (map2.getMobPool().getCount() > 0) {
+                return 1;
+            }
+            return 0;
+        });
+
+        for (int i = 0; i < 5; i++) {
+            if (sm.hasQuestStarted(20601 + i)) {
+                sm.playPortalSE();
+                sm.warp(maps.getFirst().getFieldId());
             }
         }
     }

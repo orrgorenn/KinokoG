@@ -108,6 +108,7 @@ public final class NeoCity extends ScriptHandler {
             }
             return 0;
         });
+        sm.playPortalSE();
         sm.warp(maps.getFirst().getFieldId(), "out00");
     }
 }
