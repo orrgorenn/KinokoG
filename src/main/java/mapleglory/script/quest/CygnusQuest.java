@@ -395,6 +395,7 @@ public final class CygnusQuest extends ScriptHandler {
 
     @Script("q20400s")
     public static void q20400s(ScriptManager sm) {
+        // [Job Adv.] Chasing the Knights Target
         sm.sayNext("It's been a while since I last saw you. I can't even recognize you now, seeing how powerful you have become since our last encounter. I can honestly say that you just might be one of the most powerful Knights in all of Cygnus Knights. Chief Knights included. Okay, enough pleasantries. Let's get down to business.");
         sm.sayBoth("It's a new mission. According to the information we've acquired, a member of the #rBlack Wings#k is after the Empress. In order to prevent anything from happening to the Empress, the Advanced Knight #bDunamis#k has been secretly tracing that individual, but it doesn't look too good from here.");
         if(sm.askAccept("If it's Victoria Island, at least we know everything that goes on there. This one's Ossyria, where not even the intelligence officials here know everything inside out. This means the Advanced Knight will need help. Please provide help to Dunamis. The last place she contacted was at #bEI Nath#k, so try looking for Dunamis.")) {

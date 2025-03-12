@@ -34,6 +34,7 @@ import mapleglory.world.field.summoned.Summoned;
 import mapleglory.world.field.summoned.SummonedLeaveType;
 import mapleglory.world.item.InventoryManager;
 import mapleglory.world.item.Item;
+import mapleglory.world.job.Job;
 import mapleglory.world.quest.QuestManager;
 import mapleglory.world.skill.PassiveSkillData;
 import mapleglory.world.skill.SkillConstants;
@@ -366,7 +367,7 @@ public final class User extends Life implements Lockable<User> {
     }
 
     public boolean is3rdJob() {
-        return getCharacterStat().getJob() % 10 == 1;
+        return getCharacterStat().getJob() % 10 == 1 || getCharacterStat().getJob() == Job.BLADE_LORD.getJobId();
     }
 
     public boolean is4thJob() {
