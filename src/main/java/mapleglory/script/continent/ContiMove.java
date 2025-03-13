@@ -7,6 +7,7 @@ import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.server.event.*;
 import mapleglory.util.Util;
+import mapleglory.world.field.Field;
 
 import java.util.List;
 import java.util.Map;
@@ -690,6 +691,66 @@ public final class ContiMove extends ScriptHandler {
                 // Snow Island : Dangerous Forest
                 sm.playPortalSE();
                 sm.warp(140010110, "out00"); // Snow Island : Palace of the Master
+            }
+        }
+    }
+
+    @Script("ossyria_taxi")
+    public static void ossyria_taxi(ScriptManager sm) {
+        int fieldId = sm.getField().getFieldId();
+
+        if (fieldId == 211000000) {
+            // El Nath
+            List<Integer> map = List.of(211040200, 211041400, 300000100);
+            final int answer = sm.askMenu("Where would you like to go?", Map.of(
+                    0, "Ice Valley II",
+                    1, "Forest of Dead Trees IV",
+                    2, "Small Forest"
+            ));
+
+            sm.warp(map.get(answer));
+            sm.dispose();
+        } else if(fieldId == 300000100) {
+            // Small Forest
+            List<Integer> map = List.of(211000000, 220000000);
+            final int answer = sm.askMenu("Where would you like to go?", Map.of(
+                    0, "El Nath",
+                    1, "Ludibrium"
+            ));
+            sm.warp(map.get(answer));
+            sm.dispose();
+        } else if (fieldId == 220000000) {
+            // Ludibrium
+            List<Integer> map = List.of(220050300, 300000100);
+            final int answer = sm.askMenu("Where would you like to go?", Map.of(
+                    0, "Path of Time",
+                    1, "Small Forest"
+            ));
+            sm.warp(map.get(answer));
+            sm.dispose();
+        } else if (fieldId == 240000000) {
+            // Leafre
+            List<Integer> map = List.of(240030000, 240040500);
+            final int answer = sm.askMenu("Where would you like to go?", Map.of(
+                    0, "Entrance to Dragon Forest",
+                    1, "Entrance to Dragon Nest"
+            ));
+            sm.warp(map.get(answer));
+            sm.dispose();
+        } else {
+            int map = 0;
+            if (fieldId == 220050300) {
+                map = 220000000;
+            } else if (fieldId == 105030000) {
+                map = 105000000;
+            } else if (fieldId == 105000000) {
+                map = 105030000;
+            } else if (fieldId ==  211060000) {
+                map = 211000000;
+            }
+
+            if(map != 0 && sm.askYesNo("Would you like to go to #m" + map + "m#?")) {
+                sm.warp(map);
             }
         }
     }

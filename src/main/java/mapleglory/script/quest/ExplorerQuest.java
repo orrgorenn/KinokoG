@@ -231,7 +231,7 @@ public final class ExplorerQuest extends ScriptHandler {
                 }
 
                 sm.sayNext("Good thinking. You look strong, don't get me wrong, but there's still a need to test your strength and see if your are for real. The test isn't too difficult, so you'll do just fine... Here, take this letter first. Make sure you don't lose it.");
-                if(!sm.canAddItem(4031010, 1)) { // Dark Lord's Letter
+                if(!sm.canAddItem(4031010, 1)) { // Athena Pierce's Letter
                     sm.sayOk("Please make room in your inventory.");
                     return;
                 }
@@ -264,11 +264,11 @@ public final class ExplorerQuest extends ScriptHandler {
                     sm.addInventorySlots(InventoryType.EQUIP, 4);
                     sm.addInventorySlots(InventoryType.ETC, 4);
                     sm.sayNext("Alright, you're the #bHunter#k from here on out. Hunters are the intelligent bunch with incredible vision, able to pierce the arrow through the heart of the monsters with ease...please train yourself each and everyday. We'll help you become even stronger than you already are.");
-                    sm.sayBoth("I have just given you a book that gives you the the list of skills you can acquire as an assassin. I have also added a whole row to your use inventory, along with boosting up your max HP and MP...go see for it yourself.");
+                    sm.sayBoth("I have just given you a book that gives you the the list of skills you can acquire as a hunter. I have also added a whole row to your use inventory, along with boosting up your max HP and MP...go see for it yourself.");
                     sm.sayBoth("I have also given you a little bit of #bSP#. Open the #bSkill Menu# located at the bottom left corner. You'll be able to boost up the newly-acquired 2nd level skills. A word of warning though: You can't boost them up all at once. Some of the skills are only available after you have learned other skills. Make sure to remember that.");
                     sm.sayBoth("Hunter needs to be strong. But remember that you can't abuse that power and use it on a weakling. Please use your enormous power the right way, because...for you to use that the right way, that is much harder than just getting stronger. Find me after you have advanced much further. I'll be waiting for you.");
                 } else if(answer == 1) {
-                    // Bandit
+                    // Crossbow Man
                     if (!sm.askYesNo("So you want to make the 2nd job advancement as the #bCrossbow Man#k? Once you make the decision, you won't be able to make a job advancement with any other job. Are you sure about this?")) {
                         sm.sayNext("Really? Have to give more thought to it, huh? Take your time, take your time. This is not something you should take lightly ... come talk to me once you have made your decision.");
                         return;
@@ -284,7 +284,7 @@ public final class ExplorerQuest extends ScriptHandler {
                     sm.addInventorySlots(InventoryType.EQUIP, 4);
                     sm.addInventorySlots(InventoryType.ETC, 4);
                     sm.sayNext("Alright! You have now become the #bCrossbow Man#k! A Crossbow Man fights tactically, and uses special skills to strike each and every monster's weak spot! Always know your enemy's weakness, or else you will be weak!");
-                    sm.sayBoth("I have just given you a book that gives you the the list of skills you can acquire as an assassin. I have also added a whole row to your use inventory, along with boosting up your max HP and MP...go see for it yourself.");
+                    sm.sayBoth("I have just given you a book that gives you the the list of skills you can acquire as a crossbow man. I have also added a whole row to your use inventory, along with boosting up your max HP and MP...go see for it yourself.");
                     sm.sayBoth("I have also given you a little bit of #bSP#k. Open the #bSkill Menu#k located at the bottom left corner. You'll be able to boost up the newly-acquired 2nd level skills. A word of warning though: You can't boost them up all at once. Some of the skills are only available after you have learned other skills. Make sure to remember that.");
                     sm.sayBoth("Crossbow Man needs to be strong. But remember that you can't abuse that power and use it on a weakling. Please use your enormous power the right way, because...for you to use that the right way, that is much harder than just getting stronger. Find me after you have advanced much further. I'll be waiting for you.");
                 }
@@ -315,6 +315,130 @@ public final class ExplorerQuest extends ScriptHandler {
             } else {
                 sm.sayOk("Train a bit more until you reach the base requirements and I can show you the way of the #rWarrior#k.");
             }
+        } else if (sm.getJob() == Job.WARRIOR && sm.getLevel() >= 30) {
+            // 2nd Job Advancement
+            if(!(sm.hasItem(4031008, 1) || sm.hasItem(4031012, 1))) {
+                if(!sm.askYesNo("Whoa, you have definitely grown up! You don't look small and weak anymore...rather, now I can feel your presence as the Warrior! Impressive..so, what do you think? Do you want to get even stronger than you are right now? Pass a simple test and I'll do just that! Wanna do it?")) {
+                    sm.sayNext("Really? It will help you out a great deal on your journey if you get stronger fast...if you choose to change your mind in the future, please feel free to come back. Know that I'll make you much more powerful than you are right now.");
+                    return;
+                }
+
+                sm.sayNext("Good thinking. You look strong, don't get me wrong, but there's still a need to test your strength and see if your are for real. The test isn't too difficult, so you'll do just fine... Here, take this letter first. Make sure you don't lose it.");
+                if(!sm.canAddItem(4031008, 1)) { // Dances With Barlog's Letter
+                    sm.sayOk("Please make room in your inventory.");
+                    return;
+                }
+
+                sm.addItem(4031008, 1);
+                sm.sayBoth("Please get this letter to #bWarrior Job Instructor#k who may be around the highlands here in Perion. He's the one being the instructor now in place of me, as I am busy here. Get him the letter and he'll give you the test in place of me. For more details, hear it straight from him. Best of luck to you.");
+            } else if (!sm.hasItem(4031012, 1) && sm.hasItem(4031008, 1)) {
+                sm.sayNext("Please get this letter to #bWarrior Job Instructor#k who may be around the highlands here in Perion. He's the one being the instructor now in place of me, as I am busy here. Get him the letter and he'll give you the test in place of me. For more details, hear it straight from him. Best of luck to you.");
+            } else if (sm.hasItem(4031012, 1) && !sm.hasItem(4031008, 1)) {
+                sm.sayNext("Well look who's here!...you came back safe! I knew you'd breeze through...I'll admit you are a strong, formidable Warrior...alright, I'll make you an even stronger Warrior than you already are right now... Before THAT! you need to choose one of the three paths that you'll be given.. it isn't going to be easy, so if you have any questions, feel free to ask.");
+                final int answer = sm.askMenu("I'll choose my occupation!", Map.of(
+                        0, "#bFighter",
+                        1, "Page",
+                        2, "Spearman#k"
+                ));
+
+                if(answer == 0) {
+                    // Fighter
+                    if (!sm.askYesNo("So you want to make the 2nd job advancement as the #bFighter#k? Once you make the decision, you won't be able to make a job advancement with any other job. Are you sure about this?")) {
+                        sm.sayNext("Really? Have to give more thought to it, huh? Take your time, take your time. This is not something you should take lightly ... come talk to me once you have made your decision.");
+                        return;
+                    }
+
+                    if(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 30) * 3) {
+                        sm.sayNext("Hmmm...you have too much SP...you can't make the 2nd job advancement with that many SP in store. Use more SP on the skills on the 1st level and then come back.");
+                        return;
+                    }
+
+                    sm.setJob(Job.FIGHTER);
+                    sm.removeItem(4031012);
+                    sm.addInventorySlots(InventoryType.EQUIP, 4);
+                    sm.addInventorySlots(InventoryType.ETC, 4);
+                    sm.sayNext("Alright, you're the #bFighter#k from here on out. A fighter strives to become the strongest of the strong, and never stops fighting. Don't ever lose that will to fight, and push forward no matter what. I'll help you become even stronger than you already are.");
+                    sm.sayBoth("I have just given you a book that gives you the the list of skills you can acquire as a fighter. I have also added a whole row to your use inventory, along with boosting up your max HP and MP...go see for it yourself.");
+                    sm.sayBoth("I have also given you a little bit of #bSP#. Open the #bSkill Menu# located at the bottom left corner. You'll be able to boost up the newly-acquired 2nd level skills. A word of warning though: You can't boost them up all at once. Some of the skills are only available after you have learned other skills. Make sure to remember that.");
+                    sm.sayBoth("A Fighter needs to be strong. But remember that you can't abuse that power and use it on a weakling. Please use your enormous power the right way, because...for you to use that the right way, that is much harder than just getting stronger. Find me after you have advanced much further. I'll be waiting for you.");
+                } else if(answer == 1) {
+                    // Page
+                    if (!sm.askYesNo("So you want to make the 2nd job advancement as the #bPage#k? Once you make the decision, you won't be able to make a job advancement with any other job. Are you sure about this?")) {
+                        sm.sayNext("Really? Have to give more thought to it, huh? Take your time, take your time. This is not something you should take lightly ... come talk to me once you have made your decision.");
+                        return;
+                    }
+
+                    if(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 30) * 3) {
+                        sm.sayNext("Hmmm...you have too much SP...you can't make the 2nd job advancement with that many SP in store. Use more SP on the skills on the 1st level and then come back.");
+                        return;
+                    }
+
+                    sm.setJob(Job.PAGE);
+                    sm.removeItem(4031012);
+                    sm.addInventorySlots(InventoryType.EQUIP, 4);
+                    sm.addInventorySlots(InventoryType.ETC, 4);
+                    sm.sayNext("Alright! You have now become the #bPage#k! A Page fights tactically, and uses special skills to strike each and every monster's weak spot! Always know your enemy's weakness, or else you will be weak!");
+                    sm.sayBoth("I have just given you a book that gives you the the list of skills you can acquire as a page. I have also added a whole row to your use inventory, along with boosting up your max HP and MP...go see for it yourself.");
+                    sm.sayBoth("I have also given you a little bit of #bSP#k. Open the #bSkill Menu#k located at the bottom left corner. You'll be able to boost up the newly-acquired 2nd level skills. A word of warning though: You can't boost them up all at once. Some of the skills are only available after you have learned other skills. Make sure to remember that.");
+                    sm.sayBoth("A Page needs to be strong. But remember that you can't abuse that power and use it on a weakling. Please use your enormous power the right way, because...for you to use that the right way, that is much harder than just getting stronger. Find me after you have advanced much further. I'll be waiting for you.");
+                } else if(answer == 2) {
+                    // Spearman
+                    if (!sm.askYesNo("So you want to make the 2nd job advancement as the #bSpearman#k? Once you make the decision, you won't be able to make a job advancement with any other job. Are you sure about this?")) {
+                        sm.sayNext("Really? Have to give more thought to it, huh? Take your time, take your time. This is not something you should take lightly ... come talk to me once you have made your decision.");
+                        return;
+                    }
+
+                    if(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 30) * 3) {
+                        sm.sayNext("Hmmm...you have too much SP...you can't make the 2nd job advancement with that many SP in store. Use more SP on the skills on the 1st level and then come back.");
+                        return;
+                    }
+
+                    sm.setJob(Job.SPEARMAN);
+                    sm.removeItem(4031012);
+                    sm.addInventorySlots(InventoryType.EQUIP, 4);
+                    sm.addInventorySlots(InventoryType.ETC, 4);
+                    sm.sayNext("Alright! You have now become the #bSpearman#k! A Spearman fights with all of his might and soul! Using long-range weapons, they can attack monsters from a farther distance than other Warriors! Not to mention Spearman have the most powerful weapons!");
+                    sm.sayBoth("I have just given you a book that gives you the the list of skills you can acquire as a spearman. I have also added a whole row to your use inventory, along with boosting up your max HP and MP...go see for it yourself.");
+                    sm.sayBoth("I have also given you a little bit of #bSP#k. Open the #bSkill Menu#k located at the bottom left corner. You'll be able to boost up the newly-acquired 2nd level skills. A word of warning though: You can't boost them up all at once. Some of the skills are only available after you have learned other skills. Make sure to remember that.");
+                    sm.sayBoth("A Spearman needs to be strong. But remember that you can't abuse that power and use it on a weakling. Please use your enormous power the right way, because...for you to use that the right way, that is much harder than just getting stronger. Find me after you have advanced much further. I'll be waiting for you.");
+                }
+            }
+        }
+    }
+
+    @Script("inside_swordman")
+    public static void inside_fighter(ScriptManager sm) {
+        if (!sm.hasItem(4031013, 30)) {
+            if(sm.askMenu("You will have to collect me #b30 #t4031013##k. Good luck.", Map.of(0, "#bI would like to leave.")) == 0) {
+                sm.warp(102000000);
+            }
+        } else {
+            sm.sayNext("Ohhhhh.. you collected all 30 Dark Marbles!! It should have been difficult... just incredible! Alright. You've passed the test and for that, I'll reward you #bThe Proof of a Hero#k. Take that and go back to Perion.");
+            sm.removeItem(4031008);
+            sm.removeItem(4031013);
+            sm.forceCompleteQuest(1000011);
+            if(!sm.canAddItem(4031012, 1)) {
+                sm.sayOk("Make some space in your inventory and talk back to me.");
+                return;
+            }
+            sm.addItem(4031012, 1);
+            sm.warp(102000000);
+        }
+    }
+
+    @Script("change_swordman")
+    public static void change_fighter(ScriptManager sm) {
+        if (sm.hasQuestCompleted(100010)) {
+            sm.sayOk("You're truly a hero!");
+        } else if (sm.hasItem(4031008, 1)) {
+            sm.sayNext("Hmmm...it is definitely the letter from #bDances with Balrog#k...so you came all the way here to take the test and make the 2nd job advancement as the warrior. Alright, I'll explain the test to you. Don't sweat it too much, it's not that complicated.");
+            sm.sayBoth("I'll send you to a hidden map. You'll see monsters you don't normally see. They look the same like the regular ones, but with a totally different attitude. They neither boost your experience level nor provide you with item.");
+            sm.sayBoth("You'll be able to acquire a marble called #b#t4031013##k while knocking down those monsters. It is a special marble made out of their sinister, evil minds. Collect 30 of those, and then go talk to a colleague of mine in there. That's how you pass the test.");
+            if(sm.askYesNo("Once you go inside, you can't leave until you take care of your mission. If you die, your experience level will decrease..so you better really buckle up and get ready...well, do you want to go for it now?")) {
+                sm.forceStartQuest(100010);
+                sm.sayOk("You will have to collect me #b30 #t4031013##k. Good luck.");
+                sm.warp(910230000);
+            }
         }
     }
 
@@ -326,6 +450,7 @@ public final class ExplorerQuest extends ScriptHandler {
             }
         } else {
             sm.sayNext("Ohhhhh.. you collected all 30 Dark Marbles!! It should have been difficult... just incredible! Alright. You've passed the test and for that, I'll reward you #bThe Proof of a Hero#k. Take that and go back to Ellinia.");
+            sm.removeItem(4031009);
             sm.removeItem(4031013);
             sm.forceCompleteQuest(100007);
             if(!sm.canAddItem(4031012, 1)) {

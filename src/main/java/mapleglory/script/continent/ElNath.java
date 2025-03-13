@@ -358,4 +358,18 @@ public class ElNath extends ScriptHandler {
         sm.addItem(itemToGive, numOfItems);
         return true;
     }
+
+    @Script("goDungeon")
+    public static void goDungeoun(ScriptManager sm) {
+        sm.sayNext("Hey, looks like you want to go a lot further from here. There, however, you'll find monsters on all sides, aggressive, dangerous, and even if you think you're ready, be careful. A long time ago, some brave heroes from our town went to eliminate those who threatened it, but they never returned...");
+        if (sm.getLevel() >= 50) {
+            if (sm.askYesNo("If you're thinking of entering, I suggest you change your mind. But if you really want to enter... Only those strong enough to stay alive inside will be allowed. I don't want to see anyone else die. Let's see... Hmm...! You look quite strong. Okay, do you wish to enter?")) {
+                sm.warp(211040300, "under00");
+            } else {
+                sm.sayOk("Even though your level is high, it's difficult to get in there. But if you change your mind, talk to me. After all, my duty is to protect this place.");
+            }
+        } else {
+            sm.sayOk("\"If you're thinking of entering, I suggest you change your mind. But if you really want to enter... Only those strong enough to stay alive inside will be allowed. I don't want to see anyone else die. Let's see... Hmmm... you haven't reached level 50 yet. I can't let you in, forget it.");
+        }
+    }
 }
