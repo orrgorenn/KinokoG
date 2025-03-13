@@ -21,21 +21,36 @@ public final class GachaponHandler {
         if (rewards.isEmpty()) {
             throw new IllegalArgumentException("No rewards available for Gachapon: " + gachaponName);
         }
+
+        // Calculate the sum of all weights
+        double totalWeight = rewards.stream()
+                .mapToDouble(Reward::getProb)
+                .sum();
+
+        // Generate a random value between 0 and the total weight
+        double randomValue = Math.random() * totalWeight;
+
+        // Find the reward that corresponds to the random value
+        double cumulativeWeight = 0.0;
         for (Reward reward : rewards) {
-            // Drop probability
-            if (!Util.succeedDouble(reward.getProb())) {
-                continue;
+            cumulativeWeight += reward.getProb();
+            if (randomValue <= cumulativeWeight) {
+                // We found our reward
+                final Optional<ItemInfo> itemInfoResult = ItemProvider.getItemInfo(reward.getItemId());
+                if (itemInfoResult.isEmpty()) {
+                    // If the item doesn't exist, try again
+                    return rollGachapon(gachaponName);
+                }
+                final int quantity = Util.getRandom(reward.getMin(), reward.getMax());
+                return Tuple.of(reward.getItemId(), quantity);
             }
-            final Optional<ItemInfo> itemInfoResult = ItemProvider.getItemInfo(reward.getItemId());
-            if (itemInfoResult.isEmpty()) {
-                continue;
-            }
-            final int quantity = Util.getRandom(reward.getMin(), reward.getMax());
-            return Tuple.of(reward.getItemId(), quantity);
         }
+
+        // Fallback
         Reward mostProbableReward = rewards.stream()
                 .max(Comparator.comparingDouble(Reward::getProb))
                 .orElse(rewards.getFirst());
-        return Tuple.of(mostProbableReward.getItemId(), Util.getRandom(mostProbableReward.getMin(), mostProbableReward.getMax()));
+        return Tuple.of(mostProbableReward.getItemId(),
+                Util.getRandom(mostProbableReward.getMin(), mostProbableReward.getMax()));
     }
 }

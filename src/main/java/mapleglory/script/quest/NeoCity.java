@@ -72,43 +72,18 @@ public final class NeoCity extends ScriptHandler {
 
     @Script("TD_neo_inTree")
     public static void TD_neo_inTree(ScriptManager sm) {
-        final List<Integer> destinations = List.of(
-                240070010, // Tera Forest : Old Tree In Tera Forest [1]
-                240070020, // Tera Forest : Old Tree In Tera Forest [2]
-                240070030, // Tera Forest : Old Tree In Tera Forest [3]
-                240070040, // Tera Forest : Old Tree In Tera Forest [4]
-                240070050, // Tera Forest : Old Tree In Tera Forest [5]
-                240070060 // Tera Forest : Old Tree In Tera Forest [6]
-        );
+        Optional<Field> optToField = sm.getField().getFieldStorage().getFieldById(240070010);
+        if(optToField.isPresent()) {
+            Field toField = optToField.get();
 
-        List<Field> maps = destinations.stream()
-                .map(mapId -> sm.getField().getFieldStorage().getFieldById(mapId))
-                .filter(Optional::isPresent)
-                .map(Optional::get)
-                .collect(Collectors.toList());
+            if (toField.getUserPool().getCount() > 0) {
+                sm.sayOk("Someone is already fighting Gatekeeper Nex. Please try at a later time.");
+                return;
+            }
 
-        maps.sort((map1, map2) -> {
-            if (map1.getUserPool().getCount() < 1 && map1.getMobPool().getCount() > 0) {
-                return -1;
-            }
-            if (map2.getUserPool().getCount() < 1 && map2.getMobPool().getCount() > 0) {
-                return 1;
-            }
-            if (map1.getUserPool().getCount() < 1) {
-                return -1;
-            }
-            if (map2.getUserPool().getCount() < 1) {
-                return 1;
-            }
-            if (map1.getMobPool().getCount() > 0) {
-                return -1;
-            }
-            if (map2.getMobPool().getCount() > 0) {
-                return 1;
-            }
-            return 0;
-        });
-        sm.playPortalSE();
-        sm.warp(maps.getFirst().getFieldId(), "out00");
+            sm.playPortalSE();
+            sm.warp(toField.getFieldId(), "out00");
+        }
+
     }
 }

@@ -1,0 +1,429 @@
+# Ellinia Gachapon Configuration
+
+location: "Ellinia"
+ticket_id: 5220000  # Standard Gachapon Ticket
+min_level: 15
+
+# Global Item Modifier Settings
+global_item_settings:
+  enabled: true
+  weight_modifier: 0.5  # Decrease the chance of getting things from the global item list by 50%
+
+rewards:
+  # Warrior Equips (10 items)
+  - [1082025, 1, 1, 0.25]  # Warrior Gloves
+  - [1060028, 1, 1, 1.00]  # Warrior Bottom
+  - [1051011, 1, 1, 0.33]  # Warrior Overall
+  - [1060016, 1, 1, 0.33]  # Warrior Bottom
+  - [1051001, 1, 1, 0.29]  # Warrior Overall
+  - [1422001, 1, 1, 0.33]  # Two-handed Blunt Weapon
+  - [1002025, 1, 1, 0.25]  # Warrior Hat
+  - [1082000, 1, 1, 0.67]  # Warrior Gloves
+  - [1302002, 1, 1, 0.50]  # One-handed Sword
+  - [1412012, 1, 1, 0.67]  # Two-handed Axe
+
+  # Magician Equips (extensive list - this is the primary class for Ellinia)
+  - [1002013, 1, 1, 0.67]  # Magician Hat
+  - [1002016, 1, 1, 1.00]  # Magician Hat
+  - [1002017, 1, 1, 2.00]  # Magician Hat
+  - [1002034, 1, 1, 0.67]  # Magician Hat
+  - [1002035, 1, 1, 0.67]  # Magician Hat
+  - [1002036, 1, 1, 0.67]  # Magician Hat
+  - [1002037, 1, 1, 0.67]  # Magician Hat
+  - [1002038, 1, 1, 0.67]  # Magician Hat
+  - [1002064, 1, 1, 0.67]  # Magician Hat
+  - [1002065, 1, 1, 0.67]  # Magician Hat
+  - [1002072, 1, 1, 1.00]  # Magician Hat
+  - [1002073, 1, 1, 1.00]  # Magician Hat
+  - [1002074, 1, 1, 2.00]  # Magician Hat
+  - [1002075, 1, 1, 2.00]  # Magician Hat
+  - [1002102, 1, 1, 1.33]  # Magician Hat
+  - [1002103, 1, 1, 1.33]  # Magician Hat
+  - [1002104, 1, 1, 1.33]  # Magician Hat
+  - [1002105, 1, 1, 1.33]  # Magician Hat
+  - [1002106, 1, 1, 1.33]  # Magician Hat
+  - [1002141, 1, 1, 0.57]  # Magician Hat
+  - [1002142, 1, 1, 0.57]  # Magician Hat
+  - [1002143, 1, 1, 0.57]  # Magician Hat
+  - [1002144, 1, 1, 0.57]  # Magician Hat
+  - [1002145, 1, 1, 0.57]  # Magician Hat
+  - [1002151, 1, 1, 0.50]  # Magician Hat
+  - [1002152, 1, 1, 0.50]  # Magician Hat
+  - [1002153, 1, 1, 0.50]  # Magician Hat
+  - [1002154, 1, 1, 0.50]  # Magician Hat
+  - [1002155, 1, 1, 0.50]  # Magician Hat
+  - [1002215, 1, 1, 0.40]  # Magician Hat
+  - [1002216, 1, 1, 0.40]  # Magician Hat
+  - [1002217, 1, 1, 0.40]  # Magician Hat
+  - [1002218, 1, 1, 0.40]  # Magician Hat
+  - [1002242, 1, 1, 0.33]  # Magician Hat
+  - [1002243, 1, 1, 0.33]  # Magician Hat
+  - [1002244, 1, 1, 0.33]  # Magician Hat
+  - [1002245, 1, 1, 0.33]  # Magician Hat
+  - [1002246, 1, 1, 0.33]  # Magician Hat
+  - [1002252, 1, 1, 0.29]  # Magician Hat
+  - [1002253, 1, 1, 0.29]  # Magician Hat
+  - [1002254, 1, 1, 0.29]  # Magician Hat
+  - [1002271, 1, 1, 0.25]  # Magician Hat
+  - [1002272, 1, 1, 0.25]  # Magician Hat
+  - [1002273, 1, 1, 0.25]  # Magician Hat
+  - [1002274, 1, 1, 0.25]  # Magician Hat
+  - [1002363, 1, 1, 0.22]  # Magician Hat
+  - [1002364, 1, 1, 0.22]  # Magician Hat
+  - [1002365, 1, 1, 0.22]  # Magician Hat
+  - [1002366, 1, 1, 0.22]  # Magician Hat
+  - [1002398, 1, 1, 0.20]  # Magician Hat
+  - [1002399, 1, 1, 0.20]  # Magician Hat
+  - [1002400, 1, 1, 0.20]  # Magician Hat
+  - [1002401, 1, 1, 0.20]  # Magician Hat
+  - [1002579, 1, 1, 0.67]  # Magician Hat
+  - [1002773, 1, 1, 0.18]  # Magician Hat
+  - [1002777, 1, 1, 0.17]  # Magician Hat
+  - [1002791, 1, 1, 0.17]  # Magician Hat
+  - [1040004, 1, 1, 2.50]  # Magician Top
+  - [1040017, 1, 1, 2.50]  # Magician Top
+  - [1040018, 1, 1, 1.11]  # Magician Top
+  - [1040019, 1, 1, 1.11]  # Magician Top
+  - [1040020, 1, 1, 1.11]  # Magician Top
+  - [1041015, 1, 1, 2.50]  # Magician Top
+  - [1041016, 1, 1, 2.50]  # Magician Top
+  - [1041017, 1, 1, 1.54]  # Magician Top
+  - [1041018, 1, 1, 1.54]  # Magician Top
+  - [1041025, 1, 1, 1.54]  # Magician Top
+  - [1041026, 1, 1, 1.54]  # Magician Top
+  - [1041029, 1, 1, 1.11]  # Magician Top
+  - [1041030, 1, 1, 1.11]  # Magician Top
+  - [1041031, 1, 1, 1.11]  # Magician Top
+  - [1041041, 1, 1, 0.71]  # Magician Top
+  - [1041042, 1, 1, 0.71]  # Magician Top
+  - [1041043, 1, 1, 0.71]  # Magician Top
+  - [1041051, 1, 1, 0.61]  # Magician Top
+  - [1041052, 1, 1, 0.61]  # Magician Top
+  - [1041053, 1, 1, 0.61]  # Magician Top
+  - [1050001, 1, 1, 0.87]  # Magician Overall
+  - [1050002, 1, 1, 0.61]  # Magician Overall
+  - [1050003, 1, 1, 0.71]  # Magician Overall
+  - [1050008, 1, 1, 1.54]  # Magician Overall
+  - [1050009, 1, 1, 1.54]  # Magician Overall
+  - [1050010, 1, 1, 1.54]  # Magician Overall
+  - [1050023, 1, 1, 0.87]  # Magician Overall
+  - [1050024, 1, 1, 0.87]  # Magician Overall
+  - [1050025, 1, 1, 0.87]  # Magician Overall
+  - [1050026, 1, 1, 0.71]  # Magician Overall
+  - [1050027, 1, 1, 0.71]  # Magician Overall
+  - [1050028, 1, 1, 0.71]  # Magician Overall
+  - [1050029, 1, 1, 0.61]  # Magician Overall
+  - [1050030, 1, 1, 0.61]  # Magician Overall
+  - [1050031, 1, 1, 0.61]  # Magician Overall
+  - [1050035, 1, 1, 0.53]  # Magician Overall
+  - [1050036, 1, 1, 0.53]  # Magician Overall
+  - [1050037, 1, 1, 0.53]  # Magician Overall
+  - [1050038, 1, 1, 0.53]  # Magician Overall
+  - [1050039, 1, 1, 0.53]  # Magician Overall
+  - [1050045, 1, 1, 0.42]  # Magician Overall
+  - [1050046, 1, 1, 0.42]  # Magician Overall
+  - [1050047, 1, 1, 0.42]  # Magician Overall
+  - [1050048, 1, 1, 0.42]  # Magician Overall
+  - [1050049, 1, 1, 0.42]  # Magician Overall
+  - [1050053, 1, 1, 0.34]  # Magician Overall
+  - [1050054, 1, 1, 0.34]  # Magician Overall
+  - [1050055, 1, 1, 0.34]  # Magician Overall
+  - [1050056, 1, 1, 0.34]  # Magician Overall
+  - [1050067, 1, 1, 0.29]  # Magician Overall
+  - [1050068, 1, 1, 0.29]  # Magician Overall
+  - [1050069, 1, 1, 0.29]  # Magician Overall
+  - [1050070, 1, 1, 0.29]  # Magician Overall
+  - [1050072, 1, 1, 0.26]  # Magician Overall
+  - [1050073, 1, 1, 0.26]  # Magician Overall
+  - [1050074, 1, 1, 0.26]  # Magician Overall
+  - [1050092, 1, 1, 0.23]  # Magician Overall
+  - [1050093, 1, 1, 0.23]  # Magician Overall
+  - [1050094, 1, 1, 0.23]  # Magician Overall
+  - [1050095, 1, 1, 0.23]  # Magician Overall
+  - [1050102, 1, 1, 0.20]  # Magician Overall
+  - [1050103, 1, 1, 0.20]  # Magician Overall
+  - [1050104, 1, 1, 0.20]  # Magician Overall
+  - [1050105, 1, 1, 0.20]  # Magician Overall
+  - [1051003, 1, 1, 0.87]  # Magician Overall
+  - [1051004, 1, 1, 0.87]  # Magician Overall
+  - [1051005, 1, 1, 0.87]  # Magician Overall
+  - [1051023, 1, 1, 0.53]  # Magician Overall
+  - [1051024, 1, 1, 0.53]  # Magician Overall
+  - [1051025, 1, 1, 0.53]  # Magician Overall
+  - [1051026, 1, 1, 0.53]  # Magician Overall
+  - [1051027, 1, 1, 0.53]  # Magician Overall
+  - [1051030, 1, 1, 0.42]  # Magician Overall
+  - [1051031, 1, 1, 0.42]  # Magician Overall
+  - [1051032, 1, 1, 0.42]  # Magician Overall
+  - [1051033, 1, 1, 0.42]  # Magician Overall
+  - [1051034, 1, 1, 0.42]  # Magician Overall
+  - [1051044, 1, 1, 0.34]  # Magician Overall
+  - [1051045, 1, 1, 0.34]  # Magician Overall
+  - [1051046, 1, 1, 0.34]  # Magician Overall
+  - [1051047, 1, 1, 0.34]  # Magician Overall
+  - [1051052, 1, 1, 0.29]  # Magician Overall
+  - [1051053, 1, 1, 0.29]  # Magician Overall
+  - [1051054, 1, 1, 0.29]  # Magician Overall
+  - [1051055, 1, 1, 0.29]  # Magician Overall
+  - [1051056, 1, 1, 0.26]  # Magician Overall
+  - [1051057, 1, 1, 0.26]  # Magician Overall
+  - [1051058, 1, 1, 0.26]  # Magician Overall
+  - [1051094, 1, 1, 0.23]  # Magician Overall
+  - [1051095, 1, 1, 0.23]  # Magician Overall
+  - [1051096, 1, 1, 0.23]  # Magician Overall
+  - [1051097, 1, 1, 0.23]  # Magician Overall
+  - [1051101, 1, 1, 0.20]  # Magician Overall
+  - [1051102, 1, 1, 0.20]  # Magician Overall
+  - [1051103, 1, 1, 0.20]  # Magician Overall
+  - [1051104, 1, 1, 0.20]  # Magician Overall
+  - [1052076, 1, 1, 0.19]  # Magician Overall
+  - [1052156, 1, 1, 0.17]  # Magician Overall
+  - [1052161, 1, 1, 0.17]  # Magician Overall
+  - [1060012, 1, 1, 2.50]  # Magician Bottom
+  - [1060013, 1, 1, 2.50]  # Magician Bottom
+  - [1060014, 1, 1, 1.11]  # Magician Bottom
+  - [1060015, 1, 1, 1.11]  # Magician Bottom
+  - [1061010, 1, 1, 2.50]  # Magician Bottom
+  - [1061011, 1, 1, 2.50]  # Magician Bottom
+  - [1061012, 1, 1, 1.54]  # Magician Bottom
+  - [1061013, 1, 1, 1.54]  # Magician Bottom
+  - [1061021, 1, 1, 1.54]  # Magician Bottom
+  - [1061022, 1, 1, 1.54]  # Magician Bottom
+  - [1061027, 1, 1, 1.11]  # Magician Bottom
+  - [1061028, 1, 1, 1.11]  # Magician Bottom
+  - [1061034, 1, 1, 0.71]  # Magician Bottom
+  - [1061035, 1, 1, 0.71]  # Magician Bottom
+  - [1061036, 1, 1, 0.71]  # Magician Bottom
+  - [1061047, 1, 1, 0.61]  # Magician Bottom
+  - [1061048, 1, 1, 0.61]  # Magician Bottom
+  - [1061049, 1, 1, 0.61]  # Magician Bottom
+  - [1072006, 1, 1, 2.00]  # Magician Shoes
+  - [1072019, 1, 1, 1.00]  # Magician Shoes
+  - [1072020, 1, 1, 1.00]  # Magician Shoes
+  - [1072021, 1, 1, 1.00]  # Magician Shoes
+  - [1072023, 1, 1, 1.33]  # Magician Shoes
+  - [1072024, 1, 1, 1.33]  # Magician Shoes
+  - [1072044, 1, 1, 2.00]  # Magician Shoes
+  - [1072045, 1, 1, 2.00]  # Magician Shoes
+  - [1072072, 1, 1, 0.80]  # Magician Shoes
+  - [1072073, 1, 1, 0.80]  # Magician Shoes
+  - [1072074, 1, 1, 0.80]  # Magician Shoes
+  - [1072075, 1, 1, 0.67]  # Magician Shoes
+  - [1072076, 1, 1, 0.67]  # Magician Shoes
+  - [1072077, 1, 1, 0.67]  # Magician Shoes
+  - [1072078, 1, 1, 0.67]  # Magician Shoes
+  - [1072089, 1, 1, 0.57]  # Magician Shoes
+  - [1072090, 1, 1, 0.57]  # Magician Shoes
+  - [1072091, 1, 1, 0.57]  # Magician Shoes
+  - [1072114, 1, 1, 0.50]  # Magician Shoes
+  - [1072115, 1, 1, 0.50]  # Magician Shoes
+  - [1072116, 1, 1, 0.50]  # Magician Shoes
+  - [1072117, 1, 1, 0.50]  # Magician Shoes
+  - [1072136, 1, 1, 0.33]  # Magician Shoes
+  - [1072137, 1, 1, 0.33]  # Magician Shoes
+  - [1072138, 1, 1, 0.33]  # Magician Shoes
+  - [1072139, 1, 1, 0.33]  # Magician Shoes
+  - [1072140, 1, 1, 0.40]  # Magician Shoes
+  - [1072141, 1, 1, 0.40]  # Magician Shoes
+  - [1072142, 1, 1, 0.40]  # Magician Shoes
+  - [1072143, 1, 1, 0.40]  # Magician Shoes
+  - [1072157, 1, 1, 0.29]  # Magician Shoes
+  - [1072158, 1, 1, 0.29]  # Magician Shoes
+  - [1072159, 1, 1, 0.29]  # Magician Shoes
+  - [1072160, 1, 1, 0.29]  # Magician Shoes
+  - [1072169, 1, 1, 0.67]  # Magician Shoes
+  - [1072177, 1, 1, 0.25]  # Magician Shoes
+  - [1072178, 1, 1, 0.25]  # Magician Shoes
+  - [1072179, 1, 1, 0.25]  # Magician Shoes
+  - [1072206, 1, 1, 0.22]  # Magician Shoes
+  - [1072207, 1, 1, 0.22]  # Magician Shoes
+  - [1072208, 1, 1, 0.22]  # Magician Shoes
+  - [1072209, 1, 1, 0.22]  # Magician Shoes
+  - [1072223, 1, 1, 0.20]  # Magician Shoes
+  - [1072224, 1, 1, 0.20]  # Magician Shoes
+  - [1072225, 1, 1, 0.20]  # Magician Shoes
+  - [1072226, 1, 1, 0.20]  # Magician Shoes
+  - [1072268, 1, 1, 0.18]  # Magician Shoes
+  - [1072356, 1, 1, 0.17]  # Magician Shoes
+  - [1072362, 1, 1, 0.17]  # Magician Shoes
+  - [1082019, 1, 1, 1.33]  # Magician Gloves
+  - [1082020, 1, 1, 1.00]  # Magician Gloves
+  - [1082021, 1, 1, 1.00]  # Magician Gloves
+  - [1082022, 1, 1, 1.00]  # Magician Gloves
+  - [1082026, 1, 1, 0.80]  # Magician Gloves
+  - [1082027, 1, 1, 0.80]  # Magician Gloves
+  - [1082028, 1, 1, 0.80]  # Magician Gloves
+  - [1082051, 1, 1, 0.67]  # Magician Gloves
+  - [1082052, 1, 1, 0.67]  # Magician Gloves
+  - [1082053, 1, 1, 0.67]  # Magician Gloves
+  - [1082054, 1, 1, 0.57]  # Magician Gloves
+  - [1082055, 1, 1, 0.57]  # Magician Gloves
+  - [1082056, 1, 1, 0.57]  # Magician Gloves
+  - [1082062, 1, 1, 0.50]  # Magician Gloves
+  - [1082063, 1, 1, 0.50]  # Magician Gloves
+  - [1082064, 1, 1, 0.50]  # Magician Gloves
+  - [1082080, 1, 1, 0.40]  # Magician Gloves
+  - [1082081, 1, 1, 0.40]  # Magician Gloves
+  - [1082082, 1, 1, 0.40]  # Magician Gloves
+  - [1082086, 1, 1, 0.33]  # Magician Gloves
+  - [1082087, 1, 1, 0.33]  # Magician Gloves
+  - [1082088, 1, 1, 0.33]  # Magician Gloves
+  - [1082098, 1, 1, 0.29]  # Magician Gloves
+  - [1082099, 1, 1, 0.29]  # Magician Gloves
+  - [1082100, 1, 1, 0.29]  # Magician Gloves
+  - [1082121, 1, 1, 0.25]  # Magician Gloves
+  - [1082122, 1, 1, 0.25]  # Magician Gloves
+  - [1082123, 1, 1, 0.25]  # Magician Gloves
+  - [1082131, 1, 1, 0.22]  # Magician Gloves
+  - [1082132, 1, 1, 0.22]  # Magician Gloves
+  - [1082133, 1, 1, 0.22]  # Magician Gloves
+  - [1082134, 1, 1, 0.22]  # Magician Gloves
+  - [1082151, 1, 1, 0.20]  # Magician Gloves
+  - [1082152, 1, 1, 0.20]  # Magician Gloves
+  - [1082153, 1, 1, 0.20]  # Magician Gloves
+  - [1082154, 1, 1, 0.20]  # Magician Gloves
+  - [1082164, 1, 1, 0.18]  # Magician Gloves
+  - [1082235, 1, 1, 0.17]  # Magician Gloves
+  - [1082240, 1, 1, 0.17]  # Magician Gloves
+  - [1092021, 1, 1, 0.91]  # Magician Shield
+  - [1092029, 1, 1, 0.61]  # Magician Shield
+  - [1092057, 1, 1, 0.17]  # Magician Shield
+  - [1372000, 1, 1, 0.53]  # Wand
+  - [1372001, 1, 1, 0.61]  # Wand
+  - [1372002, 1, 1, 1.11]  # Wand
+  - [1372003, 1, 1, 0.71]  # Wand
+  - [1372004, 1, 1, 0.87]  # Wand
+  - [1372007, 1, 1, 0.42]  # Wand
+  - [1372008, 1, 1, 0.33]  # Wand
+  - [1372009, 1, 1, 0.23]  # Wand
+  - [1372010, 1, 1, 0.20]  # Wand
+  - [1372011, 1, 1, 0.40]  # Wand
+  - [1372012, 1, 1, 0.53]  # Wand
+  - [1372014, 1, 1, 0.34]  # Wand
+  - [1372015, 1, 1, 0.29]  # Wand
+  - [1372016, 1, 1, 0.26]  # Wand
+  - [1372032, 1, 1, 0.19]  # Wand
+  - [1372035, 1, 1, 0.29]  # Wand
+  - [1372036, 1, 1, 0.29]  # Wand
+  - [1372037, 1, 1, 0.29]  # Wand
+  - [1372038, 1, 1, 0.29]  # Wand
+  - [1372039, 1, 1, 0.15]  # Wand
+  - [1372040, 1, 1, 0.15]  # Wand
+  - [1372041, 1, 1, 0.15]  # Wand
+  - [1372042, 1, 1, 0.15]  # Wand
+  - [1372044, 1, 1, 0.17]  # Wand
+  - [1372045, 1, 1, 0.17]  # Wand
+  - [1382000, 1, 1, 2.00]  # Staff
+  - [1382001, 1, 1, 0.44]  # Staff
+  - [1382002, 1, 1, 0.80]  # Staff
+  - [1382003, 1, 1, 1.33]  # Staff
+  - [1382004, 1, 1, 1.00]  # Staff
+  - [1382005, 1, 1, 1.33]  # Staff
+  - [1382006, 1, 1, 0.36]  # Staff
+  - [1382007, 1, 1, 0.31]  # Staff
+  - [1382008, 1, 1, 0.24]  # Staff
+  - [1382010, 1, 1, 0.27]  # Staff
+  - [1382011, 1, 1, 0.39]  # Staff
+  - [1382014, 1, 1, 0.38]  # Staff
+  - [1382015, 1, 1, 0.67]  # Staff
+  - [1382016, 1, 1, 0.22]  # Staff
+  - [1382017, 1, 1, 0.67]  # Staff
+  - [1382018, 1, 1, 0.57]  # Staff
+  - [1382019, 1, 1, 0.50]  # Staff
+  - [1382035, 1, 1, 0.21]  # Staff
+  - [1382036, 1, 1, 0.18]  # Staff
+  - [1382037, 1, 1, 0.20]  # Staff
+  - [1382041, 1, 1, 0.47]  # Staff
+  - [1382045, 1, 1, 0.19]  # Staff
+  - [1382046, 1, 1, 0.19]  # Staff
+  - [1382047, 1, 1, 0.19]  # Staff
+  - [1382048, 1, 1, 0.19]  # Staff
+  - [1382049, 1, 1, 0.12]  # Staff
+  - [1382050, 1, 1, 0.12]  # Staff
+  - [1382051, 1, 1, 0.12]  # Staff
+  - [1382052, 1, 1, 0.12]  # Staff
+  - [1382053, 1, 1, 0.29]  # Staff
+  - [1382054, 1, 1, 2.00]  # Staff
+  - [1382055, 1, 1, 0.50]  # Staff
+  - [1382056, 1, 1, 0.25]  # Staff
+  - [1382057, 1, 1, 0.17]  # Staff
+  - [1382059, 1, 1, 0.17]  # Staff
+  - [1382060, 1, 1, 0.20]  # Staff
+
+  # Bowman Equips (10 items)
+  - [1040003, 1, 1, 0.50]  # Bowman Top
+  - [1462005, 1, 1, 0.26]  # Crossbow
+  - [1002157, 1, 1, 0.40]  # Bowman Hat
+  - [1002119, 1, 1, 0.50]  # Bowman Hat
+  - [1062002, 1, 1, 0.50]  # Bowman Bottom
+  - [1062004, 1, 1, 1.00]  # Bowman Bottom
+  - [1041083, 1, 1, 0.25]  # Bowman Top
+  - [1061082, 1, 1, 0.25]  # Bowman Bottom
+  - [1082017, 1, 1, 0.40]  # Bowman Gloves
+  - [1041061, 1, 1, 1.00]  # Bowman Top
+
+  # Thief Equips (10 items)
+  - [1002174, 1, 1, 0.33]  # Thief Hat
+  - [1040063, 1, 1, 0.29]  # Thief Top
+  - [1072108, 1, 1, 0.25]  # Thief Shoes
+  - [1082044, 1, 1, 0.33]  # Thief Gloves
+  - [1061071, 1, 1, 0.25]  # Thief Bottom
+  - [1060052, 1, 1, 0.29]  # Thief Bottom
+  - [1072029, 1, 1, 0.67]  # Thief Shoes
+  - [1472002, 1, 1, 0.67]  # Claw
+  - [1082031, 1, 1, 0.67]  # Thief Gloves
+  - [1060023, 1, 1, 1.00]  # Thief Bottom
+
+  # Pirate Equips (10 items)
+  - [1002625, 1, 1, 0.29]  # Pirate Hat
+  - [1002616, 1, 1, 0.50]  # Pirate Hat
+  - [1482005, 1, 1, 0.29]  # Knuckle
+  - [1052098, 1, 1, 0.67]  # Pirate Overall
+  - [1482003, 1, 1, 0.40]  # Knuckle
+  - [1482001, 1, 1, 0.67]  # Knuckle
+  - [1492004, 1, 1, 0.33]  # Gun
+  - [1002622, 1, 1, 0.33]  # Pirate Hat
+  - [1492005, 1, 1, 0.29]  # Gun
+  - [1082195, 1, 1, 0.25]  # Pirate Gloves
+
+  # Scrolls (Magician weapon scrolls)
+  - [2043800, 1, 1, 0.10]  # Staff for ATT Scroll
+  - [2043801, 1, 1, 0.10]  # Staff for ATT Scroll
+  - [2043802, 1, 1, 0.10]  # Staff for ATT Scroll
+  - [2043804, 1, 1, 0.10]  # Staff for ATT Scroll
+  - [2043805, 1, 1, 0.10]  # Staff for ATT Scroll
+  - [2043700, 1, 1, 0.10]  # Wand for ATT Scroll
+  - [2043701, 1, 1, 0.10]  # Wand for ATT Scroll
+  - [2043702, 1, 1, 0.10]  # Wand for ATT Scroll
+  - [2043704, 1, 1, 0.10]  # Wand for ATT Scroll
+  - [2043705, 1, 1, 0.10]  # Wand for ATT Scroll
+
+  # Skills - Mastery Books for magician skills
+  - [2290024, 1, 1, 0.05]  # Mastery Book 20 (Element Amplification)
+  - [2290025, 1, 1, 0.025]  # Mastery Book 30 (Element Amplification)
+  - [2290026, 1, 1, 0.05]  # Mastery Book 20 (Spell Booster)
+  - [2290027, 1, 1, 0.025]  # Mastery Book 30 (Spell Booster)
+  - [2290028, 1, 1, 0.05]  # Mastery Book 20 (Ice Strike)
+  - [2290029, 1, 1, 0.025]  # Mastery Book 30 (Ice Strike)
+  - [2290030, 1, 1, 0.05]  # Mastery Book 20 (Thunder Spear)
+  - [2290031, 1, 1, 0.025]  # Mastery Book 30 (Thunder Spear)
+  - [2290032, 1, 1, 0.05]  # Mastery Book 20 (Fire Arrow)
+  - [2290033, 1, 1, 0.025]  # Mastery Book 30 (Fire Arrow)
+  - [2290034, 1, 1, 0.05]  # Mastery Book 20 (Poison Mist)
+  - [2290035, 1, 1, 0.025]  # Mastery Book 30 (Poison Mist)
+  - [2290036, 1, 1, 0.05]  # Mastery Book 20 (Elemental Reset)
+  - [2290037, 1, 1, 0.025]  # Mastery Book 30 (Elemental Reset)
+  - [2290038, 1, 1, 0.05]  # Mastery Book 20 (Magic Guard)
+  - [2290039, 1, 1, 0.025]  # Mastery Book 30 (Magic Guard)
+  - [2290040, 1, 1, 0.05]  # Mastery Book 20 (Magic Armor)
+  - [2290041, 1, 1, 0.025]  # Mastery Book 30 (Magic Armor)
+  - [2290042, 1, 1, 0.05]  # Mastery Book 20 (Teleport)
+  - [2290043, 1, 1, 0.025]  # Mastery Book 30 (Teleport)
+  - [2290044, 1, 1, 0.05]  # Mastery Book 20 (Heal)
+  - [2290045, 1, 1, 0.025]  # Mastery Book 30 (Heal)
+  - [2290046, 1, 1, 0.05]  # Mastery Book 20 (Holy Arrow)
+  - [2290047, 1, 1, 0.025]  # Mastery Book 30 (Holy Arrow)
+  - [2290048, 1, 1, 0.05]  # Mastery Book 20 (Shining Ray)
+  - [2290049, 1, 1, 0.025]  # Mastery Book 30 (Shining Ray)
+  - [2290050, 1, 1, 0.05]  # Mastery Book 20 (Maple Warrior)
+  - [2290051, 1, 1, 0.025]  # Mastery Book 30 (Maple Warrior)

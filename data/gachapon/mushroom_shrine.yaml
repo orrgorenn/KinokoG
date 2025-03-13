@@ -1,35 +1,140 @@
 # Mushroom Shrine (Japan)
 
+location: "Mushroom Shrine (Zipangu)"
+ticket_id: 5220000  # Standard Gachapon Ticket
+min_level: 15
+
+# Global Item Modifier Settings
+global_item_settings:
+  enabled: true
+  items_to_include:
+    - id_range: [2040000, 2049999]  # All scrolls
+  weight_modifier: 0.9  # Reduce weight by 10%
+
 rewards:
-  # 🔥 High-Value Scrolls 🔥
-  - [2049100, 1, 1, 0.001]  # Chaos Scroll 60% (1% chance)
-  - [2049300, 1, 1, 0.002]  # White Scroll (2% chance)
-  - [2049400, 1, 1, 0.003]  # Advanced Potential Scroll 10% (3% chance)
-  - [2044803, 1, 1, 0.005]  # Pet Equip for ATT 60% (5% chance)
-  - [2044903, 1, 1, 0.005]  # Pet Equip for Magic ATT 60% (5% chance)
+  # Equipment items
+  - [1382011, 1, 1, 0.025]  # Wand
+  - [1332024, 1, 1, 0.025]  # Dagger
+  - [1302022, 1, 1, 0.025]  # One-handed Sword
+  - [1302021, 1, 1, 0.025]  # One-handed Sword
+  - [1462006, 1, 1, 0.025]  # Crossbow
+  - [1402009, 1, 1, 0.025]  # Two-handed Sword
+  - [1402010, 1, 1, 0.025]  # Two-handed Sword
+  - [1322012, 1, 1, 0.025]  # One-handed Mace
+  - [1312013, 1, 1, 0.025]  # One-handed Axe
+  - [1472008, 1, 1, 0.025]  # Claw
+  - [1432008, 1, 1, 0.025]  # Spear
+  - [1050100, 1, 1, 0.020]  # Male Overall
+  - [1051098, 1, 1, 0.020]  # Female Overall
 
-  # 🏆 Timeless / Reverse Gear 🏆
-  - [1032031, 1, 1, 0.004]  # Timeless Earrings (4% chance)
-  - [1082239, 1, 1, 0.003]  # Reverse Gloves (3% chance)
-  - [1092059, 1, 1, 0.003]  # Reverse Shield (3% chance)
-  - [1302086, 1, 1, 0.002]  # Timeless One-Handed Sword (2% chance)
-  - [1402047, 1, 1, 0.002]  # Timeless Two-Handed Sword (2% chance)
+  # Use items
+  - [2070000, 1, 1, 0.030]  # Subi Throwing Stars
+  - [2030008, 1, 1, 0.030]  # Bottle for Genie
+  - [2030009, 1, 1, 0.030]  # Consumable Item
+  - [2030010, 1, 1, 0.030]  # Consumable Item
+  - [2022002, 100, 100, 0.050]  # Potion
+  - [2020011, 100, 100, 0.050]  # Food
+  - [2022014, 100, 100, 0.050]  # Food/Potion
+  - [2022015, 100, 100, 0.050]  # Food/Potion
+  - [2022017, 100, 100, 0.050]  # Food/Potion
+  - [2022018, 100, 100, 0.050]  # Food/Potion
+  - [2022019, 100, 100, 0.050]  # Food/Potion
+  - [2022020, 100, 100, 0.050]  # Food/Potion
+  - [2022021, 100, 100, 0.050]  # Food/Potion
+  - [2022023, 100, 100, 0.050]  # Food/Potion
+  - [2022022, 100, 100, 0.050]  # Food/Potion
+  - [2022024, 100, 100, 0.050]  # Food/Potion
+  - [2022025, 100, 100, 0.050]  # Food/Potion
+  - [2022026, 100, 100, 0.050]  # Food/Potion
+  - [2022027, 100, 100, 0.050]  # Food/Potion
 
-  # 🎭 Rare Cosmetics 🎭
-  - [1002939, 1, 1, 0.002]  # Cat Ear Headband (2% chance)
-  - [1052314, 1, 1, 0.002]  # Samurai Outfit (2% chance)
-  - [1702255, 1, 1, 0.001]  # Cherry Blossom Umbrella (1% chance)
+  # Scrolls
+  - [2043015, 1, 1, 0.015]  # Scroll
+  - [2043017, 1, 1, 0.015]  # Scroll
+  - [2043019, 1, 1, 0.015]  # Scroll
+  - [2044000, 1, 1, 0.015]  # Scroll
+  - [2044001, 1, 1, 0.015]  # Scroll
+  - [2044002, 1, 1, 0.015]  # Scroll
+  - [2044004, 1, 1, 0.015]  # Scroll
+  - [2044005, 1, 1, 0.015]  # Scroll
+  - [2044010, 1, 1, 0.015]  # Scroll
+  - [2044012, 1, 1, 0.015]  # Scroll
+  - [2044014, 1, 1, 0.015]  # Scroll
+  - [2043200, 1, 1, 0.015]  # Scroll
+  - [2043201, 1, 1, 0.015]  # Scroll
+  - [2043202, 1, 1, 0.015]  # Scroll
+  - [2043204, 1, 1, 0.015]  # Scroll
+  - [2043205, 1, 1, 0.015]  # Scroll
+  - [2043210, 1, 1, 0.015]  # Scroll
+  - [2043212, 1, 1, 0.015]  # Scroll
+  - [2043214, 1, 1, 0.015]  # Scroll
+  - [2044200, 1, 1, 0.015]  # Scroll
+  - [2044201, 1, 1, 0.015]  # Scroll
+  - [2044202, 1, 1, 0.015]  # Scroll
+  - [2044204, 1, 1, 0.015]  # Scroll
+  - [2044205, 1, 1, 0.015]  # Scroll
+  - [2044210, 1, 1, 0.015]  # Scroll
+  - [2044212, 1, 1, 0.015]  # Scroll
+  - [2044214, 1, 1, 0.015]  # Scroll
+  - [2044300, 1, 1, 0.015]  # Scroll
+  - [2044301, 1, 1, 0.015]  # Scroll
+  - [2044302, 1, 1, 0.015]  # Scroll
+  - [2044304, 1, 1, 0.015]  # Scroll
+  - [2044305, 1, 1, 0.015]  # Scroll
+  - [2044310, 1, 1, 0.015]  # Scroll
+  - [2044312, 1, 1, 0.015]  # Scroll
+  - [2044314, 1, 1, 0.015]  # Scroll
+  - [2044400, 1, 1, 0.015]  # Scroll
+  - [2044401, 1, 1, 0.015]  # Scroll
+  - [2044402, 1, 1, 0.015]  # Scroll
+  - [2044404, 1, 1, 0.015]  # Scroll
+  - [2044405, 1, 1, 0.015]  # Scroll
+  - [2044410, 1, 1, 0.015]  # Scroll
+  - [2044412, 1, 1, 0.015]  # Scroll
+  - [2044414, 1, 1, 0.015]  # Scroll
+  - [2043800, 1, 1, 0.015]  # Scroll
+  - [2043801, 1, 1, 0.015]  # Scroll
+  - [2043802, 1, 1, 0.015]  # Scroll
+  - [2043804, 1, 1, 0.015]  # Scroll
+  - [2043805, 1, 1, 0.015]  # Scroll
+  - [2043700, 1, 1, 0.015]  # Scroll
+  - [2043701, 1, 1, 0.015]  # Scroll
+  - [2043702, 1, 1, 0.015]  # Scroll
+  - [2043704, 1, 1, 0.015]  # Scroll
+  - [2043705, 1, 1, 0.015]  # Scroll
+  - [2044605, 1, 1, 0.015]  # Scroll
+  - [2044604, 1, 1, 0.015]  # Scroll
+  - [2044602, 1, 1, 0.015]  # Scroll
+  - [2044601, 1, 1, 0.015]  # Scroll
+  - [2044600, 1, 1, 0.015]  # Scroll
+  - [2044505, 1, 1, 0.015]  # Scroll
+  - [2044504, 1, 1, 0.015]  # Scroll
+  - [2044502, 1, 1, 0.015]  # Scroll
+  - [2044501, 1, 1, 0.015]  # Scroll
+  - [2044500, 1, 1, 0.015]  # Scroll
+  - [2044700, 1, 1, 0.015]  # Scroll
+  - [2044701, 1, 1, 0.015]  # Scroll
+  - [2044702, 1, 1, 0.015]  # Scroll
+  - [2044704, 1, 1, 0.015]  # Scroll
+  - [2044705, 1, 1, 0.015]  # Scroll
+  - [2043300, 1, 1, 0.015]  # Scroll
+  - [2043301, 1, 1, 0.015]  # Scroll
+  - [2043302, 1, 1, 0.015]  # Scroll
+  - [2043304, 1, 1, 0.015]  # Scroll
+  - [2043305, 1, 1, 0.015]  # Scroll
+  - [2044800, 1, 1, 0.015]  # Scroll
+  - [2044801, 1, 1, 0.015]  # Scroll
+  - [2044802, 1, 1, 0.015]  # Scroll
+  - [2044803, 1, 1, 0.015]  # Scroll
+  - [2044804, 1, 1, 0.015]  # Scroll
+  - [2044805, 1, 1, 0.015]  # Scroll
+  - [2044807, 1, 1, 0.015]  # Scroll
+  - [2044809, 1, 1, 0.015]  # Scroll
+  - [2044900, 1, 1, 0.015]  # Scroll
+  - [2044901, 1, 1, 0.015]  # Scroll
+  - [2044902, 1, 1, 0.015]  # Scroll
+  - [2044903, 1, 1, 0.015]  # Scroll
+  - [2044904, 1, 1, 0.015]  # Scroll
 
-  # 🏮 Exclusive Mushroom Shrine Items 🏮
-  - [4006000, 1, 3, 0.010]  # Magic Powder (10% chance)
-  - [4031860, 1, 1, 0.005]  # Antique Totem (5% chance)
-  - [4000585, 1, 1, 0.004]  # Cherry Blossom (4% chance)
-  - [3010014, 1, 1, 0.002]  # Sakura Chair (2% chance)
-
-  # 🥋 Miscellaneous Items 🥋
-  - [2070018, 1, 1, 0.005]  # Balanced Fury Throwing Stars (8% chance)
-  - [2070007, 1, 1, 0.006]  # Crystal Ilbi Throwing Stars (10% chance)
-  - [2000005, 5, 10, 0.300 ] # Power Elixirs (50% chance)
-  - [2020012, 5, 10, 0.400 ] # Melting Cheese (40% chance)
-  - [2000004, 5, 10, 0.400 ] # Elixirs (40% chance)
-  - [2022179, 1, 1, 0.008]   # Onyx Apple (30% chance)
+  # ETC
+  - [4000138, 1, 1, 0.010]  # ETC item

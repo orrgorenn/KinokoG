@@ -1,0 +1,192 @@
+# Nautilus
+
+rewards:
+  # Warrior Equips (10 items)
+  - [1060017, 1, 1, 0.33]  # Warrior Bottom
+  - [1072047, 1, 1, 0.50]  # Warrior Shoes
+  - [1302008, 1, 1, 0.33]  # One-handed Sword
+  - [1072002, 1, 1, 0.29]  # Warrior Shoes
+  - [1002055, 1, 1, 0.50]  # Warrior Hat
+  - [1040028, 1, 1, 0.31]  # Warrior Top
+  - [1041064, 1, 1, 1.00]  # Warrior Top
+  - [1072041, 1, 1, 0.33]  # Warrior Shoes
+  - [1072127, 1, 1, 0.25]  # Warrior Shoes
+  - [1092000, 1, 1, 0.67]  # Warrior Shield
+
+  # Magician Equips (10 items)
+  - [1050010, 1, 1, 0.77]  # Magician Overall
+  - [1050008, 1, 1, 0.77]  # Magician Overall
+  - [1072006, 1, 1, 1.00]  # Magician Shoes
+  - [1082053, 1, 1, 0.33]  # Magician Gloves
+  - [1061022, 1, 1, 0.77]  # Magician Bottom
+  - [1051026, 1, 1, 0.26]  # Magician Overall
+  - [1051003, 1, 1, 0.43]  # Magician Overall
+  - [1382015, 1, 1, 0.33]  # Staff
+  - [1072074, 1, 1, 0.40]  # Magician Shoes
+  - [1002013, 1, 1, 0.33]  # Magician Hat
+
+  # Bowman Equips (10 items)
+  - [1082048, 1, 1, 0.33]  # Bowman Gloves
+  - [1061061, 1, 1, 0.29]  # Bowman Bottom
+  - [1041056, 1, 1, 0.33]  # Bowman Top
+  - [1002161, 1, 1, 0.33]  # Bowman Hat
+  - [1002157, 1, 1, 0.40]  # Bowman Hat
+  - [1002162, 1, 1, 0.33]  # Bowman Hat
+  - [1462048, 1, 1, 0.25]  # Crossbow
+  - [1002158, 1, 1, 0.40]  # Bowman Hat
+  - [1041054, 1, 1, 0.33]  # Bowman Top
+  - [1002120, 1, 1, 0.50]  # Bowman Hat
+
+  # Thief Equips (10 items)
+  - [1040061, 1, 1, 0.29]  # Thief Top
+  - [1060073, 1, 1, 0.25]  # Thief Bottom
+  - [1072031, 1, 1, 0.67]  # Thief Shoes
+  - [1472013, 1, 1, 0.29]  # Claw
+  - [1051009, 1, 1, 0.29]  # Thief Overall
+  - [1472009, 1, 1, 0.33]  # Claw
+  - [1072036, 1, 1, 0.33]  # Thief Shoes
+  - [1002184, 1, 1, 0.25]  # Thief Hat
+  - [1002182, 1, 1, 0.25]  # Thief Hat
+  - [1061055, 1, 1, 0.40]  # Thief Bottom
+
+  # Pirate Equips (extensive list - this is the primary class for Nautilus)
+  - [1002610, 1, 1, 2.00]  # Pirate Hat
+  - [1002613, 1, 1, 1.33]  # Pirate Hat
+  - [1002616, 1, 1, 1.00]  # Pirate Hat
+  - [1002619, 1, 1, 0.80]  # Pirate Hat
+  - [1002622, 1, 1, 0.67]  # Pirate Hat
+  - [1002625, 1, 1, 0.57]  # Pirate Hat
+  - [1002628, 1, 1, 0.50]  # Pirate Hat
+  - [1002631, 1, 1, 0.40]  # Pirate Hat
+  - [1002634, 1, 1, 0.33]  # Pirate Hat
+  - [1002637, 1, 1, 0.29]  # Pirate Hat
+  - [1002640, 1, 1, 0.25]  # Pirate Hat
+  - [1002643, 1, 1, 0.22]  # Pirate Hat
+  - [1002646, 1, 1, 0.20]  # Pirate Hat
+  - [1002649, 1, 1, 0.18]  # Pirate Hat
+  - [1002780, 1, 1, 0.17]  # Pirate Hat
+  - [1002794, 1, 1, 0.17]  # Pirate Hat
+  - [1052095, 1, 1, 2.00]  # Pirate Overall
+  - [1052098, 1, 1, 1.33]  # Pirate Overall
+  - [1052101, 1, 1, 1.00]  # Pirate Overall
+  - [1052104, 1, 1, 0.80]  # Pirate Overall
+  - [1052107, 1, 1, 0.67]  # Pirate Overall
+  - [1052110, 1, 1, 0.57]  # Pirate Overall
+  - [1052113, 1, 1, 0.50]  # Pirate Overall
+  - [1052116, 1, 1, 0.40]  # Pirate Overall
+  - [1052119, 1, 1, 0.33]  # Pirate Overall
+  - [1052122, 1, 1, 0.29]  # Pirate Overall
+  - [1052125, 1, 1, 0.25]  # Pirate Overall
+  - [1052128, 1, 1, 0.22]  # Pirate Overall
+  - [1052131, 1, 1, 0.20]  # Pirate Overall
+  - [1052134, 1, 1, 0.18]  # Pirate Overall
+  - [1052159, 1, 1, 0.17]  # Pirate Overall
+  - [1052164, 1, 1, 0.17]  # Pirate Overall
+  - [1072285, 1, 1, 1.33]  # Pirate Shoes
+  - [1072288, 1, 1, 1.00]  # Pirate Shoes
+  - [1072291, 1, 1, 0.80]  # Pirate Shoes
+  - [1072294, 1, 1, 0.67]  # Pirate Shoes
+  - [1072297, 1, 1, 0.57]  # Pirate Shoes
+  - [1072300, 1, 1, 0.50]  # Pirate Shoes
+  - [1072303, 1, 1, 0.40]  # Pirate Shoes
+  - [1072306, 1, 1, 0.33]  # Pirate Shoes
+  - [1072309, 1, 1, 0.29]  # Pirate Shoes
+  - [1072312, 1, 1, 0.25]  # Pirate Shoes
+  - [1072315, 1, 1, 0.22]  # Pirate Shoes
+  - [1072318, 1, 1, 0.20]  # Pirate Shoes
+  - [1072321, 1, 1, 0.18]  # Pirate Shoes
+  - [1072338, 1, 1, 0.67]  # Pirate Shoes
+  - [1072359, 1, 1, 0.17]  # Pirate Shoes
+  - [1072365, 1, 1, 0.17]  # Pirate Shoes
+  - [1082180, 1, 1, 1.33]  # Pirate Gloves
+  - [1082183, 1, 1, 1.00]  # Pirate Gloves
+  - [1082186, 1, 1, 0.80]  # Pirate Gloves
+  - [1082189, 1, 1, 0.67]  # Pirate Gloves
+  - [1082192, 1, 1, 0.57]  # Pirate Gloves
+  - [1082195, 1, 1, 0.50]  # Pirate Gloves
+  - [1082198, 1, 1, 0.40]  # Pirate Gloves
+  - [1082201, 1, 1, 0.33]  # Pirate Gloves
+  - [1082204, 1, 1, 0.29]  # Pirate Gloves
+  - [1082207, 1, 1, 0.25]  # Pirate Gloves
+  - [1082210, 1, 1, 0.22]  # Pirate Gloves
+  - [1082213, 1, 1, 0.20]  # Pirate Gloves
+  - [1082216, 1, 1, 0.18]  # Pirate Gloves
+  - [1082238, 1, 1, 0.17]  # Pirate Gloves
+  - [1082243, 1, 1, 0.17]  # Pirate Gloves
+  - [1482000, 1, 1, 2.00]  # Knuckle
+  - [1482001, 1, 1, 1.33]  # Knuckle
+  - [1482002, 1, 1, 1.00]  # Knuckle
+  - [1482003, 1, 1, 0.80]  # Knuckle
+  - [1482004, 1, 1, 0.67]  # Knuckle
+  - [1482005, 1, 1, 0.57]  # Knuckle
+  - [1482006, 1, 1, 0.50]  # Knuckle
+  - [1482007, 1, 1, 0.40]  # Knuckle
+  - [1482008, 1, 1, 0.33]  # Knuckle
+  - [1482009, 1, 1, 0.29]  # Knuckle
+  - [1482010, 1, 1, 0.25]  # Knuckle
+  - [1482011, 1, 1, 0.22]  # Knuckle
+  - [1482012, 1, 1, 0.20]  # Knuckle
+  - [1482013, 1, 1, 0.18]  # Knuckle
+  - [1482023, 1, 1, 0.17]  # Knuckle
+  - [1482024, 1, 1, 0.17]  # Knuckle
+  - [1482034, 1, 1, 0.17]  # Knuckle
+  - [1492000, 1, 1, 2.00]  # Gun
+  - [1492001, 1, 1, 1.33]  # Gun
+  - [1492002, 1, 1, 1.00]  # Gun
+  - [1492003, 1, 1, 0.80]  # Gun
+  - [1492004, 1, 1, 0.67]  # Gun
+  - [1492005, 1, 1, 0.57]  # Gun
+  - [1492006, 1, 1, 0.50]  # Gun
+  - [1492007, 1, 1, 0.40]  # Gun
+  - [1492008, 1, 1, 0.33]  # Gun
+  - [1492009, 1, 1, 0.29]  # Gun
+  - [1492010, 1, 1, 0.25]  # Gun
+  - [1492011, 1, 1, 0.22]  # Gun
+  - [1492012, 1, 1, 0.20]  # Gun
+  - [1492013, 1, 1, 0.18]  # Gun
+  - [1492023, 1, 1, 0.17]  # Gun
+  - [1492025, 1, 1, 0.17]  # Gun
+
+  # Scrolls (Pirate weapon scrolls)
+  - [2044800, 1, 1, 0.10]  # Knuckle for ATT Scroll
+  - [2044801, 1, 1, 0.10]  # Knuckle for ATT Scroll
+  - [2044802, 1, 1, 0.10]  # Knuckle for ATT Scroll
+  - [2044803, 1, 1, 0.10]  # Knuckle for ATT Scroll
+  - [2044804, 1, 1, 0.10]  # Knuckle for ATT Scroll
+  - [2044805, 1, 1, 0.10]  # Knuckle for ATT Scroll
+  - [2044807, 1, 1, 0.10]  # Knuckle for ACC Scroll
+  - [2044809, 1, 1, 0.10]  # Knuckle for Speed Scroll
+  - [2044900, 1, 1, 0.10]  # Gun for ATT Scroll
+  - [2044901, 1, 1, 0.10]  # Gun for ATT Scroll
+  - [2044902, 1, 1, 0.10]  # Gun for ATT Scroll
+  - [2044903, 1, 1, 0.10]  # Gun for ATT Scroll
+  - [2044904, 1, 1, 0.10]  # Gun for ATT Scroll
+
+  # Skills - Mastery Books for pirate skills
+  - [2290097, 1, 1, 0.05]  # Mastery Book 20 (Bullet Time)
+  - [2290098, 1, 1, 0.025]  # Mastery Book 30 (Bullet Time)
+  - [2290099, 1, 1, 0.05]  # Mastery Book 20 (Corkscrew Blow)
+  - [2290100, 1, 1, 0.025]  # Mastery Book 30 (Corkscrew Blow)
+  - [2290101, 1, 1, 0.05]  # Mastery Book 20 (Demolition)
+  - [2290102, 1, 1, 0.05]  # Mastery Book 20 (Snatch)
+  - [2290103, 1, 1, 0.025]  # Mastery Book 30 (Snatch)
+  - [2290104, 1, 1, 0.05]  # Mastery Book 20 (Time Leap)
+  - [2290105, 1, 1, 0.025]  # Mastery Book 30 (Time Leap)
+  - [2290106, 1, 1, 0.05]  # Mastery Book 20 (Rapid Fire)
+  - [2290107, 1, 1, 0.025]  # Mastery Book 30 (Rapid Fire)
+  - [2290108, 1, 1, 0.05]  # Mastery Book 20 (Battleship Cannon)
+  - [2290110, 1, 1, 0.05]  # Mastery Book 20 (Battleship Torpedo)
+  - [2290111, 1, 1, 0.025]  # Mastery Book 30 (Battleship Torpedo)
+  - [2290112, 1, 1, 0.05]  # Mastery Book 20 (Aerial Strike)
+  - [2290113, 1, 1, 0.025]  # Mastery Book 30 (Aerial Strike)
+  - [2290114, 1, 1, 0.05]  # Mastery Book 20 (Flamethrower)
+  - [2290115, 1, 1, 0.05]  # Mastery Book 20 (Ice Splitter)
+  - [2290116, 1, 1, 0.025]  # Mastery Book 30 (Ice Splitter)
+  - [2290117, 1, 1, 0.05]  # Mastery Book 20 (Octopunch)
+  - [2290118, 1, 1, 0.025]  # Mastery Book 30 (Octopunch)
+  - [2290119, 1, 1, 0.05]  # Mastery Book 20 (Super Transformation)
+  - [2290120, 1, 1, 0.025]  # Mastery Book 30 (Super Transformation)
+  - [2290121, 1, 1, 0.05]  # Mastery Book 20 (Sting Explosion)
+  - [2290122, 1, 1, 0.025]  # Mastery Book 30 (Sting Explosion)
+  - [2290123, 1, 1, 0.05]  # Mastery Book 20 (Maple Warrior)
+  - [2290124, 1, 1, 0.05]  # Mastery Book 20 (Counterattack)

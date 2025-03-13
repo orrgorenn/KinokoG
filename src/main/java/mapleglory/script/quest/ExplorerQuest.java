@@ -833,4 +833,10 @@ public final class ExplorerQuest extends ScriptHandler {
             sm.sayBoth("Oh, and... your stats should accurately reflect your new occupation as a Pirate. Click on #bAuto Assign#k on your stat window to make yourself into an even more formidable pirate.");
         }
     }
+
+    @Script("q3108s")
+    public static void q3108s(ScriptManager sm) {
+        sm.sayOk("Ah, a clue! Let's go back to Scadur.");
+        sm.forceCompleteQuest(3108);
+    }
 }

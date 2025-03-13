@@ -29,3 +29,4 @@ rewards:
   - [ 4000015, 1, 1, 0.400000 ] # Horny Mushroom Cap
   - [ 4010000, 1, 1, 0.002000 ] # Bronze Ore
   - [ 4020006, 1, 1, 0.002000 ] # Topaz Ore
+  - [ 4032390, 1, 1, 0.020000, 2248 ] # Tainted Horny Mushroom Cap

@@ -1,0 +1,374 @@
+# New Leaf City
+
+location: "New Leaf City - Town Center"
+ticket_id: 5220000  # Standard Gachapon Ticket
+min_level: 15
+
+# Global Item Modifier Settings - No modifier for New Leaf City
+global_item_settings:
+  enabled: true
+
+rewards:
+  # Warrior Equips (Level 70-100)
+  - [1002338, 1, 1, 1.13]  # Warrior Hat
+  - [1002339, 1, 1, 1.13]  # Warrior Hat
+  - [1002340, 1, 1, 1.13]  # Warrior Hat
+  - [1002377, 1, 1, 0.90]  # Warrior Hat
+  - [1002378, 1, 1, 0.90]  # Warrior Hat
+  - [1002379, 1, 1, 0.90]  # Warrior Hat
+  - [1002528, 1, 1, 1.00]  # Warrior Hat
+  - [1002529, 1, 1, 1.00]  # Warrior Hat
+  - [1002530, 1, 1, 1.00]  # Warrior Hat
+  - [1002531, 1, 1, 1.00]  # Warrior Hat
+  - [1002532, 1, 1, 1.00]  # Warrior Hat
+  - [1040111, 1, 1, 1.00]  # Warrior Top
+  - [1040112, 1, 1, 1.00]  # Warrior Top
+  - [1040113, 1, 1, 1.00]  # Warrior Top
+  - [1040120, 1, 1, 0.90]  # Warrior Top
+  - [1040121, 1, 1, 0.90]  # Warrior Top
+  - [1040122, 1, 1, 0.90]  # Warrior Top
+  - [1041119, 1, 1, 1.00]  # Warrior Top
+  - [1041120, 1, 1, 1.00]  # Warrior Top
+  - [1041121, 1, 1, 1.00]  # Warrior Top
+  - [1041122, 1, 1, 0.90]  # Warrior Top
+  - [1041123, 1, 1, 0.90]  # Warrior Top
+  - [1041124, 1, 1, 0.90]  # Warrior Top
+  - [1050080, 1, 1, 1.13]  # Warrior Overall
+  - [1050081, 1, 1, 1.13]  # Warrior Overall
+  - [1050082, 1, 1, 1.13]  # Warrior Overall
+  - [1050083, 1, 1, 1.13]  # Warrior Overall
+  - [1051077, 1, 1, 1.13]  # Warrior Overall
+  - [1051078, 1, 1, 1.13]  # Warrior Overall
+  - [1051079, 1, 1, 1.13]  # Warrior Overall
+  - [1051080, 1, 1, 1.13]  # Warrior Overall
+  - [1060100, 1, 1, 1.00]  # Warrior Bottom
+  - [1060101, 1, 1, 1.00]  # Warrior Bottom
+  - [1060102, 1, 1, 1.00]  # Warrior Bottom
+  - [1060109, 1, 1, 0.90]  # Warrior Bottom
+  - [1060110, 1, 1, 0.90]  # Warrior Bottom
+  - [1060111, 1, 1, 0.90]  # Warrior Bottom
+  - [1061118, 1, 1, 1.00]  # Warrior Bottom
+  - [1061119, 1, 1, 1.00]  # Warrior Bottom
+  - [1061120, 1, 1, 1.00]  # Warrior Bottom
+  - [1061121, 1, 1, 0.90]  # Warrior Bottom
+  - [1061122, 1, 1, 0.90]  # Warrior Bottom
+  - [1061123, 1, 1, 0.90]  # Warrior Bottom
+  - [1072196, 1, 1, 1.00]  # Warrior Shoes
+  - [1072197, 1, 1, 1.00]  # Warrior Shoes
+  - [1072198, 1, 1, 1.00]  # Warrior Shoes
+  - [1072210, 1, 1, 1.13]  # Warrior Shoes
+  - [1072211, 1, 1, 1.13]  # Warrior Shoes
+  - [1072212, 1, 1, 1.13]  # Warrior Shoes
+  - [1072220, 1, 1, 0.90]  # Warrior Shoes
+  - [1072221, 1, 1, 0.90]  # Warrior Shoes
+  - [1072222, 1, 1, 0.90]  # Warrior Shoes
+  - [1082114, 1, 1, 1.13]  # Warrior Gloves
+  - [1082115, 1, 1, 1.13]  # Warrior Gloves
+  - [1082116, 1, 1, 1.13]  # Warrior Gloves
+  - [1082117, 1, 1, 1.13]  # Warrior Gloves
+  - [1082128, 1, 1, 1.00]  # Warrior Gloves
+  - [1082129, 1, 1, 1.00]  # Warrior Gloves
+  - [1082130, 1, 1, 1.00]  # Warrior Gloves
+  - [1082139, 1, 1, 0.90]  # Warrior Gloves
+  - [1082140, 1, 1, 0.90]  # Warrior Gloves
+  - [1082141, 1, 1, 0.90]  # Warrior Gloves
+  - [1092023, 1, 1, 1.13]  # Warrior Shield
+  - [1092024, 1, 1, 1.13]  # Warrior Shield
+  - [1092025, 1, 1, 1.13]  # Warrior Shield
+  - [1092026, 1, 1, 1.00]  # Warrior Shield
+  - [1092027, 1, 1, 1.00]  # Warrior Shield
+  - [1092028, 1, 1, 1.00]  # Warrior Shield
+  - [1092036, 1, 1, 0.90]  # Warrior Shield
+  - [1092037, 1, 1, 0.90]  # Warrior Shield
+  - [1092038, 1, 1, 0.90]  # Warrior Shield
+  - [1092061, 1, 1, 0.90]  # Warrior Shield
+  - [1302018, 1, 1, 1.13]  # One-handed Sword
+  - [1302023, 1, 1, 1.00]  # One-handed Sword
+  - [1302056, 1, 1, 0.90]  # One-handed Sword
+  - [1312011, 1, 1, 1.13]  # One-handed Axe
+  - [1312015, 1, 1, 1.00]  # One-handed Axe
+  - [1312030, 1, 1, 0.90]  # One-handed Axe
+  - [1322020, 1, 1, 1.20]  # One-handed Blunt Weapon
+  - [1322028, 1, 1, 1.13]  # One-handed Blunt Weapon
+  - [1322029, 1, 1, 1.00]  # One-handed Blunt Weapon
+  - [1322045, 1, 1, 0.90]  # One-handed Blunt Weapon
+  - [1402004, 1, 1, 1.13]  # Two-handed Sword
+  - [1402005, 1, 1, 1.00]  # Two-handed Sword
+  - [1402015, 1, 1, 1.13]  # Two-handed Sword
+  - [1402016, 1, 1, 1.00]  # Two-handed Sword
+  - [1402035, 1, 1, 0.90]  # Two-handed Sword
+  - [1402037, 1, 1, 0.90]  # Two-handed Sword
+  - [1402048, 1, 1, 1.13]  # Two-handed Sword
+  - [1402049, 1, 1, 1.00]  # Two-handed Sword
+  - [1402050, 1, 1, 1.00]  # Two-handed Sword
+  - [1402051, 1, 1, 1.13]  # Two-handed Sword
+  - [1412009, 1, 1, 1.13]  # Two-handed Axe
+  - [1412010, 1, 1, 1.00]  # Two-handed Axe
+  - [1412021, 1, 1, 0.90]  # Two-handed Axe
+  - [1412040, 1, 1, 1.00]  # Two-handed Axe
+  - [1422012, 1, 1, 1.13]  # Two-handed Blunt Weapon
+  - [1422013, 1, 1, 1.00]  # Two-handed Blunt Weapon
+  - [1422027, 1, 1, 0.90]  # Two-handed Blunt Weapon
+  - [1432010, 1, 1, 1.13]  # Spear
+  - [1432011, 1, 1, 1.00]  # Spear
+  - [1432030, 1, 1, 0.90]  # Spear
+  - [1432056, 1, 1, 0.90]  # Spear
+  - [1442019, 1, 1, 1.13]  # Polearm
+  - [1442020, 1, 1, 1.00]  # Polearm
+  - [1442044, 1, 1, 0.90]  # Polearm
+
+  # Magician Equips (Level 70-100)
+  - [1002271, 1, 1, 1.13]  # Magician Hat
+  - [1002272, 1, 1, 1.13]  # Magician Hat
+  - [1002273, 1, 1, 1.13]  # Magician Hat
+  - [1002274, 1, 1, 1.13]  # Magician Hat
+  - [1002363, 1, 1, 1.00]  # Magician Hat
+  - [1002364, 1, 1, 1.00]  # Magician Hat
+  - [1002365, 1, 1, 1.00]  # Magician Hat
+  - [1002366, 1, 1, 1.00]  # Magician Hat
+  - [1002398, 1, 1, 0.90]  # Magician Hat
+  - [1002399, 1, 1, 0.90]  # Magician Hat
+  - [1002400, 1, 1, 0.90]  # Magician Hat
+  - [1002401, 1, 1, 0.90]  # Magician Hat
+  - [1050072, 1, 1, 1.15]  # Magician Overall
+  - [1050073, 1, 1, 1.15]  # Magician Overall
+  - [1050074, 1, 1, 1.15]  # Magician Overall
+  - [1050092, 1, 1, 1.02]  # Magician Overall
+  - [1050093, 1, 1, 1.02]  # Magician Overall
+  - [1050094, 1, 1, 1.02]  # Magician Overall
+  - [1050095, 1, 1, 1.02]  # Magician Overall
+  - [1050102, 1, 1, 0.92]  # Magician Overall
+  - [1050103, 1, 1, 0.92]  # Magician Overall
+  - [1050104, 1, 1, 0.92]  # Magician Overall
+  - [1050105, 1, 1, 0.92]  # Magician Overall
+  - [1051056, 1, 1, 1.15]  # Magician Overall
+  - [1051057, 1, 1, 1.15]  # Magician Overall
+  - [1051058, 1, 1, 1.15]  # Magician Overall
+  - [1051094, 1, 1, 1.02]  # Magician Overall
+  - [1051095, 1, 1, 1.02]  # Magician Overall
+  - [1051096, 1, 1, 1.02]  # Magician Overall
+  - [1051097, 1, 1, 1.02]  # Magician Overall
+  - [1051101, 1, 1, 0.92]  # Magician Overall
+  - [1051102, 1, 1, 0.92]  # Magician Overall
+  - [1051103, 1, 1, 0.92]  # Magician Overall
+  - [1051104, 1, 1, 0.92]  # Magician Overall
+  - [1072177, 1, 1, 1.13]  # Magician Shoes
+  - [1072178, 1, 1, 1.13]  # Magician Shoes
+  - [1072179, 1, 1, 1.13]  # Magician Shoes
+  - [1072206, 1, 1, 1.00]  # Magician Shoes
+  - [1072207, 1, 1, 1.00]  # Magician Shoes
+  - [1072208, 1, 1, 1.00]  # Magician Shoes
+  - [1072209, 1, 1, 1.00]  # Magician Shoes
+  - [1072223, 1, 1, 0.90]  # Magician Shoes
+  - [1072224, 1, 1, 0.90]  # Magician Shoes
+  - [1072225, 1, 1, 0.90]  # Magician Shoes
+  - [1072226, 1, 1, 0.90]  # Magician Shoes
+  - [1082121, 1, 1, 1.13]  # Magician Gloves
+  - [1082122, 1, 1, 1.13]  # Magician Gloves
+  - [1082123, 1, 1, 1.13]  # Magician Gloves
+  - [1082131, 1, 1, 1.00]  # Magician Gloves
+  - [1082132, 1, 1, 1.00]  # Magician Gloves
+  - [1082133, 1, 1, 1.00]  # Magician Gloves
+  - [1082134, 1, 1, 1.00]  # Magician Gloves
+  - [1082151, 1, 1, 0.90]  # Magician Gloves
+  - [1082152, 1, 1, 0.90]  # Magician Gloves
+  - [1082153, 1, 1, 0.90]  # Magician Gloves
+  - [1082154, 1, 1, 0.90]  # Magician Gloves
+  - [1372009, 1, 1, 1.02]  # Wand
+  - [1372010, 1, 1, 0.92]  # Wand
+  - [1372016, 1, 1, 1.15]  # Wand
+  - [1382008, 1, 1, 1.06]  # Staff
+  - [1382010, 1, 1, 1.20]  # Staff
+  - [1382016, 1, 1, 0.98]  # Staff
+  - [1382035, 1, 1, 0.95]  # Staff
+  - [1382056, 1, 1, 1.13]  # Staff
+  - [1382060, 1, 1, 0.90]  # Staff
+
+  # Bowman Equips (Level 70-100)
+  - [1002275, 1, 1, 1.13]  # Bowman Hat
+  - [1002276, 1, 1, 1.13]  # Bowman Hat
+  - [1002277, 1, 1, 1.13]  # Bowman Hat
+  - [1002278, 1, 1, 1.13]  # Bowman Hat
+  - [1002402, 1, 1, 1.00]  # Bowman Hat
+  - [1002403, 1, 1, 1.00]  # Bowman Hat
+  - [1002404, 1, 1, 1.00]  # Bowman Hat
+  - [1002405, 1, 1, 1.00]  # Bowman Hat
+  - [1002406, 1, 1, 0.90]  # Bowman Hat
+  - [1002407, 1, 1, 0.90]  # Bowman Hat
+  - [1002408, 1, 1, 0.90]  # Bowman Hat
+  - [1050075, 1, 1, 1.13]  # Bowman Overall
+  - [1050076, 1, 1, 1.13]  # Bowman Overall
+  - [1050077, 1, 1, 1.13]  # Bowman Overall
+  - [1050078, 1, 1, 1.13]  # Bowman Overall
+  - [1050088, 1, 1, 1.00]  # Bowman Overall
+  - [1050089, 1, 1, 1.00]  # Bowman Overall
+  - [1050090, 1, 1, 1.00]  # Bowman Overall
+  - [1050091, 1, 1, 1.00]  # Bowman Overall
+  - [1050106, 1, 1, 0.90]  # Bowman Overall
+  - [1050107, 1, 1, 0.90]  # Bowman Overall
+  - [1050108, 1, 1, 0.90]  # Bowman Overall
+  - [1051066, 1, 1, 1.13]  # Bowman Overall
+  - [1051067, 1, 1, 1.13]  # Bowman Overall
+  - [1051068, 1, 1, 1.13]  # Bowman Overall
+  - [1051069, 1, 1, 1.13]  # Bowman Overall
+  - [1051082, 1, 1, 1.00]  # Bowman Overall
+  - [1051083, 1, 1, 1.00]  # Bowman Overall
+  - [1051084, 1, 1, 1.00]  # Bowman Overall
+  - [1051085, 1, 1, 1.00]  # Bowman Overall
+  - [1051105, 1, 1, 0.90]  # Bowman Overall
+  - [1051106, 1, 1, 0.90]  # Bowman Overall
+  - [1051107, 1, 1, 0.90]  # Bowman Overall
+  - [1072182, 1, 1, 1.13]  # Bowman Shoes
+  - [1072183, 1, 1, 1.13]  # Bowman Shoes
+  - [1072184, 1, 1, 1.13]  # Bowman Shoes
+  - [1072185, 1, 1, 1.13]  # Bowman Shoes
+  - [1072203, 1, 1, 1.00]  # Bowman Shoes
+  - [1072204, 1, 1, 1.00]  # Bowman Shoes
+  - [1072205, 1, 1, 1.00]  # Bowman Shoes
+  - [1072227, 1, 1, 0.90]  # Bowman Shoes
+  - [1072228, 1, 1, 0.90]  # Bowman Shoes
+  - [1072229, 1, 1, 0.90]  # Bowman Shoes
+  - [1082109, 1, 1, 1.13]  # Bowman Gloves
+  - [1082110, 1, 1, 1.13]  # Bowman Gloves
+  - [1082111, 1, 1, 1.13]  # Bowman Gloves
+  - [1082112, 1, 1, 1.13]  # Bowman Gloves
+  - [1082125, 1, 1, 1.00]  # Bowman Gloves
+  - [1082126, 1, 1, 1.00]  # Bowman Gloves
+  - [1082127, 1, 1, 1.00]  # Bowman Gloves
+  - [1082158, 1, 1, 0.90]  # Bowman Gloves
+  - [1082159, 1, 1, 0.90]  # Bowman Gloves
+  - [1082160, 1, 1, 0.90]  # Bowman Gloves
+  - [1452012, 1, 1, 1.13]  # Bow
+  - [1452013, 1, 1, 1.13]  # Bow
+  - [1452014, 1, 1, 1.13]  # Bow
+  - [1452015, 1, 1, 1.13]  # Bow
+  - [1452017, 1, 1, 1.00]  # Bow
+  - [1452019, 1, 1, 0.90]  # Bow
+  - [1452020, 1, 1, 0.90]  # Bow
+  - [1452021, 1, 1, 0.90]  # Bow
+  - [1452025, 1, 1, 1.00]  # Bow
+  - [1452026, 1, 1, 1.00]  # Bow
+  - [1452060, 1, 1, 0.90]  # Bow
+  - [1462010, 1, 1, 1.13]  # Crossbow
+  - [1462011, 1, 1, 1.13]  # Crossbow
+  - [1462012, 1, 1, 1.13]  # Crossbow
+  - [1462013, 1, 1, 1.13]  # Crossbow
+  - [1462015, 1, 1, 0.90]  # Crossbow
+  - [1462016, 1, 1, 0.90]  # Crossbow
+  - [1462017, 1, 1, 0.90]  # Crossbow
+  - [1462018, 1, 1, 1.00]  # Crossbow
+  - [1462021, 1, 1, 1.00]  # Crossbow
+  - [1462022, 1, 1, 1.00]  # Crossbow
+  - [1462049, 1, 1, 1.13]  # Crossbow
+  - [1462052, 1, 1, 1.13]  # Crossbow
+  - [1462053, 1, 1, 1.00]  # Crossbow
+  - [1462054, 1, 1, 1.00]  # Crossbow
+  - [1462055, 1, 1, 1.13]  # Crossbow
+
+  # Thief Equips (Level 70-100)
+  - [1002323, 1, 1, 1.00]  # Thief Hat
+  - [1002324, 1, 1, 1.00]  # Thief Hat
+  - [1002325, 1, 1, 1.00]  # Thief Hat
+  - [1002326, 1, 1, 1.00]  # Thief Hat
+  - [1002327, 1, 1, 1.13]  # Thief Hat
+  - [1002328, 1, 1, 1.13]  # Thief Hat
+  - [1002329, 1, 1, 1.13]  # Thief Hat
+  - [1002330, 1, 1, 1.13]  # Thief Hat
+  - [1002380, 1, 1, 0.90]  # Thief Hat
+  - [1002381, 1, 1, 0.90]  # Thief Hat
+  - [1002382, 1, 1, 0.90]  # Thief Hat
+  - [1002383, 1, 1, 0.90]  # Thief Hat
+  - [1040108, 1, 1, 1.13]  # Thief Top
+  - [1040109, 1, 1, 1.13]  # Thief Top
+  - [1040110, 1, 1, 1.13]  # Thief Top
+  - [1040115, 1, 1, 1.00]  # Thief Top
+  - [1040116, 1, 1, 1.00]  # Thief Top
+  - [1040117, 1, 1, 1.00]  # Thief Top
+  - [1040118, 1, 1, 1.00]  # Thief Top
+  - [1041105, 1, 1, 1.13]  # Thief Top
+  - [1041106, 1, 1, 1.13]  # Thief Top
+  - [1041107, 1, 1, 1.13]  # Thief Top
+  - [1041115, 1, 1, 1.00]  # Thief Top
+  - [1041116, 1, 1, 1.00]  # Thief Top
+  - [1041117, 1, 1, 1.00]  # Thief Top
+  - [1041118, 1, 1, 1.00]  # Thief Top
+  - [1050096, 1, 1, 0.90]  # Thief Overall
+  - [1050097, 1, 1, 0.90]  # Thief Overall
+  - [1050098, 1, 1, 0.90]  # Thief Overall
+  - [1050099, 1, 1, 0.90]  # Thief Overall
+  - [1051090, 1, 1, 0.90]  # Thief Overall
+  - [1051091, 1, 1, 0.90]  # Thief Overall
+  - [1051092, 1, 1, 0.90]  # Thief Overall
+  - [1051093, 1, 1, 0.90]  # Thief Overall
+  - [1060097, 1, 1, 1.13]  # Thief Bottom
+  - [1060098, 1, 1, 1.13]  # Thief Bottom
+  - [1060099, 1, 1, 1.13]  # Thief Bottom
+  - [1060104, 1, 1, 1.00]  # Thief Bottom
+  - [1060105, 1, 1, 1.00]  # Thief Bottom
+  - [1060106, 1, 1, 1.00]  # Thief Bottom
+  - [1060107, 1, 1, 1.00]  # Thief Bottom
+  - [1061104, 1, 1, 1.13]  # Thief Bottom
+  - [1061105, 1, 1, 1.13]  # Thief Bottom
+  - [1061106, 1, 1, 1.13]  # Thief Bottom
+  - [1061114, 1, 1, 1.00]  # Thief Bottom
+  - [1061115, 1, 1, 1.00]  # Thief Bottom
+  - [1061116, 1, 1, 1.00]  # Thief Bottom
+  - [1061117, 1, 1, 1.00]  # Thief Bottom
+  - [1072172, 1, 1, 1.13]  # Thief Shoes
+  - [1072173, 1, 1, 1.13]  # Thief Shoes
+  - [1072174, 1, 1, 1.13]  # Thief Shoes
+  - [1072192, 1, 1, 1.00]  # Thief Shoes
+  - [1072193, 1, 1, 1.00]  # Thief Shoes
+  - [1072194, 1, 1, 1.00]  # Thief Shoes
+  - [1072195, 1, 1, 1.00]  # Thief Shoes
+  - [1072213, 1, 1, 0.90]  # Thief Shoes
+  - [1072214, 1, 1, 0.90]  # Thief Shoes
+  - [1072215, 1, 1, 0.90]  # Thief Shoes
+  - [1072216, 1, 1, 0.90]  # Thief Shoes
+  - [1082118, 1, 1, 1.13]  # Thief Gloves
+  - [1082119, 1, 1, 1.13]  # Thief Gloves
+  - [1082120, 1, 1, 1.13]  # Thief Gloves
+  - [1082135, 1, 1, 0.90]  # Thief Gloves
+  - [1082136, 1, 1, 0.90]  # Thief Gloves
+  - [1082137, 1, 1, 0.90]  # Thief Gloves
+  - [1082138, 1, 1, 0.90]  # Thief Gloves
+  - [1082142, 1, 1, 1.00]  # Thief Gloves
+  - [1082143, 1, 1, 1.00]  # Thief Gloves
+  - [1082144, 1, 1, 1.00]  # Thief Gloves
+  - [1092050, 1, 1, 1.13]  # Thief Shield
+  - [1332023, 1, 1, 1.13]  # Dagger
+  - [1332027, 1, 1, 1.00]  # Dagger
+  - [1332052, 1, 1, 0.90]  # Dagger
+  - [1332069, 1, 1, 1.13]  # Dagger
+  - [1332072, 1, 1, 1.13]  # Dagger
+  - [1332077, 1, 1, 1.13]  # Dagger
+  - [1332078, 1, 1, 1.00]  # Dagger
+  - [1332079, 1, 1, 1.00]  # Dagger
+  - [1332080, 1, 1, 1.13]  # Dagger
+  - [1472031, 1, 1, 1.13]  # Claw
+  - [1472033, 1, 1, 1.00]  # Claw
+  - [1472053, 1, 1, 0.90]  # Claw
+  - [1472072, 1, 1, 1.13]  # Claw
+  - [1472073, 1, 1, 1.00]  # Claw
+  - [1472074, 1, 1, 1.00]  # Claw
+  - [1472075, 1, 1, 1.13]  # Claw
+
+  # Pirate Equips (Level 70-100)
+  - [1002640, 1, 1, 1.13]  # Pirate Hat
+  - [1002643, 1, 1, 1.00]  # Pirate Hat
+  - [1002646, 1, 1, 0.90]  # Pirate Hat
+  - [1052125, 1, 1, 1.13]  # Pirate Overall
+  - [1052128, 1, 1, 1.00]  # Pirate Overall
+  - [1052131, 1, 1, 0.90]  # Pirate Overall
+  - [1072312, 1, 1, 1.13]  # Pirate Shoes
+  - [1072315, 1, 1, 1.00]  # Pirate Shoes
+  - [1072318, 1, 1, 0.90]  # Pirate Shoes
+  - [1082207, 1, 1, 1.13]  # Pirate Gloves
+  - [1082210, 1, 1, 1.00]  # Pirate Gloves
+  - [1082213, 1, 1, 0.90]  # Pirate Gloves
+  - [1482010, 1, 1, 1.13]  # Knuckle
+  - [1482011, 1, 1, 1.00]  # Knuckle
+  - [1482012, 1, 1, 0.90]  # Knuckle
+  - [1492010, 1, 1, 1.13]  # Gun
+  - [1492011, 1, 1, 1.00]  # Gun
+  - [1492012, 1, 1, 0.90]  # Gun

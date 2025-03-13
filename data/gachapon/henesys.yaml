@@ -1,10 +1,452 @@
-# Henesys Gachapon
+# Henesys Market
+
+location: "Henesys Market"
+ticket_id: 5220000  # Standard Gachapon Ticket
+min_level: 15
+
+# Global Item Modifier Settings
+global_item_settings:
+  enabled: true
+  weight_modifier: 0.5  # Decrease the chance of getting things from the global item list by 50%
 
 rewards:
-  - [ 2049100, 1, 1, 0.010000 ]  # Chaos Scroll 60%
-  - [ 2049300, 1, 1, 0.020000 ]  # White Scroll
-  - [ 1102041, 1, 1, 0.050000 ]  # Pink Adventurer Cape
-  - [ 1082149, 1, 1, 0.030000 ]  # Facestompers
-  - [ 1302030, 1, 1, 0.100000 ]  # Maple Sword
-  - [ 2070007, 1, 1, 0.080000 ]  # Crystal Ilbi Throwing Stars
-  - [ 2000005, 5, 10, 0.600000 ] # Power Elixirs
+  # Common Equips (Henesys is the de-facto common town)
+  - [1432009, 1, 1, 0.30]  # Spear
+  - [1302022, 1, 1, 0.30]  # One-handed Sword
+  - [1322027, 1, 1, 0.30]  # One-handed Blunt Weapon
+  - [1062000, 1, 1, 0.30]  # Bottom
+  - [1002033, 1, 1, 0.30]  # Hat
+  - [1092022, 1, 1, 0.30]  # Shield
+  - [1302021, 1, 1, 0.30]  # One-handed Sword
+  - [1322009, 1, 1, 0.30]  # One-handed Blunt Weapon
+  - [1002012, 1, 1, 0.30]  # Hat
+  - [1322012, 1, 1, 0.30]  # One-handed Blunt Weapon
+
+  # Warrior Equips (10 items)
+  - [1312007, 1, 1, 0.25]  # One-handed Axe
+  - [1002093, 1, 1, 0.25]  # Warrior Hat
+  - [1051016, 1, 1, 0.29]  # Warrior Overall
+  - [1040030, 1, 1, 0.29]  # Warrior Top
+  - [1060009, 1, 1, 0.67]  # Warrior Bottom
+  - [1060000, 1, 1, 0.25]  # Warrior Bottom
+  - [1082025, 1, 1, 0.25]  # Warrior Gloves
+  - [1402002, 1, 1, 0.33]  # Two-handed Sword
+  - [1092000, 1, 1, 0.67]  # Warrior Shield
+  - [1072041, 1, 1, 0.33]  # Warrior Shoes
+
+  # Magician Equips (10 items)
+  - [1051023, 1, 1, 0.26]  # Magician Overall
+  - [1002035, 1, 1, 0.33]  # Magician Hat
+  - [1061028, 1, 1, 0.56]  # Magician Bottom
+  - [1040019, 1, 1, 0.56]  # Magician Top
+  - [1002152, 1, 1, 0.25]  # Magician Hat
+  - [1002155, 1, 1, 0.25]  # Magician Hat
+  - [1041018, 1, 1, 0.77]  # Magician Top
+  - [1050031, 1, 1, 0.30]  # Magician Overall
+  - [1002102, 1, 1, 0.67]  # Magician Hat
+  - [1082028, 1, 1, 0.40]  # Magician Gloves
+
+  # Bowman Equips (extensive list - this is the primary class for Henesys)
+  - [1002010, 1, 1, 2.00]  # Bowman Hat
+  - [1002057, 1, 1, 2.00]  # Bowman Hat
+  - [1002112, 1, 1, 1.33]  # Bowman Hat
+  - [1002113, 1, 1, 1.33]  # Bowman Hat
+  - [1002114, 1, 1, 1.33]  # Bowman Hat
+  - [1002115, 1, 1, 1.33]  # Bowman Hat
+  - [1002116, 1, 1, 1.33]  # Bowman Hat
+  - [1002117, 1, 1, 1.00]  # Bowman Hat
+  - [1002118, 1, 1, 1.00]  # Bowman Hat
+  - [1002119, 1, 1, 1.00]  # Bowman Hat
+  - [1002120, 1, 1, 1.00]  # Bowman Hat
+  - [1002121, 1, 1, 1.00]  # Bowman Hat
+  - [1002135, 1, 1, 0.57]  # Bowman Hat
+  - [1002136, 1, 1, 0.57]  # Bowman Hat
+  - [1002137, 1, 1, 0.57]  # Bowman Hat
+  - [1002138, 1, 1, 0.57]  # Bowman Hat
+  - [1002139, 1, 1, 0.57]  # Bowman Hat
+  - [1002156, 1, 1, 0.80]  # Bowman Hat
+  - [1002157, 1, 1, 0.80]  # Bowman Hat
+  - [1002158, 1, 1, 0.80]  # Bowman Hat
+  - [1002159, 1, 1, 0.80]  # Bowman Hat
+  - [1002160, 1, 1, 0.80]  # Bowman Hat
+  - [1002161, 1, 1, 0.67]  # Bowman Hat
+  - [1002162, 1, 1, 0.67]  # Bowman Hat
+  - [1002163, 1, 1, 0.67]  # Bowman Hat
+  - [1002164, 1, 1, 0.67]  # Bowman Hat
+  - [1002165, 1, 1, 0.67]  # Bowman Hat
+  - [1002166, 1, 1, 0.50]  # Bowman Hat
+  - [1002167, 1, 1, 0.50]  # Bowman Hat
+  - [1002168, 1, 1, 0.50]  # Bowman Hat
+  - [1002169, 1, 1, 0.50]  # Bowman Hat
+  - [1002170, 1, 1, 0.50]  # Bowman Hat
+  - [1002211, 1, 1, 0.40]  # Bowman Hat
+  - [1002212, 1, 1, 0.40]  # Bowman Hat
+  - [1002213, 1, 1, 0.40]  # Bowman Hat
+  - [1002214, 1, 1, 0.40]  # Bowman Hat
+  - [1002267, 1, 1, 0.33]  # Bowman Hat
+  - [1002268, 1, 1, 0.33]  # Bowman Hat
+  - [1002269, 1, 1, 0.33]  # Bowman Hat
+  - [1002270, 1, 1, 0.33]  # Bowman Hat
+  - [1002275, 1, 1, 0.25]  # Bowman Hat
+  - [1002276, 1, 1, 0.25]  # Bowman Hat
+  - [1002277, 1, 1, 0.25]  # Bowman Hat
+  - [1002278, 1, 1, 0.25]  # Bowman Hat
+  - [1002286, 1, 1, 0.29]  # Bowman Hat
+  - [1002287, 1, 1, 0.29]  # Bowman Hat
+  - [1002288, 1, 1, 0.29]  # Bowman Hat
+  - [1002289, 1, 1, 0.29]  # Bowman Hat
+  - [1002402, 1, 1, 0.22]  # Bowman Hat
+  - [1002403, 1, 1, 0.22]  # Bowman Hat
+  - [1002404, 1, 1, 0.22]  # Bowman Hat
+  - [1002405, 1, 1, 0.22]  # Bowman Hat
+  - [1002406, 1, 1, 0.20]  # Bowman Hat
+  - [1002407, 1, 1, 0.20]  # Bowman Hat
+  - [1002408, 1, 1, 0.20]  # Bowman Hat
+  - [1002547, 1, 1, 0.18]  # Bowman Hat
+  - [1002580, 1, 1, 0.57]  # Bowman Hat
+  - [1002749, 1, 1, 0.40]  # Bowman Hat
+  - [1002778, 1, 1, 0.17]  # Bowman Hat
+  - [1002792, 1, 1, 0.17]  # Bowman Hat
+  - [1002940, 1, 1, 0.17]  # Bowman Hat
+  - [1040003, 1, 1, 1.00]  # Bowman Top
+  - [1040007, 1, 1, 1.33]  # Bowman Top
+  - [1040008, 1, 1, 2.00]  # Bowman Top
+  - [1040011, 1, 1, 1.33]  # Bowman Top
+  - [1040022, 1, 1, 0.80]  # Bowman Top
+  - [1040023, 1, 1, 0.80]  # Bowman Top
+  - [1040024, 1, 1, 0.80]  # Bowman Top
+  - [1040025, 1, 1, 0.80]  # Bowman Top
+  - [1040067, 1, 1, 0.67]  # Bowman Top
+  - [1040068, 1, 1, 0.67]  # Bowman Top
+  - [1040069, 1, 1, 0.67]  # Bowman Top
+  - [1040070, 1, 1, 0.67]  # Bowman Top
+  - [1040071, 1, 1, 2.00]  # Bowman Top
+  - [1040072, 1, 1, 0.57]  # Bowman Top
+  - [1040073, 1, 1, 0.57]  # Bowman Top
+  - [1040074, 1, 1, 0.57]  # Bowman Top
+  - [1040075, 1, 1, 0.57]  # Bowman Top
+  - [1040076, 1, 1, 0.57]  # Bowman Top
+  - [1040079, 1, 1, 0.50]  # Bowman Top
+  - [1040080, 1, 1, 0.50]  # Bowman Top
+  - [1040081, 1, 1, 0.50]  # Bowman Top
+  - [1041007, 1, 1, 2.00]  # Bowman Top
+  - [1041008, 1, 1, 1.33]  # Bowman Top
+  - [1041013, 1, 1, 1.00]  # Bowman Top
+  - [1041027, 1, 1, 1.00]  # Bowman Top
+  - [1041028, 1, 1, 1.00]  # Bowman Top
+  - [1041032, 1, 1, 0.80]  # Bowman Top
+  - [1041033, 1, 1, 0.80]  # Bowman Top
+  - [1041034, 1, 1, 0.80]  # Bowman Top
+  - [1041035, 1, 1, 0.80]  # Bowman Top
+  - [1041054, 1, 1, 0.67]  # Bowman Top
+  - [1041055, 1, 1, 0.67]  # Bowman Top
+  - [1041056, 1, 1, 0.67]  # Bowman Top
+  - [1041061, 1, 1, 2.00]  # Bowman Top
+  - [1041062, 1, 1, 1.33]  # Bowman Top
+  - [1041063, 1, 1, 1.33]  # Bowman Top
+  - [1041065, 1, 1, 0.57]  # Bowman Top
+  - [1041066, 1, 1, 0.57]  # Bowman Top
+  - [1041067, 1, 1, 0.57]  # Bowman Top
+  - [1041068, 1, 1, 0.57]  # Bowman Top
+  - [1041069, 1, 1, 0.57]  # Bowman Top
+  - [1041081, 1, 1, 0.50]  # Bowman Top
+  - [1041082, 1, 1, 0.50]  # Bowman Top
+  - [1041083, 1, 1, 0.50]  # Bowman Top
+  - [1050051, 1, 1, 0.40]  # Bowman Overall
+  - [1050052, 1, 1, 0.40]  # Bowman Overall
+  - [1050058, 1, 1, 0.33]  # Bowman Overall
+  - [1050059, 1, 1, 0.33]  # Bowman Overall
+  - [1050060, 1, 1, 0.33]  # Bowman Overall
+  - [1050061, 1, 1, 0.29]  # Bowman Overall
+  - [1050062, 1, 1, 0.29]  # Bowman Overall
+  - [1050063, 1, 1, 0.29]  # Bowman Overall
+  - [1050064, 1, 1, 0.29]  # Bowman Overall
+  - [1050075, 1, 1, 0.25]  # Bowman Overall
+  - [1050076, 1, 1, 0.25]  # Bowman Overall
+  - [1050077, 1, 1, 0.25]  # Bowman Overall
+  - [1050078, 1, 1, 0.25]  # Bowman Overall
+  - [1050088, 1, 1, 0.22]  # Bowman Overall
+  - [1050089, 1, 1, 0.22]  # Bowman Overall
+  - [1050090, 1, 1, 0.22]  # Bowman Overall
+  - [1050091, 1, 1, 0.22]  # Bowman Overall
+  - [1050106, 1, 1, 0.20]  # Bowman Overall
+  - [1050107, 1, 1, 0.20]  # Bowman Overall
+  - [1050108, 1, 1, 0.20]  # Bowman Overall
+  - [1051037, 1, 1, 0.40]  # Bowman Overall
+  - [1051038, 1, 1, 0.40]  # Bowman Overall
+  - [1051039, 1, 1, 0.40]  # Bowman Overall
+  - [1051041, 1, 1, 0.33]  # Bowman Overall
+  - [1051042, 1, 1, 0.33]  # Bowman Overall
+  - [1051043, 1, 1, 0.33]  # Bowman Overall
+  - [1051062, 1, 1, 0.29]  # Bowman Overall
+  - [1051063, 1, 1, 0.29]  # Bowman Overall
+  - [1051064, 1, 1, 0.29]  # Bowman Overall
+  - [1051065, 1, 1, 0.29]  # Bowman Overall
+  - [1051066, 1, 1, 0.25]  # Bowman Overall
+  - [1051067, 1, 1, 0.25]  # Bowman Overall
+  - [1051068, 1, 1, 0.25]  # Bowman Overall
+  - [1051069, 1, 1, 0.25]  # Bowman Overall
+  - [1051082, 1, 1, 0.22]  # Bowman Overall
+  - [1051083, 1, 1, 0.22]  # Bowman Overall
+  - [1051084, 1, 1, 0.22]  # Bowman Overall
+  - [1051085, 1, 1, 0.22]  # Bowman Overall
+  - [1051105, 1, 1, 0.20]  # Bowman Overall
+  - [1051106, 1, 1, 0.20]  # Bowman Overall
+  - [1051107, 1, 1, 0.20]  # Bowman Overall
+  - [1052071, 1, 1, 0.18]  # Bowman Overall
+  - [1052157, 1, 1, 0.17]  # Bowman Overall
+  - [1052162, 1, 1, 0.17]  # Bowman Overall
+  - [1060056, 1, 1, 0.67]  # Bowman Bottom
+  - [1060057, 1, 1, 0.67]  # Bowman Bottom
+  - [1060058, 1, 1, 0.67]  # Bowman Bottom
+  - [1060059, 1, 1, 0.67]  # Bowman Bottom
+  - [1060061, 1, 1, 0.57]  # Bowman Bottom
+  - [1060062, 1, 1, 0.57]  # Bowman Bottom
+  - [1060063, 1, 1, 0.57]  # Bowman Bottom
+  - [1060064, 1, 1, 0.57]  # Bowman Bottom
+  - [1060065, 1, 1, 0.57]  # Bowman Bottom
+  - [1060068, 1, 1, 0.50]  # Bowman Bottom
+  - [1060069, 1, 1, 0.50]  # Bowman Bottom
+  - [1060070, 1, 1, 0.50]  # Bowman Bottom
+  - [1061006, 1, 1, 1.33]  # Bowman Bottom
+  - [1061009, 1, 1, 2.00]  # Bowman Bottom
+  - [1061024, 1, 1, 1.00]  # Bowman Bottom
+  - [1061025, 1, 1, 1.00]  # Bowman Bottom
+  - [1061026, 1, 1, 1.00]  # Bowman Bottom
+  - [1061050, 1, 1, 0.67]  # Bowman Bottom
+  - [1061051, 1, 1, 0.67]  # Bowman Bottom
+  - [1061052, 1, 1, 0.67]  # Bowman Bottom
+  - [1061057, 1, 1, 2.00]  # Bowman Bottom
+  - [1061058, 1, 1, 1.33]  # Bowman Bottom
+  - [1061059, 1, 1, 1.33]  # Bowman Bottom
+  - [1061060, 1, 1, 0.57]  # Bowman Bottom
+  - [1061061, 1, 1, 0.57]  # Bowman Bottom
+  - [1061062, 1, 1, 0.57]  # Bowman Bottom
+  - [1061063, 1, 1, 0.57]  # Bowman Bottom
+  - [1061064, 1, 1, 0.57]  # Bowman Bottom
+  - [1061080, 1, 1, 0.50]  # Bowman Bottom
+  - [1061081, 1, 1, 0.50]  # Bowman Bottom
+  - [1061082, 1, 1, 0.50]  # Bowman Bottom
+  - [1062002, 1, 1, 1.00]  # Bowman Bottom
+  - [1062004, 1, 1, 2.00]  # Bowman Bottom
+  - [1062006, 1, 1, 0.80]  # Bowman Bottom
+  - [1072015, 1, 1, 2.00]  # Bowman Shoes
+  - [1072016, 1, 1, 1.33]  # Bowman Shoes
+  - [1072025, 1, 1, 1.00]  # Bowman Shoes
+  - [1072026, 1, 1, 1.00]  # Bowman Shoes
+  - [1072027, 1, 1, 0.80]  # Bowman Shoes
+  - [1072034, 1, 1, 0.80]  # Bowman Shoes
+  - [1072059, 1, 1, 2.00]  # Bowman Shoes
+  - [1072060, 1, 1, 1.33]  # Bowman Shoes
+  - [1072061, 1, 1, 1.33]  # Bowman Shoes
+  - [1072067, 1, 1, 1.00]  # Bowman Shoes
+  - [1072068, 1, 1, 1.00]  # Bowman Shoes
+  - [1072069, 1, 1, 0.80]  # Bowman Shoes
+  - [1072079, 1, 1, 0.67]  # Bowman Shoes
+  - [1072080, 1, 1, 0.67]  # Bowman Shoes
+  - [1072081, 1, 1, 0.67]  # Bowman Shoes
+  - [1072082, 1, 1, 0.67]  # Bowman Shoes
+  - [1072083, 1, 1, 0.67]  # Bowman Shoes
+  - [1072101, 1, 1, 0.57]  # Bowman Shoes
+  - [1072102, 1, 1, 0.57]  # Bowman Shoes
+  - [1072103, 1, 1, 0.57]  # Bowman Shoes
+  - [1072118, 1, 1, 0.50]  # Bowman Shoes
+  - [1072119, 1, 1, 0.50]  # Bowman Shoes
+  - [1072120, 1, 1, 0.50]  # Bowman Shoes
+  - [1072121, 1, 1, 0.50]  # Bowman Shoes
+  - [1072122, 1, 1, 0.40]  # Bowman Shoes
+  - [1072123, 1, 1, 0.40]  # Bowman Shoes
+  - [1072124, 1, 1, 0.40]  # Bowman Shoes
+  - [1072125, 1, 1, 0.40]  # Bowman Shoes
+  - [1072144, 1, 1, 0.33]  # Bowman Shoes
+  - [1072145, 1, 1, 0.33]  # Bowman Shoes
+  - [1072146, 1, 1, 0.33]  # Bowman Shoes
+  - [1072164, 1, 1, 0.29]  # Bowman Shoes
+  - [1072165, 1, 1, 0.29]  # Bowman Shoes
+  - [1072166, 1, 1, 0.29]  # Bowman Shoes
+  - [1072167, 1, 1, 0.29]  # Bowman Shoes
+  - [1072170, 1, 1, 0.67]  # Bowman Shoes
+  - [1072182, 1, 1, 0.25]  # Bowman Shoes
+  - [1072183, 1, 1, 0.25]  # Bowman Shoes
+  - [1072184, 1, 1, 0.25]  # Bowman Shoes
+  - [1072185, 1, 1, 0.25]  # Bowman Shoes
+  - [1072203, 1, 1, 0.22]  # Bowman Shoes
+  - [1072204, 1, 1, 0.22]  # Bowman Shoes
+  - [1072205, 1, 1, 0.22]  # Bowman Shoes
+  - [1072227, 1, 1, 0.20]  # Bowman Shoes
+  - [1072228, 1, 1, 0.20]  # Bowman Shoes
+  - [1072229, 1, 1, 0.20]  # Bowman Shoes
+  - [1072269, 1, 1, 0.18]  # Bowman Shoes
+  - [1072345, 1, 1, 0.40]  # Bowman Shoes
+  - [1072357, 1, 1, 0.17]  # Bowman Shoes
+  - [1072363, 1, 1, 0.17]  # Bowman Shoes
+  - [1082012, 1, 1, 1.33]  # Bowman Gloves
+  - [1082013, 1, 1, 1.00]  # Bowman Gloves
+  - [1082014, 1, 1, 1.00]  # Bowman Gloves
+  - [1082015, 1, 1, 1.00]  # Bowman Gloves
+  - [1082016, 1, 1, 0.80]  # Bowman Gloves
+  - [1082017, 1, 1, 0.80]  # Bowman Gloves
+  - [1082018, 1, 1, 0.80]  # Bowman Gloves
+  - [1082048, 1, 1, 0.67]  # Bowman Gloves
+  - [1082049, 1, 1, 0.67]  # Bowman Gloves
+  - [1082050, 1, 1, 0.67]  # Bowman Gloves
+  - [1082068, 1, 1, 0.57]  # Bowman Gloves
+  - [1082069, 1, 1, 0.57]  # Bowman Gloves
+  - [1082070, 1, 1, 0.57]  # Bowman Gloves
+  - [1082071, 1, 1, 0.50]  # Bowman Gloves
+  - [1082072, 1, 1, 0.50]  # Bowman Gloves
+  - [1082073, 1, 1, 0.50]  # Bowman Gloves
+  - [1082083, 1, 1, 0.40]  # Bowman Gloves
+  - [1082084, 1, 1, 0.40]  # Bowman Gloves
+  - [1082085, 1, 1, 0.40]  # Bowman Gloves
+  - [1082089, 1, 1, 0.33]  # Bowman Gloves
+  - [1082090, 1, 1, 0.33]  # Bowman Gloves
+  - [1082091, 1, 1, 0.33]  # Bowman Gloves
+  - [1082106, 1, 1, 0.29]  # Bowman Gloves
+  - [1082107, 1, 1, 0.29]  # Bowman Gloves
+  - [1082108, 1, 1, 0.29]  # Bowman Gloves
+  - [1082109, 1, 1, 0.25]  # Bowman Gloves
+  - [1082110, 1, 1, 0.25]  # Bowman Gloves
+  - [1082111, 1, 1, 0.25]  # Bowman Gloves
+  - [1082112, 1, 1, 0.25]  # Bowman Gloves
+  - [1082125, 1, 1, 0.22]  # Bowman Gloves
+  - [1082126, 1, 1, 0.22]  # Bowman Gloves
+  - [1082127, 1, 1, 0.22]  # Bowman Gloves
+  - [1082158, 1, 1, 0.20]  # Bowman Gloves
+  - [1082159, 1, 1, 0.20]  # Bowman Gloves
+  - [1082160, 1, 1, 0.20]  # Bowman Gloves
+  - [1082163, 1, 1, 0.18]  # Bowman Gloves
+  - [1082236, 1, 1, 0.17]  # Bowman Gloves
+  - [1082241, 1, 1, 0.17]  # Bowman Gloves
+  - [1452000, 1, 1, 0.80]  # Bow
+  - [1452001, 1, 1, 1.00]  # Bow
+  - [1452002, 1, 1, 2.00]  # Bow
+  - [1452003, 1, 1, 1.33]  # Bow
+  - [1452004, 1, 1, 0.33]  # Bow
+  - [1452005, 1, 1, 0.67]  # Bow
+  - [1452006, 1, 1, 0.57]  # Bow
+  - [1452007, 1, 1, 0.50]  # Bow
+  - [1452008, 1, 1, 0.40]  # Bow
+  - [1452009, 1, 1, 0.29]  # Bow
+  - [1452010, 1, 1, 0.29]  # Bow
+  - [1452011, 1, 1, 0.29]  # Bow
+  - [1452012, 1, 1, 0.25]  # Bow
+  - [1452013, 1, 1, 0.25]  # Bow
+  - [1452014, 1, 1, 0.25]  # Bow
+  - [1452015, 1, 1, 0.25]  # Bow
+  - [1452017, 1, 1, 0.22]  # Bow
+  - [1452018, 1, 1, 0.31]  # Bow
+  - [1452019, 1, 1, 0.20]  # Bow
+  - [1452020, 1, 1, 0.20]  # Bow
+  - [1452021, 1, 1, 0.20]  # Bow
+  - [1452023, 1, 1, 0.37]  # Bow
+  - [1452025, 1, 1, 0.22]  # Bow
+  - [1452026, 1, 1, 0.22]  # Bow
+  - [1452044, 1, 1, 0.18]  # Bow
+  - [1452052, 1, 1, 0.29]  # Bow
+  - [1452057, 1, 1, 0.17]  # Bow
+  - [1452059, 1, 1, 0.17]  # Bow
+  - [1452060, 1, 1, 0.20]  # Bow
+  - [1462000, 1, 1, 0.71]  # Crossbow
+  - [1462001, 1, 1, 1.67]  # Crossbow
+  - [1462002, 1, 1, 1.11]  # Crossbow
+  - [1462003, 1, 1, 0.91]  # Crossbow
+  - [1462004, 1, 1, 0.63]  # Crossbow
+  - [1462005, 1, 1, 0.53]  # Crossbow
+  - [1462006, 1, 1, 0.48]  # Crossbow
+  - [1462007, 1, 1, 0.40]  # Crossbow
+  - [1462008, 1, 1, 0.33]  # Crossbow
+  - [1462009, 1, 1, 0.29]  # Crossbow
+  - [1462010, 1, 1, 0.25]  # Crossbow
+  - [1462011, 1, 1, 0.25]  # Crossbow
+  - [1462012, 1, 1, 0.25]  # Crossbow
+  - [1462013, 1, 1, 0.25]  # Crossbow
+  - [1462015, 1, 1, 0.20]  # Crossbow
+  - [1462016, 1, 1, 0.20]  # Crossbow
+  - [1462017, 1, 1, 0.20]  # Crossbow
+  - [1462018, 1, 1, 0.22]  # Crossbow
+  - [1462021, 1, 1, 0.22]  # Crossbow
+  - [1462022, 1, 1, 0.22]  # Crossbow
+  - [1462039, 1, 1, 0.18]  # Crossbow
+  - [1462046, 1, 1, 0.29]  # Crossbow
+  - [1462047, 1, 1, 2.00]  # Crossbow
+  - [1462048, 1, 1, 0.50]  # Crossbow
+  - [1462049, 1, 1, 0.25]  # Crossbow
+  - [1462050, 1, 1, 0.17]  # Crossbow
+  - [1462051, 1, 1, 0.17]  # Crossbow
+  - [1462052, 1, 1, 0.25]  # Crossbow
+  - [1462053, 1, 1, 0.22]  # Crossbow
+  - [1462054, 1, 1, 0.22]  # Crossbow
+  - [1462055, 1, 1, 0.25]  # Crossbow
+
+  # Thief Equips (10 items)
+  - [1002128, 1, 1, 0.50]  # Thief Hat
+  - [1472005, 1, 1, 0.50]  # Claw
+  - [1060032, 1, 1, 0.50]  # Thief Bottom
+  - [1472017, 1, 1, 0.25]  # Claw
+  - [1061040, 1, 1, 0.45]  # Thief Bottom
+  - [1040035, 1, 1, 0.67]  # Thief Top
+  - [1061043, 1, 1, 0.33]  # Thief Bottom
+  - [1040062, 1, 1, 0.29]  # Thief Top
+  - [1051007, 1, 1, 0.29]  # Thief Overall
+  - [1061046, 1, 1, 0.33]  # Thief Bottom
+
+  # Pirate Equips (10 items)
+  - [1052104, 1, 1, 0.40]  # Pirate Overall
+  - [1052110, 1, 1, 0.29]  # Pirate Overall
+  - [1082183, 1, 1, 0.50]  # Pirate Gloves
+  - [1482003, 1, 1, 0.40]  # Knuckle
+  - [1492001, 1, 1, 0.67]  # Gun
+  - [1072285, 1, 1, 0.67]  # Pirate Shoes
+  - [1002613, 1, 1, 0.67]  # Pirate Hat
+  - [1482006, 1, 1, 0.25]  # Knuckle
+  - [1082192, 1, 1, 0.29]  # Pirate Gloves
+  - [1492005, 1, 1, 0.29]  # Gun
+
+  # Arrows (Bowman-specific consumables)
+  - [2061004, 1000, 1000, 0.05]  # Arrow for Bow
+  - [2060004, 1000, 1000, 0.05]  # Arrow for Crossbow
+  - [2061003, 1000, 1000, 0.05]  # Arrow for Bow
+  - [2060003, 1000, 1000, 0.05]  # Arrow for Crossbow
+  - [2061002, 1000, 1000, 0.05]  # Arrow for Bow
+  - [2060002, 1000, 1000, 0.05]  # Arrow for Crossbow
+  - [2061001, 1000, 1000, 0.05]  # Arrow for Bow
+  - [2060001, 1000, 1000, 0.05]  # Arrow for Crossbow
+
+  # Scrolls (Bowman weapon scrolls)
+  - [2044605, 1, 1, 0.10]  # Bow for ATT Scroll
+  - [2044604, 1, 1, 0.10]  # Bow for ATT Scroll
+  - [2044602, 1, 1, 0.10]  # Bow for ATT Scroll
+  - [2044601, 1, 1, 0.10]  # Bow for ATT Scroll
+  - [2044600, 1, 1, 0.10]  # Bow for ATT Scroll
+  - [2044505, 1, 1, 0.10]  # Crossbow for ATT Scroll
+  - [2044504, 1, 1, 0.10]  # Crossbow for ATT Scroll
+  - [2044502, 1, 1, 0.10]  # Crossbow for ATT Scroll
+  - [2044501, 1, 1, 0.10]  # Crossbow for ATT Scroll
+  - [2044500, 1, 1, 0.10]  # Crossbow for ATT Scroll
+
+  # Skills - Mastery Books for bowman skills
+  - [2290052, 1, 1, 0.05]  # Mastery Book 20 (Arrow Bomb)
+  - [2290053, 1, 1, 0.025]  # Mastery Book 30 (Arrow Bomb)
+  - [2290054, 1, 1, 0.05]  # Mastery Book 20 (Arrow Rain)
+  - [2290055, 1, 1, 0.025]  # Mastery Book 30 (Arrow Rain)
+  - [2290056, 1, 1, 0.05]  # Mastery Book 20 (Dragon Pulse)
+  - [2290057, 1, 1, 0.025]  # Mastery Book 30 (Dragon Pulse)
+  - [2290058, 1, 1, 0.05]  # Mastery Book 20 (Silver Hawk)
+  - [2290059, 1, 1, 0.025]  # Mastery Book 30 (Silver Hawk)
+  - [2290060, 1, 1, 0.05]  # Mastery Book 20 (Golden Eagle)
+  - [2290061, 1, 1, 0.025]  # Mastery Book 30 (Golden Eagle)
+  - [2290062, 1, 1, 0.05]  # Mastery Book 20 (Phoenix)
+  - [2290063, 1, 1, 0.025]  # Mastery Book 30 (Phoenix)
+  - [2290064, 1, 1, 0.05]  # Mastery Book 20 (Bow Expert)
+  - [2290065, 1, 1, 0.025]  # Mastery Book 30 (Bow Expert)
+  - [2290066, 1, 1, 0.05]  # Mastery Book 20 (Crossbow Expert)
+  - [2290067, 1, 1, 0.025]  # Mastery Book 30 (Crossbow Expert)
+  - [2290068, 1, 1, 0.05]  # Mastery Book 20 (Marksman)
+  - [2290069, 1, 1, 0.025]  # Mastery Book 30 (Marksman)
+  - [2290070, 1, 1, 0.05]  # Mastery Book 20 (Sharp Eyes)
+  - [2290071, 1, 1, 0.025]  # Mastery Book 30 (Sharp Eyes)
+  - [2290072, 1, 1, 0.05]  # Mastery Book 20 (Maple Warrior)
+  - [2290073, 1, 1, 0.025]  # Mastery Book 30 (Maple Warrior)
+  - [2290074, 1, 1, 0.05]  # Mastery Book 20 (Inferno)
+  - [2290075, 1, 1, 0.025]  # Mastery Book 30 (Inferno)

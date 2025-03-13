@@ -1,0 +1,233 @@
+# Global Items
+
+rewards:
+  # Common Gloves
+  - [1082002, 1, 1, 1.0]  # Work Gloves
+  - [1082147, 1, 1, 1.0]  # Common Gloves
+  - [1082148, 1, 1, 1.0]  # Common Gloves
+  - [1082146, 1, 1, 1.0]  # Common Gloves
+  - [1082145, 1, 1, 1.0]  # Common Gloves
+  - [1082150, 1, 1, 1.0]  # Common Gloves
+  - [1082149, 1, 1, 0.8]  # Common Gloves (reduced weight)
+
+  # Common Capes
+  - [1102041, 1, 1, 0.7]  # Cape
+  - [1102042, 1, 1, 0.7]  # Cape
+  - [1102040, 1, 1, 0.8]  # Cape
+  - [1102084, 1, 1, 0.5]  # Cape
+  - [1102085, 1, 1, 0.5]  # Cape
+  - [1102084, 1, 1, 0.6]  # Cape (note: duplicate ID with different weight)
+  - [1102043, 1, 1, 1.0]  # Cape
+  - [1102087, 1, 1, 1.0]  # Cape
+  - [1102079, 1, 1, 1.0]  # Cape
+  - [1102080, 1, 1, 1.0]  # Cape
+  - [1102081, 1, 1, 1.0]  # Cape
+  - [1102082, 1, 1, 1.0]  # Cape
+  - [1102083, 1, 1, 1.0]  # Cape
+  - [1102053, 1, 1, 1.0]  # Cape
+  - [1102054, 1, 1, 1.0]  # Cape
+  - [1102055, 1, 1, 1.0]  # Cape
+  - [1102056, 1, 1, 1.0]  # Cape
+  - [1102176, 1, 1, 1.0]  # Cape
+  - [1102177, 1, 1, 1.0]  # Cape
+  - [1102178, 1, 1, 1.0]  # Cape
+  - [1102179, 1, 1, 1.0]  # Cape
+  - [1102180, 1, 1, 1.0]  # Cape
+  - [1102000, 1, 1, 1.0]  # Cape
+  - [1102001, 1, 1, 1.0]  # Cape
+  - [1102002, 1, 1, 1.0]  # Cape
+  - [1102003, 1, 1, 1.0]  # Cape
+  - [1102004, 1, 1, 1.0]  # Cape
+  - [1102011, 1, 1, 1.0]  # Cape
+  - [1102012, 1, 1, 1.0]  # Cape
+  - [1102013, 1, 1, 1.0]  # Cape
+  - [1102014, 1, 1, 1.0]  # Cape
+  - [1102015, 1, 1, 1.0]  # Cape
+  - [1102016, 1, 1, 1.0]  # Cape
+  - [1102017, 1, 1, 1.0]  # Cape
+  - [1102018, 1, 1, 1.0]  # Cape
+  - [1102021, 1, 1, 1.0]  # Cape (note: duplicate IDs in original)
+  - [1102022, 1, 1, 1.0]  # Cape
+  - [1102023, 1, 1, 1.0]  # Cape
+  - [1102024, 1, 1, 1.0]  # Cape
+
+  # Common Tubes (One-handed Blunt Weapons)
+  - [1442018, 1, 1, 1.0]  # Tube
+  - [1322026, 1, 1, 1.0]  # Tube
+  - [1322025, 1, 1, 1.0]  # Tube
+  - [1322024, 1, 1, 1.0]  # Tube
+  - [1322022, 1, 1, 1.0]  # Tube
+  - [1322021, 1, 1, 1.0]  # Tube
+
+  # Common Umbrellas (One-handed Swords)
+  - [1302026, 1, 1, 1.0]  # Umbrella
+  - [1302027, 1, 1, 1.0]  # Umbrella
+  - [1302028, 1, 1, 1.0]  # Umbrella
+  - [1302017, 1, 1, 1.0]  # Umbrella
+
+  # Common Snowboards (Polearms)
+  - [1442017, 1, 1, 1.0]  # Snowboard
+  - [1442016, 1, 1, 1.0]  # Snowboard
+  - [1442014, 1, 1, 1.0]  # Snowboard
+  - [1442012, 1, 1, 1.0]  # Snowboard
+
+  # Common Skis (Spears)
+  - [1432018, 1, 1, 1.0]  # Ski
+  - [1432017, 1, 1, 1.0]  # Ski
+  - [1432016, 1, 1, 1.0]  # Ski
+  - [1432015, 1, 1, 1.0]  # Ski
+
+  # Beginner Weapons
+  - [1442018, 1, 1, 1.0]  # Sky Snowboard
+  - [1422011, 1, 1, 1.0]  # Sake Bottle
+
+  # Maple Weapons (level 35/43)
+  - [1302020, 1, 1, 0.1]  # Maple Sword
+  - [1302030, 1, 1, 0.07]  # Maple Glory Sword
+  - [1332025, 1, 1, 0.07]  # Maple Glory Dagger
+  - [1382009, 1, 1, 0.1]  # Maple Staff
+  - [1382012, 1, 1, 0.07]  # Maple Glory Staff
+  - [1412011, 1, 1, 0.07]  # Maple Glory Axe
+  - [1422014, 1, 1, 0.07]  # Maple Glory Mace
+  - [1432012, 1, 1, 0.07]  # Maple Glory Spear
+  - [1442024, 1, 1, 0.07]  # Maple Glory Polearm
+  - [1452016, 1, 1, 0.1]  # Maple Bow
+  - [1452022, 1, 1, 0.07]  # Maple Glory Bow
+  - [1462014, 1, 1, 0.1]  # Maple Crossbow
+  - [1462019, 1, 1, 0.07]  # Maple Glory Crossbow
+  - [1472030, 1, 1, 0.1]  # Maple Claw
+  - [1472032, 1, 1, 0.07]  # Maple Glory Claw
+  - [1482020, 1, 1, 0.1]  # Maple Knuckle
+  - [1482021, 1, 1, 0.07]  # Maple Glory Knuckle
+  - [1492020, 1, 1, 0.1]  # Maple Gun
+  - [1492021, 1, 1, 0.07]  # Maple Glory Gun
+
+  # Common Potions and Food (all in stacks of 100)
+  - [2000004, 100, 100, 0.6]  # Elixir
+  - [2000005, 100, 100, 0.6]  # Power Elixir
+  - [2001002, 100, 100, 0.6]  # Meat
+  - [2020012, 100, 100, 0.6]  # Melting Cheese
+  - [2001001, 100, 100, 0.6]  # Ice Cream Pop
+  - [2020013, 100, 100, 0.6]  # Reindeer Milk
+  - [2020014, 100, 100, 0.6]  # Sunrise Dew
+  - [2020015, 100, 100, 0.6]  # Sunset Dew
+  - [2022179, 1, 1, 1.0]  # Onyx Apple
+  - [2022182, 1, 1, 1.0]  # Special Potion
+  - [2022245, 1, 1, 1.0]  # Special Potion
+  - [2022273, 1, 1, 1.0]  # Special Potion
+  - [2022284, 1, 1, 1.0]  # Special Potion
+  - [2022282, 1, 1, 1.0]  # Special Potion
+  - [2022283, 1, 1, 1.0]  # Special Potion
+  - [2022285, 1, 1, 1.0]  # Special Potion
+  - [2022439, 1, 1, 1.0]  # Special Potion
+
+  # Miscellaneous Scrolls
+  - [2049100, 1, 1, 1.0]  # Chaos Scroll
+  - [2049000, 1, 1, 1.0]  # Clean Slate Scroll
+  - [2049001, 1, 1, 1.0]  # Clean Slate Scroll
+  - [2049002, 1, 1, 1.0]  # Clean Slate Scroll
+  - [2049003, 1, 1, 1.0]  # Clean Slate Scroll
+  - [2041058, 1, 1, 1.0]  # Shield for DEF Scroll
+  - [2040727, 1, 1, 1.0]  # Cape for INT Scroll
+
+  # 10% Scrolls
+  - [2041002, 1, 1, 1.0]  # Staff for ATT Scroll 10%
+  - [2040402, 1, 1, 1.0]  # Two-handed Axe for ATT Scroll 10%
+  - [2040702, 1, 1, 1.0]  # Wand for Magic ATT Scroll 10%
+  - [2040805, 1, 1, 1.0]  # Gloves for ATT Scroll 10%
+  - [2040026, 1, 1, 1.0]  # Helmet for INT Scroll 10%
+  - [2040031, 1, 1, 1.0]  # Cape for INT Scroll 10%
+  - [2040318, 1, 1, 1.0]  # Earring for INT Scroll 10%
+  - [2040323, 1, 1, 1.0]  # Earring for LUK Scroll 10%
+  - [2040328, 1, 1, 1.0]  # Earring for DEX Scroll 10%
+  - [2040419, 1, 1, 1.0]  # Ring for INT Scroll 10%
+  - [2040422, 1, 1, 1.0]  # Ring for LUK Scroll 10%
+  - [2040427, 1, 1, 1.0]  # Ring for DEX Scroll 10%
+  - [2040534, 1, 1, 1.0]  # Overall Armor for INT Scroll 10%
+  - [2040619, 1, 1, 1.0]  # Bottom for INT Scroll 10%
+  - [2040622, 1, 1, 1.0]  # Bottom for LUK Scroll 10%
+  - [2040627, 1, 1, 1.0]  # Bottom for DEX Scroll 10%
+  - [2040825, 1, 1, 1.0]  # Gloves for INT Scroll 10%
+  - [2040925, 1, 1, 1.0]  # Shoes for INT Scroll 10%
+  - [2040928, 1, 1, 1.0]  # Shoes for LUK Scroll 10%
+  - [2040933, 1, 1, 1.0]  # Shoes for DEX Scroll 10%
+  - [2040016, 1, 1, 1.0]  # Helmet for DEX Scroll 10%
+
+  # 60% Scrolls (all with weight 2.0)
+  - [2040001, 1, 1, 2.0]  # Helmet for HP Scroll 60%
+  - [2040025, 1, 1, 2.0]  # Helmet for INT Scroll 60%
+  - [2040029, 1, 1, 2.0]  # Helmet for LUK Scroll 60%
+  - [2040317, 1, 1, 2.0]  # Earring for INT Scroll 60%
+  - [2040321, 1, 1, 2.0]  # Earring for LUK Scroll 60%
+  - [2040326, 1, 1, 2.0]  # Earring for DEX Scroll 60%
+  - [2040418, 1, 1, 2.0]  # Ring for INT Scroll 60%
+  - [2040421, 1, 1, 2.0]  # Ring for LUK Scroll 60%
+  - [2040425, 1, 1, 2.0]  # Ring for DEX Scroll 60%
+  - [2040532, 1, 1, 2.0]  # Overall Armor for INT Scroll 60%
+  - [2040618, 1, 1, 2.0]  # Bottom for INT Scroll 60%
+  - [2040621, 1, 1, 2.0]  # Bottom for LUK Scroll 60%
+  - [2040625, 1, 1, 2.0]  # Bottom for DEX Scroll 60%
+  - [2040824, 1, 1, 2.0]  # Gloves for INT Scroll 60%
+  - [2040924, 1, 1, 2.0]  # Shoes for INT Scroll 60%
+  - [2040927, 1, 1, 2.0]  # Shoes for LUK Scroll 60%
+  - [2040931, 1, 1, 2.0]  # Shoes for DEX Scroll 60%
+  - [2048010, 1, 1, 2.0]  # Pet Equipment for HP Scroll 60%
+  - [2048011, 1, 1, 2.0]  # Pet Equipment for HP Scroll 60%
+  - [2048012, 1, 1, 2.0]  # Pet Equipment for HP Scroll 60%
+  - [8048013, 1, 1, 2.0]  # Pet Equipment for HP Scroll 60%
+
+  # 100% Scrolls (all with weight 0.5)
+  - [2040923, 1, 1, 0.5]  # Shoes for INT Scroll 100%
+  - [2040926, 1, 1, 0.5]  # Shoes for LUK Scroll 100%
+  - [2040929, 1, 1, 0.5]  # Shoes for DEX Scroll 100%
+  - [2040024, 1, 1, 0.5]  # Helmet for INT Scroll 100%
+  - [2040027, 1, 1, 0.5]  # Helmet for LUK Scroll 100%
+  - [2040316, 1, 1, 0.5]  # Earring for INT Scroll 100%
+  - [2040319, 1, 1, 0.5]  # Earring for LUK Scroll 100%
+  - [2040324, 1, 1, 0.5]  # Earring for DEX Scroll 100%
+  - [2040417, 1, 1, 0.5]  # Ring for INT Scroll 100%
+  - [2040420, 1, 1, 0.5]  # Ring for LUK Scroll 100%
+  - [2040423, 1, 1, 0.5]  # Ring for DEX Scroll 100%
+  - [2040530, 1, 1, 0.5]  # Overall Armor for INT Scroll 100%
+  - [2040617, 1, 1, 0.5]  # Bottom for INT Scroll 100%
+  - [2040620, 1, 1, 0.5]  # Bottom for LUK Scroll 100%
+  - [2040623, 1, 1, 0.5]  # Bottom for DEX Scroll 100%
+  - [2040823, 1, 1, 0.5]  # Gloves for INT Scroll 100%
+  - [2040000, 1, 1, 0.5]  # Helmet for HP Scroll 100%
+  - [2040003, 1, 1, 0.5]  # Helmet for DEF Scroll 100%
+  - [2040102, 1, 1, 0.5]  # Face Accessory for HP Scroll 100%
+  - [2040107, 1, 1, 0.5]  # Face Accessory for DEF Scroll 100%
+  - [2040202, 1, 1, 0.5]  # Eye Accessory for HP Scroll 100%
+  - [2040207, 1, 1, 0.5]  # Eye Accessory for DEF Scroll 100%
+  - [2040300, 1, 1, 0.5]  # Earring for HP Scroll 100%
+  - [2040312, 1, 1, 0.5]  # Earring for DEF Scroll 100%
+  - [2040400, 1, 1, 0.5]  # Ring for HP Scroll 100%
+  - [2040414, 1, 1, 0.5]  # Ring for DEF Scroll 100%
+  - [2040500, 1, 1, 0.5]  # Overall Armor for HP Scroll 100%
+  - [2040503, 1, 1, 0.5]  # Overall Armor for DEF Scroll 100%
+  - [2040512, 1, 1, 0.5]  # Overall Armor for INT Scroll 100%
+  - [2040515, 1, 1, 0.5]  # Overall Armor for LUK Scroll 100%
+  - [2040600, 1, 1, 0.5]  # Bottom for HP Scroll 100%
+  - [2040614, 1, 1, 0.5]  # Bottom for DEF Scroll 100%
+  - [2040700, 1, 1, 0.5]  # Top for HP Scroll 100%
+  - [2040703, 1, 1, 0.5]  # Top for DEF Scroll 100%
+  - [2040706, 1, 1, 0.5]  # Top for STR Scroll 100%
+  - [2040800, 1, 1, 0.5]  # Gloves for HP Scroll 100%
+  - [2040803, 1, 1, 0.5]  # Gloves for DEF Scroll 100%
+  - [2040818, 1, 1, 0.5]  # Gloves for STR Scroll 100%
+  - [2040900, 1, 1, 0.5]  # Shoes for HP Scroll 100%
+  - [2040918, 1, 1, 0.5]  # Shoes for STR Scroll 100%
+  - [2041000, 1, 1, 0.5]  # Cape for HP Scroll 100%
+  - [2041003, 1, 1, 0.5]  # Cape for DEF Scroll 100%
+  - [2041006, 1, 1, 0.5]  # Cape for STR Scroll 100%
+  - [2041009, 1, 1, 0.5]  # Cape for DEX Scroll 100%
+  - [2041012, 1, 1, 0.5]  # Cape for INT Scroll 100%
+  - [2041015, 1, 1, 0.5]  # Cape for LUK Scroll 100%
+  - [2041018, 1, 1, 0.5]  # Cape for Jump Scroll 100%
+  - [2041021, 1, 1, 0.5]  # Cape for Speed Scroll 100%
+  - [2048000, 1, 1, 0.5]  # Pet Equipment for HP Scroll 100%
+  - [2048003, 1, 1, 0.5]  # Pet Equipment for DEF Scroll 100%
+
+  # Mastery Books (level 20 and 30)
+  - [2290096, 1, 1, 0.05]  # Mastery Book 20
+  - [2290125, 1, 1, 0.025]  # Mastery Book 30

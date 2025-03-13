@@ -1,0 +1,78 @@
+# Zipangu Spa (M)
+
+location: "Zipangu Spa (Male)"
+ticket_id: 5220000  # Standard Gachapon Ticket
+min_level: 15
+
+# Global Item Modifier Settings
+global_item_settings:
+  enabled: true
+  items_to_exclude:
+    - id_range: [2040000, 2049999]  # Exclude all scrolls
+
+rewards:
+  - [2290000, 1, 1, 0.20]  # Mastery Book 20
+  - [2290002, 1, 1, 0.20]  # Mastery Book 20
+  - [2290004, 1, 1, 0.20]  # Mastery Book 20
+  - [2290006, 1, 1, 0.20]  # Mastery Book 20
+  - [2290008, 1, 1, 0.20]  # Mastery Book 20
+  - [2290010, 1, 1, 0.20]  # Mastery Book 20
+  - [2290012, 1, 1, 0.20]  # Mastery Book 20
+  - [2290014, 1, 1, 0.20]  # Mastery Book 20
+  - [2290016, 1, 1, 0.20]  # Mastery Book 20
+  - [2290018, 1, 1, 0.20]  # Mastery Book 20
+  - [2290019, 1, 1, 0.20]  # Mastery Book 20
+  - [2290020, 1, 1, 0.20]  # Mastery Book 20
+  - [2290022, 1, 1, 0.20]  # Mastery Book 20
+  - [2290024, 1, 1, 0.20]  # Mastery Book 20
+  - [2290026, 1, 1, 0.20]  # Mastery Book 20
+  - [2290028, 1, 1, 0.20]  # Mastery Book 20
+  - [2290030, 1, 1, 0.20]  # Mastery Book 20
+  - [2290032, 1, 1, 0.20]  # Mastery Book 20
+  - [2290034, 1, 1, 0.20]  # Mastery Book 20
+  - [2290036, 1, 1, 0.20]  # Mastery Book 20
+  - [2290038, 1, 1, 0.20]  # Mastery Book 20
+  - [2290040, 1, 1, 0.20]  # Mastery Book 20
+  - [2290042, 1, 1, 0.20]  # Mastery Book 20
+  - [2290044, 1, 1, 0.20]  # Mastery Book 20
+  - [2290046, 1, 1, 0.20]  # Mastery Book 20
+  - [2290048, 1, 1, 0.20]  # Mastery Book 20
+  - [2290050, 1, 1, 0.20]  # Mastery Book 20
+  - [2290052, 1, 1, 0.20]  # Mastery Book 20
+  - [2290054, 1, 1, 0.20]  # Mastery Book 20
+  - [2290056, 1, 1, 0.20]  # Mastery Book 20
+  - [2290058, 1, 1, 0.20]  # Mastery Book 20
+  - [2290060, 1, 1, 0.20]  # Mastery Book 20
+  - [2290062, 1, 1, 0.20]  # Mastery Book 20
+  - [2290064, 1, 1, 0.20]  # Mastery Book 20
+  - [2290066, 1, 1, 0.20]  # Mastery Book 20
+  - [2290068, 1, 1, 0.20]  # Mastery Book 20
+  - [2290070, 1, 1, 0.20]  # Mastery Book 20
+  - [2290072, 1, 1, 0.20]  # Mastery Book 20
+  - [2290074, 1, 1, 0.20]  # Mastery Book 20
+  - [2290076, 1, 1, 0.20]  # Mastery Book 20
+  - [2290078, 1, 1, 0.20]  # Mastery Book 20
+  - [2290080, 1, 1, 0.20]  # Mastery Book 20
+  - [2290082, 1, 1, 0.20]  # Mastery Book 20
+  - [2290084, 1, 1, 0.20]  # Mastery Book 20
+  - [2290086, 1, 1, 0.20]  # Mastery Book 20
+  - [2290088, 1, 1, 0.20]  # Mastery Book 20
+  - [2290090, 1, 1, 0.20]  # Mastery Book 20
+  - [2290092, 1, 1, 0.20]  # Mastery Book 20
+  - [2290094, 1, 1, 0.20]  # Mastery Book 20
+  - [2290097, 1, 1, 0.20]  # Mastery Book 20
+  - [2290099, 1, 1, 0.20]  # Mastery Book 20
+  - [2290101, 1, 1, 0.20]  # Mastery Book 20
+  - [2290102, 1, 1, 0.20]  # Mastery Book 20
+  - [2290104, 1, 1, 0.20]  # Mastery Book 20
+  - [2290106, 1, 1, 0.20]  # Mastery Book 20
+  - [2290108, 1, 1, 0.20]  # Mastery Book 20
+  - [2290110, 1, 1, 0.20]  # Mastery Book 20
+  - [2290112, 1, 1, 0.20]  # Mastery Book 20
+  - [2290114, 1, 1, 0.20]  # Mastery Book 20
+  - [2290115, 1, 1, 0.20]  # Mastery Book 20
+  - [2290117, 1, 1, 0.20]  # Mastery Book 20
+  - [2290119, 1, 1, 0.20]  # Mastery Book 20
+  - [2290121, 1, 1, 0.20]  # Mastery Book 20
+  - [2290123, 1, 1, 0.20]  # Mastery Book 20
+  - [2290124, 1, 1, 0.20]  # Mastery Book 20

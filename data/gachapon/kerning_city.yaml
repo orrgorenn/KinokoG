@@ -1,0 +1,137 @@
+# Kerning City
+
+location: "Kerning City"
+ticket_id: 5220000  # Standard Gachapon Ticket
+min_level: 15
+
+# Global Item Modifier Settings
+global_item_settings:
+  enabled: true
+  weight_modifier: 0.5  # Decrease the chance of getting things from the global item list by 50%
+
+rewards:
+  # Warrior Equips (10 items from each class outside of thief)
+  - [1002023, 1, 1, 0.33]  # Warrior Hat
+  - [1082001, 1, 1, 0.40]  # Warrior Gloves
+  - [1041084, 1, 1, 0.25]  # Warrior Top
+  - [1060017, 1, 1, 0.33]  # Warrior Bottom
+  - [1422008, 1, 1, 0.29]  # Two-handed Blunt Weapon
+  - [1402018, 1, 1, 0.67]  # Two-handed Sword
+  - [1060019, 1, 1, 0.33]  # Warrior Bottom
+  - [1072047, 1, 1, 0.50]  # Warrior Shoes
+  - [1040009, 1, 1, 0.67]  # Warrior Top
+  - [1060060, 1, 1, 0.40]  # Warrior Bottom
+
+  # Magician Equips (10 items)
+  - [1050029, 1, 1, 0.30]  # Magician Overall
+  - [1072045, 1, 1, 1.00]  # Magician Shoes
+  - [1050028, 1, 1, 0.36]  # Magician Overall
+  - [1372001, 1, 1, 0.30]  # Wand
+  - [1051024, 1, 1, 0.26]  # Magician Overall
+  - [1061049, 1, 1, 0.30]  # Magician Bottom
+  - [1072091, 1, 1, 0.29]  # Magician Shoes
+  - [1041030, 1, 1, 0.56]  # Magician Top
+  - [1041042, 1, 1, 0.36]  # Magician Top
+  - [1002036, 1, 1, 0.33]  # Magician Hat
+
+  # Bowman Equips (10 items)
+  - [1072103, 1, 1, 0.29]  # Bowman Shoes
+  - [1072034, 1, 1, 0.40]  # Bowman Shoes
+  - [1072069, 1, 1, 0.40]  # Bowman Shoes
+  - [1062004, 1, 1, 1.00]  # Bowman Bottom
+  - [1082050, 1, 1, 0.33]  # Bowman Gloves
+  - [1040003, 1, 1, 0.50]  # Bowman Top
+  - [1061064, 1, 1, 0.29]  # Bowman Bottom
+  - [1040074, 1, 1, 0.29]  # Bowman Top
+  - [1061051, 1, 1, 0.33]  # Bowman Bottom
+  - [1040079, 1, 1, 0.25]  # Bowman Top
+
+  # Thief Equips (extensive list - this is the primary class for Kerning City)
+  - [1002107, 1, 1, 1.33]  # Thief Hat
+  - [1002108, 1, 1, 1.33]  # Thief Hat
+  - [1002109, 1, 1, 1.33]  # Thief Hat
+  - [1002110, 1, 1, 1.33]  # Thief Hat
+  - [1002111, 1, 1, 1.33]  # Thief Hat
+  - [1002122, 1, 1, 2.00]  # Thief Hat
+  - [1002123, 1, 1, 2.00]  # Thief Hat
+  - [1002124, 1, 1, 2.00]  # Thief Hat
+  - [1002125, 1, 1, 2.00]  # Thief Hat
+  - [1002126, 1, 1, 2.00]  # Thief Hat
+  - [1002127, 1, 1, 1.00]  # Thief Hat
+  - [1002128, 1, 1, 1.00]  # Thief Hat
+  - [1002129, 1, 1, 1.00]  # Thief Hat
+  - [1002130, 1, 1, 1.00]  # Thief Hat
+  - [1002131, 1, 1, 1.00]  # Thief Hat
+  # ... continuing with more thief equipment (abridged for readability)
+  - [1332000, 1, 1, 1.67]  # Dagger
+  - [1332001, 1, 1, 0.63]  # Dagger
+  - [1332002, 1, 1, 1.18]  # Dagger
+  - [1332003, 1, 1, 0.40]  # Dagger
+  - [1332004, 1, 1, 0.74]  # Dagger
+  - [1332011, 1, 1, 0.50]  # Dagger
+  - [1332012, 1, 1, 0.67]  # Dagger
+  - [1332013, 1, 1, 0.91]  # Dagger
+  - [1332014, 1, 1, 0.57]  # Dagger
+  - [1332015, 1, 1, 0.33]  # Dagger
+  - [1332018, 1, 1, 0.29]  # Dagger
+  - [1332023, 1, 1, 0.25]  # Dagger
+  - [1332024, 1, 1, 0.36]  # Dagger
+  - [1332027, 1, 1, 0.22]  # Dagger
+  - [1332031, 1, 1, 0.50]  # Dagger
+  - [1472000, 1, 1, 2.00]  # Claw
+  - [1472001, 1, 1, 1.33]  # Claw
+  - [1472002, 1, 1, 1.33]  # Claw
+  - [1472003, 1, 1, 1.33]  # Claw
+  - [1472004, 1, 1, 1.00]  # Claw
+  - [1472005, 1, 1, 1.00]  # Claw
+  - [1472006, 1, 1, 1.00]  # Claw
+  - [1472007, 1, 1, 0.80]  # Claw
+  - [1472008, 1, 1, 0.67]  # Claw
+  - [1472009, 1, 1, 0.67]  # Claw
+  - [1472010, 1, 1, 0.67]  # Claw
+
+  # Pirate Equips (10 items)
+  - [1082192, 1, 1, 0.29]  # Pirate Gloves
+  - [1072288, 1, 1, 0.50]  # Pirate Shoes
+  - [1492003, 1, 1, 0.40]  # Gun
+  - [1052113, 1, 1, 0.25]  # Pirate Overall
+  - [1052104, 1, 1, 0.40]  # Pirate Overall
+  - [1492002, 1, 1, 0.50]  # Gun
+  - [1052095, 1, 1, 1.00]  # Pirate Overall
+  - [1492001, 1, 1, 0.67]  # Gun
+  - [1002613, 1, 1, 0.67]  # Pirate Hat
+  - [1492004, 1, 1, 0.33]  # Gun
+
+  # Scrolls (specifically for thief weapons)
+  - [2044700, 1, 1, 0.10]  # Claw for ATT Scroll
+  - [2044701, 1, 1, 0.10]  # Claw for ATT Scroll
+  - [2044702, 1, 1, 0.10]  # Claw for ATT Scroll
+  - [2044704, 1, 1, 0.10]  # Claw for ATT Scroll
+  - [2044705, 1, 1, 0.10]  # Claw for ATT Scroll
+  - [2043300, 1, 1, 0.10]  # Dagger for ATT Scroll
+  - [2043301, 1, 1, 0.10]  # Dagger for ATT Scroll
+  - [2043302, 1, 1, 0.10]  # Dagger for ATT Scroll
+  - [2043304, 1, 1, 0.10]  # Dagger for ATT Scroll
+  - [2043305, 1, 1, 0.10]  # Dagger for ATT Scroll
+
+  # Skills - Mastery Books for thief skills
+  - [2290076, 1, 1, 0.05]  # Mastery Book 20 (Lucky Seven)
+  - [2290077, 1, 1, 0.025]  # Mastery Book 30 (Lucky Seven)
+  - [2290078, 1, 1, 0.05]  # Mastery Book 20 (Double Stab)
+  - [2290079, 1, 1, 0.025]  # Mastery Book 30 (Double Stab)
+  - [2290080, 1, 1, 0.05]  # Mastery Book 20 (Slash Blast)
+  - [2290081, 1, 1, 0.025]  # Mastery Book 30 (Slash Blast)
+  - [2290082, 1, 1, 0.05]  # Mastery Book 20 (Shadow Partner)
+  - [2290083, 1, 1, 0.025]  # Mastery Book 30 (Shadow Partner)
+  - [2290084, 1, 1, 0.05]  # Mastery Book 20 (Assaulter)
+  - [2290085, 1, 1, 0.025]  # Mastery Book 30 (Assaulter)
+  - [2290086, 1, 1, 0.05]  # Mastery Book 20 (Meso Explosion)
+  - [2290087, 1, 1, 0.025]  # Mastery Book 30 (Meso Explosion)
+  - [2290088, 1, 1, 0.05]  # Mastery Book 20 (Assassinate)
+  - [2290089, 1, 1, 0.025]  # Mastery Book 30 (Assassinate)
+  - [2290090, 1, 1, 0.05]  # Mastery Book 20 (Boomerang Step)
+  - [2290091, 1, 1, 0.025]  # Mastery Book 30 (Boomerang Step)
+  - [2290092, 1, 1, 0.05]  # Mastery Book 20 (Avenger)
+  - [2290093, 1, 1, 0.025]  # Mastery Book 30 (Avenger)
+  - [2290094, 1, 1, 0.05]  # Mastery Book 20 (Maple Warrior)
+  - [2290095, 1, 1, 0.025]  # Mastery Book 30 (Maple Warrior)

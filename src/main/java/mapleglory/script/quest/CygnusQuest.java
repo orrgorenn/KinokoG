@@ -200,9 +200,9 @@ public final class CygnusQuest extends ScriptHandler {
         // Empress' Road : Entrance to the Drill Hall (130020000)
         final List<Integer> destinations = List.of(
                 913010000, // Hidden Street : The 3rd Drill Hall [1]
-                913010100, // Tera Forest : The 3rd Drill Hall [2]
-                913010200, // Tera Forest : The 3rd Drill Hall [3]
-                913010300 // Tera Forest : The 3rd Drill Hall [4]
+                913010100, // Hidden Street : The 3rd Drill Hall [2]
+                913010200, // Hidden Street : The 3rd Drill Hall [3]
+                913010300 // Hidden Street : The 3rd Drill Hall [4]
         );
 
         List<Field> maps = destinations.stream()
@@ -235,6 +235,52 @@ public final class CygnusQuest extends ScriptHandler {
 
         for (int i = 0; i < 5; i++) {
             if (sm.hasQuestStarted(20601 + i)) {
+                sm.playPortalSE();
+                sm.warp(maps.getFirst().getFieldId());
+            }
+        }
+    }
+
+    @Script("enterfourthDH")
+    public static void enterfourthDH(ScriptManager sm) {
+        // Empress' Road : Entrance to the Drill Hall (130020000)
+        final List<Integer> destinations = List.of(
+                913020000, // Hidden Street : The 4rd Drill Hall [1]
+                913020100, // Hidden Street : The 4rd Drill Hall [2]
+                913020200, // Hidden Street : The 4rd Drill Hall [3]
+                913020300 // Hidden Street : The 4rd Drill Hall [4]
+        );
+
+        List<Field> maps = destinations.stream()
+                .map(mapId -> sm.getField().getFieldStorage().getFieldById(mapId))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .collect(Collectors.toList());
+
+        maps.sort((map1, map2) -> {
+            if (map1.getUserPool().getCount() < 1 && map1.getMobPool().getCount() > 0) {
+                return -1;
+            }
+            if (map2.getUserPool().getCount() < 1 && map2.getMobPool().getCount() > 0) {
+                return 1;
+            }
+            if (map1.getUserPool().getCount() < 1) {
+                return -1;
+            }
+            if (map2.getUserPool().getCount() < 1) {
+                return 1;
+            }
+            if (map1.getMobPool().getCount() > 0) {
+                return -1;
+            }
+            if (map2.getMobPool().getCount() > 0) {
+                return 1;
+            }
+            return 0;
+        });
+
+        for (int i = 0; i < 5; i++) {
+            if (sm.hasQuestStarted(20611 + i)) {
                 sm.playPortalSE();
                 sm.warp(maps.getFirst().getFieldId());
             }
