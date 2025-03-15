@@ -26,6 +26,9 @@ public class JobQuest extends ScriptHandler {
     final static int ANDRAS_PRE_FIELD = 677000004;
     final static int ANDRAS_FIELD = 677000005;
     final static int ANDRAS = 9400609;
+    final static int MARBAS_PRE_FIELD = 677000000;
+    final static int MARBAS_FIELD = 677000001;
+    public static final int MARBAS = 9400612;
 
 
     @Script("Enter_Darkportal_P")
@@ -53,6 +56,35 @@ public class JobQuest extends ScriptHandler {
             newField.setMobSpawn(false);
             sm.warp(CROCELL_PRE_FIELD);
             sm.spawnMobInMap(CROCELL, MobAppearType.NORMAL, 342, 75, true, newField);
+            sm.broadcastMessage("Kill Crocell!", false);
+        }
+    }
+
+    @Script("Enter_Darkportal_M")
+    public static void enter_darkportal_m(ScriptManager sm) {
+        // Demon's Doorway
+        if (!sm.hasQuestStarted(28198)) {
+            sm.sayOk("Demon's Doorway is closed right now.");
+            return;
+        }
+        final Field newField;
+        final Optional<Field> tryField = sm.getField().getFieldStorage().getFieldById(MARBAS_FIELD);
+        if (tryField.isPresent()) {
+            newField = tryField.get();
+            if (newField.getUserPool().getCount() > 0) {
+                sm.sayNext("Someone is already in that map.");
+                return;
+            }
+            sm.sayNext("You are permitted to enter the Demon's Doorway.");
+            newField.getMobPool().forEach((mob) -> {
+                try (var lockedMob = mob.acquire()) {
+                    mob.remove(Instant.now());
+                }
+            });
+            newField.setMobSpawn(false);
+            sm.warp(MARBAS_PRE_FIELD);
+            sm.spawnMobInMap(MARBAS, MobAppearType.NORMAL, 174, 70, true, newField);
+            sm.broadcastMessage("Kill Marbas!", false);
         }
     }
 
@@ -81,6 +113,7 @@ public class JobQuest extends ScriptHandler {
             newField.setMobSpawn(false);
             sm.warp(ANDRAS_PRE_FIELD);
             sm.spawnMobInMap(ANDRAS, MobAppearType.NORMAL, 294, 96, true, newField);
+            sm.broadcastMessage("Kill Andras!", false);
         }
     }
 
@@ -109,6 +142,7 @@ public class JobQuest extends ScriptHandler {
             newField.setMobSpawn(false);
             sm.warp(VALEFOR_PRE_FIELD);
             sm.spawnMobInMap(VALEFOR, MobAppearType.NORMAL, 359, 66, true, newField);
+            sm.broadcastMessage("Kill Valefor!", false);
         }
     }
 
@@ -137,6 +171,7 @@ public class JobQuest extends ScriptHandler {
             newField.setMobSpawn(false);
             sm.warp(AMDUSIAS_PRE_FIELD);
             sm.spawnMobInMap(AMDUSIAS, MobAppearType.NORMAL, 511, 35, true, newField);
+            sm.broadcastMessage("Kill Amdusias!", false);
         }
     }
 

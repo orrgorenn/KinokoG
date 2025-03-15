@@ -56,7 +56,8 @@ public enum QuestRecordType {
     EdelsteinWonny10PM(23984),
     ZakumPreqStageOne(100200),
     ZakumPreqStageTwo(100201),
-    Zakum(100250);
+    Zakum(100250),
+    MuLungDojoTutorial(1000000);
 
     private final int questId;
 

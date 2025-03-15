@@ -87,6 +87,7 @@ public final class User extends Life implements Lockable<User> {
     private String adBoard;
     private boolean inTransfer;
     private Instant nextCheckItemExpire;
+    private int dojoEnergy;
 
     public User(Client client, CharacterData characterData) {
         this.client = client;
@@ -295,6 +296,10 @@ public final class User extends Life implements Lockable<User> {
     public void setDragon(Dragon dragon) {
         this.dragon = dragon;
     }
+
+    public int getDojoEnergy() { return dojoEnergy; }
+    public void setDojoEnergy(int newEnergy) { this.dojoEnergy = newEnergy; }
+    public void resetDojoEnergy() { this.dojoEnergy = 0; }
 
     public TownPortal getTownPortal() {
         return townPortal;

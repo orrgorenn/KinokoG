@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Map;
 
 public final class ExplorerQuest extends ScriptHandler {
-    public static final int MARBAS = 9400612;
-
     public static final int CLERIC = 230;
     public static final int WIZARD_FP = 210;
     public static final int WIZARD_IL = 220;
@@ -756,20 +754,6 @@ public final class ExplorerQuest extends ScriptHandler {
             }
         } else {
             sm.sayOk("Please make sure that you are eligible for the job advancement. (level 70+)");
-        }
-    }
-
-    // TODO: move from here to job
-    @Script("Enter_Darkportal_M")
-    public static void enter_darkportal_m(ScriptManager sm) {
-        if (!sm.hasQuestStarted(28198)) {
-            sm.sayOk("...");
-            return;
-        }
-        if (sm.askMenu("Are you sure you want to fight with Marbas the Demon?", Map.of(0, "I am sure.", 1, "Maybe another time.")) == 0) {
-            sm.warp(677000001);
-            sm.spawnMob(MARBAS, MobAppearType.NORMAL, 174, 70, true, false);
-            sm.broadcastMessage("Kill Marbas!", false);
         }
     }
 
