@@ -465,13 +465,13 @@ public final class ResistanceQuest extends ScriptHandler {
         sm.setJob(Job.BATTLE_MAGE_4);
         sm.addSkill(32120000, 0, 10);
         sm.addSkill(32120001, 0, 10);
-        sm.addSkill(32120009, 0, 10);
         sm.addSkill(32121002, 0, 10);
         sm.addSkill(32121003, 0, 10);
         sm.addSkill(32121004, 0, 10);
         sm.addSkill(32121005, 0, 10);
         sm.addSkill(32121006, 0, 10);
         sm.addSkill(32121007, 0, 10);
+        sm.addSkill(32120009, 0, 10);
         sm.forceCompleteQuest(23052);
         sm.sayNext("I've advanced you. I've also given you some sills that I know of but haven't mastered yet. I have a hunch that you'll be able to master them. After all, you are the most skilled member of the Resistance now!");
         sm.sayBoth("Could this be my last lesson with you? Nah, can't be. You may be stronger, but I'm still smarter. I'm sure there's plenty more you can learn from me. So I'll see you at your next lesson... whenever that is...");
