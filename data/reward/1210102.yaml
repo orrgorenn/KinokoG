@@ -18,3 +18,4 @@ rewards:
   - [ 4000001, 1, 1, 0.400000 ] # Orange Mushroom Cap
   - [ 4010000, 1, 1, 0.002000 ] # Bronze Ore
   - [ 4020007, 1, 1, 0.002000 ] # Diamond Ore
+  - [ 4032314, 1, 1, 0.050000, 21709 ] # Orange Mushroom Horn
