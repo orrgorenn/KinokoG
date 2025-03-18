@@ -372,4 +372,23 @@ public class ElNath extends ScriptHandler {
             sm.sayOk("\"If you're thinking of entering, I suggest you change your mind. But if you really want to enter... Only those strong enough to stay alive inside will be allowed. I don't want to see anyone else die. Let's see... Hmmm... you haven't reached level 50 yet. I can't let you in, forget it.");
         }
     }
+
+    @Script("Zakumgo")
+    public static void zakumgo(ScriptManager sm) {
+        sm.playPortalSE();
+        sm.warp(211042300);
+    }
+
+    @Script("q3116s")
+    public static void q3116s(ScriptManager sm) {
+        // Shammos's Awakening
+        sm.sayNext("Hey, you're #b#h0##k, right? My name is #bShammos#k. I've called you here because I have a very important request. But first, I'm sure you have many questions about me.");
+        if (!sm.askYesNo("As you can see, I'm not human. I am part of the Hoblin race. At least that's what people tell me. Truth is, I don't really know who I am or why I'm trapped here. For some reason, I can't remember much of anything. It's so frustrating! I really need your help, yeah?")) {
+            sm.sayOk("How dare you refuse me... You will regret it...");
+            sm.dispose();
+        }
+
+        sm.sayNext("Please come see me now. As you may already know, I am in the #bbasement of the Chief's Residence in El Nath#k.");
+        sm.forceStartQuest(3116);
+    }
 }

@@ -12,9 +12,7 @@ import mapleglory.world.job.JobConstants;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.*;
 
 public final class ItemInfo {
     private final int itemId;
@@ -37,6 +35,19 @@ public final class ItemInfo {
 
     public Map<ItemSpecType, Object> getItemSpecs() {
         return itemSpecs;
+    }
+
+    public List<Integer> getSkillList() {
+        List<Integer> skills = new ArrayList<>();
+        if (!(itemInfos.get(ItemInfoType.skill) instanceof WzListProperty skillList)) {
+            throw new ProviderError("Failed to read skill list");
+        }
+
+        for (var skillEntry : skillList.getItems().entrySet()) {
+            skills.add(WzProvider.getInteger(skillEntry.getValue()));
+        }
+
+        return skills;
     }
 
     public int getInfo(ItemInfoType infoType) {

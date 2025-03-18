@@ -401,6 +401,8 @@ public final class ExplorerQuest extends ScriptHandler {
                     sm.sayBoth("A Spearman needs to be strong. But remember that you can't abuse that power and use it on a weakling. Please use your enormous power the right way, because...for you to use that the right way, that is much harder than just getting stronger. Find me after you have advanced much further. I'll be waiting for you.");
                 }
             }
+        } else if (sm.getLevel() >= 120 && sm.getUser().is3rdJob()) {
+
         }
     }
 
@@ -822,5 +824,336 @@ public final class ExplorerQuest extends ScriptHandler {
     public static void q3108s(ScriptManager sm) {
         sm.sayOk("Ah, a clue! Let's go back to Scadur.");
         sm.forceCompleteQuest(3108);
+    }
+
+    private static void notReady4thJob(ScriptManager sm) {
+        sm.sayOk("You don't have to hesitate.... Whenever you decide, talk to me. If you're ready, I'll let you make the 4th job advancement.");
+        sm.dispose();
+    }
+
+    public static boolean validateBasicRequirements(ScriptManager sm, int[] validJobIds, String jobTypeName) {
+        int jobId = sm.getJob().getJobId();
+
+        // Check job class
+        boolean validJob = false;
+        for (int id : validJobIds) {
+            if (jobId == id) {
+                validJob = true;
+                break;
+            }
+        }
+
+        if (!validJob) {
+            sm.sayOk("Why do you want to see me? There is nothing you want to ask me.");
+            sm.dispose();
+            return false;
+        }
+
+        // Check level
+        if (sm.getLevel() < 120) {
+            sm.sayOk("You're still weak to go to " + jobTypeName + " extreme road. If you get stronger, come back to me.");
+            sm.dispose();
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean handleAdvancementDialog(ScriptManager sm, String jobTypeName, String targetJobName) {
+        final int answer = sm.askMenu("You're qualified to be a true " + jobTypeName + ". \r\nDo you want job advancement?", Map.of(
+                0, "I want to advance to " + targetJobName + ".",
+                1, "Let me think for a while."
+        ));
+
+        if (answer == 1) {
+            notReady4thJob(sm);
+            return false;
+        }
+
+        return true;
+    }
+
+    @Script("thief4")
+    public static void thief4(ScriptManager sm) {
+        int jobId = sm.getJob().getJobId();
+        int[] validJobIds = {411, 421, 433};
+
+        // Basic requirements check
+        if (!validateBasicRequirements(sm, validJobIds, "thief")) {
+            return;
+        }
+
+        // Check if player is qualified for advancement
+        boolean isQualified = sm.hasQuestCompleted(6934) || jobId == 433;
+        if (!isQualified) {
+            sm.sayOk("You're not ready to make 4th job advancement. When you're ready, talk to me.");
+            sm.dispose();
+            return;
+        }
+
+        // Special case for Blade Master requiring an item
+        if (jobId == 433 && !sm.hasQuestCompleted(6934) && !sm.hasItem(4031348, 1)) {
+            sm.sayOk("You need the Secret Scroll for 10 million meso.");
+            sm.dispose();
+            return;
+        }
+
+        // Job advancement dialog
+        String jobName = "";
+        if (jobId == 411) {
+            jobName = "Night Lord";
+        } else if (jobId == 421) {
+            jobName = "Shadower";
+        } else { // jobId == 433
+            jobName = "Blade Master";
+        }
+
+        if (!handleAdvancementDialog(sm, "thief", jobName)) {
+            return;
+        }
+
+        // TODO: Fix logic here
+        // SP check logic commented out in original
+
+        // Set job and show confirmation
+        if (jobId == 411) {
+            sm.setJob(Job.NIGHT_LORD);
+        } else if (jobId == 421) {
+            sm.setJob(Job.SHADOWER);
+        } else { // jobId == 433
+            if (!sm.hasQuestCompleted(6934)) {
+                sm.removeItem(4031348, 1);
+            }
+            sm.setJob(Job.BLADE_MASTER);
+        }
+
+        sm.sayNext("You became the best thief #b" + jobName + "#k.");
+        sm.sayOk("Don't forget that it all depends on how much you train.");
+        sm.dispose();
+    }
+
+    @Script("magician4")
+    public static void magician4(ScriptManager sm) {
+        int jobId = sm.getJob().getJobId();
+        int[] validJobIds = {211, 221, 231};
+
+        // Basic requirements check
+        if (!validateBasicRequirements(sm, validJobIds, "magician")) {
+            return;
+        }
+
+        if (sm.getLevel() < 120) {
+            sm.sayOk("You're still weak to go to magician extreme road. If you get stronger, come back to me.");
+            sm.dispose();
+            return;
+        }
+
+        // Check if player is qualified for advancement
+        boolean isQualified = sm.hasQuestCompleted(6914);
+        if (!isQualified) {
+            sm.sayOk("You're not ready to make 4th job advancement. When you're ready, talk to me.");
+            sm.dispose();
+            return;
+        }
+
+        // Job advancement dialog
+        String jobName = "";
+        if (jobId == 211) {
+            jobName = "Arch Mage (F/P)";
+        } else if (jobId == 221) {
+            jobName = "Arch Mage (I/L)";
+        } else { // jobId == 231
+            jobName = "Bishop";
+        }
+
+        if (!handleAdvancementDialog(sm, "magician", jobName)) {
+            return;
+        }
+
+        // TODO: Fix logic here
+        // SP check logic commented out in original
+
+        // Set job and show confirmation
+        if (jobId == 211) {
+            sm.setJob(Job.ARCH_MAGE_FP);
+        } else if (jobId == 221) {
+            sm.setJob(Job.ARCH_MAGE_IL);
+        } else { // jobId == 231
+            sm.setJob(Job.BISHOP);
+        }
+
+        // Base job type for display message (without F/P or I/L specifics)
+        String baseJobName = jobId == 231 ? "Bishop" : "Arch Mage";
+
+        sm.sayNext("You became the best magician #b" + jobName + "#k. " +
+                baseJobName + " can use its own power as well as Mana of nature just like \n#bInfinity#k or #bBig Bang#k");
+
+        if (jobId == 211) {
+            sm.sayNext("This is not all about Arch Mage. Arch Mage is good at fire and poison element-based. It may change not only extreme element-based but also element-based of its own or enemies if you train.");
+        } else if (jobId == 221) {
+            sm.sayNext("This is not all about Arch Mage. Arch Mage is good at ice and lightning element-based. It may change not only extreme element-based but also element-based of its own or enemies if you train.");
+        } else {
+            sm.sayNext("This is not all about Bishop. Bishop can borrow God's power. It may make strong castle element-based magic and even make the dead alive.");
+        }
+
+        sm.sayOk("Don't forget that it all depends on how much you train.");
+        sm.dispose();
+    }
+
+    @Script("warrior4")
+    public static void warrior4(ScriptManager sm) {
+        int jobId = sm.getJob().getJobId();
+        int[] validJobIds = {111, 121, 131}; // Hero, Paladin, Dark Knight
+
+        // Basic requirements check
+        if (!validateBasicRequirements(sm, validJobIds, "warrior")) {
+            return;
+        }
+
+        // Check if player is qualified for advancement
+        boolean isQualified = sm.hasQuestCompleted(6934) || jobId == 2111;
+        if (!isQualified) {
+            sm.sayOk("You're not ready to make 4th job advancement. When you're ready, talk to me.");
+            sm.dispose();
+            return;
+        }
+
+        // Special case for Aran requiring an item
+        if (jobId == 2111 && !sm.hasQuestCompleted(6904) && !sm.hasItem(4031348, 1)) {
+            sm.sayOk("You need the Secret Scroll for 10 million meso.");
+            sm.dispose();
+            return;
+        }
+
+        // Determine job name
+        String jobName;
+        if (jobId == 111) {
+            jobName = "Hero";
+        } else if (jobId == 121) {
+            jobName = "Paladin";
+        } else if (jobId == 131) {
+            jobName = "Dark Knight";
+        } else { // 2111
+            jobName = "Aran";
+        }
+
+        // Advancement dialog
+        if (!handleAdvancementDialog(sm, "warrior", jobName)) {
+            return;
+        }
+
+        // Set job
+        if (jobId == 111) {
+            sm.setJob(Job.HERO);
+        } else if (jobId == 121) {
+            sm.setJob(Job.PALADIN);
+        } else if (jobId == 131) {
+            sm.setJob(Job.DARK_KNIGHT);
+        } else { // 2111
+            sm.removeItem(4031348, 1);
+            sm.setJob(Job.ARAN_4);
+            if (sm.canAddItem(1142132, 1)) {
+                sm.forceCompleteQuest(29927);
+                sm.addItem(1142132, 1);
+            }
+        }
+
+        // Class-specific dialog here
+        sm.sayOk("You became the best warrior #b" + jobName + "#k.");
+        sm.sayOk("Don't forget that it all depends on how much you train.");
+        sm.dispose();
+    }
+
+    @Script("bowman4")
+    public static void bowman4(ScriptManager sm) {
+        int jobId = sm.getJob().getJobId();
+        int[] validJobIds = {311, 321}; // Bowmaster, Marksman
+
+        // Basic requirements check
+        if (!validateBasicRequirements(sm, validJobIds, "bowman")) {
+            return;
+        }
+
+        // Quest completion check - use appropriate quest ID
+        if (!sm.hasQuestCompleted(6924)) { // Assuming quest ID for bowman
+            sm.sayOk("You're not ready to make 4th job advancement. When you're ready, talk to me.");
+            sm.dispose();
+            return;
+        }
+
+        // Determine job name
+        String jobName;
+        if (jobId == 311) {
+            jobName = "Bowmaster";
+        } else { // jobId == 321
+            jobName = "Marksman";
+        }
+
+        // Advancement dialog
+        if (!handleAdvancementDialog(sm, "bowman", jobName)) {
+            return;
+        }
+
+        // Set job
+        if (jobId == 311) {
+            sm.setJob(Job.BOWMASTER);
+        } else { // jobId == 321
+            sm.setJob(Job.MARKSMAN);
+        }
+
+        // Class-specific dialog here
+        sm.sayOk("You became the best bowman #b" + jobName + "#k.");
+
+        if (jobId == 312) {
+            sm.sayNext("This is not all about Bow Master. Bow Master is good at a fast battle. It can attack enemies with enormously fast speed and even have great attack power.");
+        } else {
+            sm.sayNext("This is not all about Marksman. Each shot of a Marksman is very strong. It can attack many enemies with strong power and may beat off them at once.");
+        }
+
+        sm.sayOk("Don't forget that it all depends on how much you train.");
+        sm.dispose();
+    }
+
+    @Script("pirate4")
+    public static void pirate4(ScriptManager sm) {
+        int jobId = sm.getJob().getJobId();
+        int[] validJobIds = {511, 521}; // Buccaneer, Corsair
+
+        // Basic requirements check
+        if (!validateBasicRequirements(sm, validJobIds, "pirate")) {
+            return;
+        }
+
+        // Quest completion check - use appropriate quest ID
+        if (!sm.hasQuestCompleted(6944)) { // Assuming quest ID for pirate
+            sm.sayOk("You're not ready to make 4th job advancement. When you're ready, talk to me.");
+            sm.dispose();
+            return;
+        }
+
+        // Determine job name
+        String jobName;
+        if (jobId == 511) {
+            jobName = "Buccaneer";
+        } else { // jobId == 521
+            jobName = "Corsair";
+        }
+
+        // Advancement dialog
+        if (!handleAdvancementDialog(sm, "pirate", jobName)) {
+            return;
+        }
+
+        // Set job
+        if (jobId == 511) {
+            sm.setJob(Job.BUCCANEER);
+        } else { // jobId == 521
+            sm.setJob(Job.CORSAIR);
+        }
+
+        // Class-specific dialog here
+        sm.sayOk("You became the best pirate #b" + jobName + "#k.");
+        sm.sayOk("Don't forget that it all depends on how much you train.");
+        sm.dispose();
     }
 }

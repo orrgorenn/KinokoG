@@ -73,6 +73,8 @@ public enum ItemInfoType {
     incPERIOD,
 
     success,
+    masterLevel,
+    skill,
     cursed,
     recover,
     randstat,

@@ -32,3 +32,6 @@ rewards:
   - [ 4010004, 1, 1, 0.002000 ] # Silver Ore
   - [ 4020002, 1, 1, 0.002000 ] # AquaMarine Ore
   - [ 4020003, 1, 1, 0.002000 ] # Emerald Ore
+  - [ 4032316, 1, 1, 0.100000, 21714 ] # Dejected Green Mushroom Puppet | Green Mushrooms at the Secret Forest to the South
+  - [ 4032316, 1, 1, 0.100000, 21717 ] # Dejected Green Mushroom Puppet | Rowen's Request 1
+  - [ 4032316, 1, 1, 0.100000, 21718 ] # Dejected Green Mushroom Puppet | Rowen's Request 2

@@ -19,3 +19,4 @@ rewards:
   - [ 4010000, 1, 1, 0.002000 ] # Bronze Ore
   - [ 4020007, 1, 1, 0.002000 ] # Diamond Ore
   - [ 4030001, 1, 1, 0.050000 ] # Omok Piece : Mushroom
+  - [ 4032315, 1, 1, 0.999999, 21711 ] # Cynical Orange Mushroom Puppet | Enter the Cynical Orange Mushrooms!

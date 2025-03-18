@@ -352,4 +352,16 @@ public final class WvsContext {
         }
         return outPacket;
     }
+
+    public static OutPacket useSkillBook(int charId, int skillId, int maxLevel, boolean canUse, boolean success) {
+        OutPacket outPacket = OutPacket.of(OutHeader.SkillLearnItemResult);
+        outPacket.encodeByte(0);
+        outPacket.encodeInt(charId);
+        outPacket.encodeByte(1);
+        outPacket.encodeInt(skillId);
+        outPacket.encodeInt(maxLevel);
+        outPacket.encodeByte(canUse ? 1 : 0);
+        outPacket.encodeByte(success ? 1 : 0);
+        return outPacket;
+    }
 }

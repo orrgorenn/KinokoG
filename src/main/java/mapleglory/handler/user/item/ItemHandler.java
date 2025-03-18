@@ -387,7 +387,7 @@ public abstract class ItemHandler {
                 return;
             }
 
-            // Consume item
+            // Consume itemdwTickCount
             final Optional<InventoryOperation> consumeItemResult = consumeItem(locked, position, itemId);
             if (consumeItemResult.isEmpty()) {
                 user.dispose();
@@ -397,6 +397,44 @@ public abstract class ItemHandler {
 
             // Apply stat change
             changeStat(locked, itemInfoResult.get());
+        }
+    }
+
+    @Handler(InHeader.UserSkillLearnItemUseRequest)
+    public static void handleUserSkillLearnItemUseRequest(User user, InPacket inPacket) {
+        inPacket.decodeInt(); // dwTickCount
+        final int position = inPacket.decodeShort(); // nPos
+        final int itemId = inPacket.decodeInt(); // nItemID
+
+        // Resolve item
+        final Optional<ItemInfo> itemInfoResult = ItemProvider.getItemInfo(itemId);
+        if (itemInfoResult.isEmpty()) {
+            log.error("Could not resolve item info for item ID : {}", itemId);
+            user.dispose();
+            return;
+        }
+
+        try (var locked = user.acquire()) {
+            // Check field limit
+            final Field field = locked.get().getField();
+            if (field.hasFieldOption(FieldOption.STATCHANGEITEMCONSUMELIMIT) && !field.getMapInfo().getAllowedItems().contains(itemId)) {
+                log.error("Tried to use stat change item by pet in a restricted field");
+                user.dispose();
+                return;
+            }
+
+            // Try to apply skill book
+            if(!applySkillBook(locked, itemInfoResult.get())) {
+                return;
+            }
+
+            // Consume item
+            final Optional<InventoryOperation> consumeItemResult = consumeItem(locked, position, itemId);
+            if (consumeItemResult.isEmpty()) {
+                user.dispose();
+                return;
+            }
+            user.write(WvsContext.inventoryOperation(consumeItemResult.get(), true));
         }
     }
 
@@ -426,5 +464,10 @@ public abstract class ItemHandler {
     protected static void changeStat(Locked<User> locked, ItemInfo itemInfo) {
         final User user = locked.get();
         user.setConsumeItemEffect(itemInfo);
+    }
+
+    protected static boolean applySkillBook(Locked<User> locked, ItemInfo itemInfo) {
+        final User user = locked.get();
+        return user.setSkillBook(itemInfo);
     }
 }

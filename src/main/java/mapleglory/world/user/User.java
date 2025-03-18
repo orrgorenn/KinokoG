@@ -9,6 +9,7 @@ import mapleglory.packet.world.WvsContext;
 import mapleglory.provider.SkillProvider;
 import mapleglory.provider.WzProvider;
 import mapleglory.provider.item.ItemInfo;
+import mapleglory.provider.item.ItemInfoType;
 import mapleglory.provider.item.ItemSpecType;
 import mapleglory.provider.map.Foothold;
 import mapleglory.provider.map.PortalInfo;
@@ -25,6 +26,7 @@ import mapleglory.server.packet.OutPacket;
 import mapleglory.server.party.PartyRequest;
 import mapleglory.util.BitFlag;
 import mapleglory.util.Lockable;
+import mapleglory.util.Util;
 import mapleglory.world.GameConstants;
 import mapleglory.world.field.Field;
 import mapleglory.world.field.OpenGate;
@@ -35,10 +37,12 @@ import mapleglory.world.field.summoned.SummonedLeaveType;
 import mapleglory.world.item.InventoryManager;
 import mapleglory.world.item.Item;
 import mapleglory.world.job.Job;
+import mapleglory.world.job.JobConstants;
 import mapleglory.world.quest.QuestManager;
 import mapleglory.world.skill.PassiveSkillData;
 import mapleglory.world.skill.SkillConstants;
 import mapleglory.world.skill.SkillManager;
+import mapleglory.world.skill.SkillRecord;
 import mapleglory.world.user.data.ConfigManager;
 import mapleglory.world.user.data.MapTransferInfo;
 import mapleglory.world.user.data.MiniGameRecord;
@@ -618,6 +622,53 @@ public final class User extends Life implements Lockable<User> {
         if (!resetStats.isEmpty()) {
             resetTemporaryStat(resetStats);
         }
+    }
+
+    public boolean setSkillBook(ItemInfo itemInfo) {
+        boolean canUse = false;
+        boolean success = false;
+        int skill = 0;
+        int maxLevel = 0;
+        final int successRate = itemInfo.getInfo(ItemInfoType.success);
+        final int reqSkillLevel = itemInfo.getInfo(ItemInfoType.reqSkillLevel);
+        final int masterLevel = itemInfo.getInfo(ItemInfoType.masterLevel);
+
+        for (int skillId : itemInfo.getSkillList()) {
+            final Optional<SkillRecord> skillRecordResult = getSkillManager().getSkill(skillId);
+            if (skillRecordResult.isEmpty()) {
+                continue;
+            }
+
+            final SkillRecord skillRecord = skillRecordResult.get();
+            boolean fitJob = JobConstants.isCorrectJobForSkillRoot(getJob(), SkillConstants.getSkillRoot(skillId));
+            boolean levelBigReq = skillRecord.getSkillLevel() >= reqSkillLevel;
+            boolean masterLowerMaster = skillRecord.getMasterLevel() <= masterLevel;
+            if (fitJob && levelBigReq && masterLowerMaster) {
+                canUse = true;
+                skill = skillRecord.getSkillId();
+                maxLevel = masterLevel;
+                if (Util.getRandom(100) <= successRate && successRate != 0) {
+                    success = true;
+                    skillRecord.setMasterLevel(masterLevel);
+                    updatePassiveSkillData();
+                    validateStat();
+                    write(WvsContext.changeSkillRecordResult(skillRecord, true));
+                }
+                break;
+            } else {
+                if (!fitJob) {
+                    log.debug("fit job, job {}, skillRoot {}", getJob(), SkillConstants.getSkillRoot(skillId));
+                }
+                if (!levelBigReq) {
+                    log.debug("levelBigReq {} < {}", skillRecord.getSkillLevel(), reqSkillLevel);
+                }
+                if (!masterLowerMaster) {
+                    log.debug("masterLowerMaster {} > {}", skillRecord.getMasterLevel(), masterLevel);
+                }
+            }
+        }
+        write(WvsContext.useSkillBook(getId(), skill, maxLevel, canUse, success));
+        return canUse;
     }
 
     private int getItemBonusRecovery(int recovery) {

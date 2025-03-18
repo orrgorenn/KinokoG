@@ -17,7 +17,7 @@ public class JobQuest extends ScriptHandler {
     final static int CROCELL = 9400611;
     final static int CROCELL_PRE_FIELD = 677000006;
     final static int CROCELL_FIELD = 677000007;
-    final static int AMDUSIAS = 9400623;
+    final static int AMDUSIAS = 9400610;
     final static int AMDUSIAS_PRE_FIELD = 677000002;
     final static int AMDUSIAS_FIELD = 677000003;
     final static int VALEFOR_PRE_FIELD = 677000008;

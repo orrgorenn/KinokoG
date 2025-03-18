@@ -7,6 +7,16 @@ import mapleglory.script.quest.MushroomCastle;
 import mapleglory.world.quest.QuestRecordType;
 
 public class MushroomKingdom extends ScriptHandler {
+    @Script("q2300s")
+    public static void q2300s(ScriptManager sm) {
+        handleMushking(sm, 2300);
+    }
+
+    @Script("q2301s")
+    public static void q2301s(ScriptManager sm) {
+        handleMushking(sm, 2301);
+    }
+
     @Script("q2302s")
     public static void q2302s(ScriptManager sm) {
         handleMushking(sm, 2302);

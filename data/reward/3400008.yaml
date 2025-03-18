@@ -2,7 +2,7 @@
 
 rewards:
   - [ 0, 96, 125, 0.600000 ]
-  - [ 4032190, 1, 1, 0.400000] # Orange Mushroom Doll
+  - [ 4000544, 1, 1, 0.400000] # Orange Mushroom Doll
   - [ 4004000, 1, 1, 0.001000 ] # Power Crystal Ore
   - [ 2000001, 1, 1, 0.010000 ] # Orange Potion
   - [ 2000003, 1, 1, 0.010000 ] # Blue Potion
