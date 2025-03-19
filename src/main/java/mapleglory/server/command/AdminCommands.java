@@ -73,8 +73,10 @@ public final class AdminCommands {
     @Command("dispose")
     @Permission("gm")
     public static void dispose(User user, String[] args) {
-        user.closeDialog();
-        user.dispose();
+        try (var locked = user.acquire()) {
+            user.closeDialog();
+            user.dispose();
+        }
         user.write(MessagePacket.system("You have been disposed."));
     }
 
@@ -835,9 +837,9 @@ public final class AdminCommands {
                     if (si.isInvisible()) {
                         continue;
                     }
-                    final SkillRecord sr = si.createRecord();
+                    final SkillRecord sr = new SkillRecord(si.getSkillId());
                     sr.setSkillLevel(0);
-                    sr.setMasterLevel(SkillConstants.isSkillNeedMasterLevel(si.getSkillId()) ? 0 : si.getMaxLevel());
+                    sr.setMasterLevel(si.getMasterLevel());
                     sm.addSkill(sr);
                     skillRecords.add(sr);
                 }
@@ -872,7 +874,7 @@ public final class AdminCommands {
             return;
         }
         final SkillInfo si = skillInfoResult.get();
-        final SkillRecord skillRecord = si.createRecord();
+        final SkillRecord skillRecord = new SkillRecord(si.getSkillId());
         skillRecord.setSkillLevel(Math.min(slv, si.getMaxLevel()));
         skillRecord.setMasterLevel(si.getMaxLevel());
         try (var locked = user.acquire()) {
@@ -1123,7 +1125,7 @@ public final class AdminCommands {
                 }
                 final Job job = Job.getById(skillRoot);
                 for (SkillInfo si : SkillProvider.getSkillsForJob(job)) {
-                    final SkillRecord skillRecord = si.createRecord();
+                    final SkillRecord skillRecord = new SkillRecord(si.getSkillId());
                     skillRecord.setSkillLevel(si.getMaxLevel());
                     skillRecord.setMasterLevel(si.getMaxLevel());
                     sm.addSkill(skillRecord);
@@ -1266,6 +1268,92 @@ public final class AdminCommands {
             }
             final String itemName = StringProvider.getItemName(reward.getItemId());
             user.write(MessagePacket.system("[%s] (%.2f%%)", itemName, reward.getProb() * 100));
+        }
+    }
+
+    @Command({"whodrops", "wd"})
+    @Arguments("item_name/item_id")
+    @Permission("user")
+    public static void whodrops(User user, String[] args) {
+        final String query = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        final boolean isNumber = Util.isInteger(query);
+        int itemId = -1;
+        if (!isNumber) {
+            final List<Map.Entry<Integer, String>> searchResult = StringProvider.getItemNames().entrySet().stream()
+                    .filter((entry) -> entry.getValue().toLowerCase().contains(query.toLowerCase()))
+                    .sorted(Comparator.comparingInt(Map.Entry::getKey))
+                    .toList();
+            if (!searchResult.isEmpty()) {
+                if (searchResult.size() == 1) {
+                    itemId = searchResult.getFirst().getKey();
+                } else {
+                    user.write(MessagePacket.system("Results for item name : \"%s\"", query));
+                    for (var entry : searchResult) {
+                        user.write(MessagePacket.system("  %d : %s", entry.getKey(), entry.getValue()));
+                    }
+                    return;
+                }
+            }
+        } else {
+            itemId = Integer.parseInt(query);
+        }
+        final Optional<ItemInfo> itemInfoResult = ItemProvider.getItemInfo(itemId);
+        if (itemInfoResult.isEmpty()) {
+            user.write(MessagePacket.system("Could not find item with %s : %s", isNumber ? "id" : "name", query));
+            return;
+        }
+        final ItemInfo itemInfo = itemInfoResult.get();
+        user.write(MessagePacket.system("Item : %s (%d)", StringProvider.getItemName(itemId), itemId));
+
+        // Find all mobs that drop this item
+        List<Map.Entry<MobTemplate, Reward>> mobsWithDrops = new ArrayList<>();
+
+        // Get all mob templates
+        Optional<Map<Integer, MobTemplate>> allMobsOpt = MobProvider.getMobTemplates();
+
+        if (allMobsOpt.isPresent()) {
+            Map<Integer, MobTemplate> allMobs = allMobsOpt.get();
+
+            // For each mob, check if it drops the requested item
+            for (Map.Entry<Integer, MobTemplate> mobEntry : allMobs.entrySet()) {
+                int mobId = mobEntry.getKey();
+                MobTemplate mob = mobEntry.getValue();
+
+                List<Reward> mobRewards = RewardProvider.getMobRewards(mobId);
+                for (Reward reward : mobRewards) {
+                    // Skip money and quest rewards
+                    if (reward.isMoney() || reward.isQuest()) {
+                        continue;
+                    }
+
+                    if (reward.getItemId() == itemId) {
+                        mobsWithDrops.add(Map.entry(mob, reward));
+                        break; // Found the item for this mob, move to next mob
+                    }
+                }
+            }
+
+            // Sort results by drop probability (highest first)
+            mobsWithDrops.sort((a, b) -> Double.compare(b.getValue().getProb(), a.getValue().getProb()));
+
+            // Display results
+            if (mobsWithDrops.isEmpty()) {
+                user.write(MessagePacket.system("No mobs drop this item."));
+            } else {
+                user.write(MessagePacket.system("Mobs that drop this item:"));
+                for (var entry : mobsWithDrops) {
+                    MobTemplate mob = entry.getKey();
+                    Reward reward = entry.getValue();
+                    int mobId = mob.getId();
+                    String mobName = StringProvider.getMobName(mobId);
+                    user.write(MessagePacket.system("[%s] (Lv.%d) - %.2f%%",
+                            mobName,
+                            mob.getLevel(),
+                            reward.getProb() * 100));
+                }
+            }
+        } else {
+            user.write(MessagePacket.system("Unable to retrieve mob data."));
         }
     }
 }

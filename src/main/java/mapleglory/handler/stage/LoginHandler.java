@@ -30,6 +30,7 @@ import mapleglory.world.job.Job;
 import mapleglory.world.job.RaceSelect;
 import mapleglory.world.quest.QuestManager;
 import mapleglory.world.skill.SkillManager;
+import mapleglory.world.skill.SkillRecord;
 import mapleglory.world.user.Account;
 import mapleglory.world.user.AvatarData;
 import mapleglory.world.user.CharacterData;
@@ -336,10 +337,14 @@ public final class LoginHandler {
 
         // ✅ Initialize skills
         SkillManager sm = new SkillManager();
-        for (SkillInfo skillInfo : SkillProvider.getSkillsForJob(job)) {
-            if (!skillInfo.isInvisible()) {
-                sm.addSkill(skillInfo.createRecord());
+        for (SkillInfo si : SkillProvider.getSkillsForJob(job)) {
+            if (si.isInvisible()) {
+                continue;
             }
+            final SkillRecord sr = new SkillRecord(si.getSkillId());
+            sr.setSkillLevel(0);
+            sr.setMasterLevel(si.getMaxLevel());
+            sm.addSkill(sr);
         }
         characterData.setSkillManager(sm);
 

@@ -4,34 +4,29 @@ import mapleglory.world.item.Item;
 
 public final class PlayerShopItem {
     private final Item item;
-    private int setCount;
-    private final int setSize;
     private final int price;
+    private final int setSize;
 
-    public PlayerShopItem(Item item, int setCount, int setSize, int price) {
+
+    public PlayerShopItem(Item item, int price, int setSize) {
         this.item = item;
-        this.setCount = setCount;
-        this.setSize = setSize;
         this.price = price;
+        this.setSize = setSize;
     }
 
     public Item getItem() {
         return item;
     }
 
-    public int getSetCount() {
-        return setCount;
+    public int getPrice() {
+        return price;
     }
 
     public int getSetSize() {
         return setSize;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
-    public void setSetCount(int setCount) {
-        this.setCount = setCount;
+    public int getSetCount() {
+        return item.getQuantity() / setSize;
     }
 }

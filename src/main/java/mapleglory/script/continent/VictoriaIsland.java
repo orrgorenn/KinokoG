@@ -630,7 +630,7 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("q20201e")
     public static void q20201e(ScriptManager sm) {
-        // Mihile : Dawn Warrior Knighthood Exam - end
+        // Mihile - Dawn Warrior Knighthood Exam - end
         if (sm.hasItem(4032096, 30)) {
             sm.sayNext("So you brought all the #bProof of Exam#k... Okay, I believe that you are not qualified to become an official knight.");
             if(sm.askYesNo("Are you interested in becoming an Official Knight?")) {
@@ -646,10 +646,45 @@ public final class VictoriaIsland extends ScriptHandler {
         }
     }
 
+    @Script("q20202e")
+    public static void q20202e(ScriptManager sm) {
+        // Oz - Blaze Wizard Knighthood Exam - end
+        if (sm.hasItem(4032097, 30)) {
+            sm.sayNext("So you brought all the #bProof of Exam#k... Okay, I believe that you are not qualified to become an official knight.");
+            if(sm.askYesNo("Are you interested in becoming an Official Knight?")) {
+                if(!sm.canAddItem(1142066, 1)) {
+                    sm.sayOk("Please make room in your EQP inventory.");
+                    return;
+                }
+                sm.removeItem(4032097);
+                sm.addItem(1142066, 1);
+                sm.forceCompleteQuest(20202);
+                sm.setJob(Job.BLAZE_WIZARD_2);
+            }
+        }
+    }
+
+    @Script("q20203e")
+    public static void q20203e(ScriptManager sm) {
+        // Irena - Wind Archer Knighthood Exam - end
+        if (sm.hasItem(4032098, 30)) {
+            sm.sayNext("So you brought all the #bProof of Exam#k... Okay, I believe that you are not qualified to become an official knight.");
+            if(sm.askYesNo("Are you interested in becoming an Official Knight?")) {
+                if(!sm.canAddItem(1142066, 1)) {
+                    sm.sayOk("Please make room in your EQP inventory.");
+                    return;
+                }
+                sm.removeItem(4032098);
+                sm.addItem(1142066, 1);
+                sm.forceCompleteQuest(20203);
+                sm.setJob(Job.WIND_ARCHER_2);
+            }
+        }
+    }
+
     @Script("q20204e")
     public static void q20204e(ScriptManager sm) {
-        // Eckhart - Chief Night of Darkness
-        // Knighthood Exam
+        // Eckhart - Night Walker Knighthood Exam - end
         if (sm.hasItem(4032099, 30)) {
             sm.sayNext("So you brought all the #bProof of Exam#k... Okay, I believe that you are not qualified to become an official knight.");
             if(sm.askYesNo("Are you interested in becoming an Official Knight?")) {
@@ -661,6 +696,24 @@ public final class VictoriaIsland extends ScriptHandler {
                 sm.addItem(1142066, 1);
                 sm.forceCompleteQuest(20204);
                 sm.setJob(Job.NIGHT_WALKER_2);
+            }
+        }
+    }
+
+    @Script("q20205e")
+    public static void q20205e(ScriptManager sm) {
+        // Hawkeye - Thunder Breaker Knighthood Exam - end
+        if (sm.hasItem(4032100, 30)) {
+            sm.sayNext("So you brought all the #bProof of Exam#k... Okay, I believe that you are not qualified to become an official knight.");
+            if(sm.askYesNo("Are you interested in becoming an Official Knight?")) {
+                if(!sm.canAddItem(1142066, 1)) {
+                    sm.sayOk("Please make room in your EQP inventory.");
+                    return;
+                }
+                sm.removeItem(4032100);
+                sm.addItem(1142066, 1);
+                sm.forceCompleteQuest(20205);
+                sm.setJob(Job.THUNDER_BREAKER_2);
             }
         }
     }

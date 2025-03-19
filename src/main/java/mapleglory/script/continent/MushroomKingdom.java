@@ -90,6 +90,9 @@ public class MushroomKingdom extends ScriptHandler {
         }
     }
 
+    @Script("q2300e")
+    public static void q2300e(ScriptManager sm) { handleMushkingEnd(sm, 2300); }
+
     @Script("q2301e")
     public static void q2301e(ScriptManager sm) { handleMushkingEnd(sm, 2301); }
 

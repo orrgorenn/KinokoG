@@ -22,6 +22,7 @@ import java.util.stream.IntStream;
 public final class SkillInfo {
     private final int skillId;
     private final int maxLevel;
+    private final int masterLevel;
     private final boolean invisible;
     private final boolean combatOrders;
     private final boolean psd;
@@ -36,9 +37,10 @@ public final class SkillInfo {
     private final int skillEntryCrc;
     private final List<Integer> levelDataCrc;
 
-    public SkillInfo(int skillId, int maxLevel, boolean invisible, boolean combatOrders, boolean psd, List<Integer> psdSkills, List<ActionType> action, ActionType statAction, Map<SkillStat, List<Integer>> stats, List<Rect> rects, ElementAttribute elemAttr, Map<SummonedActionType, SummonedAttackInfo> summonedAttack) {
+    public SkillInfo(int skillId, int maxLevel, int masterLevel, boolean invisible, boolean combatOrders, boolean psd, List<Integer> psdSkills, List<ActionType> action, ActionType statAction, Map<SkillStat, List<Integer>> stats, List<Rect> rects, ElementAttribute elemAttr, Map<SummonedActionType, SummonedAttackInfo> summonedAttack) {
         this.skillId = skillId;
         this.maxLevel = maxLevel;
+        this.masterLevel = masterLevel;
         this.invisible = invisible;
         this.combatOrders = combatOrders;
         this.psd = psd;
@@ -64,6 +66,10 @@ public final class SkillInfo {
 
     public int getMaxLevel() {
         return maxLevel;
+    }
+
+    public int getMasterLevel() {
+        return masterLevel;
     }
 
     public boolean isInvisible() {
@@ -165,13 +171,6 @@ public final class SkillInfo {
         return mpCon;
     }
 
-    public SkillRecord createRecord() {
-        final SkillRecord skillRecord = new SkillRecord(getSkillId());
-        skillRecord.setSkillLevel(0);
-        skillRecord.setMasterLevel(getMaxLevel());
-        return skillRecord;
-    }
-
     @Override
     public String toString() {
         return "SkillInfo{" +
@@ -259,6 +258,7 @@ public final class SkillInfo {
         return new SkillInfo(
                 skillId,
                 maxLevel,
+                WzProvider.getInteger(skillProp.get("masterLevel"), maxLevel),
                 WzProvider.getInteger(skillProp.get("invisible"), 0) != 0,
                 WzProvider.getInteger(skillProp.get("combatOrders"), 0) != 0,
                 WzProvider.getInteger(skillProp.get("psd"), 0) != 0,
@@ -323,6 +323,7 @@ public final class SkillInfo {
         return new SkillInfo(
                 skillId,
                 maxLevel,
+                WzProvider.getInteger(skillProp.get("masterLevel"), maxLevel),
                 WzProvider.getInteger(skillProp.get("invisible"), 0) != 0,
                 WzProvider.getInteger(skillProp.get("combatOrders"), 0) != 0,
                 WzProvider.getInteger(skillProp.get("psd"), 0) != 0,

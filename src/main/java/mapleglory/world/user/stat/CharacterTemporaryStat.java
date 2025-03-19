@@ -170,6 +170,10 @@ public enum CharacterTemporaryStat implements BitIndex {
             RepeatEffect, StopPortion, StopMotion, Fear, MagicShield, Flying, Frozen, SuddenDeath, FinalCut, Cyclone,
             Sneak, MorewildDamageUp, Mechanic, DarkAura, BlueAura, YellowAura, BlessingArmor
     );
+    public static final List<CharacterTemporaryStat> RESET_BY_TIME = List.of(
+            Stun, Poison, Seal, Darkness, Weakness, Curse, Slow,
+            Attract, ReverseInput, BanMap, StopPortion, StopMotion,Fear, Frozen, NotDamaged, FinalCut
+    );
     public static final List<CharacterTemporaryStat> TWO_STATE_ORDER = List.of(
             EnergyCharged, Dash_Speed, Dash_Jump, RideVehicle, PartyBooster, GuidedBullet, Undead
     );

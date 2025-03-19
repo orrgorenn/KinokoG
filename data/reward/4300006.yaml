@@ -39,3 +39,4 @@ rewards:
   - [ 4000525, 1, 1, 0.400000 ] # Kid Mannequin's Bunny Suit
   - [ 4004000, 1, 1, 0.001000 ] # Power Crystal Ore
   - [ 4020008, 1, 1, 0.002000 ] # Black Crystal Ore
+  - [ 4032506, 1, 1, 0.050000, 2277 ] # Locker Key : Marshall's Refusal

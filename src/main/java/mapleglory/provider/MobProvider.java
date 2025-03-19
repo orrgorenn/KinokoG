@@ -7,6 +7,7 @@ import mapleglory.server.ServerConfig;
 import mapleglory.server.ServerConstants;
 import mapleglory.util.Tuple;
 
+import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
@@ -24,6 +25,10 @@ public final class MobProvider implements WzProvider {
         } catch (IOException | ProviderError e) {
             throw new IllegalArgumentException("Exception caught while loading Mob.wz", e);
         }
+    }
+
+    public static Optional<Map<Integer, MobTemplate>> getMobTemplates() {
+        return Optional.of(mobTemplates);
     }
 
     public static Optional<MobTemplate> getMobTemplate(int mobId) {

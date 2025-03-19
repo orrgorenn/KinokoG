@@ -1,46 +1,43 @@
 package mapleglory.server.dialog.miniroom;
 
-import mapleglory.packet.field.FieldPacket;
 import mapleglory.packet.field.MiniRoomPacket;
 import mapleglory.packet.user.UserPacket;
 import mapleglory.packet.world.WvsContext;
 import mapleglory.provider.ItemProvider;
 import mapleglory.provider.item.ItemInfo;
-import mapleglory.server.node.ServerExecutor;
 import mapleglory.server.packet.InPacket;
 import mapleglory.util.Locked;
 import mapleglory.world.GameConstants;
-import mapleglory.world.item.InventoryOperation;
-import mapleglory.world.item.InventoryType;
-import mapleglory.world.item.Item;
-import mapleglory.world.item.ItemAttribute;
+import mapleglory.world.item.*;
 import mapleglory.world.user.User;
+import mapleglory.world.user.stat.Stat;
 
 import java.util.*;
 
 public final class PersonalShop extends MiniRoom {
-    private final String title;
-    private final User owner;
-    private final Map<Integer, User> guests = new HashMap<>();
     private final List<PlayerShopItem> items = new ArrayList<>();
     private final List<String> blockedList = new ArrayList<>();
     private boolean open = false;
 
-    public PersonalShop(String title, User owner) {
-        this.title = title;
-        this.owner = owner;
+    public PersonalShop(String title) {
+        super(title, null, 0);
     }
 
-    public String getTitle() {
-        return title;
+    public List<PlayerShopItem> getItems() {
+        return items;
     }
 
-    public User getOwner() {
-        return owner;
+    public int getOpenUserIndex() {
+        for (int i = 0; i < getMaxUsers(); i++) {
+            if (!getUsers().containsKey(i)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
-    public boolean isOwner(User user) {
-        return owner.getCharacterId() == user.getCharacterId();
+    public List<String> getBlockedList() {
+        return blockedList;
     }
 
     public boolean isOpen() {
@@ -51,8 +48,14 @@ public final class PersonalShop extends MiniRoom {
         this.open = open;
     }
 
-    public List<PlayerShopItem> getItems() {
-        return items;
+    @Override
+    public MiniRoomType getType() {
+        return MiniRoomType.PersonalShop;
+    }
+
+    @Override
+    public int getMaxUsers() {
+        return 4;
     }
 
     @Override
@@ -69,10 +72,10 @@ public final class PersonalShop extends MiniRoom {
                 final long totalPrice = ((long) price * setCount);
                 final InventoryType inventoryType = InventoryType.getByValue(targetType);
                 if (inventoryType == null || inventoryType == InventoryType.EQUIPPED ||
-                        targetPosition < 0 || setCount <= 0 || setSize <= 0 || price <= 0 ||
-                        totalPrice <= 0 || totalPrice > Integer.MAX_VALUE ||
-                        isOpen() || user.getCharacterId() != owner.getCharacterId() ||
-                        items.size() >= GameConstants.PLAYER_SHOP_SLOT_MAX) {
+                        targetPosition < 0 || setCount <= 0 || setSize <= 0 ||
+                        price <= 0 || totalPrice <= 0 || totalPrice > Integer.MAX_VALUE ||
+                        items.size() >= GameConstants.PLAYER_SHOP_SLOT_MAX ||
+                        isOpen() || !isOwner(user)) {
                     log.error("Received invalid personal shop action {}", mrp);
                     user.dispose();
                     return;
@@ -106,9 +109,9 @@ public final class PersonalShop extends MiniRoom {
                     final Item partialItem = new Item(item);
                     partialItem.setItemSn(user.getNextItemSn());
                     partialItem.setQuantity((short) totalCount);
-                    items.add(new PlayerShopItem(partialItem, setCount, setSize, price));
+                    items.add(new PlayerShopItem(partialItem, price, setSize));
                 } else {
-                    items.add(new PlayerShopItem(item, setCount, setSize, price));
+                    items.add(new PlayerShopItem(item, price, setSize));
                 }
                 user.write(WvsContext.inventoryOperation(removeItemResult.get(), true));
                 user.write(MiniRoomPacket.PlayerShop.refresh(items));
@@ -117,102 +120,80 @@ public final class PersonalShop extends MiniRoom {
                 final int itemIndex = inPacket.decodeByte(); // nIdx
                 final int setCount = inPacket.decodeShort();
                 inPacket.decodeInt(); // ItemCRC
-                if (itemIndex < 0 || itemIndex >= items.size() || setCount <= 0 || !isOpen() || user.getCharacterId() == owner.getCharacterId()) {
+                if (itemIndex < 0 || itemIndex >= items.size() || setCount <= 0 ||
+                        !isOpen() || isOwner(user)) {
                     log.error("Received invalid personal shop action {}", mrp);
+                    user.write(MiniRoomPacket.PlayerShop.buyResult(PlayerShopBuyResult.Unknown)); // Due to an error, the trade did not happen.
                     user.dispose();
                     return;
                 }
-
-                // Get the item being purchased
-                PlayerShopItem shopItem = items.get(itemIndex);
-
-                // Check if requested quantity is available
-                if (setCount > shopItem.getSetCount()) {
-                    user.write(MiniRoomPacket.PlayerShop.buyResult(PlayerShopBuyResult.NoStock)); // Not enough sets available
-                    return;
-                }
-
-                // Calculate total price
-                int price = shopItem.getPrice() * setCount;
-
-                // Check if buyer has enough mesos
-                if (user.getInventoryManager().getMoney() < price) {
-                    user.write(MiniRoomPacket.PlayerShop.buyResult(PlayerShopBuyResult.NoMoney));
-                    return;
-                }
-
-                // Calculate total quantity
-                int quantity = setCount * shopItem.getSetSize();
-
-                // Check if quantity exceeds what's available
-                if (quantity > shopItem.getSetCount()) {
-                    log.error("Requested quantity exceeds available quantity for item at index {}", itemIndex);
-                    user.write(MiniRoomPacket.PlayerShop.buyResult(PlayerShopBuyResult.NoStock));
+                // Resolve item
+                final InventoryManager im = user.getInventoryManager();
+                final PlayerShopItem item = items.get(itemIndex);
+                final int totalCount = item.getSetSize() * setCount;
+                if (totalCount <= 0 || item.getItem().getQuantity() < totalCount || !im.canAddItem(item.getItem().getItemId(), totalCount)) {
+                    user.write(MiniRoomPacket.PlayerShop.buyResult(PlayerShopBuyResult.NoSlot)); // Please check if your inventory is full or not.
                     user.dispose();
                     return;
                 }
-
-                // Create copy of item with appropriate quantity
-                Item purchasedItem = getItem(quantity, shopItem, user);
-
-                // Try to add item to buyer's inventory
-                Optional<List<InventoryOperation>> addItemResult = user.getInventoryManager().addItem(purchasedItem);
-                if (addItemResult.isEmpty()) {
-                    user.write(MiniRoomPacket.PlayerShop.buyResult(PlayerShopBuyResult.NoSlot)); // Inventory full
-                    return;
-                }
-
-                // Remove mesos from buyer
-                boolean removeMesosResult = user.getInventoryManager().addMoney(-price);
-                if (!removeMesosResult) {
-                    log.error("PSP - Failed to remove mesos from user {}", user.getCharacterId());
+                // Resolve price
+                final long totalPrice = ((long) item.getPrice() * setCount);
+                if (totalPrice <= 0 || totalPrice > Integer.MAX_VALUE || !user.getInventoryManager().canAddMoney((int) -totalPrice)) {
+                    user.write(MiniRoomPacket.PlayerShop.buyResult(PlayerShopBuyResult.NoMoney)); // You do not have enough mesos.
                     user.dispose();
                     return;
                 }
-
-                // addAccumulatedMesos(price);
-
-                // Update the shop's inventory
-                if (setCount >= shopItem.getSetCount()) {
-                    // Remove item completely if all sets were purchased
-                    items.remove(itemIndex);
-                } else {
-                    // Update remaining quantity
-                    shopItem.setSetCount(shopItem.getSetCount() - setCount);
-                    if (quantity < shopItem.getItem().getQuantity()) {
-                        shopItem.getItem().setQuantity((short)(shopItem.getItem().getQuantity() - quantity));
+                try (var lockedOwner = getUser(0).acquire()) {
+                    final User owner = lockedOwner.get();
+                    final int moneyForOwner = GameConstants.getPersonalShopTax((int) totalPrice);
+                    if (!owner.getInventoryManager().canAddMoney(moneyForOwner)) {
+                        user.write(MiniRoomPacket.PlayerShop.buyResult(PlayerShopBuyResult.OverPrice)); // The price of the item is too high for the trade.
+                        user.dispose();
+                        return;
+                    }
+                    // Do transaction
+                    item.getItem().setQuantity((short) (item.getItem().getQuantity() - totalCount));
+                    final Item buyItem = new Item(item.getItem());
+                    buyItem.setItemSn(owner.getNextItemSn());
+                    buyItem.setQuantity((short) totalCount);
+                    if (!im.addMoney((int) -totalPrice)) {
+                        throw new IllegalStateException("Could not deduct total price from user");
+                    }
+                    final Optional<List<InventoryOperation>> addItemResult = im.addItem(buyItem);
+                    if (addItemResult.isEmpty()) {
+                        throw new IllegalStateException("Could not add bought item to inventory");
+                    }
+                    if (!owner.getInventoryManager().addMoney(moneyForOwner)) {
+                        throw new IllegalStateException("Could not add money to personal shop owner");
+                    }
+                    // Update clients
+                    user.write(WvsContext.statChanged(Stat.MONEY, im.getMoney(), false));
+                    user.write(WvsContext.inventoryOperation(addItemResult.get(), true));
+                    owner.write(WvsContext.statChanged(Stat.MONEY, owner.getInventoryManager().getMoney(), false));
+                    if (isNoMoreItem()) {
+                        closeShopUnsafe(owner, MiniRoomLeaveType.NoMoreItem);
+                    } else {
+                        owner.write(MiniRoomPacket.PlayerShop.addSoldItem(itemIndex, setCount, user.getCharacterName()));
+                        broadcastPacket(MiniRoomPacket.PlayerShop.refresh(items));
                     }
                 }
-
-                // Notify buyer of successful purchase
-                user.write(MiniRoomPacket.PlayerShop.buyResult(PlayerShopBuyResult.Success));
-
-                // Send shop refresh to all users
-                broadcastPacket(MiniRoomPacket.PlayerShop.refresh(items));
-
-                // Inform owner about the sale if they're in the shop
-                owner.write(MiniRoomPacket.PlayerShop.addSoldItem(itemIndex, setCount, user.getCharacterName()));
-
-                // Log the transaction
-                log.info("User {} purchased {}x {} from {}'s shop for {} mesos",
-                        user.getCharacterName(), quantity, purchasedItem.getItemId(),
-                        owner.getCharacterName(), price);
             }
             case PSP_MoveItemToInventory -> {
                 final int itemIndex = inPacket.decodeShort(); // nIdx
-                if (itemIndex < 0 || itemIndex >= items.size() || isOpen() || user.getCharacterId() != owner.getCharacterId()) {
+                if (itemIndex < 0 || itemIndex >= items.size() ||
+                        isOpen() || !isOwner(user)) {
                     log.error("Received invalid personal shop action {}", mrp);
                     return;
                 }
                 final Optional<List<InventoryOperation>> addItemResult = user.getInventoryManager().addItem(items.remove(itemIndex).getItem());
                 if (addItemResult.isEmpty()) {
-                    throw new IllegalStateException("Could not add item to inventory");
+                    throw new IllegalStateException("Could not add personal shop item to inventory");
                 }
                 user.write(WvsContext.inventoryOperation(addItemResult.get(), true));
-                user.write(MiniRoomPacket.PlayerShop.refresh(items));
+                user.write(MiniRoomPacket.PlayerShop.moveItemToInventory(items.size(), itemIndex));
             }
             case PSP_DeliverBlackList -> {
-                if (isOpen() || user.getCharacterId() != owner.getCharacterId() || items.isEmpty()) {
+                if (isOpen() || !isOwner(user) || items.isEmpty()) {
                     log.error("Received invalid personal shop action {}", mrp);
                     return;
                 }
@@ -220,8 +201,6 @@ public final class PersonalShop extends MiniRoom {
                 for (int i = 0; i < size; i++) {
                     blockedList.add(inPacket.decodeString()); // CConfig->m_asBlackList
                 }
-                setOpen(true);
-                owner.getField().broadcastPacket(UserPacket.userMiniRoomBalloon(owner, this));
             }
             default -> {
                 log.error("Unhandled personal shop action {}", mrp);
@@ -229,111 +208,69 @@ public final class PersonalShop extends MiniRoom {
         }
     }
 
-    private static Item getItem(int quantity, PlayerShopItem shopItem, User user) {
-        Item purchasedItem;
-        if (quantity == shopItem.getItem().getQuantity()) {
-            // Buying the whole item
-            purchasedItem = shopItem.getItem();
-        } else {
-            // Buying a portion
-            purchasedItem = new Item(shopItem.getItem());
-            purchasedItem.setItemSn(user.getNextItemSn());
-            purchasedItem.setQuantity((short) quantity);
-        }
-        return purchasedItem;
-    }
-
     @Override
-    public MiniRoomType getType() {
-        return MiniRoomType.PersonalShop;
-    }
-
-    @Override
-    public boolean checkPassword(String password) {
-        return true;
-    }
-
-    @Override
-    public int getMaxUsers() {
-        return 3;
-    }
-
-    @Override
-    public boolean addUser(User user) {
-        if (blockedList.stream().anyMatch((name) -> name.equalsIgnoreCase(user.getCharacterName()))) {
-            return false;
-        }
-        for (int i = 1; i <= 3; i++) {
-            if (!guests.containsKey(i)) {
-                guests.put(i, user);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    @Override
-    public Map<Integer, User> getUsers() {
-        final Map<Integer, User> users = new HashMap<>();
-        users.put(0, owner);
-        users.putAll(guests);
-        return users;
-    }
-
-    // Utils
-
     public void leaveUnsafe(User user) {
         assert user.isLocked();
-        // Check if user is the owner
-        if (user.getCharacterId() == owner.getCharacterId()) {
-            // Owner is leaving - need to close the shop
+        final int userIndex = getUserIndex(user);
+        if (userIndex == 0) {
+            closeShopUnsafe(user, MiniRoomLeaveType.UserRequest);
+        } else {
+            broadcastPacket(MiniRoomPacket.leave(userIndex, MiniRoomLeaveType.UserRequest));
+            removeUser(userIndex);
+            user.setDialog(null);
+            updateBalloon();
+        }
+    }
 
-            // First notify all guests that the shop is closing
-            for (Map.Entry<Integer, User> entry : guests.entrySet()) {
-                User guest = entry.getValue();
-                guest.write(MiniRoomPacket.leave(entry.getKey(), LeaveType.HostOut));
+    @Override
+    public void updateBalloon() {
+        getField().broadcastPacket(UserPacket.userMiniRoomBalloon(getUser(0), this));
+    }
+
+    public void closeShop(Locked<User> lockedOwner, MiniRoomLeaveType leaveType) {
+        closeShopUnsafe(lockedOwner.get(), leaveType);
+    }
+
+    private void closeShopUnsafe(User owner, MiniRoomLeaveType leaveType) {
+        assert owner.isLocked();
+        assert isOwner(owner);
+        // Return items
+        final List<InventoryOperation> inventoryOperations = new ArrayList<>();
+        for (PlayerShopItem item : items) {
+            if (item.getItem().getQuantity() == 0) {
+                continue;
+            }
+            final Optional<List<InventoryOperation>> addItemResult = owner.getInventoryManager().addItem(item.getItem());
+            if (addItemResult.isEmpty()) {
+                throw new IllegalStateException("Could not add personal shop item to inventory");
+            }
+            inventoryOperations.addAll(addItemResult.get());
+        }
+        owner.write(WvsContext.inventoryOperation(inventoryOperations, false));
+        // Remove guests
+        for (int i = 1; i < getMaxUsers(); i++) {
+            final User guest = getUser(i);
+            if (guest == null) {
+                continue;
+            }
+            try (var lockedGuest = guest.acquire()) {
+                guest.write(MiniRoomPacket.leave(i, MiniRoomLeaveType.HostOut)); // The shop is closed.
                 guest.setDialog(null);
             }
+        }
+        // Remove shop
+        broadcastPacket(MiniRoomPacket.leave(0, leaveType));
+        owner.setDialog(null);
+        getField().getMiniRoomPool().removeMiniRoom(this);
+        getField().broadcastPacket(UserPacket.userMiniRoomBalloonRemove(owner));
+    }
 
-            // Return all items to owner's inventory
-            for (PlayerShopItem shopItem : items) {
-                Optional<List<InventoryOperation>> addItemResult = user.getInventoryManager().addItem(shopItem.getItem());
-                if (addItemResult.isEmpty()) {
-                    // Log error if item couldn't be returned
-                    log.error("Could not return item {} to owner's inventory when closing shop", shopItem.getItem().getItemId());
-                    continue;
-                }
-                user.write(WvsContext.inventoryOperation(addItemResult.get(), true));
-            }
-
-            // Clear shop items
-            items.clear();
-
-            // Remove shop balloon and close shop
-            owner.getField().broadcastPacket(UserPacket.userMiniRoomBalloonRemove(owner));
-            user.write(MiniRoomPacket.leave(0, LeaveType.UserRequest));
-            user.setDialog(null);
-
-            // Close the shop
-            close();
-        } else {
-            // A guest is leaving
-            Integer guestPosition = null;
-            for (Map.Entry<Integer, User> entry : guests.entrySet()) {
-                if (entry.getValue().getCharacterId() == user.getCharacterId()) {
-                    guestPosition = entry.getKey();
-                    break;
-                }
-            }
-
-            if (guestPosition != null) {
-                // Remove guest from map
-                guests.remove(guestPosition);
-                // Notify everyone in the shop that the guest left
-                broadcastPacket(MiniRoomPacket.leave(guestPosition, LeaveType.UserRequest));
-            } else {
-                log.error("User {} tried to leave shop but isn't in the guest list", user.getCharacterId());
+    private boolean isNoMoreItem() {
+        for (PlayerShopItem item : items) {
+            if (item.getSetCount() > 0) {
+                return false;
             }
         }
+        return true;
     }
 }

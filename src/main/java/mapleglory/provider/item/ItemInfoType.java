@@ -73,8 +73,6 @@ public enum ItemInfoType {
     incPERIOD,
 
     success,
-    masterLevel,
-    skill,
     cursed,
     recover,
     randstat,
@@ -99,6 +97,8 @@ public enum ItemInfoType {
     reqJob,
     reqLevel,
     reqSkillLevel,
+    masterLevel,
+    skill,
     reqQuestOnProgress,
     enchantCategory,
     tuc,

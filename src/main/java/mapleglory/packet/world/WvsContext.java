@@ -353,15 +353,15 @@ public final class WvsContext {
         return outPacket;
     }
 
-    public static OutPacket useSkillBook(int charId, int skillId, int maxLevel, boolean canUse, boolean success) {
-        OutPacket outPacket = OutPacket.of(OutHeader.SkillLearnItemResult);
-        outPacket.encodeByte(0);
-        outPacket.encodeInt(charId);
-        outPacket.encodeByte(1);
-        outPacket.encodeInt(skillId);
-        outPacket.encodeInt(maxLevel);
-        outPacket.encodeByte(canUse ? 1 : 0);
-        outPacket.encodeByte(success ? 1 : 0);
+    public static OutPacket skillLearnItemResult(int characterId, boolean masteryBook, boolean used, boolean success, boolean exclRequest) {
+        final OutPacket outPacket = OutPacket.of(OutHeader.SkillLearnItemResult);
+        outPacket.encodeByte(exclRequest); // bOnExclRequest
+        outPacket.encodeInt(characterId); // dwCharacterId
+        outPacket.encodeByte(masteryBook); // bIsMasteryBook
+        outPacket.encodeInt(0);
+        outPacket.encodeInt(0);
+        outPacket.encodeByte(used); // bUsed
+        outPacket.encodeByte(success); // bSucceed
         return outPacket;
     }
 }

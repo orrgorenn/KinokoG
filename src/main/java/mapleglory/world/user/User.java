@@ -17,6 +17,7 @@ import mapleglory.provider.skill.SkillStat;
 import mapleglory.server.dialog.Dialog;
 import mapleglory.server.dialog.ScriptDialog;
 import mapleglory.server.dialog.miniroom.MiniGameRoom;
+import mapleglory.server.dialog.miniroom.MiniRoom;
 import mapleglory.server.dialog.miniroom.PersonalShop;
 import mapleglory.server.dialog.miniroom.TradingRoom;
 import mapleglory.server.guild.GuildRank;
@@ -282,12 +283,10 @@ public final class User extends Life implements Lockable<User> {
     public void closeDialog() {
         if (getDialog() instanceof ScriptDialog scriptDialog) {
             scriptDialog.close();
-        } else if (getDialog() instanceof TradingRoom tradingRoom) {
-            tradingRoom.cancelTradeUnsafe(this);
-        } else if (getDialog() instanceof MiniGameRoom miniGameRoom) {
-            miniGameRoom.leaveUnsafe(this);
-        } else if (getDialog() instanceof PersonalShop personalShop) {
-            personalShop.leaveUnsafe(this);
+        } else if (getDialog() instanceof MiniRoom miniRoom) {
+            try (var lockedRoom = miniRoom.acquire()) {
+                lockedRoom.get().leaveUnsafe(this);
+            }
         } else {
             setDialog(null);
         }
@@ -622,53 +621,6 @@ public final class User extends Life implements Lockable<User> {
         if (!resetStats.isEmpty()) {
             resetTemporaryStat(resetStats);
         }
-    }
-
-    public boolean setSkillBook(ItemInfo itemInfo) {
-        boolean canUse = false;
-        boolean success = false;
-        int skill = 0;
-        int maxLevel = 0;
-        final int successRate = itemInfo.getInfo(ItemInfoType.success);
-        final int reqSkillLevel = itemInfo.getInfo(ItemInfoType.reqSkillLevel);
-        final int masterLevel = itemInfo.getInfo(ItemInfoType.masterLevel);
-
-        for (int skillId : itemInfo.getSkillList()) {
-            final Optional<SkillRecord> skillRecordResult = getSkillManager().getSkill(skillId);
-            if (skillRecordResult.isEmpty()) {
-                continue;
-            }
-
-            final SkillRecord skillRecord = skillRecordResult.get();
-            boolean fitJob = JobConstants.isCorrectJobForSkillRoot(getJob(), SkillConstants.getSkillRoot(skillId));
-            boolean levelBigReq = skillRecord.getSkillLevel() >= reqSkillLevel;
-            boolean masterLowerMaster = skillRecord.getMasterLevel() <= masterLevel;
-            if (fitJob && levelBigReq && masterLowerMaster) {
-                canUse = true;
-                skill = skillRecord.getSkillId();
-                maxLevel = masterLevel;
-                if (Util.getRandom(100) <= successRate && successRate != 0) {
-                    success = true;
-                    skillRecord.setMasterLevel(masterLevel);
-                    updatePassiveSkillData();
-                    validateStat();
-                    write(WvsContext.changeSkillRecordResult(skillRecord, true));
-                }
-                break;
-            } else {
-                if (!fitJob) {
-                    log.debug("fit job, job {}, skillRoot {}", getJob(), SkillConstants.getSkillRoot(skillId));
-                }
-                if (!levelBigReq) {
-                    log.debug("levelBigReq {} < {}", skillRecord.getSkillLevel(), reqSkillLevel);
-                }
-                if (!masterLowerMaster) {
-                    log.debug("masterLowerMaster {} > {}", skillRecord.getMasterLevel(), masterLevel);
-                }
-            }
-        }
-        write(WvsContext.useSkillBook(getId(), skill, maxLevel, canUse, success));
-        return canUse;
     }
 
     private int getItemBonusRecovery(int recovery) {

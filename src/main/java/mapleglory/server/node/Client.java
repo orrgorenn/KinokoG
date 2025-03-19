@@ -59,8 +59,6 @@ public final class Client extends NettyClient {
         if (user == null) {
             if (account != null) {
                 try (var lockedAccount = account.acquire()) {
-                    DatabaseManager.accountAccessor().setLoggedStatus(account, false);
-                    DatabaseManager.activeMachineAccessor().removeInstance(account.getId());
                     DatabaseManager.accountAccessor().saveAccount(account);
                 }
             }

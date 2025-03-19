@@ -8,13 +8,16 @@ import mapleglory.packet.world.MessagePacket;
 import mapleglory.packet.world.WvsContext;
 import mapleglory.provider.ItemProvider;
 import mapleglory.provider.MobProvider;
+import mapleglory.provider.SkillProvider;
 import mapleglory.provider.item.ItemInfo;
+import mapleglory.provider.item.ItemInfoType;
 import mapleglory.provider.item.ItemSpecType;
 import mapleglory.provider.item.MobSummonInfo;
 import mapleglory.provider.map.FieldOption;
 import mapleglory.provider.map.Foothold;
 import mapleglory.provider.map.PortalInfo;
 import mapleglory.provider.mob.MobTemplate;
+import mapleglory.provider.skill.SkillInfo;
 import mapleglory.script.common.ScriptDispatcher;
 import mapleglory.server.header.InHeader;
 import mapleglory.server.packet.InPacket;
@@ -25,12 +28,17 @@ import mapleglory.world.GameConstants;
 import mapleglory.world.field.Field;
 import mapleglory.world.field.mob.Mob;
 import mapleglory.world.item.*;
+import mapleglory.world.job.JobConstants;
+import mapleglory.world.skill.SkillConstants;
+import mapleglory.world.skill.SkillManager;
+import mapleglory.world.skill.SkillRecord;
 import mapleglory.world.user.Pet;
 import mapleglory.world.user.User;
 import mapleglory.world.user.effect.Effect;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -263,6 +271,12 @@ public abstract class ItemHandler {
         final int position = inPacket.decodeShort(); // nPOS
         final int itemId = inPacket.decodeInt(); // nItemID
 
+        if (!ItemConstants.isScriptRunItem(itemId)) {
+            log.error("Received UserScriptItemUseRequest with an invalid script run item {}", itemId);
+            user.dispose();
+            return;
+        }
+
         // Resolve item
         final Optional<ItemInfo> itemInfoResult = ItemProvider.getItemInfo(itemId);
         if (itemInfoResult.isEmpty()) {
@@ -402,9 +416,16 @@ public abstract class ItemHandler {
 
     @Handler(InHeader.UserSkillLearnItemUseRequest)
     public static void handleUserSkillLearnItemUseRequest(User user, InPacket inPacket) {
-        inPacket.decodeInt(); // dwTickCount
-        final int position = inPacket.decodeShort(); // nPos
-        final int itemId = inPacket.decodeInt(); // nItemID
+        inPacket.decodeInt(); // update_time
+        final int position = inPacket.decodeShort(); // nPOS
+        final int itemId = inPacket.decodeInt();
+
+        final boolean isMasteryBook = ItemConstants.isMasteryBookItem(itemId);
+        if (!ItemConstants.isSkillLearnItem(itemId)) {
+            log.error("Received UserSkillLearnItemUseRequest with an invalid skill learn item {}", itemId);
+            user.dispose();
+            return;
+        }
 
         // Resolve item
         final Optional<ItemInfo> itemInfoResult = ItemProvider.getItemInfo(itemId);
@@ -413,18 +434,45 @@ public abstract class ItemHandler {
             user.dispose();
             return;
         }
+        final ItemInfo itemInfo = itemInfoResult.get();
+        final int masterLevel = itemInfo.getInfo(ItemInfoType.masterLevel, 0);
+        final int reqSkillLevel = itemInfo.getInfo(ItemInfoType.reqSkillLevel, 0);
+        final List<Integer> skill = itemInfo.getSkill();
+        if (masterLevel <= 0 || skill.isEmpty()) {
+            log.error("Invalid skill learn item {}", itemId);
+            user.dispose();
+            return;
+        }
 
         try (var locked = user.acquire()) {
-            // Check field limit
-            final Field field = locked.get().getField();
-            if (field.hasFieldOption(FieldOption.STATCHANGEITEMCONSUMELIMIT) && !field.getMapInfo().getAllowedItems().contains(itemId)) {
-                log.error("Tried to use stat change item by pet in a restricted field");
-                user.dispose();
+            // Check requirements
+            final SkillManager sm = locked.get().getSkillManager();
+            final Optional<Integer> skillIdResult = skill.stream()
+                    .filter((skillId) -> {
+                        if (reqSkillLevel > 0) {
+                            final Optional<SkillRecord> skillRecordResult = sm.getSkill(skillId);
+                            if (skillRecordResult.isEmpty()) {
+                                return false;
+                            }
+                            final SkillRecord skillRecord = skillRecordResult.get();
+                            return skillRecord.getSkillLevel() >= reqSkillLevel && skillRecord.getMasterLevel() < masterLevel;
+                        } else {
+                            final int skillRoot = SkillConstants.getSkillRoot(skillId);
+                            return JobConstants.isCorrectJobForSkillRoot(user.getJob(), skillRoot) && sm.getSkill(skillId).isEmpty();
+                        }
+                    })
+                    .findAny();
+            if (skillIdResult.isEmpty()) {
+                user.write(WvsContext.skillLearnItemResult(user.getCharacterId(), isMasteryBook, false, false, true));
                 return;
             }
+            final int skillId = skillIdResult.get();
 
-            // Try to apply skill book
-            if(!applySkillBook(locked, itemInfoResult.get())) {
+            // Resolve skill
+            final Optional<SkillInfo> skillInfoResult = SkillProvider.getSkillInfoById(skillId);
+            if (skillInfoResult.isEmpty()) {
+                log.error("Could not resolve skill info for skill ID : {}", skillId);
+                user.write(WvsContext.skillLearnItemResult(user.getCharacterId(), isMasteryBook, false, false, true));
                 return;
             }
 
@@ -434,7 +482,19 @@ public abstract class ItemHandler {
                 user.dispose();
                 return;
             }
-            user.write(WvsContext.inventoryOperation(consumeItemResult.get(), true));
+            user.write(WvsContext.inventoryOperation(consumeItemResult.get(), false));
+
+            final boolean success = Util.succeedProp(itemInfo.getInfo(ItemInfoType.success));
+            if (success) {
+                // Update skill record
+                final SkillRecord skillRecord = new SkillRecord(skillId);
+                skillRecord.setSkillLevel(user.getSkillLevel(skillId));
+                skillRecord.setMasterLevel(itemInfo.getInfo(ItemInfoType.masterLevel));
+                sm.addSkill(skillRecord);
+                user.write(WvsContext.changeSkillRecordResult(skillRecord, false));
+            }
+            user.write(WvsContext.skillLearnItemResult(user.getCharacterId(), isMasteryBook, true, success, true));
+            user.getField().broadcastPacket(WvsContext.skillLearnItemResult(user.getCharacterId(), isMasteryBook, true, success, false), user);
         }
     }
 
@@ -464,10 +524,5 @@ public abstract class ItemHandler {
     protected static void changeStat(Locked<User> locked, ItemInfo itemInfo) {
         final User user = locked.get();
         user.setConsumeItemEffect(itemInfo);
-    }
-
-    protected static boolean applySkillBook(Locked<User> locked, ItemInfo itemInfo) {
-        final User user = locked.get();
-        return user.setSkillBook(itemInfo);
     }
 }

@@ -22,11 +22,11 @@ public final class MiniRoomPacket {
         return outPacket;
     }
 
-    public static OutPacket inviteResult(InviteType inviteType, String targetName) {
+    public static OutPacket inviteResult(MiniRoomInviteType inviteType, String targetName) {
         // CMiniRoomBaseDlg::OnInviteResultStatic
         final OutPacket outPacket = MiniRoomPacket.of(MiniRoomProtocol.MRP_InviteResult);
         outPacket.encodeByte(inviteType.getValue());
-        if (inviteType != InviteType.NoCharacter) {
+        if (inviteType != MiniRoomInviteType.NoCharacter) {
             outPacket.encodeString(targetName); // sTargetName
         }
         return outPacket;
@@ -48,7 +48,7 @@ public final class MiniRoomPacket {
         outPacket.encodeByte(miniRoom.getType().getValue()); // nMiniRoomType
         // CMiniRoomBaseDlg::OnEnterResultBase
         outPacket.encodeByte(miniRoom.getMaxUsers()); // nMaxUsers
-        outPacket.encodeByte(miniRoom.getPosition(me)); // nMyPosition
+        outPacket.encodeByte(miniRoom.getUserIndex(me)); // nMyPosition
         miniRoom.getUsers().forEach((i, user) -> {
             outPacket.encodeByte(i);
             user.getCharacterData().getAvatarLook().encode(outPacket); // CMiniRoomBaseDlg::DecodeAvatar
@@ -80,7 +80,7 @@ public final class MiniRoomPacket {
         return chat(userIndex, String.format("%s : %s", characterName, message));
     }
 
-    public static OutPacket gameMessage(GameMessageType messageType, String characterName) {
+    public static OutPacket gameMessage(MiniGameMessageType messageType, String characterName) {
         // CMiniRoomBaseDlg::MakeGameMessage
         final OutPacket outPacket = MiniRoomPacket.of(MiniRoomProtocol.MRP_Chat);
         outPacket.encodeByte(MiniRoomProtocol.MRP_GameMessage.getValue());
@@ -89,7 +89,7 @@ public final class MiniRoomPacket {
         return outPacket;
     }
 
-    public static OutPacket leave(int userIndex, LeaveType leaveType) {
+    public static OutPacket leave(int userIndex, MiniRoomLeaveType leaveType) {
         // CMiniRoomBaseDlg::OnEnterBase
         final OutPacket outPacket = MiniRoomPacket.of(MiniRoomProtocol.MRP_Leave);
         outPacket.encodeByte(userIndex);
@@ -199,14 +199,14 @@ public final class MiniRoomPacket {
             return outPacket;
         }
 
-        public static OutPacket gameResult(GameResultType resultType, MiniGameRoom miniGameRoom, int winnerIndex) {
+        public static OutPacket gameResult(MiniGameResultType resultType, MiniGameRoom miniGameRoom, int winnerIndex) {
             final OutPacket outPacket = MiniRoomPacket.of(MiniRoomProtocol.MGRP_GameResult);
             outPacket.encodeByte(resultType.getValue());
-            if (resultType != GameResultType.DRAW) {
+            if (resultType != MiniGameResultType.DRAW) {
                 outPacket.encodeByte(winnerIndex); // nWinnerIdx
             }
-            encodeMiniGameRecord(outPacket, miniGameRoom.getType(), miniGameRoom.getOwner()); // apMGR[0]
-            encodeMiniGameRecord(outPacket, miniGameRoom.getType(), miniGameRoom.getGuest()); // apMGR[1]
+            encodeMiniGameRecord(outPacket, miniGameRoom.getType(), miniGameRoom.getUser(0)); // apMGR[0]
+            encodeMiniGameRecord(outPacket, miniGameRoom.getType(), miniGameRoom.getUser(1)); // apMGR[1]
             return outPacket;
         }
 
@@ -313,7 +313,7 @@ public final class MiniRoomPacket {
         }
 
         public static OutPacket moveItemToInventory(int newSize, int itemIndex) {
-            final OutPacket outPacket = MiniRoomPacket.of(MiniRoomProtocol.PSP_AddSoldItem);
+            final OutPacket outPacket = MiniRoomPacket.of(MiniRoomProtocol.PSP_MoveItemToInventory);
             outPacket.encodeByte(newSize); // nItem
             outPacket.encodeShort(itemIndex);
             return outPacket;

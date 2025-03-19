@@ -81,6 +81,15 @@ public final class ItemInfo {
         );
     }
 
+    public List<Integer> getSkill() {
+        final List<Integer> skill = new ArrayList<>();
+        final WzListProperty skillList = (WzListProperty) itemInfos.get(ItemInfoType.skill);
+        for (var entry : skillList.getItems().entrySet()) {
+            skill.add(WzProvider.getInteger(entry.getValue()));
+        }
+        return skill;
+    }
+
     public boolean isCash() {
         return getInfo(ItemInfoType.cash) != 0;
     }

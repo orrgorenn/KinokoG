@@ -194,6 +194,25 @@ public final class MigrationHandler {
                 targetPortal = targetField.getPortalById(0).orElse(PortalInfo.EMPTY);
             }
 
+            // Special handling for Blessing of the Fairy
+            List<AvatarData> characters = DatabaseManager.characterAccessor().getAvatarDataByAccountId(user.getAccountId());
+
+            AvatarData highestLevelCharacter = characters.stream()
+                    .filter(chr -> !chr.getCharacterName().equals(user.getCharacterName()))
+                    .max(Comparator.comparingInt(AvatarData::getLevel))
+                    .orElse(null);
+
+            if (highestLevelCharacter != null) {
+                Optional<SkillRecord> skillRecord = user.getSkillManager().getSkillRecords().stream()
+                        .filter(sr -> sr.getSkillId() % 10000 == 12)
+                        .findFirst();
+
+                skillRecord.ifPresent(sr -> {
+                    sr.setSkillLevel(highestLevelCharacter.getLevel());
+                    user.getCharacterData().setLinkedCharacter(highestLevelCharacter.getCharacterName());
+                });
+            }
+
             // Add user to field
             ServerExecutor.submit(targetField, () -> {
                 try (var locked = user.acquire()) {
