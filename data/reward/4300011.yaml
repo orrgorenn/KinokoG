@@ -39,3 +39,4 @@ rewards:
   - [ 4000536, 1, 1, 0.400000 ] # Cheap Speakers
   - [ 4004000, 1, 1, 0.001000 ] # Power Crystal Ore
   - [ 4020008, 1, 1, 0.002000 ] # Black Crystal Ore
+  - [ 4032509, 1, 1, 0.999999, 2286 ] # Latest Model MP3 : Request for a New Song
