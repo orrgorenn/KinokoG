@@ -9,6 +9,8 @@ import java.util.Map;
 public class FlorinaBeach extends ScriptHandler {
     @Script("florina1")
     public static void florina1(ScriptManager sm) {
+        // Pison : Tour Guide (1081001)
+        //   Florina Beach : A Look-Out Shed Around the Beach (120030000)
         sm.sayNext("So you want to leave #b#m120030000##k? If you want, I can take you back to #b#m120020400##k.");
         if (!sm.askYesNo("Are you sure you want to return to #b#m120020400##k? Alright, we'll have to get going fast. Do you want to head back to #m120020400# now?")) {
             sm.sayOk("You must have some business to take care of here. It's not a bad idea to take some rest at #m120020400# Look at me; I love it here so much that I wound up living here. Hahaha anyway, talk to me when you feel like going back.");
@@ -20,6 +22,10 @@ public class FlorinaBeach extends ScriptHandler {
 
     @Script("florina2")
     public static void florina2(ScriptManager sm) {
+        // Pason : Tour Guide (1002002)
+        //   Beach : White Wave Harbor (120020400)
+        // Shuri : Tour Guide (2010005)
+        // Nara : Tour Guide (2040048)
         final int answer = sm.askMenu("Have you heard of the beach with a spectacular view of the ocean called #bFlorina Beach#k, located near Lith Harbor? I can take you there right now for either #b1500 mesos#k, or if you have a #bVIP Ticket to Florina Beach#k with you, in which case you'll be there for free.", Map.of(
                 0, "#bI'll pay 1500 mesos.",
                 1, "I have a VIP Ticket to Florina Beach.",

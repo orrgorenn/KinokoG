@@ -342,6 +342,9 @@ public final class QuestInfo {
                     }
                     questActs.add(QuestSpAct.from(spList));
                 }
+                case "info" -> {
+                    questActs.add(new QuestInfoAct(questId, WzProvider.getString(entry.getValue())));
+                }
                 case "skill" -> {
                     if (!(entry.getValue() instanceof WzListProperty skillList)) {
                         throw new ProviderError("Failed to resolve quest act skill list");

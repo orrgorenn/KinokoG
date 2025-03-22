@@ -152,4 +152,15 @@ public final class AranQuest extends ScriptHandler {
         sm.addExp(500);
         sm.forceCompleteQuest(21704);
     }
+
+    @Script("q21200s")
+    public static void q21200s(ScriptManager sm) {
+        // In Search of Its Rightful Owner (21200 - start)
+        sm.setSpeakerId(1510009);
+        if (sm.askYesNo("How is your training going? Wow, you've reached such a high level! That's amazing. I knew you would do just fine on Victorial Island... Oh, look at me. I'm wasting your time. I know you're busy, but you'll have to return to the island for a bit.")) {
+            sm.forceStartQuest(21200);
+            sm.sayNext("Your #b#p1201001##k in #b#m140000000##k is acting strange all of a sudden. According to the records, the Polearm acts this way when it is calling for its master. #bPerhaps it's calling for you#k. Please return to the island and check things out.");
+        }
+        sm.dispose();
+    }
 }

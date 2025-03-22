@@ -8,94 +8,86 @@ import mapleglory.world.field.Field;
 import java.util.Map;
 import java.util.Optional;
 
-public class GoldenTemple extends ScriptHandler {
-    final static int GOLDEN_TICKET_PRICE = -2000000;
-    final static int PREMIUM_TICKET_PRICE = -50000000;
-    final static int GOLDEN_TICKET_ID = 4001431;
-    final static int PREMIUM_TICKET_ID = 4001432;
+public final class GoldenTemple extends ScriptHandler {
+    public static final int GOLDEN_TICKET_ID = 4001431;
+    public static final int PREMIUM_TICKET_ID = 4001432; // TODO : probably some QR value to track cooltime
+    public static final int TIME_LIMIT = 1800; // Map/Map/Map%d/%d/info/timeLimit
 
     @Script("outGoldenTemple")
     public static void outGoldenTemple(ScriptManager sm) {
-        // Mr. YOO - Golden Temple PR Manager
-        final int answer = sm.askMenu("Welcome to Golden Temple! I can issue you a Golden Ticket.", Map.of(
-                0, "Golden Ticket for 2,000,000 mesos (one-time use)",
-                1, "Premium Golden Ticket for 50,000,000 mesos"
-        ));
+        // Mr. Yoo : Golden Temple PR Manager (9000078)
+        //   Golden Temple : Golden Temple (809060000)
+        //   Golden Temple : Golden Temple (950100000)
 
-        if (answer == 0) {
-            handleTransaction(sm, GOLDEN_TICKET_PRICE, GOLDEN_TICKET_ID);
-        } else if (answer == 1) {
-            handleTransaction(sm, PREMIUM_TICKET_PRICE, PREMIUM_TICKET_ID);
-        }
-    }
-
-    private static void handleTransaction(ScriptManager sm, int ticketPrice, int ticketId) {
-        if (!sm.canAddMoney(ticketPrice)) {
-            sm.sayOk("You do not have enough mesos.");
-            return;
-        }
-        if (!sm.canAddItem(ticketId, 1)) {
-            sm.sayOk("Please make room in your inventory.");
-            return;
-        }
-        sm.addMoney(ticketPrice);
-        sm.addItem(ticketId, 1);
-        sm.sayOk("Thank you for your purchase!");
+        // TODO
     }
 
     @Script("MD_monkey")
     public static void MD_monkey(ScriptManager sm) {
-        // Dao - Monkey Temple Guide
-        final int answer = sm.askMenu("Hello. Welcome to the Monkey Temple Entrance. Where would you like to go? #rYou need a Golden Temple Ticket to enter.", Map.of(
-                0, "Monkey Temple 1 - Wild Monkey (250 HP/52 EXP)",
-                1, "Monkey Temple 2 - Mama Monkey (350 HP/70 EXP)",
-                2, "Monkey Temple 3 - White Baby Monkey (650 HP/120 EXP)",
-                3, "Monkey Temple 4 - White Mama Monkey (1040 HP/200 EXP)"
+        // Dao : Monkey Temple Guide (9000080)
+        //   Golden Temple : Golden Temple (809060000)
+        //   Golden Temple : Golden Temple (950100000)
+        final int answer = sm.askMenu("Are you here because you heard about the Monkey Temple inside the Golden Temple?", Map.of(
+                0, "I want to enter the Monkey Temple.",
+                1, "Please tell me more about the Monkey Temple."
         ));
-
-        if (!sm.hasItem(GOLDEN_TICKET_ID) && !sm.hasItem(PREMIUM_TICKET_ID)) {
-            sm.sayOk("You need a Golden Temple ticket in order to get in.");
-            return;
-        }
-
-        Optional<Field> tryField = sm.getField().getFieldStorage().getFieldById(sm.getFieldId() + 100 + (answer * 100));
-        if (tryField.isPresent()) {
-            handleWarp(sm, tryField.get());
-        } else {
-            sm.sayOk("The destination is unavailable.");
+        if (answer == 0) {
+            final int dungeon = sm.askMenu("Which temple do you wish to enter? And you know that must enter alone, right?", Map.of(
+                    0, "Monkey Temple 1 (Lv. 15 Wild Monkey)",
+                    1, "Monkey Temple 2 (Lv. 21 Mama Monkey)",
+                    2, "Monkey Temple 3 (Lv. 20 White Baby Monkey)",
+                    3, "Monkey Temple 4 (Lv. 34 White Mama Monkey)"
+            ));
+            if (!sm.hasItem(PREMIUM_TICKET_ID) && !sm.removeItem(GOLDEN_TICKET_ID, 1)) {
+                sm.sayOk("I'm sorry but you can't enter the Monkey Temple without a ticket. Let me explain the Monkey Temple to you again so you can understand how to obtain a ticket.");
+                return;
+            }
+            sm.warpInstance(950100100 + (dungeon * 100), "out00", 950010000, TIME_LIMIT);
+        } else if (answer == 1) {
+            sm.sayOk("This is a forest where the monkeys outside of the Golden Temple live. \r\n\r\n1. Benefits of the Monkey Temple \r\n#b- Yields more EXP than other monsters of the same level \r\n- Drops various scrolls#k \r\n\r\n2. How to obtain the Golden Ticket required to enter \r\n- Mr. Yoo's quest can be completed once per day \r\n- Freely enter once per hour if you possess a Premium Golden Ticket.");
         }
     }
 
     @Script("MD_goblin")
     public static void MD_goblin(ScriptManager sm) {
-        final int answer = sm.askMenu("Hello. Welcome to the Goblin Temple Entrance. Where would you like to go? #rYou need a Golden Temple Ticket to enter. All these monsters drop Sunbursts, required to get into the boss Ravana.#k", Map.of(
-                0, "Goblin Temple 1 - Blue Goblin (2200 HP/170 EXP)",
-                1, "Goblin Temple 2 - Red Goblin (4150 HP/336 EXP)",
-                2, "Goblin Temple 3 - Stone Goblin (9300 HP/501 EXP)"
+        // Chan : Goblin Cave Guard (9000075)
+        //   Golden Temple : Golden Temple (809060000)
+        //   Golden Temple : Golden Temple (950100000)
+        final int answer = sm.askMenu("What do you want? Please step aside.", Map.of(
+                0, "I want to enter the Goblin Cave.",
+                1, "Please tell me more about the Goblin Cave."
         ));
-
-        if (!sm.hasItem(GOLDEN_TICKET_ID) && !sm.hasItem(PREMIUM_TICKET_ID)) {
-            sm.sayOk("You need a Golden Temple ticket in order to get in.");
-            return;
-        }
-
-        Optional<Field> tryField = sm.getField().getFieldStorage().getFieldById(sm.getFieldId() + 500 + (answer * 100));
-        if (tryField.isPresent()) {
-            handleWarp(sm, tryField.get());
-        } else {
-            sm.sayOk("The destination is unavailable.");
+        if (answer == 0) {
+            final int dungeon = sm.askMenu("You need a Golden Ticket to enter. You can only enter when you're alone, too. Where do you want to go?", Map.of(
+                    0, "Goblin Temple 1 (Lv. 43 Blue Goblin)",
+                    1, "Goblin Temple 2 (Lv. 54 Red Goblin)",
+                    2, "Goblin Temple 3 (Lv. 66 Stone Goblin)"
+            ));
+            if (!sm.hasItem(PREMIUM_TICKET_ID) && !sm.removeItem(GOLDEN_TICKET_ID, 1)) {
+                sm.sayOk("I'm sorry but you can't enter the Goblin Cave without a ticket. Let me explain the Goblin Cave to you again so you can understand how to obtain a ticket.");
+                return;
+            }
+            sm.warpInstance(950100500 + (dungeon * 100), "out00", 950010000, TIME_LIMIT);
+        } else if (answer == 1) {
+            sm.sayOk("This is a Cave where the Goblins outside of the Golden Temple live. \r\n\r\n1. Benefits of the Goblin Cave \r\n#b- Yields more EXP than other monsters of the same level \r\n- Drops Sunburst#k \r\n\r\n2. How to obtain the Golden Ticket required to enter \r\n- Mr. Yoo's quest can be completed once per day \r\n- Freely enter once per hour if you possess a Premium Golden Ticket.");
         }
     }
 
-    private static void handleWarp(ScriptManager sm, Field warpField) {
-        if (warpField.getUserPool().getCount() > 0) {
-            sm.sayOk("There is already someone in the map.");
-            return;
-        }
+    @Script("goMonkey")
+    public static void goMonkey(ScriptManager sm) {
+        // Golden Temple : Golden Temple (809060000)
+        //   in00 (1328, 531)
+        // Golden Temple : Golden Temple (950100000)
+        //   in00 (-827, 532)
+        MD_monkey(sm);
+    }
 
-        if (sm.hasItem(GOLDEN_TICKET_ID) && !sm.hasItem(PREMIUM_TICKET_ID)) {
-            sm.removeItem(GOLDEN_TICKET_ID);
-        }
-        sm.warp(warpField.getFieldId());
+    @Script("goGoblin")
+    public static void goGoblin(ScriptManager sm) {
+        // Golden Temple : Golden Temple (809060000)
+        //   in01 (-532, 531)
+        // Golden Temple : Golden Temple (950100000)
+        //   in01 (977, 532)
+        MD_goblin(sm);
     }
 }

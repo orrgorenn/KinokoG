@@ -697,6 +697,10 @@ public final class ContiMove extends ScriptHandler {
 
     @Script("ossyria_taxi")
     public static void ossyria_taxi(ScriptManager sm) {
+        // Danger Zone Taxi (2023000)
+        //   El Nath : El Nath (211000000)
+        //   Ludibrium : Ludibrium (220000000)
+        //   Leafre : Leafre (240000000)
         int fieldId = sm.getField().getFieldId();
 
         if (fieldId == 211000000) {

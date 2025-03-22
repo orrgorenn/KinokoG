@@ -12,6 +12,7 @@ public final class DatabaseManager {
     private static GiftAccessor giftAccessor;
     private static MemoAccessor memoAccessor;
     private static ActiveMachineAccessor activeMachineAccessor;
+    private static FameAccessor fameAccessor;
 
     public static IdAccessor idAccessor() { return idAccessor; }
 
@@ -41,6 +42,8 @@ public final class DatabaseManager {
 
     public static ActiveMachineAccessor activeMachineAccessor() { return activeMachineAccessor; }
 
+    public static FameAccessor fameAccessor() { return fameAccessor; }
+
     public static void initialize() {
         // Create Tables
         IdTable.createTable();
@@ -51,6 +54,7 @@ public final class DatabaseManager {
         GiftTable.createTable();
         MemoTable.createTable();
         ActiveMachineTable.createTable();
+        FameTable.createTable();
 
         // Create Accessors
         idAccessor = new MysqlIdAccessor();
@@ -61,6 +65,7 @@ public final class DatabaseManager {
         giftAccessor = new MysqlGiftAccessor();
         memoAccessor = new MysqlMemoAccessor();
         activeMachineAccessor = new MysqlActiveMachineAccessor();
+        fameAccessor = new MysqlFameAccessor();
     }
 
     public static void shutdown() {}

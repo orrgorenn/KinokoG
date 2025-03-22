@@ -50,6 +50,7 @@ final class ScriptHelper {
                 while (m.find()) {
                     final String space = m.group(1);
                     final String scriptName = m.group(2);
+                    log.debug("Working on script {}", scriptName);
                     final int start = lines.indexOf(m.group(0));
                     final int count = lines.subList(start, lines.size()).indexOf(space + "}");
 

@@ -122,7 +122,7 @@ public final class MobHandler {
         final Field field = user.getField();
         final Optional<Mob> mobResult = field.getMobPool().getById(objectId);
         if (mobResult.isEmpty()) {
-            log.error("Received MobApplyCtrl for invalid object with ID : {}", objectId);
+            log.error("Received MobApplyCtrl for invalid object with ID : {} (user: {} | fieldId: {})", objectId, user.getCharacterName(), field.getFieldId());
             return;
         }
         try (var lockedMob = mobResult.get().acquire()) {

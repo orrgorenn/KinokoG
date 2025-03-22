@@ -364,4 +364,21 @@ public final class WvsContext {
         outPacket.encodeByte(success); // bSucceed
         return outPacket;
     }
+
+    public static OutPacket UserGivePopularityError(int result) {
+        return OnGivePopularityResult(result, null, true, 0);
+    }
+
+    public static OutPacket OnGivePopularityResult(int result, String characterName, boolean raise, int newFame) {
+        final OutPacket outPacket = OutPacket.of(OutHeader.GivePopularityResult);
+        outPacket.encodeByte(result);
+        if ((result == 0) || (result == 5)) {
+            outPacket.encodeString(characterName == null ? "" : characterName);
+            outPacket.encodeByte(raise ? 1 : 0);
+            if (result == 0) {
+                outPacket.encodeInt(newFame);
+            }
+        }
+        return outPacket;
+    }
 }

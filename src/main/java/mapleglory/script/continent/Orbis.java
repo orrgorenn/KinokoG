@@ -58,6 +58,8 @@ public class Orbis extends ScriptHandler {
 
     @Script("oldBook2")
     public static void oldBook2(ScriptManager sm) {
+        // Lisa (2012012)
+        //   Orbis : Orbis (200000000)
         if (!sm.hasQuestStarted(QuestRecordType.WheresHella.getQuestId())) {
             sm.sayOk("Are you looking for #bHella#k? Technically she lives here, but you won't be able to find her these days. A few months ago, she left town suddenly and never came back. It won't do much good to stop by her house, but at least the housekeeper should be there. How about talking to her?");
         } else if(!sm.hasQuestStarted(QuestRecordType.TheSmallGraveThatsHidden.getQuestId())) {
@@ -69,6 +71,8 @@ public class Orbis extends ScriptHandler {
 
     @Script("oldBook5")
     public static void oldBook5(ScriptManager sm) {
+        // Spiruna (2032001)
+        //   Orbis : Old Man's House (200050001)
         final String goAway = "I'm working on an important spell, so please don't disturb me and leave immediately. I can't concentrate when a stranger hangs around my house. Please go away...";
 
         if (sm.hasQuestCompleted(QuestRecordType.AcquiringTheFairyDust.getQuestId())) {

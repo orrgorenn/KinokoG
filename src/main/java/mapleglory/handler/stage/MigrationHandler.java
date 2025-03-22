@@ -28,6 +28,7 @@ import mapleglory.server.node.Client;
 import mapleglory.server.node.ServerExecutor;
 import mapleglory.server.packet.InPacket;
 import mapleglory.server.party.PartyRequest;
+import mapleglory.util.Tuple;
 import mapleglory.world.GameConstants;
 import mapleglory.world.field.Field;
 import mapleglory.world.item.*;
@@ -162,6 +163,10 @@ public final class MigrationHandler {
             if (JobConstants.isDragonJob(user.getJob())) {
                 user.setDragon(new Dragon(user.getJob()));
             }
+
+            List<Tuple<Instant, Integer>> lastMonthFame = DatabaseManager.fameAccessor().lastMonthFames(user.getCharacterId());
+            user.setLastMonthFame(lastMonthFame);
+            user.setLastFameTime(!lastMonthFame.isEmpty() ? lastMonthFame.getFirst().getLeft() : Instant.MIN);
 
             // Initialize user data from MigrationInfo
             user.getSecondaryStat().getTemporaryStats().putAll(migrationInfo.getTemporaryStats());

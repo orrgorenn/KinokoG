@@ -16,6 +16,8 @@ public final class FreeMarket extends ScriptHandler {
     public static void market00(ScriptManager sm) {
         // Hidden Street : Free Market Entrance (910000000)
         //   out00 (-538, 30)
+        // Hidden Street : Glory Isle (919191919)
+        //   out00 (-538, 30)
         final String value = sm.getQRValue(QuestRecordType.FreeMarket);
         sm.playPortalSE();
         switch (value) {

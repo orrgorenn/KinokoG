@@ -1,5 +1,6 @@
 package mapleglory.script.continent;
 
+import mapleglory.provider.reward.Reward;
 import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
@@ -332,5 +333,23 @@ public final class MinarForest extends ScriptHandler {
         //   arrival03 (170, 370)
         // Time Lane : Temple of Time (270000100)
         sm.resetConsumeItemEffect(MINI_DRACO_TRANSFORMATION);
+    }
+
+
+    // NEO CITY SCRIPTS ------------------------------------------------------------------------------------------
+
+    @Script("neoCityItem0")
+    public static void neoCityItem0(ScriptManager sm) {
+        // neoCityItem0 (2402007)
+        //   Neo City : <Year 2021> Average Town Entrance (240070100)
+        //   Neo City : <Year 2021> Average Town Playground (240070101)
+        //   Neo City : <Year 2021> Average Town Outskirt (240070102)
+        // neoCityItem0 (2402008)
+        //   Neo City : <Year 2021> Average Town Entrance (240070100)
+        //   Neo City : <Year 2021> Average Town Playground (240070101)
+        //   Neo City : <Year 2021> Average Town Outskirt (240070102)
+        sm.dropRewards(List.of(
+                Reward.item(4032512, 1, 1, 1, 3720)
+        ));
     }
 }

@@ -38,7 +38,9 @@ public class Zakum extends ScriptHandler {
     final static int ZAKUM_BOSS_MAP = 280030000;
     @Script("Zakum00")
     public static void zakum00(ScriptManager sm) {
-        // Check if the player's level is at least 50
+        // Adobis (2030008)
+        //   El Nath : The Door to Zakum (211042300)
+        //   Dead Mine : The Door to Chaos Zakum (211042301)
         if (sm.getLevel() < 50) {
             sm.sayOk("Please come back to me when you've become stronger.  I've seen a few adventurers in my day, and you're far too weak to complete my tasks.");
             return;
@@ -241,6 +243,8 @@ public class Zakum extends ScriptHandler {
 
     @Script("Zakum01")
     public static void zakum01(ScriptManager sm) {
+        // Aura (2032002)
+        //   Adobis's Mission I : Unknown Dead Mine (280010000)
         sm.sayNext("You are the one who wanted to investigate the Dead Mine. You need to gather up the necessary items to reach the point of your final goal: meeting the boss of the Zakum Dungeon. To obtain that item, you'll first need to acquire the materials for that item, right? You can get one of the materials, #b#t4031061##k, right here. It won't be easy, though ...");
         sm.sayNext("Here, there is an entrance that leads to numerous caves. Once inside the cave, you'll see some boxes. Destroy them all, and collect #b7 of #t4001016#s#k. The box cannot be destroyed using attack skills; only the regular, basic attack works. Afterwards, gather up the 7 keys, move into the innermost room, where the treasure chest is. Drop the keys there to obtain #b#t4031061##k. It'll take some time after dropping the keys to obtain it, so be patient.");
         sm.sayNext("Of course, not every box contains #t4001016#. You'll all run into some very unexpected circumstances, so please be aware of that. Every once in a while, in the middle of going through the boxes, #t4001015# will pop out. Gather those up, too, and something good will definitely happen. You need to collect at least 30 #t4001015#s. This is all I can tell you, for now.");
@@ -297,11 +301,29 @@ public class Zakum extends ScriptHandler {
 
     @Script("go280010000")
     public static void go280010000(ScriptManager sm) {
+        // go280010000 (2110000)
+        //   Adobis's Mission I : Area 1-2 (280010011)
+        //   Adobis's Mission I : Area 3-2 (280010031)
+        //   Adobis's Mission I : Area 4-2 (280010041)
+        //   Adobis's Mission I : Area 7-2 (280010071)
+        //   Adobis's Mission I : Area 8-2 (280010081)
+        //   Adobis's Mission I : Area 9-2 (280010091)
+        //   Adobis's Mission I : Area 11-1 (280010110)
+        //   Adobis's Mission I : Area 14-1 (280010140)
+        //   Adobis's Mission I : Area 16 <A Dead Mine Somewhere> (280011000)
+        //   Adobis's Mission I : Area 16-1 (280011001)
+        //   Adobis's Mission I : Area 16-2 (280011002)
+        //   Adobis's Mission I : Area 16-3 (280011003)
+        //   Adobis's Mission I : Area 16-4 (280011004)
+        //   Adobis's Mission I : Area 16-5 (280011005)
+        //   Adobis's Mission I : Area 16-6 (280011006)
         sm.warp(280010000);
     }
 
     @Script("boxBItem0")
     public static void boxbitem0(ScriptManager sm) {
+        // boxBItem0 (2112014)
+        //   Adobis's Mission I : Area 16-5 (280011005)
         sm.dropRewards(List.of(
                 Reward.item(4031061, 1, 1, 1)
         ));
@@ -309,6 +331,8 @@ public class Zakum extends ScriptHandler {
 
     @Script("Zakum03")
     public static void zakum03(ScriptManager sm) {
+        // Adobis's Mission I : Unknown Dead Mine (280010000)
+        //   ps01 (440, 193)
         if(sm.hasQuestCompleted(100200)) {
             if(!sm.canAddItem(4001018, 1)) {
                 sm.sayOk("Please make room for the #b#t4001018##k.");
@@ -344,7 +368,8 @@ public class Zakum extends ScriptHandler {
 
     @Script("Zakum04")
     public static void zakum04(ScriptManager sm) {
-        // Ali
+        // Ali (2030011)
+        //   Adobis's Mission I : The Room of Tragedy (280090000)
         if(sm.hasItem(4031061, 1)) {
             sm.sayOk("Great job clearing level 1! Alright ... I'll send you off to where #b#p2030008##k is. Before that!! Please be aware that the various, special items you have acquired here will not be carried out of here. I'll be taking away those items from your item inventory, so remember that. See ya!");
         } else {
@@ -358,6 +383,15 @@ public class Zakum extends ScriptHandler {
 
     @Script("boxKey0")
     public static void boxKey0(ScriptManager sm) {
+        // boxKey0 (2112004)
+        //   Adobis's Mission I : Area 9-2 (280010091)
+        //   Adobis's Mission I : Area 11-1 (280010110)
+        //   Adobis's Mission I : Area 14-1 (280010140)
+        //   Adobis's Mission I : Area 16-2 (280011002)
+        //   Adobis's Mission I : Area 16-3 (280011003)
+        // boxKey0 (2112011)
+        //   Adobis's Mission I : Area 4-2 (280010041)
+        //   Adobis's Mission I : Area 16-5 (280011005)
         sm.dropRewards(List.of(
                 Reward.item(4001016, 1, 1, 1)
         ));
@@ -365,7 +399,8 @@ public class Zakum extends ScriptHandler {
 
     @Script("Zakum02")
     public static void zakum02(ScriptManager sm) {
-        // Lira (end JQ)
+        // Lira (2032003)
+        //   Adobis's Mission I : Breath of Lava <Level 2> (280020001)
         sm.sayNext("How did you go through such treacherous road to get here?? Incredible! #b#t4031062##k is here. Please give this to my brother. You'll finally be meeting up with the one you've been looking for, very soon.");
         if(!sm.canAddItem(4031062, 1)) {
             sm.sayOk("Your ETC inventory seems to be full. Please make room in order to receive the item.");
@@ -380,6 +415,11 @@ public class Zakum extends ScriptHandler {
 
     @Script("Zakum06")
     public static void zakum06(ScriptManager sm) {
+        // Amon (2030010)
+        //   Adobis's Mission I : Breath of Lava <Level 1> (280020000)
+        //   Adobis's Mission I : Breath of Lava <Level 2> (280020001)
+        //   Last Mission : Zakum's Altar (280030000)
+        //   Last Mission : Chaos Zakum's Altar (280030001)
         if (sm.getFieldId() == 280030000) {
             boolean exit = false;
             if(sm.getQRValue(QuestRecordType.Zakum).equals("1")) {
@@ -403,7 +443,10 @@ public class Zakum extends ScriptHandler {
 
     @Script("Zakum05")
     public static void zakum05(ScriptManager sm) {
-        // Enter Zakum Boss
+        // El Nath : The Door to Zakum (211042300)
+        //   ps00 (-722, -217)
+        // Dead Mine : The Door to Chaos Zakum (211042301)
+        //   ps00 (-722, -217)
         if(!sm.hasQuestCompleted(100202)) {
             sm.sayOk("You may only enter this place after clearing level 3. You'll also need to have the Eye of Fire in possession.");
             return;
@@ -426,6 +469,8 @@ public class Zakum extends ScriptHandler {
 
     @Script("boss")
     public static void boss(ScriptManager sm) {
+        // boss (2111001)
+        //   Last Mission : Zakum's Altar (280030000)
         sm.broadcastMessage("Zakum is summoned by the force of eye of fire.", true);
         for (int i = 8800000; i <= 8800010; i++) {
             sm.spawnMob(i, MobAppearType.EFFECT, -10, -215, false, true);

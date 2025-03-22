@@ -174,27 +174,6 @@ public class ElNath extends ScriptHandler {
                     ));
 
                     sm.broadcastMessage("Creating arrouws not implemented yet.", true);
-
-//                    switch (answer5) {
-//                        case 0:
-//                            handleCreateArrows(sm, 1, "#t2060000#", "#v4003001# #t4003001# \\r\\n#v4003004# #t4003004# ", 1000, "");
-//                            break;
-//                        case 1:
-//                            handleCreateArrows(sm, 2, "#t2061000#", "#v4003001# #t4003001# \\r\\n#v4003004# #t4003004# ", 1000, "");
-//                            break;
-//                        case 2:
-//                            handleCreateArrows(sm, 3, "#t2060001#", "#v4011000# #t4011000# \\r\\n#v4003001# 3 #t4003001#s \\r\\n#v4003004# 10 #t4003004#s ", 900, "");
-//                            break;
-//                        case 3:
-//                            handleCreateArrows(sm, 4, "#t2061001#", "#v4011000# #t4011000# \\r\\n#v4003001# 3 #t4003001#s \\r\\n#v4003004# 10 #t4003004#s ", 900, "");
-//                            break;
-//                        case 4:
-//                            handleCreateArrows(sm, 5, "#t2060002#", "#v4011001# #t4011001# \\r\\n#v4003001# 5 #t4003001#s \\r\\n#v4003005# 15 #t4003005#s ", 800, "");
-//                            break;
-//                        case 4:
-//                            handleCreateArrows(sm, 6, "#t2061002#", "#v4011001# #t4011001# \\r\\n#v4003001# 5 #t4003001#s \\r\\n#v4003005# 15 #t4003005#s ", 800, "");
-//                            break;
-//                    }
             }
         } else {
             sm.sayOk("I understand. Is the service fee too high for you? But understand that I'll be in this town for a long time, so if you ever want to refine anything just bring it to me.");

@@ -9,6 +9,8 @@ import java.util.Map;
 public class Zipangu extends ScriptHandler {
     @Script("con1")
     public static void con1(ScriptManager sm) {
+        // Konpei (9120015)
+        //   Zipangu : Showa Town (801000000)
         final int answer = sm.askMenu("What do you want from me?", Map.of(
                 0, "Gather up some information on the hideout.",
                 1, "Take me to the hideout.",
@@ -31,7 +33,9 @@ public class Zipangu extends ScriptHandler {
 
     @Script("con2")
     public static void con2(ScriptManager sm) {
-        if (sm.askYesNo("Here you are, right in front of the hideout! What? You want to return to Showa Town?")) {
+        // Konpei (9120200)
+        //   Zipangu : Near the Hideout (801040000)
+        if (!sm.askYesNo("Here you are, right in front of the hideout! What? You want to return to Showa Town?")) {
             sm.sayOk("If you want to return to Showa Town, then talk to me.");
             return;
         }
@@ -41,6 +45,8 @@ public class Zipangu extends ScriptHandler {
 
     @Script("con3")
     public static void con3(ScriptManager sm) {
+        // Konpei (9120202)
+        //   Zipangu : The Nightmarish Last Days (801040100)
         if (!sm.hasItem(4000141)) {
             if (!sm.askYesNo("Once you eliminate the boss, you'll have to show me the boss's flashlight as evidence. I won't believe it until you show me the flashlight! What? You want to leave this room?")) {
                 sm.sayOk("I really admire your toughness! Well, if you decide to return to Showa Town, let me know~!");

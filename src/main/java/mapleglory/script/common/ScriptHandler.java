@@ -39,6 +39,8 @@ public abstract class ScriptHandler {
         return String.format("#p%d#", npcId);
     }
 
+    protected static String mobName(int mobId) { return String.format("#o%d#", mobId); }
+
     protected static <T> Map<Integer, String> createOptions(List<T> list, Function<T, String> mapper) {
         final Map<Integer, String> options = new HashMap<>();
         for (int i = 0; i < list.size(); i++) {

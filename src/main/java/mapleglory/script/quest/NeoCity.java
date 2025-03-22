@@ -72,6 +72,8 @@ public final class NeoCity extends ScriptHandler {
 
     @Script("TD_neo_inTree")
     public static void TD_neo_inTree(ScriptManager sm) {
+        // Tera Forest   : Tera Forest Time Gate (240070000)
+        //   in00 (-39, 46)
         Optional<Field> optToField = sm.getField().getFieldStorage().getFieldById(240070010);
         if(optToField.isPresent()) {
             Field toField = optToField.get();

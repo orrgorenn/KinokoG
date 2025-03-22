@@ -73,6 +73,8 @@ import org.apache.logging.log4j.Logger;
 import java.time.Instant;
 import java.util.*;
 
+import static mapleglory.world.skill.FameConstants.*;
+
 public final class UserHandler {
     private static final Logger log = LogManager.getLogger(UserHandler.class);
 
@@ -1118,6 +1120,53 @@ public final class UserHandler {
             );
         }
         return rewards;
+    }
+
+    @Handler(InHeader.UserGivePopularityRequest)
+    public static void UserGivePopularityRequest(User user, InPacket inPacket) {
+        final int characterId = inPacket.decodeInt();
+        final int updatedFame = inPacket.decodeByte() == 0 ? -1 : 1;
+
+        final Optional<User> userResult = user.getField().getUserPool().getById(characterId);
+        if (userResult.isEmpty()) {
+            user.dispose();
+            return;
+        }
+
+        final User remoteUser = userResult.get();
+        if (remoteUser.getCharacterId() == user.getCharacterId()) {
+            user.write(WvsContext.UserGivePopularityError(1));
+            return;
+        }
+
+        if (user.getLevel() < 15) {
+            user.write(WvsContext.UserGivePopularityError(2));
+            return;
+        }
+
+        switch (user.canGivePop(remoteUser)) {
+            case CAN_GIVE -> {
+                if (Math.abs(remoteUser.getPop() + updatedFame) <= 999999) {
+                    remoteUser.addPop(updatedFame);
+                }
+                if (!user.getAccount().isGM()) {
+                    user.setLastFameTime(Instant.now());
+                    DatabaseManager.fameAccessor().newFame(user.getCharacterId(), remoteUser.getCharacterId());
+                }
+                user.write(WvsContext.OnGivePopularityResult(0, remoteUser.getCharacterName(), updatedFame == 1, remoteUser.getPop()));
+                remoteUser.write(WvsContext.OnGivePopularityResult(5, user.getCharacterName(), updatedFame == 1, 0));
+            }
+            case NOT_TODAY -> {
+                user.write(WvsContext.UserGivePopularityError(3));
+            }
+            case NOT_THIS_MONTH -> {
+                user.write(WvsContext.UserGivePopularityError(4));
+            }
+            default -> {
+                log.error("Received can give fame unhandled result {}", user.canGivePop(remoteUser));
+                return;
+            }
+        }
     }
 
     @Handler(InHeader.UserItemMakeRequest)

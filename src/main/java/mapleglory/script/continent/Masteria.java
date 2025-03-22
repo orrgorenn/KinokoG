@@ -15,7 +15,7 @@ public final class Masteria extends ScriptHandler {
 
     @Script("NLC_ticketing")
     public static void NLC_ticketing(ScriptManager sm) {
-        //   Bell : NLC Subway Staff (9201057)
+        // Bell : NLC Subway Staff (9201057)
         //   Victoria Road : Subway Ticketing Booth (103000100)
         //   Kerning City Subway : Subway Ticketing Booth (103020000)
         //   New Leaf City : NLC Subway Station (600010001)
@@ -191,5 +191,43 @@ public final class Masteria extends ScriptHandler {
         // Tombstone (9201073)
         //   MesoGears : Enigma Chamber (600020600)
         sm.sayOk("Here lies Christopher Crimsonheart, the immortal warrior.");
+    }
+
+    @Script("q8222s")
+    public static void q8222s(ScriptManager sm) {
+        // The Brewing Storm (8222 - start)
+        sm.sayOk("Find 10 Stormbreaker Badges.");
+        sm.forceStartQuest(8222);
+    }
+
+    @Script("q8222e")
+    public static void q8222e(ScriptManager sm) {
+        // The Brewing Storm (8222 - end)
+        if (!sm.removeItem(4032006, 10)) {
+            sm.sayOk("Please find 10 Stormbreaker Badges.");
+            return;
+        }
+
+        sm.sayNext("Good job!");
+        sm.getUser().addQuestExp(85000);
+        sm.forceCompleteQuest(8222);
+    }
+
+    @Script("Brewing_Storm")
+    public static void brewingStorm(ScriptManager sm) {
+        if (sm.hasQuestCompleted(8223)) {
+            if (sm.hasItem(3992041, 1)) {
+                sm.sayOk("We, defenders of Yore, are currenly meeting at the Inner Sactum inside the Keep, about to start an offensive against the Twisted Masters and their army. Join us there anytime.");
+            } else {
+                if (!sm.addItem(3992041, 1)) {
+                    sm.sayOk("Please make a slot on your SETUP ready for the key I have to give to you. It is fundamental to enter the Inner Sanctum, inside the Keep.");
+                    return;
+                }
+
+                sm.sayOk("So you did lost your key, right? Very well, I will craft you another one, but please don't lose it again. It is fundamental to enter the Inner Sanctum, inside the Keep.");
+            }
+        } else {
+            sm.sayOk("O, brave adventurer. The Stormcasters house, from which I belong, guards the surrounding area of Yore, this landscape, from the forces of the Twisted Masters' guard that daily threathens the citizens. Please help us on the defense of Yore.");
+        }
     }
 }

@@ -27,6 +27,7 @@ import mapleglory.server.packet.OutPacket;
 import mapleglory.server.party.PartyRequest;
 import mapleglory.util.BitFlag;
 import mapleglory.util.Lockable;
+import mapleglory.util.Tuple;
 import mapleglory.util.Util;
 import mapleglory.world.GameConstants;
 import mapleglory.world.field.Field;
@@ -40,10 +41,7 @@ import mapleglory.world.item.Item;
 import mapleglory.world.job.Job;
 import mapleglory.world.job.JobConstants;
 import mapleglory.world.quest.QuestManager;
-import mapleglory.world.skill.PassiveSkillData;
-import mapleglory.world.skill.SkillConstants;
-import mapleglory.world.skill.SkillManager;
-import mapleglory.world.skill.SkillRecord;
+import mapleglory.world.skill.*;
 import mapleglory.world.user.data.ConfigManager;
 import mapleglory.world.user.data.MapTransferInfo;
 import mapleglory.world.user.data.MiniGameRecord;
@@ -55,6 +53,7 @@ import mapleglory.world.user.stat.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -93,6 +92,8 @@ public final class User extends Life implements Lockable<User> {
     private boolean inTransfer;
     private Instant nextCheckItemExpire;
     private int dojoEnergy;
+    private Instant lastFameTime;
+    private List<Tuple<Instant, Integer>> lastMonthFame;
 
     public User(Client client, CharacterData characterData) {
         this.client = client;
@@ -302,6 +303,23 @@ public final class User extends Life implements Lockable<User> {
 
     public int getDojoEnergy() { return dojoEnergy; }
     public void setDojoEnergy(int newEnergy) { this.dojoEnergy = newEnergy; }
+
+    public Instant getLastFameTime() {
+        return lastFameTime;
+    }
+
+    public void setLastFameTime(Instant lastFameTime) {
+        this.lastFameTime = lastFameTime;
+    }
+
+    public List<Tuple<Instant, Integer>> getLastMonthFame() {
+        return lastMonthFame;
+    }
+
+    public void setLastMonthFame(List<Tuple<Instant, Integer>> lastMonthFame) {
+        this.lastMonthFame = lastMonthFame;
+    }
+
     public void resetDojoEnergy() { this.dojoEnergy = 0; }
 
     public TownPortal getTownPortal() {
@@ -467,6 +485,18 @@ public final class User extends Life implements Lockable<User> {
         getCharacterStat().setPop(newPop);
         validateStat();
         write(WvsContext.statChanged(Stat.POP, newPop, true));
+    }
+
+    public int canGivePop(User targetUser) {
+        if (this.lastFameTime.isAfter(Instant.now().minus(Duration.ofDays(1)))) {
+            return FameConstants.NOT_TODAY;
+        }
+        for (Tuple<Instant, Integer> fame : this.lastMonthFame) {
+            if (fame.getRight() == targetUser.getCharacterId()) {
+                return FameConstants.NOT_THIS_MONTH;
+            }
+        }
+        return FameConstants.CAN_GIVE;
     }
 
     public int getSkillLevel(int skillId) {

@@ -247,21 +247,110 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("Depart_topFloor")
     public static void Depart_topFloor(ScriptManager sm) {
-        // Kerning Square : 7th Floor 8th Floor Area A
+        // Kerning Square  : 7th Floor 8th Floor Area A (103040400)
+        //   topFloor (-1129, 90)
         sm.playPortalSE();
         sm.warp(103040410, "right01"); // Kerning Square : 7th Floor 8th Floor Area B
     }
 
     @Script("Depart_topOut")
     public static void Depart_topOut(ScriptManager sm) {
-        // Kerning Square : 7th Floor 8th Floor Area A
+        // Kerning Square  : 7th Floor 8th Floor Area A (103040400)
+        //   goDown (-442, 416)
         sm.playPortalSE();
         sm.warp(103040300, "fromUp"); // Kerning Square : 5th Floor 6th Floor Area A
     }
 
+    @Script("Depart_goFoward0")
+    public static void departGoFoward0(ScriptManager sm) {
+        // Kerning Square  : 7th Floor 8th Floor Area B (103040410)
+        //   left00 (-1144, 416)
+        // Kerning Square  : VIP Zone Area A (103040440)
+        //   left00 (-1144, 416)
+        int fieldId = sm.getFieldId();
+        if (fieldId == 103040410 && sm.hasQuestCompleted(2287)) {
+            sm.playPortalSE();
+            sm.warp(103040420, "right00");
+        } else if (fieldId == 103040420 && sm.hasQuestCompleted(2288)) {
+            sm.playPortalSE();
+            sm.warp(103040430, "right00");
+        } else if (fieldId == 103040410 && sm.hasQuestStarted(2287)) {
+            sm.playPortalSE();
+            sm.warp(103040420, "right00");
+        } else if (fieldId == 103040420 && sm.hasQuestStarted(2288)) {
+            sm.playPortalSE();
+            sm.warp(103040430, "right00");
+        } else {
+            if (fieldId == 103040440 || fieldId == 103040450) {
+                sm.playPortalSE();
+                sm.warp(fieldId + 10, "right00");
+                return;
+            }
+            sm.broadcastMessage("You cannot access this area.", true);
+        }
+    }
+
+    @Script("Depart_goFoward1")
+    public static void departGoFoward1(ScriptManager sm) {
+        // Kerning Square  : 7th Floor 8th Floor Area B (103040410)
+        //   left01 (-1140, 84)
+        // Kerning Square  : 7th Floor 8th Floor Area C (103040420)
+        //   left01 (-1175, 91)
+        // Kerning Square  : VIP Zone Area A (103040440)
+        //   left01 (-1140, 84)
+        // Kerning Square  : VIP Zone Area B (103040450)
+        //   left01 (-1175, 91)
+        int fieldId = sm.getFieldId();
+        if (fieldId == 103040410 && sm.hasQuestCompleted(2287)) {
+            sm.playPortalSE();
+            sm.warp(103040420, "right01");
+        } else if (fieldId == 103040420 && sm.hasQuestCompleted(2288)) {
+            sm.playPortalSE();
+            sm.warp(103040430, "right01");
+        } else if (fieldId == 103040410 && sm.hasQuestStarted(2287)) {
+            sm.playPortalSE();
+            sm.warp(103040420, "right01");
+        } else if (fieldId == 103040420 && sm.hasQuestStarted(2288)) {
+            sm.playPortalSE();
+            sm.warp(103040430, "right01");
+        } else {
+            if (fieldId == 103040440 || fieldId == 103040450) {
+                sm.playPortalSE();
+                sm.warp(fieldId + 10, "right01");
+                return;
+            }
+            sm.broadcastMessage("You cannot access this area.", true);
+        }
+    }
+
+    @Script("Depart_goBack00")
+    public static void Depart_goBack00(ScriptManager sm) {
+        // Kerning Square  : 7th Floor 8th Floor Area C (103040420)
+        //   right00 (1256, 418)
+        // Kerning Square  : VIP Zone Area B (103040450)
+        //   right00 (1256, 418)
+        sm.playPortalSE();
+        sm.warp(sm.getFieldId() - 10, "left00");
+    }
+
+    @Script("Depart_goBack01")
+    public static void DepartGoBack01(ScriptManager sm) {
+        // Kerning Square  : 7th Floor 8th Floor Area C (103040420)
+        //   right01 (1255, 89)
+        // Kerning Square  : 7th Floor 8th Floor Area D (103040430)
+        //   right01 (1259, 88)
+        // Kerning Square  : VIP Zone Area B (103040450)
+        //   right01 (1255, 89)
+        // Kerning Square  : VIP Zone Area C (103040460)
+        //   right01 (1259, 88)
+        sm.playPortalSE();
+        sm.warp(sm.getFieldId() - 10, "left01");
+    }
+
     @Script("halloween_enter")
     public static void halloween_enter(ScriptManager sm) {
-        // Phantom Forest : Haunted House
+        // Phantom Forest : Haunted House (682000000)
+        //   st01 (-17, 235)
         sm.playPortalSE();
         sm.warp(682000100);
     }
@@ -322,6 +411,8 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("end_black")
     public static void end_black(ScriptManager sm) {
+        // Hidden Chamber : Secret Place (912000000)
+        //   ntq1 (-290, -211)
         sm.playPortalSE();
         sm.warp(120000200);
     }
@@ -433,6 +524,8 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("pet_letter")
     public static void pet_letter(ScriptManager sm) {
+        // Trainer Frod : Pet Trainer (1012007)
+        //   Henesys : Pet-Walking Road (100000202)
         if(sm.hasItem(4031035, 1)) {
             sm.sayNext("You have made it! Now let me see... you want to learn 'Follow the Lead' skill? Since you've made it so far, I'll teach you the skill!");
             sm.removeItem(4031035);
@@ -443,6 +536,8 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("pet_lifeitem")
     public static void pet_lifetime(ScriptManager sm) {
+        // Trainer Bartos : Pet Trainer (1012006)
+        //   Henesys : Pet-Walking Road (100000202)
         final int answer = sm.askMenu("Do you have any business with me?", Map.of(
                 0, "#bPlease tell me about this place.",
                 1, "I'm here through a word from Mar the Fairy...#k"
@@ -467,6 +562,8 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("hotel1")
     public static void hotel1(ScriptManager sm) {
+        // Hotel Receptionist (1061100)
+        //   Sleepywood : Sleepywood Hotel (105000010)
         sm.sayNext("Welcome. We're the Sleepywood Hotel. Our hotel works hard to serve you the best at all times. If you are tired and worn out from hunting, how about a relaxing stay at our hotel?");
         final int answer = sm.askMenu("We offer two kinds of rooms for our service. Please choose the one of your liking.", Map.of(
                 0, "Regular sauna (" + REGULAR_SAUNA_PRICE + " mesos per use)",
@@ -495,12 +592,16 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("Dual_moveGate")
     public static void dualMoveGate(ScriptManager sm) {
+        // Kerning City : Kerning City (103000000)
+        //   dual00 (-43, -144)
         sm.playPortalSE();
         sm.warp(103050000);
     }
 
     @Script("dual_ballRoom")
     public static void dualBallRoom(ScriptManager sm) {
+        // Victoria Road : The Secret Garden 2nd Floor (103050100)
+        //   quest00 (85, 150)
         if(sm.hasQuestStarted(2363)) {
             sm.playPortalSE();
             sm.warp(910350000, "out00");
@@ -509,12 +610,15 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("dual_ball00")
     public static void dualBall00(ScriptManager sm) {
+        // dual_ball00 (1032001)
+        //   Hidden Street : Marble Room (910350000)
         sm.dropRewards(List.of(Reward.item(2430071, 1, 1, 1)));
         sm.setReactorState(1032001, 0);
     }
 
     @Script("consume_2430071")
     public static void consume_2430071(ScriptManager sm) {
+        // Opalescent Glass Marble (2430071)
         final int randomInt = sm.getRandomIntBelow(1);
         if(randomInt == 0 && !sm.hasItem(4032616, 1)) {
             sm.addItem(4032616, 1);
@@ -529,7 +633,7 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("q2363e")
     public static void q2363e(ScriptManager sm) {
-        // Dual Blade : Time For The Awekening - end
+        // Dual Blade: Time for the Awakening (2363 - end)
         if(sm.askYesNo("This is great. The Mirror of Insight has chosen you, Are you ready to awaken as a Dual Blade?")) {
             if(sm.hasItem(4032616, 1) && !sm.hasQuestCompleted(2363)) {
                 sm.removeItem(4032616);
@@ -543,6 +647,8 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("dual_lv20")
     public static void dual_lv20(ScriptManager sm) {
+        // Victoria Road : The Secret Garden Basement (103050300)
+        //   in00 (481, 151)
         if(sm.getLevel() >= 20) {
             sm.playPortalSE();
             sm.warp(103050310);
@@ -553,6 +659,8 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("dual_lv25")
     public static void dual_lv25(ScriptManager sm) {
+        // Victoria Road : The Secret Garden Basement (103050300)
+        //   in01 (883, 150)
         if(sm.getLevel() >= 25) {
             sm.playPortalSE();
             sm.warp(103050340);
@@ -563,6 +671,8 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("dual_lv30")
     public static void dual_lv30(ScriptManager sm) {
+        // Victoria Road : The Secret Garden Basement (103050300)
+        //   in02 (1283, 149)
         if(sm.getLevel() >= 30) {
             sm.playPortalSE();
             sm.warp(103050370);
@@ -573,6 +683,8 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("dual_secret")
     public static void dualSecret(ScriptManager sm) {
+        // Kerning City : Thieves' Hideout (103000003)
+        //   secret00 (49, -95)
         if (sm.hasQuestStarted(2369) && !sm.hasItem(4032617)) {
             sm.playPortalSE();
             sm.warpInstance(910350100, "out00", 910350100, 10 * 60);
@@ -581,6 +693,17 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("dual_Diary")
     public static void dualDiary(ScriptManager sm) {
+        // Former Dark Lord's Diary (1052126)
+        //   Hidden Street : Former Dark Lord's Room (910350100)
+        //   Hidden Street : Former Dark Lord's Room (910350101)
+        //   Hidden Street : Former Dark Lord's Room (910350102)
+        //   Hidden Street : Former Dark Lord's Room (910350103)
+        //   Hidden Street : Former Dark Lord's Room (910350104)
+        //   Hidden Street : Former Dark Lord's Room (910350105)
+        //   Hidden Street : Former Dark Lord's Room (910350106)
+        //   Hidden Street : Former Dark Lord's Room (910350107)
+        //   Hidden Street : Former Dark Lord's Room (910350108)
+        //   Hidden Street : Former Dark Lord's Room (910350109)
         if(!sm.getQRValue(QuestRecordType.DualBladeDualDiary).equals("1")) {
             sm.useSummoningSack(2109012, 98, 149);
             sm.setQRValue(QuestRecordType.DualBladeDualDiary, "1");
@@ -597,7 +720,7 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("q2369e")
     public static void q2369e(ScriptManager sm) {
-        // Lady Syl : Time for The Awakening [2]
+        // Dual Blade: Time for the Awakening (2369 - end)
         sm.sayNext("Finally... I have my father's Diary. Thank you. I am starting to trust you even more. Your current position doesn't seem to suit your great abilities. I think you have the qualifications to advance to a #bBlade Acolyte#k. I will advance you to a Blade Acolyte now.");
         if (sm.hasItem(4032617, 1) && !sm.hasQuestCompleted(2369)){
             if(!sm.canAddItem(1052244, 1)) {
@@ -623,6 +746,10 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("outSecondDH")
     public static void outSecondDH(ScriptManager sm) {
+        // Kiriko : Drill Hall Gatekeeper (1102001)
+        //   Hidden Street : First Drill Hall (913001000)
+        //   Hidden Street : First Drill Hall (913001001)
+        //   Hidden Street : First Drill Hall (913001002)
         if(sm.askYesNo("Are you done with the Knighthood Exam? Should I let you out?")) {
             sm.warp(130020000);
         }
@@ -630,7 +757,7 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("q20201e")
     public static void q20201e(ScriptManager sm) {
-        // Mihile - Dawn Warrior Knighthood Exam - end
+        // Knighthood Exam: Dawn Warrior (20201 - end)
         if (sm.hasItem(4032096, 30)) {
             sm.sayNext("So you brought all the #bProof of Exam#k... Okay, I believe that you are not qualified to become an official knight.");
             if(sm.askYesNo("Are you interested in becoming an Official Knight?")) {
@@ -648,7 +775,7 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("q20202e")
     public static void q20202e(ScriptManager sm) {
-        // Oz - Blaze Wizard Knighthood Exam - end
+        // Knighthood Exam: Blaze Wizard (20202 - end)
         if (sm.hasItem(4032097, 30)) {
             sm.sayNext("So you brought all the #bProof of Exam#k... Okay, I believe that you are not qualified to become an official knight.");
             if(sm.askYesNo("Are you interested in becoming an Official Knight?")) {
@@ -666,7 +793,7 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("q20203e")
     public static void q20203e(ScriptManager sm) {
-        // Irena - Wind Archer Knighthood Exam - end
+        // Knighthood Exam: Wind Archer (20203 - end)
         if (sm.hasItem(4032098, 30)) {
             sm.sayNext("So you brought all the #bProof of Exam#k... Okay, I believe that you are not qualified to become an official knight.");
             if(sm.askYesNo("Are you interested in becoming an Official Knight?")) {
@@ -684,7 +811,7 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("q20204e")
     public static void q20204e(ScriptManager sm) {
-        // Eckhart - Night Walker Knighthood Exam - end
+        // Knighthood Exam: Night Walker (20204 - end)
         if (sm.hasItem(4032099, 30)) {
             sm.sayNext("So you brought all the #bProof of Exam#k... Okay, I believe that you are not qualified to become an official knight.");
             if(sm.askYesNo("Are you interested in becoming an Official Knight?")) {
@@ -702,7 +829,7 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("q20205e")
     public static void q20205e(ScriptManager sm) {
-        // Hawkeye - Thunder Breaker Knighthood Exam - end
+        // Knighthood Exam: Thunder Breaker (20205 - end)
         if (sm.hasItem(4032100, 30)) {
             sm.sayNext("So you brought all the #bProof of Exam#k... Okay, I believe that you are not qualified to become an official knight.");
             if(sm.askYesNo("Are you interested in becoming an Official Knight?")) {
@@ -720,6 +847,7 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("q2374e")
     public static void q2374e(ScriptManager sm) {
+        // Arec's Secret Letter (2374 - end)
         sm.sayNext("I've been waiting for you. Do you have Arec's answer?\\r\\nPlease give me his letter.");
         sm.sayBoth("We have finally received Arec's official recognition. This is an important movement for us. It's also time that you experience a change.");
         if(sm.hasItem(4032619) && !sm.hasQuestCompleted(2374)) {
@@ -739,6 +867,14 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("subway_out")
     public static void subway_out(ScriptManager sm) {
+        // Exit (1052011)
+        //   B1 : Area 1 (910360000)
+        //   B1 : Area 2 (910360001)
+        //   B2 : Area 1 (910360100)
+        //   B2 : Area 2 (910360101)
+        //   B3 : Area 1 (910360200)
+        //   B3 : Area 2 (910360201)
+        //   B3 : Area 3 (910360202)
         if(!sm.askYesNo("This device is connected to the outside. Will you give up and leave this place? You'll have to start from where you started the next time you come here...")) {
             sm.playPortalSE();
             sm.warp(103000100);

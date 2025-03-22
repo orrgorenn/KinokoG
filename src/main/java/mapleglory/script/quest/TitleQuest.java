@@ -113,17 +113,6 @@ public final class TitleQuest extends ScriptHandler {
 
     @Script("highposition")
     public static void highposition(ScriptManager sm) {
-        // Chimney Tree : Chimney Tree Top (101020300)
-        //   highposition (-1113, 319)
-        // Perion : Perion (102000000)
-        //   highposition1 (1996, 166)
-        // Kerning City : Kerning City (103000000)
-        //   highposition1 (238, -1197)
-        //   highposition2 (-1618, -1137)
-        // Nautilus : Nautilus Harbor (120000000)
-        //   highposition (4561, -985)
-        // Orbis : Entrance to Orbis Tower (200080100)
-        //   highposition (94, -487)
     }
 
     @Script("q29900s")
@@ -319,7 +308,7 @@ public final class TitleQuest extends ScriptHandler {
 
     @Script("q29002s")
     public static void q29002s(ScriptManager sm) {
-        // Title Challenge - Celebrity (29002 - start)
+        // Title Challenge - Celebrity! (29002 - start)
         if(!sm.askAccept("#v1142003:# #t1142003# \n\n #e- Time Limit 30 days\n- You must gain at least 1000 fame#k\n\nDo you want to test your skills to see if you're worthy of this title?")) {
             sm.sayOk("Come back when you're ready.");
             return;
@@ -331,21 +320,19 @@ public final class TitleQuest extends ScriptHandler {
 
     @Script("q28433s")
     public static void q28433s(ScriptManager sm) {
-        // Maple Administrator
-        // How to find friends - start
+        // How to find friends (28433 - start)
         sm.forceCompleteQuest(28433);
     }
 
     @Script("q10579s")
     public static void q10579s(ScriptManager sm) {
-        // Maple Administrator
-        // New Function: Party Search
+        // New Function: Party Search (10579 - start)
         sm.forceCompleteQuest(10579);
     }
 
     @Script("q29913s")
     public static void q29913s(ScriptManager sm) {
-        // Legendary Thief Medal
+        // Legendary Thief (29913 - start)
         if (sm.canAddItem(1142012, 1)) {
             sm.addItem(1142012, 1);
             sm.broadcastMessage("You obtained the <Legendary Thief> medal.", true);

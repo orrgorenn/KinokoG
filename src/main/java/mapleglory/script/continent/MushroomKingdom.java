@@ -4,7 +4,6 @@ import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.script.quest.MushroomCastle;
-import mapleglory.world.quest.QuestRecordType;
 
 public class MushroomKingdom extends ScriptHandler {
     @Script("q2300s")
@@ -62,75 +61,92 @@ public class MushroomKingdom extends ScriptHandler {
         handleMushking(sm, 2310);
     }
 
+    @Script("q2300e")
+    public static void q2300e(ScriptManager sm) {
+        handleMushkingEnd(sm, 2300);
+    }
+
+    @Script("q2301e")
+    public static void q2301e(ScriptManager sm) {
+        handleMushkingEnd(sm, 2301);
+    }
+
+    @Script("q2302e")
+    public static void q2302e(ScriptManager sm) {
+        handleMushkingEnd(sm, 2302);
+    }
+
+    @Script("q2303e")
+    public static void q2303e(ScriptManager sm) {
+        handleMushkingEnd(sm, 2303);
+    }
+
+    @Script("q2304e")
+    public static void q2304e(ScriptManager sm) {
+        handleMushkingEnd(sm, 2304);
+    }
+
+    @Script("q2305e")
+    public static void q2305e(ScriptManager sm) {
+        handleMushkingEnd(sm, 2305);
+    }
+
+    @Script("q2306e")
+    public static void q2306e(ScriptManager sm) {
+        handleMushkingEnd(sm, 2306);
+    }
+
+    @Script("q2307e")
+    public static void q2307e(ScriptManager sm) {
+        handleMushkingEnd(sm, 2307);
+    }
+
+    @Script("q2308e")
+    public static void q2308e(ScriptManager sm) {
+        handleMushkingEnd(sm, 2308);
+    }
+
+    @Script("q2309e")
+    public static void q2309e(ScriptManager sm) {
+        handleMushkingEnd(sm, 2309);
+    }
+
+    @Script("q2310e")
+    public static void q2310e(ScriptManager sm) {
+        handleMushkingEnd(sm, 2310);
+    }
 
     private static void handleMushking(ScriptManager sm, int questId) {
         if (sm.askYesNo("Now that you have made the job advancement, you look like you're ready for this. I have something I'd like to ask you for help. Are you willing to listen?")) {
             sm.sayNext("What happened is that the #bKingdom of Mushroom#k is currently in disarray. Kingdom of Mushroom is located near Henesys, featuring the peace-loving, intelligent King Mush. Recently, he began to feel ill, so he decided to appoint his only daughter #bPrincess Violetta#k. Something must have happened since then for the kingdom to be in its current state.");
-            sm.sayBoth("I am not aware of the exact details, but it's obvious something terrible had taken place, so I think it'll be better if you go there and assess the damage yourself. An explorer like you seem more than capable of saving Kingdom of Mushroom. I have just written you a #brecommendation letter#k, so I suggest you head over to Kingdom of Mushroom immediately and look for the #bHead Patrol Officer#k.\n" +
-                    "\n" +
-                    "#fUI/UIWindow.img/QuestIcon/4/0#\n\n" +
-                    "#v4032375# #t4032375#");
+            sm.sayBoth("I am not aware of the exact details, but it's obvious something terrible had taken place, so I think it'll be better if you go there and assess the damage yourself. An explorer like you seem more than capable of saving Kingdom of Mushroom. I have just written you a #brecommendation letter#k, so I suggest you head over to Kingdom of Mushroom immediately and look for the #bHead Patrol Officer#k.\n\n#fUI/UIWindow.img/QuestIcon/4/0#\n\n#v4032375# #t4032375#");
+
             if (!sm.askYesNo("By the way, do you know where #bMushroom Kingdom#k is located? It'll be okay if you can find your way there, but if you don't mind, I can take you straight to the entrance.")) {
+                sm.sayOk("Really? It's an urgent matter, so if you have some time, please see me.");
+                return;
+            }
+
+            if (!sm.hasItem(4032375, 1)) {
                 if (!sm.addItem(4032375, 1)) {
-                    sm.sayNext("Please check if your inventory is full or not.");
+                    sm.sayNext("Please have a slot available in your Etc inventory.");
                     return;
                 }
-                sm.forceStartQuest(questId);
-                sm.sayNext("Okay. In that case, I'll just give you directions to the #bMushroom Kingdom#k.");
-                sm.sayBoth("#bHead to #m100000000#, go to the right and enter Singing Mushroom Forest. Continue through the forest and at end you will find the entrance to <Themed Dungeon : Mushroom Castle>.");
-                sm.sayBoth("Please hurry! There's not much time!");
-                return;
             }
-            if (!sm.addItem(4032375, 1)) {
-                sm.sayNext("Please check if your inventory is full or not.");
-                return;
-            }
+
             sm.forceStartQuest(questId);
             MushroomCastle.enterThemeDungeon(sm);
         }
     }
 
-    @Script("q2300e")
-    public static void q2300e(ScriptManager sm) { handleMushkingEnd(sm, 2300); }
-
-    @Script("q2301e")
-    public static void q2301e(ScriptManager sm) { handleMushkingEnd(sm, 2301); }
-
-    @Script("q2302e")
-    public static void q2302e(ScriptManager sm) { handleMushkingEnd(sm, 2302); }
-
-    @Script("q2303e")
-    public static void q2303e(ScriptManager sm) { handleMushkingEnd(sm, 2303); }
-
-    @Script("q2304e")
-    public static void q2304e(ScriptManager sm) { handleMushkingEnd(sm, 2304); }
-
-    @Script("q2305e")
-    public static void q2305e(ScriptManager sm) { handleMushkingEnd(sm, 2305); }
-
-    @Script("q2306e")
-    public static void q2306e(ScriptManager sm) { handleMushkingEnd(sm, 2306); }
-
-    @Script("q2307e")
-    public static void q2307e(ScriptManager sm) { handleMushkingEnd(sm, 2307); }
-
-    @Script("q2308e")
-    public static void q2308e(ScriptManager sm) { handleMushkingEnd(sm, 2308); }
-
-    @Script("q2309e")
-    public static void q2309e(ScriptManager sm) { handleMushkingEnd(sm, 2309); }
-
-    @Script("q2310e")
-    public static void q2310e(ScriptManager sm) { handleMushkingEnd(sm, 2310); }
-
     private static void handleMushkingEnd(ScriptManager sm, int questId) {
-        if (!sm.hasItem(4032375, 1)) {
-            sm.sayNext("What do you want, hmmm?");
+        if (!sm.removeItem(4032375, 1)) {
+            sm.sayOk("What do you want, hmmm?");
             return;
         }
+
         sm.sayNext("Hmmm? Is that a #brecommendation letter from the job instructor#k??! What is this, are you the one that came to save us, the Kingdom of Mushroom?");
         sm.sayBoth("Hmmm... okay. Since the letter is from the job instructor, I suppose you are really the one. I apologize for not introducing myself to you earlier. I'm the #bHead Security Officer#k in charge of protecting King Mush. As you can see, this temporary hideout is protected by the team of security and soldiers. Our situation may be dire, but nevertheless, welcome to Kingdom of Mushroom.");
-        sm.removeItem(4032375);
+
         sm.getUser().addQuestExp(6000);
         sm.forceCompleteQuest(questId);
         sm.forceStartQuest(2312);
