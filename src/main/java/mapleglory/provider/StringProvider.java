@@ -14,7 +14,7 @@ import java.util.Map;
 
 public final class StringProvider implements WzProvider {
     public static final Path STRING_WZ = Path.of(ServerConfig.WZ_DIRECTORY, "String.wz");
-    public static final List<String> EQUIP_TYPES = List.of("Accessory", "Cap", "Cape", "Coat", "Dragon", "Face", "Glove", "Hair", "Longcoat", "Mechanic", "Pants", "PetEquip", "Ring", "Shield", "Shoes", "Taming", "Weapon"); // TamingMob -> Taming compared to Item2.wz
+    public static final List<String> EQUIP_TYPES = List.of("Accessory", "Cap", "Cape", "Coat", "Dragon", "Face", "Glove", "Hair", "Longcoat", "Mechanic", "Pants", "PetEquip", "Ring", "Shield", "Shoes", "Taming", "Weapon"); // TamingMob -> Taming compared to Item.wz
     private static final Map<Integer, String> itemNames = new HashMap<>();
     private static final Map<Integer, String> mapNames = new HashMap<>();
     private static final Map<Integer, String> mobNames = new HashMap<>();

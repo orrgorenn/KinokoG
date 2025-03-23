@@ -79,7 +79,7 @@ public final class Server {
     private static void initialize() throws Exception {
         // Initialize providers
         Instant start = Instant.now();
-        ItemProvider.initialize();      // Character.wz + Item2.wz
+        ItemProvider.initialize();      // Character.wz + Item.wz
         SkillProvider.initialize();     // Skill.wz + Morph.wz
         MapProvider.initialize();       // Map.wz
         MobProvider.initialize();       // Mob.wz
