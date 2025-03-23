@@ -155,7 +155,9 @@ public final class QuestInfo {
             }
         }
         // Add quest record and return
-        return Optional.of(locked.get().getQuestManager().forceStartQuest(questId));
+        final QuestManager qm = locked.get().getQuestManager();
+        final Optional<QuestRecord> qrResult = qm.getQuestRecord(questId);
+        return Optional.of(qm.setQuestInfoEx(questId, qrResult.map(QuestRecord::getValue).orElse(null))); // handle info act
     }
 
     public boolean canCompleteQuest(Locked<User> locked) {
