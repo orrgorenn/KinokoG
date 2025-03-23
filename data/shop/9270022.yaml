@@ -1,5 +1,6 @@
 # Candy : Merchant (9270022) - Singapore : Boat Quay Town (541000000)
 
+recharge: true
 items:
   - [ 2000000, 50, 1, 100 ] # Red Potion
   - [ 2000001, 160, 1, 100 ] # Orange Potion

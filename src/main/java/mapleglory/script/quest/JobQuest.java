@@ -29,6 +29,9 @@ public class JobQuest extends ScriptHandler {
     final static int MARBAS_PRE_FIELD = 677000000;
     final static int MARBAS_FIELD = 677000001;
     public static final int MARBAS = 9400612;
+    final static int ASTAROTH_PRE_FIELD = 677000011;
+    final static int ASTAROTH_FIELD = 677000012;
+    final static int ASTAROTH = 9400633;
 
 
     @Script("Enter_Darkportal_P")
@@ -172,6 +175,48 @@ public class JobQuest extends ScriptHandler {
             sm.warp(AMDUSIAS_PRE_FIELD);
             sm.spawnMobInMap(AMDUSIAS, MobAppearType.NORMAL, 511, 35, true, newField);
             sm.broadcastMessage("Kill Amdusias!", false);
+        }
+    }
+
+    @Script("Astaroth_door")
+    public static void astarothDoor(ScriptManager sm) {
+        final int mapId = sm.getFieldId();
+        if (mapId == 105050400) {
+            // Dark Cave
+            if (!sm.getUser().isPartyLeader()) {
+                sm.sayOk("If you'd like to enter here, the leader of your party will have to talk to me. Talk to your party leader about this.");
+                return;
+            }
+            if (!sm.checkParty(3, 25)) {
+                sm.sayOk("You cannot enter because your party doesn't have 3 members. You need 3 party members at Lv. 25 or higher to enter, so double-check and talk to me again.");
+                return;
+            }
+            sm.partyWarp(ASTAROTH_PRE_FIELD, "sp");
+        } else if (mapId == 677000012) {
+            // Hiding Place
+            if (!sm.getUser().isPartyLeader()) {
+                sm.sayOk("If you'd like to exit from here, the leader of your party will have to talk to me. Talk to your party leader about this.");
+                return;
+            }
+            sm.partyWarp(ASTAROTH_PRE_FIELD, "sp");
+        } else if (mapId == ASTAROTH_PRE_FIELD) {
+            final Field newField;
+            final Optional<Field> tryField = sm.getField().getFieldStorage().getFieldById(ASTAROTH_FIELD);
+            if (tryField.isPresent()) {
+                newField = tryField.get();
+                if (newField.getUserPool().getCount() > 0) {
+                    sm.sayNext("Someone is already in that map.");
+                    return;
+                }
+                newField.getMobPool().forEach((mob) -> {
+                    try (var lockedMob = mob.acquire()) {
+                        mob.remove(Instant.now());
+                    }
+                });
+                newField.setMobSpawn(false);
+                sm.partyWarpInstance(ASTAROTH_FIELD, "sp", ASTAROTH_PRE_FIELD, 30 * 60);
+                sm.spawnMobInMap(ASTAROTH, MobAppearType.NORMAL, 565, 45, true, newField);
+            }
         }
     }
 

@@ -76,16 +76,6 @@ public class Zakum extends ScriptHandler {
                     return;
                 }
 
-                final Field newField;
-                final Optional<Field> tryField = sm.getField().getFieldStorage().getFieldById(FIRST_STAGE_MAP);
-                if (tryField.isPresent()) {
-                    newField = tryField.get();
-                    if (newField.getUserPool().getCount() > 0) {
-                        sm.sayNext("Another party has already started this quest. Please try again later.");
-                        return;
-                    }
-                }
-
                 sm.removeItem(4001015);
                 sm.removeItem(4001016);
                 sm.removeItem(4001018);

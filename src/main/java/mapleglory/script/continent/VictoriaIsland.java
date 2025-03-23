@@ -880,4 +880,139 @@ public final class VictoriaIsland extends ScriptHandler {
             sm.warp(103000100);
         }
     }
+
+    @Script("herb_in")
+    public static void herb_in(ScriptManager sm) {
+        if (sm.hasQuestStarted(2051) || sm.hasQuestCompleted(2051)) {
+            final int mapId = 101000102;
+
+            if (sm.hasQuestStarted(2051)) {
+                final int price = sm.getLevel() * 200;
+                if (!sm.askYesNo("It's you from the other day. Did " + npcName(1061005) + " make another request to you? What? You need to go in further this time? Hmm ... it's pretty dangerous in there, but ... alright, for " + red(String.valueOf(price)) + " mesos I'll let you in that deep. So, do you want to pay your way in?")) {
+                    sm.sayOk("I see ... but understand that you can't get in here for free.");
+                    return;
+                }
+
+                if (!sm.addMoney(-price)) {
+                    sm.warp(mapId);
+                } else {
+                    sm.sayOk("Do you not have enough Mesos? Will you check whether you have more than " + red(String.valueOf(price)) + " Mesos? Don't even try to ask me for a discount.");
+                }
+            } else {
+                sm.sayNext("It's you again. Is " + npcName(1061005) + " busy making ant-aging serum? Anyway, honestly, I was a little shocked that you were able to get through this place. For that, I'll let you enter free of charge. You might be able to get some precious items deep inside...");
+                if (!sm.askYesNo("Oh, by the way... once, " + npcName(1032100) + " of this town had secretly gone inside, and when I caught her, she was so taken aback that she lost her " + blue(itemName(1032013)) + " in there. I tried to look for it but couldn't figure out where it was... Do you think you can go in and find it? Would you like to enter now?")) {
+                    sm.sayOk("Suit yourself. I was trying to be considerate for once.");
+                    return;
+                }
+
+                sm.warp(mapId);
+            }
+        } else if (sm.hasQuestStarted(2050) || sm.hasQuestCompleted(2050)) {
+            final int mapId = 101000100;
+
+            if (sm.hasQuestStarted(2050)) {
+                final int price = sm.getLevel() * 100;
+
+                if (!sm.askYesNo("So you came here at the request of " + npcName(1061005) + " to take the medicinal herb? Well...I inherited this land from my father and I can't let some stranger in just like that... But, with " + red(String.valueOf(price)) + " mesos, it's a whole different story... So, do you want to pay your way in?")) {
+                    sm.sayOk("I see ... but understand that you can't get in here for free.");
+                    return;
+                }
+
+                if (!sm.addMoney(-price)) {
+                    sm.sayOk("Lacking mesos by any chance? Make sure you have more than " + red(String.valueOf(price)) + " mesos on hand. Don't expect me to give you any discounts.");
+                    return;
+                }
+
+                sm.warp(mapId);
+            } else {
+                if (!sm.askYesNo("It's you again. Is " + npcName(1061005) + " busy making diet pills? Anyway, honestly, I was a little shocked that you were able to get through this place. For that, I'll let you enter free of charge. You might be able to get some precious items deep inside... Would you like to enter now?")) {
+                    sm.sayOk("Suit yourself. I was trying to be considerate for once.");
+                    return;
+                }
+
+                sm.warp(mapId);
+            }
+        } else {
+            sm.sayOk("You want to go in? Must have heard that there's a precious medicinal herb in here, huh? But I can't let some stranger like you who doesn't know that I own this land in. I'm sorry but I'm afraid that's all there is to it.");
+        }
+    }
+
+    @Script("herb_out")
+    public static void herb_out(ScriptManager sm) {
+        if (!sm.askYesNo("You want to get out of here? Well... this place can really wear you down... I'm used to it so I'm fine, though. Anyway make sure you remember that if you leave this place through me, you'll have to restart the mission. Do you still want to?")) {
+            sm.sayOk("Isn't it awful that you have to restart the whole thing? Keep trying...the more you go through it, the more you'll know about this place in and out. Pretty soon you'll be able to go through this with your eyes closed hehe.");
+            return;
+        }
+
+        sm.warp(101000000);
+    }
+
+    @Script("bush1")
+    public static void bush1(ScriptManager sm) {
+        if (sm.hasQuestStarted(2050)) {
+            final int item = 4031020;
+            if (sm.askYesNo("Are you sure you want to take " + blue(itemName(item)) + " with you?")) {
+                if (!sm.addItem(item, 1)) {
+                    sm.sayOk("Your etc. inventory seems to be full. Please make room in order to take the item.");
+                    return;
+                }
+
+                sm.warp(101000000);
+            }
+        } else {
+            List<Integer> listOfItems = List.of(4010000, 4010001, 4010002, 4010003, 4010004, 4010005, 4020000, 4020001, 4020002, 4020003, 4020004, 4020005, 4020006);
+            final int item = listOfItems.get(sm.getRandomIntBelow(listOfItems.size()));
+
+            if (!sm.addItem(item, 2)) {
+                sm.sayOk("You need to have at least one free slot available on your etc. inventory to keep the item you found in the midst of flowers. Please make room and then try again.");
+                return;
+            }
+
+            sm.warp(101000000);
+        }
+    }
+
+    @Script("bush2")
+    public static void bush2(ScriptManager sm) {
+        if (sm.hasQuestStarted(2051)) {
+            final int item = 4031032;
+            if (sm.askYesNo("Are you sure you want to take " + blue(itemName(item)) + " with you?")) {
+                if (!sm.addItem(item, 1)) {
+                    sm.sayOk("Your etc. inventory seems to be full. Please make room in order to take the item.");
+                    return;
+                }
+
+                sm.warp(101000000);
+            }
+        } else {
+            final int chance = sm.getRandomIntBelow(30);
+            int item = -1;
+            int qty = -1;
+
+            if (chance == 30) {
+                item = 1032013;
+                qty= 1;
+            } else {
+                List<Integer> listOfItems = List.of(4020007, 4020008, 4010006);
+                item = listOfItems.get(sm.getRandomIntBelow(listOfItems.size()));
+                qty = 2;
+            }
+
+            if (!sm.addItem(item, qty)) {
+                sm.sayOk("You need to have at least one free slot available on your etc. inventory to keep the item you found in the midst of flowers. Please make room and then try again.");
+                return;
+            }
+
+            sm.warp(101000000);
+        }
+    }
+
+    @Script("q2073")
+    public static void q2073(ScriptManager sm) {
+        if (sm.hasQuestStarted(2073)) {
+            sm.warp(900000000, "out01");
+        } else {
+            sm.message("A mysterious force is blocking your progress...");
+        }
+    }
 }

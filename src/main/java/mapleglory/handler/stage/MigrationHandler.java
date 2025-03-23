@@ -213,7 +213,7 @@ public final class MigrationHandler {
                         .findFirst();
 
                 skillRecord.ifPresent(sr -> {
-                    sr.setSkillLevel(highestLevelCharacter.getLevel());
+                    sr.setSkillLevel(Math.floorDivExact(highestLevelCharacter.getLevel(), 10));
                     user.getCharacterData().setLinkedCharacter(highestLevelCharacter.getCharacterName());
                 });
             }

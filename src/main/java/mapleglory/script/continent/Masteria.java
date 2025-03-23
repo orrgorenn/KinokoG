@@ -230,4 +230,10 @@ public final class Masteria extends ScriptHandler {
             sm.sayOk("O, brave adventurer. The Stormcasters house, from which I belong, guards the surrounding area of Yore, this landscape, from the forces of the Twisted Masters' guard that daily threathens the citizens. Please help us on the defense of Yore.");
         }
     }
+
+    @Script("hontale_morph2")
+    public static void hontale_morph2(ScriptManager sm) {
+        sm.playPortalSE();
+        sm.warp(240040600);
+    }
 }

@@ -27,4 +27,5 @@ rewards:
   - [ 4020007, 1, 1, 0.002000 ] # Diamond Ore
   - [ 4130009, 1, 1, 0.000300 ] # Pole Arm Forging Stimulator
   - [ 4130015, 1, 1, 0.000300 ] # Claw Production Stimulator
-  - [ 4031680, 1, 1, 0.050000, 4914 ] # Hyper Glyph
+  - [ 4031680, 1, 1, 0.100000, 4914 ] # Hyper Glyph
+  - [ 4031675, 1, 1, 0.100000, 4917 ] # Temporal Fragment

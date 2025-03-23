@@ -25,4 +25,4 @@ rewards:
   - [ 2060000, 10, 20, 0.008000 ] # Arrow for Bow
   - [ 2061000, 10, 20, 0.008000 ] # Arrow for Crossbow
   - [ 4004001, 1, 1, 0.001000 ] # Wisdom Crystal Ore
-  - [ 4031681, 1, 1, 0.050000, 4915 ] # MesoGear Map Piece
+  - [ 4031681, 1, 1, 0.100000, 4915 ] # MesoGear Map Piece

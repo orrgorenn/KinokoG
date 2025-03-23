@@ -442,6 +442,35 @@ public final class ExplorerQuest extends ScriptHandler {
         }
     }
 
+    @Script("inside_pirate")
+    public static void inside_pirate(ScriptManager sm) {
+        boolean brawler = sm.hasQuestStarted(2191);
+        boolean gunslinger = sm.hasQuestStarted(2192);
+
+        int item;
+        if (brawler) {
+            item = 4031856;
+        } else if (gunslinger) {
+            item = 4031857;
+        } else {
+            item = 0;
+        }
+
+        if (sm.hasItem(item, 15)) {
+            sm.sayNext("Ohhh... So you managed to gather up 15 " + itemName(item) + "! Wasn't it tough? That's amazing... alright then, now let's talk about The Nautilus.");
+            sm.sayBoth("These crystals can only be used here, so I'll just take them back.");
+            sm.warp(120000101);
+        } else {
+            if (sm.askYesNo("Hmmm... What is it? I don't think you have been able to gather up all #b15 " + itemName(item) + "#k yet... If it's too hard for you, then you can step out and try again later. Do you want to give up and step outside right now?")) {
+                sm.sayOk("Good. You're showing me you don't want to give up this great opportunity. When you collect #b15 " + itemName(item) + "#k, then talk to me.");
+                return;
+            }
+
+            sm.sayOk("Really? Ok, I'll take you outside right now. Please don't give up, though. You'll get the opportunity to try this again. Hopefully by then, you'll be ready to handle this with ease...");
+            sm.warp(120000101);
+        }
+    }
+
     @Script("inside_magician")
     public static void inside_magician(ScriptManager sm) {
         if (!sm.hasItem(4031013, 30)) {
@@ -781,42 +810,119 @@ public final class ExplorerQuest extends ScriptHandler {
         }
     }
 
+    public static boolean check2ndJobAdvancement(ScriptManager sm) {
+        boolean brawler = sm.hasQuestStarted(2191);
+        boolean gunslinger = sm.hasQuestStarted(2192);
+
+        if (brawler || gunslinger) {
+            int item, destination;
+            String adj, job, skill;
+
+            if (brawler) {
+                item = 4031856;
+                adj = "strong";
+                job = "Brawler";
+                skill = "Flash Fist";
+                destination = 108000500;
+            } else {
+                item = 4031857;
+                adj = "quick";
+                job = "Gunslinger";
+                skill = "Double Shot";
+                destination = 108000502;
+            }
+
+            sm.sayNext("Okay, now I'll take you to the test room. Here are the instructions: defeat the Octopirates and gather #b15 " + itemName(item) + "#k. The Octopirates you'll see here are highly trained and are very " + adj + ", so I suggest you really buckle down and get ready for this.");
+            sm.sayNext("Oh, and for the sake of training " + job + "s, those Octos will not be affected unless hit with " + blue(skill) + ". And one more thing, when you enter the test room, I'll remove all the " + itemName(item) + "s you have. Yes, you'll be starting off from scratch.");
+            sm.removeItem(item, 1);
+            sm.warpInstance(destination, "sp", 120000101, 60 * 10);
+            return true;
+        } else if(sm.hasQuestCompleted(2191)) {
+            sm.sayOk("Okay, as promised, you will now become a " + blue("Brawler"));
+            sm.setJob(Job.BRAWLER);
+            sm.addInventorySlots(InventoryType.CONSUME, 4);
+            sm.sayNext("Okay, from here on out, you are a #bBrawler#k. Brawlers rule the world with the power of their bare fists... which means they need to train their body more than others. If you have any trouble training, I'll be more than happy to help.");
+            sm.sayBoth("I have just given you a skill book that entails Brawler skills, you'll find it very helpful. You have also gained additional slots for Use items, a full row in fact. I also boosted your MaxHP and MaxMP. Check it out for yourself.");
+            sm.sayBoth("Brawlers need to be a powerful force, but that doesn't mean they have the right to bully the weak. True Brawlers use their immense power in positive ways, which is much harder than just training to gain strength. I hope you follow this creed as you leave your mark in this world as a Brawler. I will see you when you have accomplished everything you can as a Brawler. I'll be waiting for you here.");
+            sm.sayBoth("I have given you a little bit of #bSP#k, so I suggest you open the #bskill menu#k right now. You'll be able to enhance your newly-acquired 2nd Job skills. Beware that not all skills can be enhanced from the get go. There are some skills that you can only acquire after mastering basic skills.");
+            return true;
+        } else if(sm.hasQuestCompleted(2192)) {
+            sm.sayOk("Okay, as promised, you will now become a " + blue("Gunslinger"));
+            sm.setJob(Job.GUNSLINGER);
+            sm.addInventorySlots(InventoryType.CONSUME, 4);
+            sm.sayNext("From here on out, you are a #bGunslinger#k. Gunslingers are notable for their long-range attacks with sniper-like accuracy and, of course, using Guns as their primary weapon. You should continue training to truly master your skills. If you are having trouble, I'll be there to help.");
+            sm.sayBoth("I have just given you a skill book that entails Gunslinger skills, you'll find it very helpful. You have also gained additional slots for Use items, a full row in fact. I also boosted your MaxHP and MaxMP. Check it out for yourself.");
+            sm.sayBoth("Gunslingers are deadly at ranged combat, but that doesn't mean they have the right to bully the weak. Gunslingers will need to use their immense power in positive ways, which is actually hard than just training to gain strength. I hope you follow this creed as you leave your mark in this world as a Gunslinger. I will see you when you have accomplished everything you can as a Gunslinger. I'll be waiting for you here.");
+            sm.sayBoth("I have given you a little bit of #bSP#k, so I suggest you open the #bskill menu#k right now. You'll be able to enhance your newly-acquired 2nd Job skills. Beware that not all skills can be enhanced from the get go. There are some skills that you can only acquire after mastering basic skills.");
+            return true;
+        }
+        return false;
+    }
+
     @Script("kairinT")
     public static void kairinT(ScriptManager sm) {
-        if(sm.getJob() != Job.BEGINNER) {
-            sm.sayOk("Don't you want to feel the freedom eminating from the sea? Don't you want the power, the fame, and everything else that comes with it? Then you should join us and enjoy it yourself.");
-            return;
-        }
-
-        if(sm.getLevel() < 10) {
-            sm.sayOk("Hmm...I don't think you have trained enough, yet. See me when you get stronger.");
-            return;
-        }
-
-        if(sm.askYesNo("You seem more than qualified! Great, are you ready to become one of us?")) {
-            sm.sayNext("Welcome to the band of Pirates! You may have to spend some time as a wanderer at first, but better days will certainly dawn upon you, sooner than you think! In the mean time, let me share some of my abilities with you.");
-
-            List<Tuple<Integer, Integer>> pirateItems = List.of(
-                    Tuple.of(1482014, 1),
-                    Tuple.of(1492014, 1),
-                    Tuple.of(2330006, 600),
-                    Tuple.of(2330006, 600)
-            );
-            if (!sm.canAddItems(pirateItems)) {
-                sm.sayOk("Make sure you have enough space in your EQP and USE inventories.");
+        if (sm.hasQuestStarted(7500)) {
+            sm.forceCompleteQuest(7500);
+            sm.forceStartQuest(7501);
+            sm.sayNext("I've been waiting for you ever since I heard your name from #bPedro#k of Ossyria. Now, I need to test your strength. You will find a Door of Dimension deep inside the Cursed Temple in the heart of Victoria Island. Most people can't enter, but I'll let you. Once inside, you'll face my clone. Your task is to defeat my evil twin and bring me the " + blue(itemName(4031059)) + ".");
+            sm.sayBoth("Since it's my shadow, it'll be unlike any opponent you've ever encountered. It'll use various skills against you, and not only that, but since you're fighting in another dimension, it's probably not a good idea to stay there too long. I highly advise you to defeat the shadow as quickly as possible and leave. Remember, you'll need to fully prepare yourself for the battle. Otherwise, you'll have no chance. I'll be waiting here for you... Good luck!");
+        } else if (sm.hasQuestStarted(7501)) {
+            if (!sm.removeItem(4031059, 1)) {
+                sm.sayOk("You will find a Door of Dimension deep inside the Cursed Temple in the heart of Victoria Island. Nobody but you can go into that passage. If you go into the passage, you will meet my clone. Beat him and bring " + blue(itemName(4031059)) + " to me.");
                 return;
             }
 
-            sm.setJob(Job.PIRATE);
-            sm.addItems(pirateItems);
-            sm.addInventorySlots(InventoryType.EQUIP, 4);
-            sm.addInventorySlots(InventoryType.ETC, 4);
+            sm.addItem(4031057, 1);
+            sm.forceCompleteQuest(7501);
+            sm.forceStartQuest(7502);
+            sm.sayOk("I can't believe this... You were able to defeat the shadow and brought back #b#t4031059##k...? Wow, you've definitely proven your strength. I think you are ready to make the 3rd job advancement. As promised, I'll give you " + blue(itemName(4031057)) + " for your work. Take this necklace to #bPedro#k in Ossyria to take the second test. I'll be praying for you to make the final leap to the 3rd job advancement.");
+        } else if (sm.getJob().getJobId() != 500 || sm.getLevel() < 30 || !check2ndJobAdvancement(sm)) {
+            final int selection = sm.askMenu("Have you got something to say?", Map.of(
+                    0, "I would like to learn more about pirates."
+            ));
 
-            sm.sayNext("I have just increased the number of slots for your equipment and etc. inventory. You have also gotten a bit stronger. Can you feel it? Now that you can officially call yourself a Pirate, join us in our quest for adventure and freedom!");
-            sm.sayBoth("I have just given you a little bit of #bSP#k. Look at the #bSkill menu#k to find some skills, and use your SP to learn the skills. Beware that not all skills can be enhanced from the get go. There are some skills that you can only acquire after mastering basic skills.");
-            sm.sayBoth("One more thing. Now that you have graduated from the ranks of a Beginner into a Pirate, you'll have to make sure not to die prematurely. If you do lose all your health, you'll lose valuable EXP that you have earned. Wouldn't it stink to lose hard-earned EXP by dying?");
-            sm.sayBoth("This is all I can teach you. I have also given you some useful weapons to work with, so it's up to you now to train with them. The world is yours for the taking, so use your resources wisely, and when you feel like you've reached the top, let me know. I'll have something better for you in store...");
-            sm.sayBoth("Oh, and... your stats should accurately reflect your new occupation as a Pirate. Click on #bAuto Assign#k on your stat window to make yourself into an even more formidable pirate.");
+            if (selection == 0) {
+                if (sm.getJob() != Job.BEGINNER) {
+                    sm.sayOk("Don't you want to feel the freedom emanating from the sea? Dont you want the power, the fame, and everything else that comes with it? Then you should join us and enjoy it yourself.");
+                    return;
+                }
+
+                sm.sayNext("Do you wish to become a Pirate? You'll need to meet our set of standard if you are to become one of us. I need you to be #bat least at Level 10#k. Let's see...");
+                if (sm.getLevel() < 10) {
+                    sm.sayOk("Hmm...I don't think you have trained enough, yet. See me when you get stronger.");
+                    return;
+                }
+
+                if(!sm.askYesNo("You seem more than qualified! Great, are you ready to become one of us?")) {
+                    sm.sayOk("I see... Well, selecting a new job is a very important decision to make. If you are ready, then let me know!");
+                    return;
+                }
+
+                sm.sayNext("Welcome to the band of Pirates! You may have to spend some time as a wanderer at first, but better days will certainly dawn upon you, sooner than you think! In the mean time, let me share some of my abilities with you.");
+
+                List<Tuple<Integer, Integer>> pirateItems = List.of(
+                        Tuple.of(1482014, 1),
+                        Tuple.of(1492014, 1),
+                        Tuple.of(2330006, 600),
+                        Tuple.of(2330006, 600),
+                        Tuple.of(2330006, 600)
+                );
+                if (!sm.canAddItems(pirateItems)) {
+                    sm.sayOk("Make sure you have enough space in your EQP and USE inventories.");
+                    return;
+                }
+
+                sm.setJob(Job.PIRATE);
+                sm.addItems(pirateItems);
+                sm.addInventorySlots(InventoryType.EQUIP, 4);
+                sm.addInventorySlots(InventoryType.ETC, 4);
+
+                sm.sayNext("I have just increased the number of slots for your equipment and etc. inventory. You have also gotten a bit stronger. Can you feel it? Now that you can officially call yourself a Pirate, join us in our quest for adventure and freedom!");
+                sm.sayBoth("I have just given you a little bit of #bSP#k. Look at the #bSkill menu#k to find some skills, and use your SP to learn the skills. Beware that not all skills can be enhanced from the get go. There are some skills that you can only acquire after mastering basic skills.");
+                sm.sayBoth("One more thing. Now that you have graduated from the ranks of a Beginner into a Pirate, you'll have to make sure not to die prematurely. If you do lose all your health, you'll lose valuable EXP that you have earned. Wouldn't it stink to lose hard-earned EXP by dying?");
+                sm.sayBoth("This is all I can teach you. I have also given you some useful weapons to work with, so it's up to you now to train with them. The world is yours for the taking, so use your resources wisely, and when you feel like you've reached the top, let me know. I'll have something better for you in store...");
+                sm.sayBoth("Oh, and... your stats should accurately reflect your new occupation as a Pirate. Click on #bAuto Assign#k on your stat window to make yourself into an even more formidable pirate.");
+            }
         }
     }
 

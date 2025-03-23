@@ -39,3 +39,5 @@ rewards:
   - [ 4130002, 1, 1, 0.000300 ] # One-Handed Sword Forging Stimulator
   - [ 4130003, 1, 1, 0.000300 ] # One-Handed Axe Forging Stimulator
   - [ 4130021, 1, 1, 0.000300 ] # Overall Production Stimulator
+  - [ 4032512, 1, 1, 0.100000, 3720 ] # Primary Clue to the Case : Year 2021- Just Another Day : The First Clue
+  - [ 4032513, 1, 1, 0.100000, 3722 ] # Wrinkled Sketchbook Loose-Leaf : The Crying Girf's Sketchbook

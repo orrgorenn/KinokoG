@@ -21,3 +21,4 @@ rewards:
   - [ 4010002, 1, 1, 0.002000 ] # Mithril Ore
   - [ 4130003, 1, 1, 0.000300 ] # One-Handed Axe Forging Stimulator
   - [ 4131009, 1, 1, 0.000300 ] # Staff Production Manual
+  - [ 4031674, 1, 1, 0.100000, 4916 ] # Elpam Magnet : Lost!
