@@ -16,7 +16,7 @@ import java.util.*;
 
 public final class ItemProvider implements WzProvider {
     public static final Path CHARACTER_WZ = Path.of(ServerConfig.WZ_DIRECTORY, "Character.wz");
-    public static final Path ITEM_WZ = Path.of(ServerConfig.WZ_DIRECTORY, "Item.wz");
+    public static final Path ITEM_WZ = Path.of(ServerConfig.WZ_DIRECTORY, "Item2.wz");
     public static final List<String> EQUIP_TYPES = List.of("Accessory", "Cap", "Cape", "Coat", "Dragon", "Face", "Glove", "Hair", "Longcoat", "Mechanic", "Pants", "PetEquip", "Ring", "Shield", "Shoes", "TamingMob", "Weapon");
     public static final List<String> ITEM_TYPES = List.of("Consume", "Install", "Etc", "Cash");
     private static final Map<Integer, ItemInfo> itemInfos = new HashMap<>();
@@ -34,14 +34,14 @@ public final class ItemProvider implements WzProvider {
         } catch (IOException | ProviderError e) {
             throw new IllegalArgumentException("Exception caught while loading Character.wz", e);
         }
-        // Item.wz
+        // Item2.wz
         try (final WzReader reader = WzReader.build(ITEM_WZ, new WzReaderConfig(WzConstants.WZ_GMS_IV, ServerConstants.GAME_VERSION))) {
             final WzPackage wzPackage = reader.readPackage();
             loadItemInfos(wzPackage);
             loadItemOptionInfos(wzPackage);
             loadItemNames(wzPackage);
         } catch (IOException | ProviderError e) {
-            throw new IllegalArgumentException("Exception caught while loading Item.wz", e);
+            throw new IllegalArgumentException("Exception caught while loading Item2.wz", e);
         }
     }
 
@@ -132,7 +132,7 @@ public final class ItemProvider implements WzProvider {
         for (String directoryName : ITEM_TYPES) {
             final WzDirectory directory = source.getDirectory().getDirectories().get(directoryName);
             if (directory == null) {
-                throw new ProviderError("Could not resolve Item.wz/%s", directoryName);
+                throw new ProviderError("Could not resolve Item2.wz/%s", directoryName);
             }
             for (var image : directory.getImages().values()) {
                 for (var entry : image.getProperty().getItems().entrySet()) {
@@ -150,7 +150,7 @@ public final class ItemProvider implements WzProvider {
             }
         }
         if (!(source.getDirectory().getDirectories().get("Pet") instanceof WzDirectory petDirectory)) {
-            throw new ProviderError("Could not resolve Item.wz/Pet");
+            throw new ProviderError("Could not resolve Item2.wz/Pet");
         }
         for (var imageEntry : petDirectory.getImages().entrySet()) {
             final int itemId = Integer.parseInt(imageEntry.getKey().replace(".img", ""));
@@ -174,7 +174,7 @@ public final class ItemProvider implements WzProvider {
 
     private static void loadItemOptionInfos(WzPackage source) throws ProviderError {
         if (!(source.getDirectory().getImages().get("ItemOption.img") instanceof WzImage itemOptionImage)) {
-            throw new ProviderError("Could not resolve Item.wz/ItemOption.img");
+            throw new ProviderError("Could not resolve Item2.wz/ItemOption.img");
         }
         for (var entry : itemOptionImage.getProperty().getItems().entrySet()) {
             final int itemOptionId = Integer.parseInt(entry.getKey());

@@ -9,6 +9,7 @@ import mapleglory.server.event.*;
 import mapleglory.util.Util;
 import mapleglory.world.field.Field;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -261,9 +262,12 @@ public final class ContiMove extends ScriptHandler {
         //   Herb Town : Herb Town (251000000)
         if (sm.getFieldId() == 200000141) {
             // Orbis : Cabin <To Mu Lung>
-            final int answer = sm.askMenu("Hello there. How's the traveling so far? I've been transporting other travelers like you to other regions in no time, and... are you interested? If so, then select the town you'd like to head to.", Map.of(
-                    0, "Mu Lung (1500 mesos)"
-            ));
+            Map<Integer, String> answers = new HashMap<>();
+            answers.put(0, "Mu Lung (1500 mesos)");
+            if (sm.hasItem(4322000, 1)) {
+                answers.put(answers.size(), "Skip travel using Fast Travel Ticket");
+            }
+            final int answer = sm.askMenu("Hello there. How's the traveling so far? I've been transporting other travelers like you to other regions in no time, and... are you interested? If so, then select the town you'd like to head to.", answers);
             if (answer == 0) {
                 if (sm.addMoney(-1500)) {
                     // During the Ride : To Mu Lung -> Mu Lung : Mu Lung Temple
@@ -271,13 +275,20 @@ public final class ContiMove extends ScriptHandler {
                 } else {
                     sm.sayNext("Are you sure you have enough mesos?");
                 }
+            } else if (answer == 1) {
+                if (sm.hasItem(4322000, 1)) {
+                    sm.warp(250000100, "sp");
+                }
             }
         } else if (sm.getFieldId() == 250000100) {
             // Mu Lung : Mu Lung Temple
-            final int answer = sm.askMenu("Hello there. How's the traveling so far? I understand that walking on two legs is much harder to cover ground compared to someone like me that can navigate the skies. I've been transporting other travelers like you to other regions in no time, and... are you interested? If so, then select the town you'd like to head to.", Map.of(
-                    0, "Orbis (1500 mesos)",
-                    1, "Herb Town (500 mesos)"
-            ));
+            Map<Integer, String> answers = new HashMap<>();
+            answers.put(0, "Orbis (1500 mesos)");
+            answers.put(1, "Herb Town (500 mesos)");
+            if (sm.hasItem(4322000, 1)) {
+                answers.put(answers.size(), "Skip travel to Orbis using Fast Travel Ticket");
+            }
+            final int answer = sm.askMenu("Hello there. How's the traveling so far? I understand that walking on two legs is much harder to cover ground compared to someone like me that can navigate the skies. I've been transporting other travelers like you to other regions in no time, and... are you interested? If so, then select the town you'd like to head to.", answers);
             if (answer == 0) {
                 if (sm.askYesNo("Do you want to fly to #bOrbis#k right now? As long as you don't act silly while in the air, you should reach your destination in no time. It'll only cost you #b1500 mesos#k.")) {
                     if (sm.addMoney(-1500)) {
@@ -298,6 +309,10 @@ public final class ContiMove extends ScriptHandler {
                     }
                 } else {
                     sm.sayOk("OK. if you ever change your mind, please let me know.");
+                }
+            } else if (answer == 2) {
+                if (sm.hasItem(4322000, 1)) {
+                    sm.warp(200000141, "sp");
                 }
             }
         } else if (sm.getFieldId() == 251000000) {
@@ -329,12 +344,22 @@ public final class ContiMove extends ScriptHandler {
     public static void contimoveOrbEre(ScriptManager sm) {
         // Kiru : Station Guide (1100008)
         //   Orbis : Station (200000161)
-        if (sm.askYesNo("This ship will head towards #eEreve#n, an island where you'll find crimson leaves soaking up the sun, the gentle breeze that glides past the stream, and the Empress of Maple Cygnus. If you're interested in joining the Cygnus Knights, then you should definitely pay a visit here. Are you interested in visiting Ereve?\r\n\r\n The Trip will cost you #e1000#n Mesos")) {
+        Map<Integer, String> answers = new HashMap<>();
+        answers.put(0, "Yes, I would like to travel,");
+        if (sm.hasItem(4322000, 1)) {
+            answers.put(answers.size(), "Skip travel using Fast Travel Ticket");
+        }
+        final int selection = sm.askMenu("This ship will head towards #eEreve#n, an island where you'll find crimson leaves soaking up the sun, the gentle breeze that glides past the stream, and the Empress of Maple Cygnus. If you're interested in joining the Cygnus Knights, then you should definitely pay a visit here. Are you interested in visiting Ereve?\r\n\r\n The Trip will cost you #e1000#n Mesos", answers);
+        if (selection == 0) {
             if (sm.addMoney(-1000)) {
                 // Empress' Road : To Ereve -> Empress' Road : Sky Ferry
                 sm.warpInstance(200090020, "sp", 130000210, 120);
             } else {
                 sm.sayNext("Hmm... Are you sure you have #b1000#k Mesos? Check your Inventory and make sure you have enough. You must pay the fee or I can't let you get on...");
+            }
+        } else if (selection == 1) {
+            if (sm.hasItem(4322000, 1)) {
+                sm.warp(130000210, "sp");
             }
         } else {
             sm.sayNext("If you're not interested, then oh well...");
@@ -346,12 +371,22 @@ public final class ContiMove extends ScriptHandler {
         // Kiru : Station Guide (1100004)
         //   Empress' Road : Sky Ferry  (130000210)
         sm.sayNext("Hmm... The winds are favorable. Are you thinking of leaving #eEreve#n and going somewhere else? This ferry sails to Orbis on the Ossyria Continent.");
-        if (sm.askYesNo("Have you taken care of everything you needed to in #eEreve#n? If you happen to be headed towards #b#eOrbis#n#k I can take you there. What do you say? Are you going to go to #eOrbis#n?\r\n\r\nYou'll have to pay a fee of #b1000#k Mesos.")) {
+        Map<Integer, String> answers = new HashMap<>();
+        answers.put(0, "Yes, I would like to travel,");
+        if (sm.hasItem(4322000, 1)) {
+            answers.put(answers.size(), "Skip travel using Fast Travel Ticket");
+        }
+        final int selection = sm.askMenu("Have you taken care of everything you needed to in #eEreve#n? If you happen to be headed towards #b#eOrbis#n#k I can take you there. What do you say? Are you going to go to #eOrbis#n?\r\n\r\nYou'll have to pay a fee of #b1000#k Mesos.", answers);
+        if (selection == 0) {
             if (sm.addMoney(-1000)) {
                 // Empress' Road : To Orbis -> Orbis : Station
                 sm.warpInstance(200090021, "sp", 200000161, 120);
             } else {
                 sm.sayNext("Hmm... Are you sure you have #b1000#k Mesos? Check your Inventory and make sure you have enough. You must pay the fee or I can't let you get on...");
+            }
+        } else if(selection == 1) {
+            if (sm.hasItem(4322000, 1)) {
+                sm.warp(200000161, "sp");
             }
         } else {
             sm.sayNext("If you're not interested, then oh well...");
@@ -362,12 +397,22 @@ public final class ContiMove extends ScriptHandler {
     public static void contimoveEliEre(ScriptManager sm) {
         // Kiriru : Station Guide (1100007)
         //   Port Road : Station to Ereve (104020120)
-        if (sm.askYesNo("Eh... So... Um... Are you trying to leave Victoria to go to a different region? You can take this boat to #eEreve#n. There, you will see bright sunlight shining on the leaves and feel a gentle breeze on your skin. It's where Shinsoo and Empress Cygnus are. Would you like to go to Ereve?\r\n\r\nIt will take about #e2 minutes#n and it will cost you #e1000#n Mesos.")) {
+        Map<Integer, String> answers = new HashMap<>();
+        answers.put(0, "Yes, I would like to travel,");
+        if (sm.hasItem(4322000, 1)) {
+            answers.put(answers.size(), "Skip travel using Fast Travel Ticket");
+        }
+        final int selection = sm.askMenu("Eh... So... Um... Are you trying to leave Victoria to go to a different region? You can take this boat to #eEreve#n. There, you will see bright sunlight shining on the leaves and feel a gentle breeze on your skin. It's where Shinsoo and Empress Cygnus are. Would you like to go to Ereve?\r\n\r\nIt will take about #e2 minutes#n and it will cost you #e1000#n Mesos.", answers);
+        if (selection == 0) {
             if (sm.addMoney(-1000)) {
                 // Empress' Road : To Ereve -> Empress' Road : Sky Ferry
                 sm.warpInstance(200090030, "sp", 130000210, 120);
             } else {
                 sm.sayNext("Hmm... Are you sure you have #b1000#k Mesos? Check your Inventory and make sure you have enough. You must pay the fee or I can't let you get on...");
+            }
+        } else if (selection == 1) {
+            if (sm.hasItem(4322000, 1)) {
+                sm.warp(130000210, "sp");
             }
         } else {
             sm.sayNext("If you're not interested, then oh well...");
@@ -378,12 +423,22 @@ public final class ContiMove extends ScriptHandler {
     public static void contimoveEreEli(ScriptManager sm) {
         // Kiriru : Station Guide (1100003)
         //   Empress' Road : Sky Ferry  (130000210)
-        if (sm.askYesNo("Eh, Hello...again. Do you want to leave Ereve and go somewhere else? If so, you've come to the right place. I operate a ferry that goes from Ereve to Victoria Island, I can take you to #eVictoria Island#n if you want... You'll have to pay a fee of #e1000#n Mesos.")) {
+        Map<Integer, String> answers = new HashMap<>();
+        answers.put(0, "Yes, I would like to travel,");
+        if (sm.hasItem(4322000, 1)) {
+            answers.put(answers.size(), "Skip travel using Fast Travel Ticket");
+        }
+        final int selection = sm.askMenu("Eh, Hello...again. Do you want to leave Ereve and go somewhere else? If so, you've come to the right place. I operate a ferry that goes from Ereve to Victoria Island, I can take you to #eVictoria Island#n if you want... You'll have to pay a fee of #e1000#n Mesos.", answers);
+        if (selection == 0) {
             if (sm.addMoney(-1000)) {
                 // Empress' Road : Victoria Bound -> Port Road : Station to Ereve
                 sm.warpInstance(200090031, "sp", 104020120, 120);
             } else {
                 sm.sayNext("Hmm... Are you sure you have #b1000#k Mesos? Check your Inventory and make sure you have enough. You must pay the fee or I can't let you get on...");
+            }
+        } else if (selection == 1) {
+            if (sm.hasItem(4322000, 1)) {
+                sm.warp(104020120, "sp");
             }
         } else {
             sm.sayNext("If you're not interested, then oh well...");
@@ -462,10 +517,14 @@ public final class ContiMove extends ScriptHandler {
     public static void contimoveEdeGo(ScriptManager sm) {
         // Ace : Pilot (2150008)
         //   Edelstein : Edelstein Temporary Airport (310000010)
-        final int answer = sm.askMenu("Would you like to leave Edelstein and travel to a different continent? I can take you to Victoria Island and the Orbis area of Ossyria. The cost is 800 Mesos. Where would you like to go?", Map.of(
-                0, "Victoria Island",
-                1, "Orbis"
-        ));
+        Map<Integer, String> answers = new HashMap<>();
+        answers.put(0, "Victoria Island.");
+        answers.put(1, "Orbis");
+        if (sm.hasItem(4322000, 1)) {
+            answers.put(2, "Fast Travel to Victoria Island");
+            answers.put(3, "Fast Travel to Orbis");
+        }
+        final int answer = sm.askMenu("Would you like to leave Edelstein and travel to a different continent? I can take you to Victoria Island and the Orbis area of Ossyria. The cost is 800 Mesos. Where would you like to go?", answers);
         if (answer == 0) {
             if (sm.addMoney(-800)) {
                 // On Voyage : Victoria Island Bound -> Port Road : Station to Edelstein
@@ -479,6 +538,14 @@ public final class ContiMove extends ScriptHandler {
                 sm.warpInstance(200090610, "sp", 200000170, 180);
             } else {
                 sm.sayNext("Are you sure you have enough mesos?");
+            }
+        } else if (answer == 2) {
+            if (sm.hasItem(4322000, 1)) {
+                sm.warp(104020130, "sp");
+            }
+        } else if (answer == 3) {
+            if (sm.hasItem(4322000, 1)) {
+                sm.warp(200000170, "sp");
             }
         }
     }
