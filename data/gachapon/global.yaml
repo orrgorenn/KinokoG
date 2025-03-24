@@ -128,6 +128,8 @@ rewards:
   - [2049001, 1, 1, 1.0]  # Clean Slate Scroll
   - [2049002, 1, 1, 1.0]  # Clean Slate Scroll
   - [2049003, 1, 1, 1.0]  # Clean Slate Scroll
+  - [2049004, 1, 1, 1.0]  # Clean Slate Scroll
+  - [2049005, 1, 1, 1.0]  # Clean Slate Scroll
   - [2041058, 1, 1, 1.0]  # Shield for DEF Scroll
   - [2040727, 1, 1, 1.0]  # Cape for INT Scroll
 
