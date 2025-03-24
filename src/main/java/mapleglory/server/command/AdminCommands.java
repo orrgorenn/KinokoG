@@ -50,7 +50,6 @@ import mapleglory.world.user.Account;
 import mapleglory.world.user.Dragon;
 import mapleglory.world.user.User;
 import mapleglory.world.user.effect.Effect;
-import mapleglory.world.user.friend.Friend;
 import mapleglory.world.user.stat.*;
 
 import java.lang.reflect.Method;
@@ -1225,6 +1224,22 @@ public final class AdminCommands {
                 user.write(MessagePacket.system("[%s] (Ch %d)", remoteUser.getCharacterName(), remoteUser.getChannelId() + 1));
             }
         });
+    }
+
+    @Command("dc")
+    @Permission("gm")
+    public static void dc(User user, String[] args) {
+        final String query = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        Optional<User> findPlayer = user.getConnectedServer().getConnectedUsers().stream().filter(
+                (u) -> u.getCharacterName().equals(query)
+        ).findFirst();
+
+        if (findPlayer.isPresent()) {
+            User player = findPlayer.get();
+            user.getConnectedServer().notifyUserDisconnect(player);
+        } else {
+            user.write(MessagePacket.system("Could not find user with character name : %s", query));
+        }
     }
 
     @Command({"whatdropsfrom", "wdf"})

@@ -33,13 +33,6 @@ import mapleglory.world.GameConstants;
 import mapleglory.world.field.Field;
 import mapleglory.world.item.*;
 import mapleglory.world.job.JobConstants;
-import mapleglory.world.job.cygnus.Noblesse;
-import mapleglory.world.job.explorer.Beginner;
-import mapleglory.world.job.legend.Aran;
-import mapleglory.world.job.legend.Evan;
-import mapleglory.world.job.resistance.Citizen;
-import mapleglory.world.skill.Skill;
-import mapleglory.world.skill.SkillConstants;
 import mapleglory.world.skill.SkillRecord;
 import mapleglory.world.user.CharacterData;
 import mapleglory.world.user.*;
@@ -52,7 +45,6 @@ import mapleglory.world.user.stat.CharacterTemporaryStat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import javax.swing.text.html.Option;
 import java.time.Instant;
 import java.util.*;
 
@@ -182,22 +174,16 @@ public final class MigrationHandler {
             // Resolve user field
             final int fieldId = user.getCharacterStat().getPosMap();
             final byte portalId = user.getCharacterStat().getPortal();
-            final Field targetField;
             final Optional<Field> fieldResult = channelServerNode.getFieldById(fieldId);
-            if (fieldResult.isPresent()) {
-                targetField = fieldResult.get();
-            } else {
+            final Field targetField = fieldResult.orElseGet(() -> {
                 log.error("Could not retrieve field ID : {} for character ID : {}, moving to {}", fieldId, user.getCharacterId(), 100000000);
-                targetField = channelServerNode.getFieldById(100000000).orElseThrow(() -> new IllegalStateException("Could not resolve Field from ChannelServer"));
-            }
-            final PortalInfo targetPortal;
+                return channelServerNode.getFieldById(100000000).orElseThrow(() -> new IllegalStateException("Could not resolve Field from ChannelServer"));
+            });
             final Optional<PortalInfo> portalResult = targetField.getPortalById(portalId);
-            if (portalResult.isPresent()) {
-                targetPortal = portalResult.get();
-            } else {
-                log.error("Could not resolve default portal : {} on field ID : {}", 0, targetField.getFieldId());
-                targetPortal = targetField.getPortalById(0).orElse(PortalInfo.EMPTY);
-            }
+            final PortalInfo targetPortal = portalResult.orElseGet(() -> {
+                log.error("Could not resolve portal : {} on field ID : {}", portalId, targetField.getFieldId());
+                return targetField.getPortalById(0).orElse(PortalInfo.EMPTY);
+            });
 
             // Special handling for Blessing of the Fairy
             List<AvatarData> characters = DatabaseManager.characterAccessor().getAvatarDataByAccountId(user.getAccountId());
