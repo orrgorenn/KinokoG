@@ -41,3 +41,4 @@ rewards:
   - [ 4130010, 1, 1, 0.000300 ] # Wand Production Stimulator
   - [ 4130011, 1, 1, 0.000300 ] # Staff Production Stimulator
   - [ 4161021, 1, 1, 0.000100 ] # [Storybook] Formula for Black Cloud
+  - [ 2044601, 1, 1, 0.0003 ]

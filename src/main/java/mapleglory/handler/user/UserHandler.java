@@ -520,12 +520,12 @@ public final class UserHandler {
             // Validate stat
             final CharacterStat cs = locked.get().getCharacterStat();
             if (cs.getAp() < 1) {
-                log.error("Tried to add ap with {} remaining ap", cs.getAp());
+                log.error("<User: {}> Tried to add ap with {} remaining ap", user.getCharacterName(), cs.getAp());
                 user.dispose();
                 return;
             }
             if (!cs.isValidAp(stat, 1)) {
-                log.error("Tried to add ap to stat {}", stat);
+                log.error("<User: {}> Tried to add ap to stat {}", user.getCharacterName(), stat);
                 user.dispose();
                 return;
             }
@@ -560,7 +560,7 @@ public final class UserHandler {
             final CharacterStat cs = locked.get().getCharacterStat();
             final int requiredAp = stats.values().stream().mapToInt(Integer::intValue).sum();
             if (cs.getAp() < requiredAp) {
-                log.error("Tried to add {} ap with {} remaining ap", requiredAp, cs.getAp());
+                log.error("<User: {}> Tried to add {} ap with {} remaining ap", user.getCharacterName(), requiredAp, cs.getAp());
                 user.dispose();
                 return;
             }
@@ -568,7 +568,7 @@ public final class UserHandler {
                 final Stat stat = entry.getKey();
                 final int value = entry.getValue();
                 if (!cs.isValidAp(stat, value)) {
-                    log.error("Tried to add {} ap to stat {}", stat, value);
+                    log.error("<User: {}> Tried to add {} ap to stat {}", user.getCharacterName(), stat, value);
                     user.dispose();
                     return;
                 }
@@ -619,13 +619,13 @@ public final class UserHandler {
             final SkillManager sm = locked.get().getSkillManager();
             final Optional<SkillRecord> skillRecordResult = sm.getSkill(skillId);
             if (skillRecordResult.isEmpty()) {
-                log.error("Tried to add a skill {} not owned by user", skillId);
+                log.error("<User: {}> Tried to add a skill {} not owned by user", user.getCharacterName(), skillId);
                 user.dispose();
                 return;
             }
             final SkillRecord skillRecord = skillRecordResult.get();
             if (skillRecord.getSkillLevel() >= skillRecord.getMasterLevel()) {
-                log.error("Tried to add a skill {} at master level {}/{}", skillId, skillRecord.getSkillLevel(), skillRecord.getMasterLevel());
+                log.error("<User: {}> Tried to add a skill {} at master level {}/{}", user.getCharacterName(), skillId, skillRecord.getSkillLevel(), skillRecord.getMasterLevel());
                 user.dispose();
                 return;
             }
@@ -633,7 +633,7 @@ public final class UserHandler {
             if (JobConstants.isBeginnerJob(skillRoot)) {
                 // Check if valid beginner skill
                 if (!SkillConstants.isBeginnerSpAddableSkill(skillId)) {
-                    log.error("Tried to add an invalid beginner skill {}", skillId);
+                    log.error("<User: {}> Tried to add an invalid beginner skill {}", user.getCharacterName(), skillId);
                     user.dispose();
                     return;
                 }
@@ -651,20 +651,20 @@ public final class UserHandler {
                 }
                 // Check if sp can be added
                 if (spentSp >= totalSp) {
-                    log.error("Tried to add skill {} without having the required amount of sp", skillId);
+                    log.error("<User: {}> Tried to add skill {} without having the required amount of sp", user.getCharacterName(), skillId);
                     user.dispose();
                     return;
                 }
             } else if (JobConstants.isExtendSpJob(skillRoot)) {
                 final int jobLevel = JobConstants.getJobLevel(skillRoot);
                 if (!user.getCharacterStat().getSp().removeSp(jobLevel, 1)) {
-                    log.error("Tried to add skill {} without having the required amount of sp", skillId);
+                    log.error("<User: {}> Tried to add skill {} without having the required amount of sp", user.getCharacterName(), skillId);
                     user.dispose();
                     return;
                 }
             } else {
                 if (!user.getCharacterStat().getSp().removeNonExtendSp(1)) {
-                    log.error("Tried to add skill {} without having the required amount of sp", skillId);
+                    log.error("<User: {}> Tried to add skill {} without having the required amount of sp", user.getCharacterName(), skillId);
                     user.dispose();
                     return;
                 }

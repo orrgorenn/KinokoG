@@ -30,3 +30,4 @@ rewards:
   - [ 4130003, 1, 1, 0.000300 ] # One-Handed Axe Forging Stimulator
   - [ 4130008, 1, 1, 0.000300 ] # Spear Forging Stimulator
   - [ 4130019, 1, 1, 0.000300 ] # Topwear Production Stimulator
+  - [ 2044601, 1, 1, 0.0003 ]

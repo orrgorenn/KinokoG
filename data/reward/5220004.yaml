@@ -53,3 +53,4 @@ rewards:
   - [ 2044601, 1, 1, 0.010000 ] # Scroll for Crossbow for ATT 60%
   - [ 2044701, 1, 1, 0.010000 ] # Scroll for Claw for ATT 60%
   - [ 2070005, 1, 1, 0.000400 ] # Steely Throwing-Knives
+  - [ 2044601, 1, 1, 0.003 ]

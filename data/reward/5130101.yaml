@@ -33,3 +33,4 @@ rewards:
   - [ 4130010, 1, 1, 0.000300 ] # Wand Production Stimulator
   - [ 4130013, 1, 1, 0.000300 ] # Crossbow Production Stimulator
   - [ 4130018, 1, 1, 0.000300 ] # Armor Production Stimulator
+  - [ 2044601, 1, 1, 0.0003 ]
