@@ -123,6 +123,7 @@ rewards:
 
   # Miscellaneous Scrolls
   - [2049100, 1, 1, 1.0]  # Chaos Scroll
+  - [2340000, 1, 1, 1.0]  # White Scroll
   - [2049000, 1, 1, 1.0]  # Clean Slate Scroll
   - [2049001, 1, 1, 1.0]  # Clean Slate Scroll
   - [2049002, 1, 1, 1.0]  # Clean Slate Scroll
