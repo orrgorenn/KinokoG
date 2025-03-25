@@ -335,7 +335,7 @@ public class Zakum extends ScriptHandler {
                     final User partyMember = lockedMember.get();
 
                     if(!partyMember.getInventoryManager().canAddItem(4001018, 1)) {
-                        sm.broadcastMessage("Someone from the party can't receive the #b#t4001018##k.", true);
+                        sm.message("Someone from the party can't receive the #b#t4001018##k.");
                         return;
                     }
 
@@ -352,7 +352,7 @@ public class Zakum extends ScriptHandler {
 
             sm.partyWarp(211042300, "sp");
         } else {
-            sm.broadcastMessage("Currently, this portal doesn't work.", true);
+            sm.message("Currently, this portal doesn't work.");
         }
     }
 
@@ -461,9 +461,9 @@ public class Zakum extends ScriptHandler {
     public static void boss(ScriptManager sm) {
         // boss (2111001)
         //   Last Mission : Zakum's Altar (280030000)
-        sm.broadcastMessage("Zakum is summoned by the force of eye of fire.", true);
+        sm.broadcastMessage("Zakum is summoned by the force of eye of fire.");
         for (int i = 8800000; i <= 8800010; i++) {
-            sm.spawnMob(i, MobAppearType.EFFECT, -10, -215, false, true);
+            sm.spawnMob(i, MobAppearType.EFFECT, -10, -215, false);
         }
     }
 }

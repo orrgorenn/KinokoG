@@ -58,4 +58,30 @@ public class NewLeafCity extends ScriptHandler {
             sm.sayOk("Okay, then. See you around.");
         }
     }
+
+    @Script("q8221s")
+    public static void q8221s(ScriptManager sm) {
+        // TODO: GMS like interaction
+        sm.sayNext("Please find 10 Gold Ore, 4 Typhon Feather, 1 Power Crystal Ore.");
+        sm.forceStartQuest(8221);
+    }
+
+    @Script("q8219s")
+    public static void q8219s(ScriptManager sm) {
+        // TODO: GMS like interaction
+        sm.sayNext("Please find my brother.");
+        sm.forceStartQuest(8219);
+    }
+
+    @Script("q8219e")
+    public static void q8219e(ScriptManager sm) {
+        // TODO: GMS like interaction
+        sm.sayNext("...");
+        if (!sm.addItem(3992040, 1)) {
+            sm.sayOk("Please make room in your SET-UP inventory.");
+            return;
+        }
+        sm.getUser().addQuestExp(175000);
+        sm.forceCompleteQuest(8219);
+    }
 }

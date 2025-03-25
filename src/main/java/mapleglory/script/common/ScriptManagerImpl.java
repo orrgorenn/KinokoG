@@ -447,7 +447,7 @@ public final class ScriptManagerImpl implements ScriptManager {
             final int randomNumber = Util.getRandom().nextInt(100) + 1;
 
             if (randomNumber <= prob) {
-                this.spawnMob(mobId, MobAppearType.NORMAL, x, y, true, true);
+                this.spawnMob(mobId, MobAppearType.NORMAL, x, y, true);
             }
         }
     }
@@ -730,19 +730,20 @@ public final class ScriptManagerImpl implements ScriptManager {
         return field;
     }
 
+    public FieldObject getSource() { return source; }
+
     @Override
     public int getFieldId() {
         return field.getFieldId();
     }
 
     @Override
-    public void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft, boolean originalField) {
+    public void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft) {
         final Optional<MobTemplate> mobTemplateResult = MobProvider.getMobTemplate(templateId);
         if (mobTemplateResult.isEmpty()) {
             throw new ScriptError("Could not resolve mob template ID : %d", templateId);
         }
-        Field currentField = originalField ? field : user.getField();
-        final Optional<Foothold> footholdResult = currentField.getFootholdBelow(x, y - GameConstants.REACTOR_SPAWN_HEIGHT);
+        final Optional<Foothold> footholdResult = user.getField().getFootholdBelow(x, y - GameConstants.REACTOR_SPAWN_HEIGHT);
         final Mob mob = new Mob(
                 mobTemplateResult.get(),
                 null,
@@ -752,7 +753,7 @@ public final class ScriptManagerImpl implements ScriptManager {
         );
         mob.setLeft(isLeft);
         mob.setSummonType(summonType);
-        currentField.getMobPool().addMob(mob);
+        user.getField().getMobPool().addMob(mob);
     }
 
     @Override
@@ -965,9 +966,8 @@ public final class ScriptManagerImpl implements ScriptManager {
     }
 
     @Override
-    public void broadcastMessage(String message, boolean originalField) {
-        Field currentField = originalField ? field : user.getField();
-        currentField.broadcastPacket(MessagePacket.system(message));
+    public void broadcastMessage(String message) {
+        user.getField().broadcastPacket(MessagePacket.system(message));
     }
 
     @Override

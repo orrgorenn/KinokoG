@@ -19,8 +19,8 @@ public class CapLatanica extends ScriptHandler {
         // sgboss0 (5411000)
         //   Singapore : The Engine Room (541010100)
         sm.broadcastSoundEffect("Bgm09/TimeAttack");
-        sm.spawnMob(9420513, MobAppearType.NORMAL, -148, 225, false, true);
-        sm.broadcastMessage("As you wish. Here comes Capt. Latanica!", true);
+        sm.spawnMob(9420513, MobAppearType.NORMAL, -148, 225, false);
+        sm.broadcastMessage("As you wish. Here comes Capt. Latanica!");
     }
 
     @Script("captinsg01")

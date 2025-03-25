@@ -59,7 +59,7 @@ public class JobQuest extends ScriptHandler {
             newField.setMobSpawn(false);
             sm.warp(CROCELL_PRE_FIELD);
             sm.spawnMobInMap(CROCELL, MobAppearType.NORMAL, 342, 75, true, newField);
-            sm.broadcastMessage("Kill Crocell!", false);
+            sm.message("Kill Crocell!");
         }
     }
 
@@ -87,7 +87,7 @@ public class JobQuest extends ScriptHandler {
             newField.setMobSpawn(false);
             sm.warp(MARBAS_PRE_FIELD);
             sm.spawnMobInMap(MARBAS, MobAppearType.NORMAL, 174, 70, true, newField);
-            sm.broadcastMessage("Kill Marbas!", false);
+            sm.message("Kill Marbas!");
         }
     }
 
@@ -116,7 +116,7 @@ public class JobQuest extends ScriptHandler {
             newField.setMobSpawn(false);
             sm.warp(ANDRAS_PRE_FIELD);
             sm.spawnMobInMap(ANDRAS, MobAppearType.NORMAL, 294, 96, true, newField);
-            sm.broadcastMessage("Kill Andras!", false);
+            sm.message("Kill Andras!");
         }
     }
 
@@ -145,7 +145,7 @@ public class JobQuest extends ScriptHandler {
             newField.setMobSpawn(false);
             sm.warp(VALEFOR_PRE_FIELD);
             sm.spawnMobInMap(VALEFOR, MobAppearType.NORMAL, 359, 66, true, newField);
-            sm.broadcastMessage("Kill Valefor!", false);
+            sm.message("Kill Valefor!");
         }
     }
 
@@ -174,7 +174,7 @@ public class JobQuest extends ScriptHandler {
             newField.setMobSpawn(false);
             sm.warp(AMDUSIAS_PRE_FIELD);
             sm.spawnMobInMap(AMDUSIAS, MobAppearType.NORMAL, 511, 35, true, newField);
-            sm.broadcastMessage("Kill Amdusias!", false);
+            sm.message("Kill Amdusias!");
         }
     }
 

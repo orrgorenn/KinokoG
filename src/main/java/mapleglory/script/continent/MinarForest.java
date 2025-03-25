@@ -7,10 +7,7 @@ import mapleglory.script.common.ScriptManager;
 import mapleglory.util.Tuple;
 import mapleglory.world.quest.QuestRecordType;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.BiConsumer;
 
 public final class MinarForest extends ScriptHandler {
@@ -225,17 +222,24 @@ public final class MinarForest extends ScriptHandler {
         boolean stimulator = false;
         int selectedType = -1;
 
-        final int selection = sm.askMenu("A dragon's power is not to be underestimated. If you like, I can add its power to one of your weapons. However, the weapon must be powerful enough to hold its potential...", Map.of(
-                0, "What's a stimulator?",
-                1, "Create a Warrior Weapon",
-                2, "Create a Bowman Weapon",
-                3, "Create a Magician Weapon",
-                4, "Create a Thief Weapon",
-                5, "Create a Warrior Weapon with a Stimulator",
-                6, "Create a Bowman Weapon with a Stimulator",
-                7, "Create a Magician Weapon with a Stimulator",
-                8, "Create a Thief Weapon with a Stimulator"
-        ));
+        Map<Integer, String> menuOptions = new HashMap<>();
+        menuOptions.put(0, "What's a stimulator?");
+        menuOptions.put(1, "Create a Warrior Weapon");
+        menuOptions.put(2, "Create a Bowman Weapon");
+        menuOptions.put(3, "Create a Magician Weapon");
+        menuOptions.put(4, "Create a Thief Weapon");
+        menuOptions.put(5, "Create a Pirate Weapon");
+        menuOptions.put(6, "Create a Warrior Weapon with a Stimulator");
+        menuOptions.put(7, "Create a Bowman Weapon with a Stimulator");
+        menuOptions.put(8, "Create a Magician Weapon with a Stimulator");
+        menuOptions.put(9, "Create a Thief Weapon with a Stimulator");
+        menuOptions.put(10, "Create a Pirate Weapon with a Stimulator");
+
+        if (sm.hasQuestStarted(7301) || sm.hasQuestStarted(7303)) {
+            menuOptions.put(11, "Make " + itemName(4001078));
+        }
+
+        final int selection = sm.askMenu("A dragon's power is not to be underestimated. If you like, I can add its power to one of your weapons. However, the weapon must be powerful enough to hold its potential...", menuOptions);
 
         if (selection == 0) {
             sm.sayOk("A stimulator is a special potion that I can add into the process of creating certain items. It gives it stats as though it had dropped from a monster. However, it is possible to have no change, and it is also possible for the item to be below average. There's also a 10% chance of not getting any item when using a stimulator, so please choose wisely.");
@@ -244,9 +248,9 @@ public final class MinarForest extends ScriptHandler {
 
         selectedType = selection;
 
-        if (selection > 4) {
+        if (selection > 5 && selection < 11) {
             stimulator = true;
-            selectedType -= 4;
+            selectedType -= 5;
         }
 
         int weaponSelection = -1;
@@ -349,6 +353,36 @@ public final class MinarForest extends ScriptHandler {
                 mats = materialSetList.get(weaponSelection);
                 qty = qtyList.get(weaponSelection);
                 cost = costSet;
+            }
+            case 5 -> {
+                weaponSelection = sm.askMenu("Very well, then which Pirate weapon shall receive a dragon's power?", Map.of(
+                        0, "Dragon Slash Claw - Lv. 110 Knuckle",
+                        1, "Dragonfire Revolver - Lv. 110 Gun"
+                ));
+
+                List<Integer> itemList = List.of(1482013, 1492013);
+                List<List<Integer>> materialSetList = List.of(
+                        List.of(1482012, 4000244, 4000245, 4005000, 4005002),
+                        List.of(1492012, 4000244, 4000245, 4005000, 4005002)
+                );
+                List<List<Integer>> qtyList = List.of(
+                        List.of(1, 20, 25, 5, 3),
+                        List.of(1, 20, 25, 3, 5)
+                );
+                final int costSet = 120000;
+
+                item = itemList.get(weaponSelection);
+                mats = materialSetList.get(weaponSelection);
+                qty = qtyList.get(weaponSelection);
+                cost = costSet;
+            }
+            case 11 -> {
+                sm.sayNext("Oh, are you trying to sneak into these lizards to save Moira? I will support your cause wherever I can. Bring me a couple of resources and I will make you an almost identical piece of " + itemName(4001078) + ".");
+
+                item = 4001078;
+                mats = List.of(4011001, 4011002, 4001079);
+                qty = List.of(1, 1, 1);
+                cost = 25000;
             }
         }
 

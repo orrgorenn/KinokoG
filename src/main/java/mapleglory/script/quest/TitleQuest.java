@@ -248,7 +248,7 @@ public final class TitleQuest extends ScriptHandler {
                 "\n" +
                 "#fUI/UIWindow.img/QuestIcon/4/0#\n" +
                 " #v1142107:# #t1142107# 1");
-        if (!sm.canAddItem(1142107, 1)) {
+        if (!sm.addItem(1142107, 1)) {
             sm.sayOk("Make some room in your inventory and talk back to me.");
             return;
         }
@@ -335,7 +335,7 @@ public final class TitleQuest extends ScriptHandler {
         // Legendary Thief (29913 - start)
         if (sm.canAddItem(1142012, 1)) {
             sm.addItem(1142012, 1);
-            sm.broadcastMessage("You obtained the <Legendary Thief> medal.", true);
+            sm.message("You obtained the <Legendary Thief> medal.");
             sm.addSkill(1005, 1, 1);
             sm.forceStartQuest(29913);
             sm.forceCompleteQuest(29913);

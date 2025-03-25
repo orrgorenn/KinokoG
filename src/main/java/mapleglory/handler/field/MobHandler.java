@@ -121,6 +121,12 @@ public final class MobHandler {
 
         final Field field = user.getField();
         final Optional<Mob> mobResult = field.getMobPool().getById(objectId);
+
+        // Jesters
+        if (field.getFieldId() == 682010203) {
+            return;
+        }
+
         if (mobResult.isEmpty()) {
             log.error("Received MobApplyCtrl for invalid object with ID : {} (user: {} | fieldId: {})", objectId, user.getCharacterName(), field.getFieldId());
             return;

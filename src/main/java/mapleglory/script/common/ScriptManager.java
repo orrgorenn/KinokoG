@@ -6,6 +6,7 @@ import mapleglory.server.event.EventType;
 import mapleglory.server.packet.OutPacket;
 import mapleglory.util.Tuple;
 import mapleglory.world.field.Field;
+import mapleglory.world.field.FieldObject;
 import mapleglory.world.field.mob.MobAppearType;
 import mapleglory.world.item.BodyPart;
 import mapleglory.world.item.InventoryType;
@@ -182,17 +183,19 @@ public interface ScriptManager {
 
     Field getField();
 
+    FieldObject getSource();
+
     int getFieldId();
 
-    default void spawnMob(int templateId, MobAppearType appearType, int x, int y, boolean isLeft, boolean originalField) {
-        spawnMob(templateId, appearType.getValue(), x, y, isLeft, originalField);
+    default void spawnMob(int templateId, MobAppearType appearType, int x, int y, boolean isLeft) {
+        spawnMob(templateId, appearType.getValue(), x, y, isLeft);
     }
 
     default void spawnMobInMap(int templateId, MobAppearType appearType, int x, int y, boolean isLeft, Field customField) {
         spawnMob(templateId, appearType.getValue(), x, y, isLeft, customField);
     }
 
-    void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft, boolean originalField);
+    void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft);
 
     void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft, Field customField);
 
@@ -229,7 +232,7 @@ public interface ScriptManager {
 
     void broadcastPacket(OutPacket outPacket);
 
-    void broadcastMessage(String message, boolean originalField);
+    void broadcastMessage(String message);
 
     void broadcastScriptProgressMessage(String message);
 

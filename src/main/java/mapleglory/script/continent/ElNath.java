@@ -173,7 +173,7 @@ public class ElNath extends ScriptHandler {
                             5, "#b#t2061002##k"
                     ));
 
-                    sm.broadcastMessage("Creating arrouws not implemented yet.", true);
+                    sm.message("Creating arrows is not implemented yet.");
             }
         } else {
             sm.sayOk("I understand. Is the service fee too high for you? But understand that I'll be in this town for a long time, so if you ever want to refine anything just bring it to me.");

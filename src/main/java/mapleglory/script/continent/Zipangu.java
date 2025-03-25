@@ -55,7 +55,7 @@ public class Zipangu extends ScriptHandler {
 
             sm.warp(801040000);
         } else {
-            sm.broadcastMessage("Boss not implemented yet.", true);
+            sm.message("Boss not implemented yet.");
         }
     }
 }

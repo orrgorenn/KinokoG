@@ -1117,7 +1117,7 @@ public final class ExplorerQuest extends ScriptHandler {
         }
 
         // Check if player is qualified for advancement
-        boolean isQualified = sm.hasQuestCompleted(6934) || jobId == 2111;
+        boolean isQualified = sm.hasQuestCompleted(6904) || jobId == 2111;
         if (!isQualified) {
             sm.sayOk("You're not ready to make 4th job advancement. When you're ready, talk to me.");
             sm.dispose();

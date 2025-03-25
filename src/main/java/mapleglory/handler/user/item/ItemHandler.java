@@ -9,10 +9,7 @@ import mapleglory.packet.world.WvsContext;
 import mapleglory.provider.ItemProvider;
 import mapleglory.provider.MobProvider;
 import mapleglory.provider.SkillProvider;
-import mapleglory.provider.item.ItemInfo;
-import mapleglory.provider.item.ItemInfoType;
-import mapleglory.provider.item.ItemSpecType;
-import mapleglory.provider.item.MobSummonInfo;
+import mapleglory.provider.item.*;
 import mapleglory.provider.map.FieldOption;
 import mapleglory.provider.map.Foothold;
 import mapleglory.provider.map.PortalInfo;
@@ -38,6 +35,8 @@ import mapleglory.world.user.effect.Effect;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -411,6 +410,64 @@ public abstract class ItemHandler {
 
             // Apply stat change
             changeStat(locked, itemInfoResult.get());
+        }
+    }
+
+    @Handler(InHeader.UserLotteryItemUseRequest)
+    public static void handleUserLotteryItemUseRequest(User user, InPacket inPacket) {
+        final int position = inPacket.decodeShort(); // nPOS
+        final int itemId = inPacket.decodeInt();
+
+        // Resolve reward info
+        final Optional<ItemRewardInfo> itemRewardInfoResult = ItemProvider.getItemRewardInfo(itemId);
+        if (itemRewardInfoResult.isEmpty()) {
+            log.error("Received UserLotteryItemUseRequest with an invalid lottery item {}", itemId);
+            user.dispose();
+            return;
+        }
+        final ItemRewardInfo itemRewardInfo = itemRewardInfoResult.get();
+
+        try (var locked = user.acquire()) {
+            // Resolve reward
+            if (!itemRewardInfo.canAddReward(locked)) {
+                user.write(MessagePacket.system("You do not have enough inventory space."));
+                user.dispose();
+                return;
+            }
+            final Optional<ItemRewardEntry> rewardResult = Util.getRandomFromCollection(itemRewardInfo.getEntries(), ItemRewardEntry::getProbability);
+            if (rewardResult.isEmpty()) {
+                log.error("Could not resolve lottery item reward for item {}", itemId);
+                return;
+            }
+            final ItemRewardEntry rewardEntry = rewardResult.get();
+            final Optional<ItemInfo> rewardItemInfoResult = ItemProvider.getItemInfo(rewardEntry.getItemId());
+            if (rewardItemInfoResult.isEmpty()) {
+                log.error("Could not resolve item info for item ID : {}", rewardEntry.getItemId());
+                return;
+            }
+
+            // Consume item
+            final Optional<InventoryOperation> consumeItemResult = consumeItem(locked, position, itemId);
+            if (consumeItemResult.isEmpty()) {
+                log.error("Failed to consume lottery item {} in position {}", itemId, position);
+                user.dispose();
+                return;
+            }
+            user.write(WvsContext.inventoryOperation(consumeItemResult.get(), false));
+
+            // Add reward item
+            final Item rewardItem = rewardItemInfoResult.get().createItem(user.getNextItemSn(), rewardEntry.getCount());
+            if (rewardEntry.getPeriod() > 0) {
+                rewardItem.setDateExpire(Instant.now().plus(rewardEntry.getPeriod(), ChronoUnit.MINUTES));
+            }
+            final Optional<List<InventoryOperation>> addResult = user.getInventoryManager().addItem(rewardItem);
+            if (addResult.isEmpty()) {
+                throw new IllegalStateException("Could not add reward item to inventory");
+            }
+            user.write(WvsContext.inventoryOperation(addResult.get(), true));
+            if (rewardEntry.hasEffect()) {
+                user.write(UserLocal.effect(Effect.lotteryUse(itemId, rewardEntry.getEffect())));
+            }
         }
     }
 

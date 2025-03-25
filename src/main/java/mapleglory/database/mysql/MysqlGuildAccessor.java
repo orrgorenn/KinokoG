@@ -61,7 +61,9 @@ public class MysqlGuildAccessor implements GuildAccessor {
             final String boardEntriesJSON = rs.getString(GuildTable.BOARD_ENTRY_LIST);
             if (boardEntriesJSON != null) {
                 List<GuildBoardEntry> boardEntries = parseJsonList(boardEntriesJSON, GuildBoardEntry.class);
-                guild.getBoardEntries().addAll(boardEntries);
+                if (boardEntries != null) {
+                    guild.getBoardEntries().addAll(boardEntries);
+                }
             }
 
             // Set board entry notice and counter

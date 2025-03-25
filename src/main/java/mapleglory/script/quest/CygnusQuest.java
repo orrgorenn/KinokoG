@@ -28,14 +28,14 @@ public final class CygnusQuest extends ScriptHandler {
         // Empress' Road : Training Forest I (130010000)
         //   in00 (-724, -754)
         if (sm.hasQuestStarted(20301) || sm.hasQuestStarted(20302) || sm.hasQuestStarted(20303) || sm.hasQuestStarted(20304) || sm.hasQuestStarted(20305)) {
-            Field field = sm.getField().getFieldStorage().getFieldById(913002000).get();
+            Field field = sm.getField().getFieldStorage().getFieldById(913002000).orElseThrow();
             if (field.getUserPool().getCount() > 0) {
-                sm.broadcastMessage("Someone else is already searching the area.", true);
+                sm.message("Someone else is already searching the area.");
                 return;
             }
 
             if (sm.hasItem(4032101, 1)) {
-                sm.broadcastMessage("You have already challenged the Master of Disguise, report your success to the Chief Knight.", true);
+                sm.message("You have already challenged the Master of Disguise, report your success to the Chief Knight.");
                 return;
             }
 
@@ -54,14 +54,14 @@ public final class CygnusQuest extends ScriptHandler {
         // Empress' Road : Training Forest I (130010000)
         //   in01 (-1439, -755)
         if (sm.hasQuestStarted(20301) || sm.hasQuestStarted(20302) || sm.hasQuestStarted(20303) || sm.hasQuestStarted(20304) || sm.hasQuestStarted(20305)) {
-            Field field = sm.getField().getFieldStorage().getFieldById(913002100).get();
+            Field field = sm.getField().getFieldStorage().getFieldById(913002100).orElseThrow();
             if (field.getUserPool().getCount() > 0) {
-                sm.broadcastMessage("Someone else is already searching the area.", true);
+                sm.message("Someone else is already searching the area.");
                 return;
             }
 
             if (sm.hasItem(4032101, 1)) {
-                sm.broadcastMessage("You have already challenged the Master of Disguise, report your success to the Chief Knight.", true);
+                sm.message("You have already challenged the Master of Disguise, report your success to the Chief Knight.");
                 return;
             }
 
@@ -80,14 +80,14 @@ public final class CygnusQuest extends ScriptHandler {
         // Empress' Road : Training Forest II (130010100)
         //   in00 (-1402, -338)
         if (sm.hasQuestStarted(20301) || sm.hasQuestStarted(20302) || sm.hasQuestStarted(20303) || sm.hasQuestStarted(20304) || sm.hasQuestStarted(20305)) {
-            Field field = sm.getField().getFieldStorage().getFieldById(913002200).get();
+            Field field = sm.getField().getFieldStorage().getFieldById(913002200).orElseThrow();
             if (field.getUserPool().getCount() > 0) {
-                sm.broadcastMessage("Someone else is already searching the area.", true);
+                sm.message("Someone else is already searching the area.");
                 return;
             }
 
             if (sm.hasItem(4032101, 1)) {
-                sm.broadcastMessage("You have already challenged the Master of Disguise, report your success to the Chief Knight.", true);
+                sm.message("You have already challenged the Master of Disguise, report your success to the Chief Knight.");
                 return;
             }
 
@@ -106,14 +106,14 @@ public final class CygnusQuest extends ScriptHandler {
         // Empress' Road : Training Forest II (130010100)
         //   in01 (-2887, -747)
         if (sm.hasQuestStarted(20301) || sm.hasQuestStarted(20302) || sm.hasQuestStarted(20303) || sm.hasQuestStarted(20304) || sm.hasQuestStarted(20305)) {
-            Field field = sm.getField().getFieldStorage().getFieldById(913002300).get();
+            Field field = sm.getField().getFieldStorage().getFieldById(913002300).orElseThrow();
             if (field.getUserPool().getCount() > 0) {
-                sm.broadcastMessage("Someone else is already searching the area.", true);
+                sm.message("Someone else is already searching the area.");
                 return;
             }
 
             if (sm.hasItem(4032101, 1)) {
-                sm.broadcastMessage("You have already challenged the Master of Disguise, report your success to the Chief Knight.", true);
+                sm.message("You have already challenged the Master of Disguise, report your success to the Chief Knight.");
                 return;
             }
 
@@ -132,14 +132,14 @@ public final class CygnusQuest extends ScriptHandler {
         // Empress' Road : Training Forest III (130010200)
         //   west00 (-4097, 90)
         if (sm.hasQuestStarted(20301) || sm.hasQuestStarted(20302) || sm.hasQuestStarted(20303) || sm.hasQuestStarted(20304) || sm.hasQuestStarted(20305)) {
-            Field field = sm.getField().getFieldStorage().getFieldById(913002400).get();
+            Field field = sm.getField().getFieldStorage().getFieldById(913002400).orElseThrow();
             if (field.getUserPool().getCount() > 0) {
-                sm.broadcastMessage("Someone else is already searching the area.", true);
+                sm.message("Someone else is already searching the area.");
                 return;
             }
 
             if (sm.hasItem(4032101, 1)) {
-                sm.broadcastMessage("You have already challenged the Master of Disguise, report your success to the Chief Knight.", true);
+                sm.message("You have already challenged the Master of Disguise, report your success to the Chief Knight.");
                 return;
             }
 
@@ -162,7 +162,7 @@ public final class CygnusQuest extends ScriptHandler {
         }
 
         sm.sayOk("Darn, you found me! Then, there's only one way out! Let's fight, like #rBlack Wings#k should!");
-        sm.spawnMob(9001009, MobAppearType.NORMAL, 542, 88, false, true);
+        sm.spawnMob(9001009, MobAppearType.NORMAL, 542, 88, false);
         sm.removeNpc(1104104);
     }
 

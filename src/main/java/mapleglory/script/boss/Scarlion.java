@@ -23,16 +23,16 @@ public class Scarlion extends ScriptHandler {
     public static void myboss0(ScriptManager sm) {
         // myboss0 (5511000)
         //   Malaysia : Spooky World (551030200)
-        sm.broadcastMessage("Beware! The furious Scarlion has shown himself!", true);
-        sm.spawnMob(SCARLION_BOSS, MobAppearType.NORMAL, -527, 637, true, true);
+        sm.broadcastMessage("Beware! The furious Scarlion has shown himself!");
+        sm.spawnMob(SCARLION_BOSS, MobAppearType.NORMAL, -527, 637, true);
     }
 
     @Script("myboss1")
     public static void myboss1(ScriptManager sm) {
         // myboss1 (5511001)
         //   Malaysia : Spooky World (551030200)
-        sm.broadcastMessage("Beware! The furious Scarlion has shown himself!", true);
-        sm.spawnMob(SCARLION_BOSS, MobAppearType.NORMAL, -238, 636, true, true);
+        sm.broadcastMessage("Beware! The furious Scarlion has shown himself!");
+        sm.spawnMob(SCARLION_BOSS, MobAppearType.NORMAL, -238, 636, true);
     }
 
     @Script("Malay_Warp")

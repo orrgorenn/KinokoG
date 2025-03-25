@@ -23,6 +23,8 @@ public enum QuestRecordType {
     TheSmallGraveThatsHidden(3017),
     AlcasterAndTheDarkCrystal(3035),
 
+    MorensNewDiscovery(6029),
+
     UnityPortal(7050),              // Dimensional Mirror Return Map
     FreeMarket(7600),               // Free Market Return Map
     TatamoLikeness(7810),           // Chief Tatamo Magic Seed Discount

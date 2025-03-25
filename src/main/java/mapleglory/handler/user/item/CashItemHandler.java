@@ -10,13 +10,12 @@ import mapleglory.packet.user.UserPacket;
 import mapleglory.packet.user.UserRemote;
 import mapleglory.packet.world.BroadcastPacket;
 import mapleglory.packet.world.MapTransferPacket;
+import mapleglory.packet.world.MessagePacket;
 import mapleglory.packet.world.WvsContext;
 import mapleglory.provider.ItemProvider;
 import mapleglory.provider.NpcProvider;
 import mapleglory.provider.StringProvider;
-import mapleglory.provider.item.ItemInfo;
-import mapleglory.provider.item.ItemInfoType;
-import mapleglory.provider.item.ItemOptionInfo;
+import mapleglory.provider.item.*;
 import mapleglory.provider.map.PortalInfo;
 import mapleglory.provider.npc.NpcTemplate;
 import mapleglory.server.dialog.shop.ShopDialog;
@@ -30,8 +29,6 @@ import mapleglory.world.field.Field;
 import mapleglory.world.field.MapleTvMessage;
 import mapleglory.world.field.affectedarea.AffectedArea;
 import mapleglory.world.item.*;
-import mapleglory.world.job.JobConstants;
-import mapleglory.world.skill.SkillConstants;
 import mapleglory.world.skill.SkillManager;
 import mapleglory.world.skill.SkillRecord;
 import mapleglory.world.user.AvatarLook;
@@ -647,6 +644,52 @@ public final class CashItemHandler extends ItemHandler {
                     user.updatePassiveSkillData();
                     user.validateStat();
                 }
+                case REWARD -> {
+                    // Resolve reward info
+                    final Optional<ItemRewardInfo> itemRewardInfoResult = ItemProvider.getItemRewardInfo(itemId);
+                    if (itemRewardInfoResult.isEmpty()) {
+                        log.error("Could not resolve reward info for item ID : {}", itemId);
+                        user.dispose();
+                        return;
+                    }
+                    final ItemRewardInfo itemRewardInfo = itemRewardInfoResult.get();
+                    // Resolve reward
+                    if (!itemRewardInfo.canAddReward(locked)) {
+                        user.write(MessagePacket.system("You do not have enough inventory space."));
+                        user.dispose();
+                        return;
+                    }
+                    final Optional<ItemRewardEntry> rewardResult = Util.getRandomFromCollection(itemRewardInfo.getEntries(), ItemRewardEntry::getProbability);
+                    if (rewardResult.isEmpty()) {
+                        log.error("Could not resolve lottery item reward for item {}", itemId);
+                        return;
+                    }
+                    final ItemRewardEntry rewardEntry = rewardResult.get();
+                    final Optional<ItemInfo> rewardItemInfoResult = ItemProvider.getItemInfo(rewardEntry.getItemId());
+                    if (rewardItemInfoResult.isEmpty()) {
+                        log.error("Could not resolve item info for item ID : {}", rewardEntry.getItemId());
+                        return;
+                    }
+                    // Consume item
+                    final Optional<InventoryOperation> removeItemResult = im.removeItem(position, item, 1);
+                    if (removeItemResult.isEmpty()) {
+                        throw new IllegalStateException(String.format("Could not remove reward item %d in position %d", item.getItemId(), position));
+                    }
+                    user.write(WvsContext.inventoryOperation(removeItemResult.get(), false));
+                    // Add reward item
+                    final Item rewardItem = rewardItemInfoResult.get().createItem(user.getNextItemSn(), rewardEntry.getCount());
+                    if (rewardEntry.getPeriod() > 0) {
+                        rewardItem.setDateExpire(Instant.now().plus(rewardEntry.getPeriod(), ChronoUnit.MINUTES));
+                    }
+                    final Optional<List<InventoryOperation>> addResult = user.getInventoryManager().addItem(rewardItem);
+                    if (addResult.isEmpty()) {
+                        throw new IllegalStateException("Could not add reward item to inventory");
+                    }
+                    user.write(WvsContext.inventoryOperation(addResult.get(), true));
+                    if (rewardEntry.hasEffect()) {
+                        user.write(UserLocal.effect(Effect.lotteryUse(itemId, rewardEntry.getEffect())));
+                    }
+                }
                 case SHOPSCANNER -> {
                     final int sItemId = inPacket.decodeInt();
                     log.debug(sItemId);
@@ -732,11 +775,11 @@ public final class CashItemHandler extends ItemHandler {
             return;
         }
         // Consume item and warp
-        final Optional<InventoryOperation> removeUpgradeItemResult = user.getInventoryManager().removeItem(position, item, 1);
-        if (removeUpgradeItemResult.isEmpty()) {
+        final Optional<InventoryOperation> removeItemResult = user.getInventoryManager().removeItem(position, item, 1);
+        if (removeItemResult.isEmpty()) {
             throw new IllegalStateException(String.format("Could not remove map transfer item %d in position %d", item.getItemId(), position));
         }
-        user.write(WvsContext.inventoryOperation(removeUpgradeItemResult.get(), false));
+        user.write(WvsContext.inventoryOperation(removeItemResult.get(), false));
         user.warp(targetField, targetPortalResult.get(), false, false);
     }
 }

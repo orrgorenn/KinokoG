@@ -11,9 +11,7 @@ import mapleglory.provider.EtcProvider;
 import mapleglory.provider.ItemProvider;
 import mapleglory.provider.QuestProvider;
 import mapleglory.provider.ShopProvider;
-import mapleglory.provider.item.ItemInfo;
-import mapleglory.provider.item.ItemInfoType;
-import mapleglory.provider.item.ItemMakeInfo;
+import mapleglory.provider.item.*;
 import mapleglory.provider.map.PortalInfo;
 import mapleglory.provider.quest.QuestInfo;
 import mapleglory.script.common.ScriptAnswer;
@@ -71,6 +69,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static mapleglory.world.skill.FameConstants.*;
@@ -520,7 +519,7 @@ public final class UserHandler {
             // Validate stat
             final CharacterStat cs = locked.get().getCharacterStat();
             if (cs.getAp() < 1) {
-                log.error("<User: {}> Tried to add ap with {} remaining ap", user.getCharacterName(), cs.getAp());
+                log.warn("<User: {}> Tried to add ap with {} remaining ap", user.getCharacterName(), cs.getAp());
                 user.dispose();
                 return;
             }
@@ -651,20 +650,20 @@ public final class UserHandler {
                 }
                 // Check if sp can be added
                 if (spentSp >= totalSp) {
-                    log.error("<User: {}> Tried to add skill {} without having the required amount of sp", user.getCharacterName(), skillId);
+                    log.warn("<User: {}> Tried to add skill {} without having the required amount of sp", user.getCharacterName(), skillId);
                     user.dispose();
                     return;
                 }
             } else if (JobConstants.isExtendSpJob(skillRoot)) {
                 final int jobLevel = JobConstants.getJobLevel(skillRoot);
                 if (!user.getCharacterStat().getSp().removeSp(jobLevel, 1)) {
-                    log.error("<User: {}> Tried to add skill {} without having the required amount of sp", user.getCharacterName(), skillId);
+                    log.warn("<User: {}> Tried to add skill {} without having the required amount of sp", user.getCharacterName(), skillId);
                     user.dispose();
                     return;
                 }
             } else {
                 if (!user.getCharacterStat().getSp().removeNonExtendSp(1)) {
-                    log.error("<User: {}> Tried to add skill {} without having the required amount of sp", user.getCharacterName(), skillId);
+                    log.warn("<User: {}> Tried to add skill {} without having the required amount of sp", user.getCharacterName(), skillId);
                     user.dispose();
                     return;
                 }
@@ -905,221 +904,6 @@ public final class UserHandler {
     @Handler(InHeader.UserUseGachaponRemoteRequest)
     public static void handleUserUseGachaponRemoteRequest(User user, InPacket inPacket) {
         int itemId = inPacket.decodeInt();
-    }
-
-    @Handler(InHeader.UserLotteryItemUseRequest)
-    public static void handleUserLotteryItemUseRequest(User user, InPacket inPacket) {
-        final short slot = inPacket.decodeShort();  // slot
-        final int itemId = inPacket.decodeInt();  // itemID
-        List<Triple<Integer, Integer, Integer>> triples = getTriples(itemId);
-        if(triples == null) {
-            log.error("Failed to match itemId to lottery item.");
-            return;
-        }
-
-        // Select a random reward based on probability
-        Optional<Triple<Integer, Integer, Integer>> rewardResult = Util.getRandomFromCollection(triples, Triple::getThird);
-        if (rewardResult.isEmpty()) {
-            log.error("Failed to determine a reward for lottery item ID: {}", itemId);
-            return;
-        }
-
-        int rewardItemId = rewardResult.get().getFirst();
-        int rewardCount = rewardResult.get().getSecond();
-
-        try (var locked = user.acquire()) {
-            InventoryManager im = user.getInventoryManager();
-
-            // Remove the used item from inventory
-            Optional<List<InventoryOperation>> removeResult = im.removeItem(itemId, 1);
-            if (removeResult.isEmpty()) {
-                log.error("Failed to remove lottery item from inventory, slot: {}", slot);
-                return;
-            }
-
-            // Give the user the selected reward
-            Optional<ItemInfo> itemInfoResult = ItemProvider.getItemInfo(rewardItemId);
-            if (itemInfoResult.isEmpty()) {
-                log.error("Could not find item info for item ID: {}", rewardItemId);
-                return;
-            }
-
-            Item rewardItem = itemInfoResult.get().createItem(user.getNextItemSn(), rewardCount);
-            Optional<List<InventoryOperation>> addResult = im.addItem(rewardItem);
-            if (addResult.isEmpty()) {
-                log.error("Failed to add reward item ID: {} to inventory", rewardItemId);
-                return;
-            }
-
-            // Update client
-            user.write(WvsContext.inventoryOperation(removeResult.get(), false));
-            user.write(WvsContext.inventoryOperation(addResult.get(), true));
-            user.write(UserLocal.effect(Effect.itemMaker(MakerResult.SUCCESS)));
-            user.getField().broadcastPacket(UserRemote.effect(user, Effect.itemMaker(MakerResult.SUCCESS)));
-        }
-    }
-
-    private static List<Triple<Integer, Integer, Integer>> getTriples(int itemId) {
-        List<Triple<Integer, Integer, Integer>> rewards = null;
-
-        // TODO: refactor logic here to save rewards in other place
-        if (itemId == 2022580) { // King Pepe Warrior Box
-             rewards = List.of(
-                    Triple.of(1002990, 1, 4),  // King Pepe Great Blue Helmet (4%)
-                    Triple.of(1040145, 1, 4),  // King Pepe Gold Dragon (4%)
-                    Triple.of(1041148, 1, 4),  // King Pepe Red Shark (4%)
-                    Triple.of(1060134, 1, 4),  // King Pepe White Martial Arts Shorts (4%)
-                    Triple.of(1061156, 1, 4),  // King Pepe Red Shark Skirt (4%)
-                    Triple.of(1072399, 1, 2),  // King Pepe Dark Walker (2%)
-                    Triple.of(1302119, 1, 1),  // King Pepe Cutlass (1%)
-                    Triple.of(1312045, 1, 1),  // King Pepe Danker (1%)
-                    Triple.of(1322073, 1, 1),  // King Pepe Heavy Hammer (1%)
-                    Triple.of(1402064, 1, 1),  // King Pepe Highlander (1%)
-                    Triple.of(1412042, 1, 1),  // King Pepe Niam (1%)
-                    Triple.of(1422045, 1, 1),  // King Pepe Big Hammer (1%)
-                    Triple.of(1432057, 1, 1),  // King Pepe Nakamaki (1%)
-                    Triple.of(1442082, 1, 1),  // King Pepe Axe Polearm (1%)
-                    Triple.of(2002004, 2, 50), // Warrior Potion x2 (50%)
-                    Triple.of(2002004, 4, 20)  // Warrior Potion x4 (20%)
-            );
-        } else if (itemId == 2022581) { // King Pepe Magician Box
-            rewards = List.of(
-                    Triple.of(1002991, 1, 6),  // King Pepe Dark Matty (6%)
-                    Triple.of(1050155, 1, 6),  // King Pepe White Devil Robe (6%)
-                    Triple.of(1051191, 1, 6),  // King Pepe Red Doroness Robe (6%)
-                    Triple.of(1072400, 1, 6),  // King Pepe Black Salt Shoes (6%)
-                    Triple.of(1372053, 1, 3),  // King Pepe Wizard Wand (3%)
-                    Triple.of(1382070, 1, 3),  // King Pepe Petal Staff (3%)
-                    Triple.of(2002002, 2, 50), // Magic Potion x 2 (50%)
-                    Triple.of(2002002, 4, 20)  // Magic Potion x 4 (20%)
-            );
-        } else if (itemId == 2022582) { // King Pepe Bowman Box
-            rewards = List.of(
-                    Triple.of(1002992, 1, 4),   // King Pepe Red Polefeather Hat (4%)
-                    Triple.of(1040146, 1, 4),   // King Pepe Dark Legolier (4%)
-                    Triple.of(1041149, 1, 4),   // King Pepe Brown Legolas (4%)
-                    Triple.of(1060135, 1, 4),   // King Pepe Dark Legolier Pants (4%)
-                    Triple.of(1061157, 1, 4),   // King Pepe Brown Legolia Pants (4%)
-                    Triple.of(1452073, 1, 4),   // King Pepe Red Viper (4%)
-                    Triple.of(1462066, 1, 3),   // King Pepe Eagle Crow (3%)
-                    Triple.of(2002005, 2, 3),   // Sniper Potion x2 (3%)
-                    Triple.of(2002005, 4, 50)   // Sniper Potion x4 (50%)
-            );
-        } else if (itemId == 2022583) { // King Pepe Thief Box
-            rewards = List.of(
-                    Triple.of(1002993, 1, 4),  // King Pepe Dark Burglar (4%)
-                    Triple.of(1040147, 1, 4),  // King Pepe Black Knuckle Vest (4%)
-                    Triple.of(1041150, 1, 4),  // King Pepe Purple Steal (4%)
-                    Triple.of(1060136, 1, 4),  // King Pepe Black Knucklevest Pants (4%)
-                    Triple.of(1061158, 1, 4),  // King Pepe Purple Steal Pants (4%)
-                    Triple.of(1072402, 1, 4),  // King Pepe Blue Lined Boots (4%)
-                    Triple.of(1332088, 1, 3),  // King Pepe Gephart (3%)
-                    Triple.of(1472089, 1, 3),  // King Pepe Dark Guardian (3%)
-                    Triple.of(2001515, 2, 50), // Dexterity Potion x 2 (50%)
-                    Triple.of(2001515, 4, 20)  // Dexterity Potion x 4 (20%)
-            );
-        } else if (itemId == 2022584) { // King Pepe Pirate Box
-            rewards = List.of(
-                    Triple.of(1002994, 1, 8),  // King Pepe Blue Denemarine (8%)
-                    Triple.of(1052208, 1, 8),  // King Pepe Blue Suspenders Look (8%)
-                    Triple.of(1072403, 1, 8),  // King Pepe Brown Pirate Shoes (8%)
-                    Triple.of(1482037, 1, 3),  // King Pepe Silver Maiden (3%)
-                    Triple.of(1492038, 1, 3),  // King Pepe Shooting Star (3%)
-                    Triple.of(2001515, 2, 50), // Dexterity Potion x 2 (50%)
-                    Triple.of(2001515, 4, 20)  // Dexterity Potion x 4 (20%)
-            );
-        }else if (itemId == 2022570) { // King Pepe Warrior Weapon Box
-            rewards = List.of(
-                    Triple.of(1302119, 1, 2),   // King Pepe Cutlass (2%)
-                    Triple.of(1312045, 1, 6),   // King Pepe Danker (6%)
-                    Triple.of(1322073, 1, 2),   // King Pepe Heavy Hammer (2%)
-                    Triple.of(1402064, 1, 2),   // King Pepe Highlander (2%)
-                    Triple.of(1412042, 1, 2),   // King Pepe Niam (2%)
-                    Triple.of(1422045, 1, 2),   // King Pepe Big Hammer (2%)
-                    Triple.of(1432057, 1, 2),   // King Pepe Nakamaki (2%)
-                    Triple.of(1442082, 1, 2),   // King Pepe Axe Polearm (2%)
-                    Triple.of(2002004, 2, 50),  // Warrior Potion x2 (50%)
-                    Triple.of(2002004, 4, 30)   // Warrior Potion x4 (30%)
-            );
-        } else if (itemId == 2022571) {  // King Pepe Magician Weapon Box
-            rewards = List.of(
-                    Triple.of(1372053, 1, 10),  // King Pepe Wizard Wand (10%)
-                    Triple.of(1382070, 1, 10),  // King Pepe Petal Staff (10%)
-                    Triple.of(2002002, 2, 50),  // Magic Potion x2 (50%)
-                    Triple.of(2002002, 4, 30)   // Magic Potion x4 (30%)
-            );
-        } else if (itemId == 2022572) {  // King Pepe Bowman Weapon Box
-            rewards = List.of(
-                    Triple.of(1452073, 1, 10),  // King Pepe Red Viper (10%)
-                    Triple.of(1462066, 1, 10),  // King Pepe Eagle Crow (10%)
-                    Triple.of(2002005, 2, 50),  // Sniper Potion x2 (50%)
-                    Triple.of(2002005, 4, 30)   // Sniper Potion x4 (30%)
-            );
-        } else if (itemId == 2022573) {  // King Pepe Thief Weapon Box
-            rewards = List.of(
-                    Triple.of(1332088, 1, 10),  // King Pepe Gephart (10%)
-                    Triple.of(1472089, 1, 10),  // King Pepe Dark Guardian (10%)
-                    Triple.of(2001515, 2, 50),  // Dexterity Potion x2 (50%)
-                    Triple.of(2001515, 4, 30)   // Dexterity Potion x4 (30%)
-            );
-        } else if (itemId == 2022574) {  // King Pepe Pirate Weapon Box
-            rewards = List.of(
-                    Triple.of(1482037, 1, 10),  // King Pepe Silver Maiden (10%)
-                    Triple.of(1492038, 1, 10),  // King Pepe Shooting Star (10%)
-                    Triple.of(2001515, 2, 50),  // Dexterity Potion x2 (50%)
-                    Triple.of(2001515, 4, 30)   // Dexterity Potion x4 (30%)
-            );
-        } else if (itemId == 2022575) { // King Pepe Warrior Armor Box
-            rewards = List.of(
-                    Triple.of(1002990, 1, 5),  // King Pepe Great Blue Helmet (5.00%)
-                    Triple.of(1040145, 1, 5),  // King Pepe Gold Dragon (5.00%)
-                    Triple.of(1061156, 1, 5),  // King Pepe Red Shark (5.00%)
-                    Triple.of(1060134, 1, 5),  // King Pepe White Martial Arts Shorts (5.00%)
-                    Triple.of(1061156, 1, 5),  // King Pepe Red Shark Skirt (5.00%)
-                    Triple.of(1072399, 1, 5),  // King Pepe Dark Walker (5.00%)
-                    Triple.of(2002004, 2, 50), // Warrior Potion x2 (50.00%)
-                    Triple.of(2002004, 4, 20)  // Warrior Potion x4 (20.00%)
-            );
-        } else if (itemId == 2022576) { // King Pepe Magician Armor Box
-            rewards = List.of(
-                    Triple.of(1002991, 1, 10),  // King Pepe Dark Matty (10%)
-                    Triple.of(1050155, 1, 5),   // King Pepe White Devil Robe (5%)
-                    Triple.of(1051191, 1, 5),   // King Pepe Red Doroness Robe (5%)
-                    Triple.of(1072400, 1, 10),  // King Pepe Black Salt Shoes (10%)
-                    Triple.of(2002002, 2, 50),  // Magic Potion x2 (50%)
-                    Triple.of(2002002, 4, 20)   // Magic Potion x4 (20%)
-            );
-        } else if (itemId == 2022577) { // King Pepe Bowman Armor Box
-            rewards = List.of(
-                    Triple.of(1002992, 1, 10),  // King Pepe Red Polefeather Hat (10%)
-                    Triple.of(1040146, 1, 5),   // King Pepe Dark Legolier (5%)
-                    Triple.of(1041149, 1, 5),   // King Pepe Brown Legolas (5%)
-                    Triple.of(1060135, 1, 5),   // King Pepe Dark Legolier Pants (5%)
-                    Triple.of(1061157, 1, 5),   // King Pepe Brown Legolia Pants (5%)
-                    Triple.of(2002005, 2, 50),  // Sniper Potion x2 (50%)
-                    Triple.of(2002005, 4, 20)   // Sniper Potion x4 (20%)
-            );
-        } else if (itemId == 2022578) { // King Pepe Thief Armor Box
-            rewards = List.of(
-                    Triple.of(1002993, 1, 5),   // King Pepe Dark Burglar (5%)
-                    Triple.of(1040147, 1, 5),   // King Pepe Black Knuckle Vest (5%)
-                    Triple.of(1041150, 1, 5),   // King Pepe Purple Steal (5%)
-                    Triple.of(1060136, 1, 5),   // King Pepe Black Knucklevest Pants (5%)
-                    Triple.of(1061158, 1, 5),   // King Pepe Purple Steal Pants (5%)
-                    Triple.of(1072403, 1, 5),   // King Pepe Blue Lined Boots (5%)
-                    Triple.of(2001515, 2, 50),  // Dexterity Potion x2 (50%)
-                    Triple.of(2001515, 4, 20)   // Dexterity Potion x4 (20%)
-            );
-        } else if (itemId == 2022579) { // King Pepe Pirate Armor Box
-            rewards = List.of(
-                    Triple.of(1002994, 1, 10),  // King Pepe Blue Denemarine (10%)
-                    Triple.of(1052208, 1, 10),  // King Pepe Blue Suspenders Look (10%)
-                    Triple.of(1072403, 1, 10),  // King Pepe Brown Pirate Shoes (10%)
-                    Triple.of(2001515, 2, 50),  // Dexterity Potion x2 (50%)
-                    Triple.of(2001515, 4, 20)   // Dexterity Potion x4 (20%)
-            );
-        }
-        return rewards;
     }
 
     @Handler(InHeader.UserGivePopularityRequest)

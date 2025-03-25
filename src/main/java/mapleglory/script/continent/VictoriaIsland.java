@@ -286,7 +286,7 @@ public final class VictoriaIsland extends ScriptHandler {
                 sm.warp(fieldId + 10, "right00");
                 return;
             }
-            sm.broadcastMessage("You cannot access this area.", true);
+            sm.message("You cannot access this area.");
         }
     }
 
@@ -319,7 +319,7 @@ public final class VictoriaIsland extends ScriptHandler {
                 sm.warp(fieldId + 10, "right01");
                 return;
             }
-            sm.broadcastMessage("You cannot access this area.", true);
+            sm.message("You cannot access this area.");
         }
     }
 
@@ -622,10 +622,10 @@ public final class VictoriaIsland extends ScriptHandler {
         final int randomInt = sm.getRandomIntBelow(1);
         if(randomInt == 0 && !sm.hasItem(4032616, 1)) {
             sm.addItem(4032616, 1);
-            sm.broadcastMessage("You've retrieved a Mirror of Insight from the shattered Opalescent Glass Marble.", true);
+            sm.broadcastMessage("You've retrieved a Mirror of Insight from the shattered Opalescent Glass Marble.");
             sm.avatarOriented("Effect/OnUserEff.img/itemEffect/quest/2430071");
         } else {
-            sm.broadcastMessage("The Opalescent Glass Marble has shattered. Nothing is inside.", true);
+            sm.broadcastMessage("The Opalescent Glass Marble has shattered. Nothing is inside.");
             sm.avatarOriented("Effect/OnUserEff.img/itemEffect/quest/2430071");
         }
         sm.removeItem(2430071, 1);
@@ -653,7 +653,7 @@ public final class VictoriaIsland extends ScriptHandler {
             sm.playPortalSE();
             sm.warp(103050310);
         } else {
-            sm.broadcastMessage("You must be level 20.", true);
+            sm.message("You must be level 20.");
         }
     }
 
@@ -665,7 +665,7 @@ public final class VictoriaIsland extends ScriptHandler {
             sm.playPortalSE();
             sm.warp(103050340);
         } else {
-            sm.broadcastMessage("You must be level 25.", true);
+            sm.message("You must be level 25.");
         }
     }
 
@@ -677,7 +677,7 @@ public final class VictoriaIsland extends ScriptHandler {
             sm.playPortalSE();
             sm.warp(103050370);
         } else {
-            sm.broadcastMessage("You must be level 30.", true);
+            sm.message("You must be level 30.");
         }
     }
 
@@ -944,7 +944,7 @@ public final class VictoriaIsland extends ScriptHandler {
             return;
         }
 
-        sm.warp(101000000);
+        sm.warp(101000000, "tp");
     }
 
     @Script("bush1")
