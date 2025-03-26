@@ -30,4 +30,9 @@ public final class Consume extends ScriptHandler {
         sm.spawnMob(9300388, MobAppearType.REGEN, sm.getUser().getX(), sm.getUser().getY(), false);
         sm.removeItem(2430032);
     }
+
+    @Script("consume_2430144")
+    public static void consume_2430144(ScriptManager sm) {
+        // Secret Mastery Book (2430144)
+    }
 }

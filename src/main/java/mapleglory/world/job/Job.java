@@ -131,6 +131,40 @@ public enum Job {
         return jobId;
     }
 
+    public final String getJobBranchName() {
+        if (jobId / 100 == 0) {
+            return "Beginner";
+        }
+
+        // Explorers
+        if (jobId >= 100 && jobId < 200) return "Warrior";
+        if (jobId >= 200 && jobId < 300) return "Magician";
+        if (jobId >= 300 && jobId < 400) return "Archer";
+        if (jobId >= 400 && jobId < 500) return "Thief";
+        if (jobId >= 500 && jobId < 600) return "Pirate";
+
+        // Cygnus Knights
+        if (jobId >= 1100 && jobId < 1200) return "Dawn Warrior";
+        if (jobId >= 1200 && jobId < 1300) return "Blaze Wizard";
+        if (jobId >= 1300 && jobId < 1400) return "Wind Archer";
+        if (jobId >= 1400 && jobId < 1500) return "Night Walker";
+        if (jobId >= 1500 && jobId < 1600) return "Thunder Breaker";
+
+        // Aran
+        if (jobId >= 2100 && jobId <= 2112) return "Aran";
+
+        // Evan
+        if (jobId >= 2200 && jobId <= 2218) return "Evan";
+
+        // Resistance
+        if (jobId >= 3200 && jobId <= 3212) return "Battle Mage";
+        if (jobId >= 3300 && jobId <= 3312) return "Wild Hunter";
+        if (jobId >= 3500 && jobId <= 3512) return "Mechanic";
+
+        // Default
+        return "Unknown";
+    }
+
     public static Job getById(short jobId) {
         return jobMap.get(jobId);
     }

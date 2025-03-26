@@ -259,6 +259,23 @@ public final class SkillHandler {
         }
     }
 
+    @Handler(InHeader.UserTemporaryStatUpdateRequest)
+    public static void handleUserTemporaryStatUpdateRequest(User user, InPacket inPacket) {
+        log.debug("Should reset CTS stats");
+//        if (curTime - lastStatResetRequestTime < 500) {
+//            return;
+//        }
+//        getCurrentStats().forEach((key, value) -> {
+//            if (RESET_BY_TIME_CTS.contains(key)) {
+//                Option o = value.get(0);
+//                if (o.tOption != 0 && curTime - o.tStart >= o.tOption) {
+//                    removeStat(key, true);
+//                }
+//            }
+//        });
+//        this.lastStatResetRequestTime = curTime;
+    }
+
     @Handler(InHeader.UserThrowGrenade)
     public static void handleUserThrowGrenade(User user, InPacket inPacket) {
         final Skill skill = new Skill();
@@ -310,12 +327,12 @@ public final class SkillHandler {
         }
         final int hpCon = si.getHpCon(user, skill.slv, 0);
         if (user.getHp() <= hpCon) {
-            log.error("Tried to use skill {} without enough hp, current : {}, required : {}", skill.skillId, user.getHp(), hpCon);
+            log.warn("Tried to use skill {} without enough hp, current : {}, required : {}", skill.skillId, user.getHp(), hpCon);
             return;
         }
         final int mpCon = si.getMpCon(user, skill.slv);
         if (user.getMp() < mpCon) {
-            log.error("Tried to use skill {} without enough mp, current : {}, required : {}", skill.skillId, user.getMp(), mpCon);
+            log.warn("Tried to use skill {} without enough mp, current : {}, required : {}", skill.skillId, user.getMp(), mpCon);
             return;
         }
         final int comboCon = SkillConstants.getRequiredComboCount(skill.skillId);

@@ -624,7 +624,7 @@ public final class UserHandler {
             }
             final SkillRecord skillRecord = skillRecordResult.get();
             if (skillRecord.getSkillLevel() >= skillRecord.getMasterLevel()) {
-                log.error("<User: {}> Tried to add a skill {} at master level {}/{}", user.getCharacterName(), skillId, skillRecord.getSkillLevel(), skillRecord.getMasterLevel());
+                log.warn("<User: {}> Tried to add a skill {} at master level {}/{}", user.getCharacterName(), skillId, skillRecord.getSkillLevel(), skillRecord.getMasterLevel());
                 user.dispose();
                 return;
             }

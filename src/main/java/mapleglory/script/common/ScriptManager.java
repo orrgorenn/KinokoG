@@ -74,6 +74,8 @@ public interface ScriptManager {
 
     void useSummoningSack(int itemId, int x, int y);
 
+    int getRandomMasteryBook(int jobId);
+
 
     // INVENTORY METHODS -----------------------------------------------------------------------------------------------
 

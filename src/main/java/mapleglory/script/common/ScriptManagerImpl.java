@@ -58,6 +58,8 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static mapleglory.provider.ItemProvider.MASTERY_BOOKS;
+
 public final class ScriptManagerImpl implements ScriptManager {
     private final ScriptMemory scriptMemory = new ScriptMemory();
     private final User user;
@@ -218,7 +220,7 @@ public final class ScriptManagerImpl implements ScriptManager {
             case WARRIOR, DAWN_WARRIOR_1 -> {
                 cs.setMaxHp(cs.getMaxHp() + Util.getRandom(200, 250));
             }
-            case FIGHTER, DAWN_WARRIOR_2 -> {
+            case FIGHTER, DAWN_WARRIOR_2, WHITE_KNIGHT, PALADIN, DRAGON_KNIGHT, DARK_KNIGHT, DAWN_WARRIOR_3 -> {
                 cs.setMaxHp(cs.getMaxHp() + Util.getRandom(300, 350));
             }
             case PAGE, SPEARMAN, MAGICIAN, BLAZE_WIZARD_1, ARAN_2 -> {
@@ -231,9 +233,10 @@ public final class ScriptManagerImpl implements ScriptManager {
                 cs.setMaxHp(cs.getMaxHp() + Util.getRandom(100, 150));
                 cs.setMaxMp(cs.getMaxMp() + Util.getRandom(25, 50));
             }
-            case HUNTER, CROSSBOWMAN, ASSASSIN, BANDIT, BRAWLER, GUNSLINGER, WIND_ARCHER_2, NIGHT_WALKER_2, THUNDER_BREAKER_2 -> {
+            case HUNTER, CROSSBOWMAN, ASSASSIN, BANDIT, BRAWLER, GUNSLINGER,
+                    WIND_ARCHER_2, NIGHT_WALKER_2, THUNDER_BREAKER_2, RANGER, BOWMASTER, SNIPER, MARKSMAN, HERMIT, NIGHT_LORD, CHIEF_BANDIT, SHADOWER, MARAUDER, BUCCANEER, OUTLAW, CORSAIR, WIND_ARCHER_3, NIGHT_WALKER_3, THUNDER_BREAKER_3 -> {
                 cs.setMaxHp(cs.getMaxHp() + Util.getRandom(300, 350));
-                cs.setMaxMp(cs.getMaxMp() + Util.getRandom(150, 200));
+                cs.setMaxHp(cs.getMaxHp() + Util.getRandom(150, 200));
             }
             case ARAN_1 -> {
                 cs.setMaxHp(cs.getMaxHp() + Util.getRandom(250, 300));
@@ -242,6 +245,14 @@ public final class ScriptManagerImpl implements ScriptManager {
             case EVAN_1, EVAN_2, EVAN_3, EVAN_4, EVAN_5, EVAN_6, EVAN_7, EVAN_8, EVAN_9, EVAN_10 -> {
                 cs.setMaxHp(cs.getMaxHp() + Util.getRandom(15, 25));
                 cs.setMaxMp(cs.getMaxMp() + Util.getRandom(150, 200));
+            }
+
+            case PRIEST, BISHOP, WIZARD_FP, ARCH_MAGE_FP, WIZARD_IL, ARCH_MAGE_IL -> {
+                cs.setMaxMp(cs.getMaxMp() + Util.getRandom(400, 450));
+            }
+
+            case GM, MANAGER, SUPER_GM -> {
+                cs.setMaxHp(30000); // Just cap it immediately
             }
         }
         // Add ap by job level
@@ -450,6 +461,11 @@ public final class ScriptManagerImpl implements ScriptManager {
                 this.spawnMob(mobId, MobAppearType.NORMAL, x, y, true);
             }
         }
+    }
+
+    @Override
+    public int getRandomMasteryBook(int jobId) {
+        return MASTERY_BOOKS.get(getRandomIntBelow(MASTERY_BOOKS.size()));
     }
 
 

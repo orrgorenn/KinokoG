@@ -7,6 +7,8 @@ import mapleglory.script.common.ScriptManager;
 import mapleglory.server.event.EventState;
 import mapleglory.server.event.EventType;
 import mapleglory.server.event.Subway;
+import mapleglory.server.rank.CharacterRank;
+import mapleglory.server.rank.RankManager;
 import mapleglory.util.Util;
 import mapleglory.world.job.Job;
 import mapleglory.world.job.JobConstants;
@@ -15,6 +17,7 @@ import mapleglory.world.quest.QuestRecordType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public final class VictoriaIsland extends ScriptHandler {
@@ -1013,6 +1016,19 @@ public final class VictoriaIsland extends ScriptHandler {
             sm.warp(900000000, "out01");
         } else {
             sm.message("A mysterious force is blocking your progress...");
+        }
+    }
+
+    @Script("rank_user")
+    public static void rank_user(ScriptManager sm) {
+        // TODO: Make sure GMS-like
+        final Optional<CharacterRank> characterRankResult = RankManager.getCharacterRank(sm.getUser().getCharacterId());
+        if (characterRankResult.isPresent()) {
+            CharacterRank rank = characterRankResult.get();
+            String jobBranchName = sm.getJob().getJobBranchName();
+            String prompt = "Hi, I am " + blue(npcName(sm.getSpeakerId())) + ", " + red(Util.ordinal(rank.getJobRank())) + " in the " + red(jobBranchName) + " class to reach the max level and obtain a statue on Scania.\r\n";
+            prompt += "\r\n     World rank: " + bold(blue(Util.ordinal(rank.getWorldRank())));
+            sm.sayOk(prompt);
         }
     }
 }

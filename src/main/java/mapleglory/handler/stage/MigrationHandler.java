@@ -299,7 +299,7 @@ public final class MigrationHandler {
                         if (user.getSecondaryStat().hasOption(CharacterTemporaryStat.SoulStone)) {
                             // user.resetTemporaryStat(Set.of(CharacterTemporaryStat.SoulStone)); - SecondaryStat cleared on revive
                             user.write(UserLocal.effect(Effect.soulStoneUse())); // You have revived on the current map through the effect of the Spirit Stone.
-                            handleRevive(user, true);
+                            handleRevive(user, true, false);
                             return;
                         } else if (user.getInventoryManager().hasItem(ItemConstants.WHEEL_OF_DESTINY, 1)) {
                             if (!currentField.isUpgradeTombUsable()) {
@@ -313,12 +313,12 @@ public final class MigrationHandler {
                             user.write(WvsContext.inventoryOperation(removeResult.get(), false));
                             final int remain = user.getInventoryManager().getItemCount(ItemConstants.WHEEL_OF_DESTINY);
                             user.write(UserLocal.effect(Effect.upgradeTombItemUse(remain))); // You have used 1 Wheel of Destiny in order to revive at the current map. (%d left)
-                            handleRevive(user, true);
+                            handleRevive(user, true, false);
                             return;
                         }
                     }
                     // Normal revive
-                    handleRevive(user, false);
+                    handleRevive(user, false, user.getInventoryManager().hasItem(5130000, 1));
                     return;
                 }
                 // Transfer field by client request : ReservedEffect, CField::OBSTACLE, /m <map ID> - TODO: disallow /m command for non-GM
@@ -494,7 +494,7 @@ public final class MigrationHandler {
         user.warp(targetField, targetPortalResult.get(), false, isRevive);
     }
 
-    private static void handleRevive(User user, boolean premium) {
+    private static void handleRevive(User user, boolean premium, boolean safetyCharm) {
         user.getSecondaryStat().clear();
         user.getSummoned().clear();
         user.updatePassiveSkillData();
@@ -504,6 +504,10 @@ public final class MigrationHandler {
             user.setHp(user.getMaxHp());
             user.setMp(user.getMaxMp());
             handleTransferField(user, user.getField().getFieldId(), GameConstants.DEFAULT_PORTAL_NAME, true, false);
+        } else if(safetyCharm) {
+            user.setHp(user.getMaxHp() / 3);
+            user.setMp(user.getMaxMp() / 3);
+            handleTransferField(user, user.getField().getFieldId(), GameConstants.DEFAULT_PORTAL_NAME, true, true);
         } else {
             user.setHp(50);
             handleTransferField(user, user.getField().getReturnMap(), GameConstants.DEFAULT_PORTAL_NAME, true, true);
