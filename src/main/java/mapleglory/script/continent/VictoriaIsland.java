@@ -1031,4 +1031,17 @@ public final class VictoriaIsland extends ScriptHandler {
             sm.sayOk(prompt);
         }
     }
+
+    @Script("q21712s")
+    public static void q21712s(ScriptManager sm) {
+        sm.sayNext(itemName(4032315) + "... " + red("This puppet is making a strange noise") + ". You can't hear it with your ears, of course, since it can only be heard by the " + mobName(1210102) +"s. I believe it's this noise that changed the personality of the " + mobName(1210102) + "s.");
+        if (sm.askAccept("The " + mobName(1210102) + "s that have been affected by the noise have turned cynical. They've started fighting the non-affected " + mobName(1210102) + "s, which has made all " + mobName(1210102) + " prepare for combat. " + blue("The reason for all these changes in the " + mobName(1210102) + " is this puppet") + "! Do you understand?")) {
+            sm.sayNext("I wonder what triggered this in the first place. There is no way this puppet was naturally created, which means someone planned this. I should keep an eye on the " + mobName(1210102) + "s.");
+            sm.forceStartQuest(21712);
+            sm.setPlayerAsSpeaker(true);
+            sm.sayBoth(blue("(You were able to find out what caused the changes in the " + mobName(1210102) + "s. You should report to " + npcName(1002104) + " and deliver the information you\"ve gathered.)"));
+        } else {
+            sm.sayOk("You still don't understand what's going on? I'll explain it to you again if you talk to me one more time.");
+        }
+    }
 }

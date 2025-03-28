@@ -722,7 +722,7 @@ public final class ScriptManagerImpl implements ScriptManager {
         }
         final Instance instance = instanceResult.get();
         variables.forEach(instance::setVariable);
-        final Field targetField = instance.getFieldStorage().getFieldById(mapIds.get(0)).orElseThrow();
+        final Field targetField = instance.getFieldStorage().getFieldById(mapIds.getFirst()).orElseThrow();
         // Resolve portal
         final Optional<PortalInfo> portalResult = targetField.getPortalByName(portalName);
         if (portalResult.isEmpty()) {

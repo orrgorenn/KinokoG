@@ -472,6 +472,12 @@ public final class MinarForest extends ScriptHandler {
         return stimulatorBase;
     }
 
+    @Script("dracoout")
+    public static void dracoout(ScriptManager sm) {
+        sm.playPortalSE();
+        sm.warp(240000100, "east00");
+    }
+
 
     // TEMPLE OF TIME SCRIPTS ------------------------------------------------------------------------------------------
 
