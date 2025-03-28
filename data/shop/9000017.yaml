@@ -5,4 +5,4 @@ items:
   - [ 4031112, 1500 ] # Gold Ribbon
   - [ 4031113, 3000 ] # Basket
   - [ 4031114, 1200 ] # Cover Material
-  - [ 4031125, 300, 1, 1000 ] # Wooden Skewer
+  - [ 4031125, 300, 1, 100 ] # Wooden Skewer
