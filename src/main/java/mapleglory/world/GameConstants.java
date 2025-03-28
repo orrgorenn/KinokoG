@@ -100,8 +100,8 @@ public final class GameConstants {
     public static final int MOB_HP_TAG_INTERVAL = 500;
     public static final int MOB_SKILL_COOLTIME = 6;
     public static final int MOB_RECOVER_TIME = 5;
-    public static final int MOB_RESPAWN_TIME = 7;
-    public static final int MOB_CAPACITY_MAX = 40;
+    public static final int MOB_RESPAWN_TIME = 4;
+    public static final int MOB_CAPACITY_MAX = 60;
     public static final double MOB_CAPACITY_CONSTANT = 0.0000078125;
 
 
