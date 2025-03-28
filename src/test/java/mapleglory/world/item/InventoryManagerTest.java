@@ -96,12 +96,12 @@ public final class InventoryManagerTest {
         Assertions.assertEquals(ORANGE_POTION, im.getConsumeInventory().getItem(2).getItemId());
         Assertions.assertEquals(5, im.getConsumeInventory().getItem(2).getQuantity());
 
-        Assertions.assertTrue(im.addItem(createItem(RED_POTION, 200)).isPresent());
-        Assertions.assertEquals(200, im.getConsumeInventory().getItem(1).getQuantity());
+        Assertions.assertTrue(im.addItem(createItem(RED_POTION, 100)).isPresent());
+        Assertions.assertEquals(100, im.getConsumeInventory().getItem(1).getQuantity());
         Assertions.assertNotNull(im.getConsumeInventory().getItem(3));
         Assertions.assertEquals(5, im.getConsumeInventory().getItem(3).getQuantity());
 
-        Assertions.assertFalse(im.addItem(createItem(RED_POTION, 200)).isPresent());
+        Assertions.assertFalse(im.addItem(createItem(RED_POTION, 100)).isPresent());
     }
 
     @Test
@@ -111,23 +111,23 @@ public final class InventoryManagerTest {
 
         Assertions.assertTrue(im.canAddItem(createItem(RED_POTION, 5)));
         Assertions.assertTrue(im.canAddItems(Set.of(createItem(RED_POTION, 5), createItem(ORANGE_POTION, 5))));
-        Assertions.assertFalse(im.canAddItems(Set.of(createItem(RED_POTION, 200), createItem(ORANGE_POTION, 5000))));
+        Assertions.assertFalse(im.canAddItems(Set.of(createItem(RED_POTION, 100), createItem(ORANGE_POTION, 5000))));
         Assertions.assertFalse(im.canAddItems(Set.of(
-                createItem(RED_POTION, 200),
-                createItem(RED_POTION, 200),
-                createItem(RED_POTION, 200),
-                createItem(RED_POTION, 200),
-                createItem(RED_POTION, 200),
-                createItem(RED_POTION, 200)
+                createItem(RED_POTION, 100),
+                createItem(RED_POTION, 100),
+                createItem(RED_POTION, 100),
+                createItem(RED_POTION, 100),
+                createItem(RED_POTION, 100),
+                createItem(RED_POTION, 100)
         )));
 
         Assertions.assertTrue(im.addItem(createItem(RED_POTION, 50)).isPresent());
         Assertions.assertTrue(im.canAddItems(Set.of(
-                createItem(ORANGE_POTION, 200),
-                createItem(ORANGE_POTION, 200),
-                createItem(ORANGE_POTION, 200),
+                createItem(ORANGE_POTION, 100),
+                createItem(ORANGE_POTION, 100),
+                createItem(ORANGE_POTION, 100),
                 createItem(RED_POTION, 50),
-                createItem(RED_POTION, 200)
+                createItem(RED_POTION, 100)
         )));
     }
 
