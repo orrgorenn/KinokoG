@@ -43,7 +43,6 @@ import mapleglory.world.job.Job;
 import mapleglory.world.job.JobConstants;
 import mapleglory.world.quest.QuestRecord;
 import mapleglory.world.quest.QuestRecordType;
-import mapleglory.world.skill.SkillConstants;
 import mapleglory.world.skill.SkillManager;
 import mapleglory.world.skill.SkillRecord;
 import mapleglory.world.user.Dragon;

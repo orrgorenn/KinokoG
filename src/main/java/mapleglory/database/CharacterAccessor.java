@@ -3,7 +3,6 @@ package mapleglory.database;
 import mapleglory.server.rank.CharacterRank;
 import mapleglory.world.user.AvatarData;
 import mapleglory.world.user.CharacterData;
-import mapleglory.world.user.PersonalInfo;
 
 import java.util.List;
 import java.util.Map;

@@ -1,17 +1,10 @@
 package mapleglory.world.skill;
 
-import mapleglory.database.DatabaseManager;
 import mapleglory.provider.SkillProvider;
 import mapleglory.provider.skill.SkillInfo;
 import mapleglory.provider.skill.SkillStat;
 import mapleglory.world.job.JobConstants;
-import mapleglory.world.job.cygnus.Noblesse;
-import mapleglory.world.job.explorer.Beginner;
-import mapleglory.world.job.legend.Aran;
-import mapleglory.world.job.legend.Evan;
-import mapleglory.world.job.resistance.Citizen;
 import mapleglory.world.job.resistance.Mechanic;
-import mapleglory.world.user.CharacterData;
 import mapleglory.world.user.stat.BasicStat;
 import mapleglory.world.user.stat.SecondaryStat;
 

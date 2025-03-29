@@ -5,7 +5,6 @@ import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.util.Tuple;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

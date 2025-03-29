@@ -7,7 +7,6 @@ import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.server.event.*;
 import mapleglory.util.Util;
-import mapleglory.world.field.Field;
 
 import java.util.HashMap;
 import java.util.List;

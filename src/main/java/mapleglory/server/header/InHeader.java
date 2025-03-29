@@ -1,6 +1,5 @@
 package mapleglory.server.header;
 
-import mapleglory.handler.ClientHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

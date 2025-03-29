@@ -2,8 +2,6 @@ package mapleglory.world.skill;
 
 import mapleglory.provider.SkillProvider;
 import mapleglory.provider.skill.SkillInfo;
-import mapleglory.world.job.Job;
-import mapleglory.world.job.JobConstants;
 import mapleglory.world.user.stat.CharacterTemporaryStat;
 import mapleglory.world.user.stat.SecondaryStat;
 

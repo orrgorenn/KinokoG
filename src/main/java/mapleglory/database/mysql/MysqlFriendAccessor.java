@@ -3,7 +3,6 @@ package mapleglory.database.mysql;
 import mapleglory.database.DatabaseConnection;
 import mapleglory.database.FriendAccessor;
 import mapleglory.database.table.FriendTable;
-import mapleglory.database.table.GiftTable;
 import mapleglory.world.user.friend.Friend;
 import mapleglory.world.user.friend.FriendStatus;
 import org.slf4j.Logger;

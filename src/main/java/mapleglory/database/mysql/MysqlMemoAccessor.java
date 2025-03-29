@@ -2,9 +2,7 @@ package mapleglory.database.mysql;
 
 import mapleglory.database.DatabaseConnection;
 import mapleglory.database.MemoAccessor;
-import mapleglory.database.table.GiftTable;
 import mapleglory.database.table.MemoTable;
-import mapleglory.server.cashshop.Gift;
 import mapleglory.server.memo.Memo;
 import mapleglory.server.memo.MemoType;
 import mapleglory.util.Util;
@@ -13,7 +11,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 

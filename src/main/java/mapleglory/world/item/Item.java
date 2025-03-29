@@ -1,6 +1,5 @@
 package mapleglory.world.item;
 
-import mapleglory.packet.world.MessagePacket;
 import mapleglory.provider.ItemProvider;
 import mapleglory.provider.item.ItemInfo;
 import mapleglory.provider.item.ItemInfoType;

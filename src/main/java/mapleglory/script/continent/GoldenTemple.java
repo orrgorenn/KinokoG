@@ -3,10 +3,8 @@ package mapleglory.script.continent;
 import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
-import mapleglory.world.field.Field;
 
 import java.util.Map;
-import java.util.Optional;
 
 public final class GoldenTemple extends ScriptHandler {
     public static final int GOLDEN_TICKET_ID = 4001431;

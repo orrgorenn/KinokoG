@@ -20,7 +20,6 @@ import mapleglory.world.user.stat.ExtendSp;
 import mapleglory.world.user.stat.SecondaryStat;
 import mapleglory.world.user.stat.Stat;
 
-import javax.swing.text.Position;
 import java.util.List;
 import java.util.Map;
 

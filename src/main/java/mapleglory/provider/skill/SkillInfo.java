@@ -11,7 +11,6 @@ import mapleglory.world.job.explorer.Thief;
 import mapleglory.world.job.explorer.Warrior;
 import mapleglory.world.skill.ActionType;
 import mapleglory.world.skill.SkillConstants;
-import mapleglory.world.skill.SkillRecord;
 import mapleglory.world.user.User;
 import mapleglory.world.user.stat.CharacterTemporaryStat;
 import mapleglory.world.user.stat.SecondaryStat;

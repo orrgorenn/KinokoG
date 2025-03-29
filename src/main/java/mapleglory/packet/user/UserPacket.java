@@ -2,7 +2,6 @@ package mapleglory.packet.user;
 
 import mapleglory.provider.map.FieldType;
 import mapleglory.server.dialog.miniroom.MiniRoom;
-import mapleglory.server.dialog.miniroom.PersonalShop;
 import mapleglory.server.header.OutHeader;
 import mapleglory.server.packet.OutPacket;
 import mapleglory.world.field.summoned.Summoned;

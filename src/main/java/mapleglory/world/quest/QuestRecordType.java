@@ -1,7 +1,5 @@
 package mapleglory.world.quest;
 
-import mapleglory.script.boss.Zakum;
-
 /**
  * Special quest IDs used to store various state information for the user.
  */

@@ -7,7 +7,6 @@ import mapleglory.world.field.Field;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.Optional;
 
 public final class NeoCity extends ScriptHandler {

@@ -1,6 +1,5 @@
 package mapleglory.packet.stage;
 
-import mapleglory.database.mysql.MysqlAccountAccessor;
 import mapleglory.server.ServerConfig;
 import mapleglory.server.ServerConstants;
 import mapleglory.server.header.OutHeader;

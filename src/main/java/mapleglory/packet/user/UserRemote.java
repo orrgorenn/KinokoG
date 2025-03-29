@@ -1,7 +1,6 @@
 package mapleglory.packet.user;
 
 import mapleglory.server.header.OutHeader;
-import mapleglory.server.node.ServerNode;
 import mapleglory.server.packet.OutPacket;
 import mapleglory.util.BitFlag;
 import mapleglory.world.field.life.MovePath;
@@ -206,7 +205,6 @@ public final class UserRemote {
     }
 
     public static OutPacket receiveHp(User user) {
-        log.debug("receiveHp: {}, {}, {}", user.getChannelId(), user.getHp(), user.getMaxHp());
         final OutPacket outPacket = OutPacket.of(OutHeader.UserHP);
         outPacket.encodeInt(user.getCharacterId());
         outPacket.encodeInt(user.getHp());

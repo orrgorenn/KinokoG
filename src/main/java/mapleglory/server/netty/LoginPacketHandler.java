@@ -2,7 +2,6 @@ package mapleglory.server.netty;
 
 import mapleglory.handler.ClientHandler;
 import mapleglory.handler.stage.LoginHandler;
-import mapleglory.handler.stage.MigrationHandler;
 import mapleglory.server.header.InHeader;
 
 import java.lang.reflect.Method;

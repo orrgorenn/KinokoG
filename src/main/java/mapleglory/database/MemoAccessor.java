@@ -1,9 +1,7 @@
 package mapleglory.database;
 
 import mapleglory.server.memo.Memo;
-import mapleglory.server.memo.MemoType;
 
-import java.time.Instant;
 import java.util.List;
 
 public interface MemoAccessor {

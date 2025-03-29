@@ -1,7 +1,6 @@
 package mapleglory.server.party;
 
 import mapleglory.server.header.CentralHeader;
-import mapleglory.server.node.ChannelServerNode;
 import mapleglory.server.packet.InPacket;
 import mapleglory.server.packet.OutPacket;
 import mapleglory.util.Encodable;

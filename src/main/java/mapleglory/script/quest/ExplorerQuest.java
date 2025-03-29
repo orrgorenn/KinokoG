@@ -4,7 +4,6 @@ import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.util.Tuple;
-import mapleglory.world.field.mob.MobAppearType;
 import mapleglory.world.item.InventoryType;
 import mapleglory.world.job.Job;
 import mapleglory.world.quest.QuestRecordType;

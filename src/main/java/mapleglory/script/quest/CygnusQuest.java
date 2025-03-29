@@ -6,7 +6,6 @@ import mapleglory.script.common.ScriptManager;
 import mapleglory.util.Tuple;
 import mapleglory.world.field.Field;
 import mapleglory.world.field.mob.MobAppearType;
-import mapleglory.world.field.npc.Npc;
 import mapleglory.world.item.InventoryType;
 import mapleglory.world.job.Job;
 

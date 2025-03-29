@@ -2,7 +2,6 @@ package mapleglory.world.job.cygnus;
 
 import mapleglory.provider.SkillProvider;
 import mapleglory.provider.skill.SkillInfo;
-import mapleglory.provider.skill.SkillStat;
 import mapleglory.world.field.Field;
 import mapleglory.world.field.mob.Mob;
 import mapleglory.world.skill.Attack;

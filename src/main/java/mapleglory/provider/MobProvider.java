@@ -7,7 +7,6 @@ import mapleglory.server.ServerConfig;
 import mapleglory.server.ServerConstants;
 import mapleglory.util.Tuple;
 
-import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;

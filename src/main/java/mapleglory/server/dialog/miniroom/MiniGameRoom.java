@@ -9,8 +9,6 @@ import mapleglory.world.user.User;
 import mapleglory.world.user.data.MiniGameRecord;
 
 import java.util.HashSet;
-import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 public abstract class MiniGameRoom extends MiniRoom {
