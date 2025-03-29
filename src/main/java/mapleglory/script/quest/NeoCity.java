@@ -73,18 +73,12 @@ public final class NeoCity extends ScriptHandler {
     public static void TD_neo_inTree(ScriptManager sm) {
         // Tera Forest   : Tera Forest Time Gate (240070000)
         //   in00 (-39, 46)
-        Optional<Field> optToField = sm.getField().getFieldStorage().getFieldById(240070010);
-        if(optToField.isPresent()) {
-            Field toField = optToField.get();
+        sm.playPortalSE();
+        sm.warpInstance(240070020, "out00", 240070000, 60 * 15);
+    }
 
-            if (toField.getUserPool().getCount() > 0) {
-                sm.sayOk("Someone is already fighting Gatekeeper Nex. Please try at a later time.");
-                return;
-            }
-
-            sm.playPortalSE();
-            sm.warp(toField.getFieldId(), "out00");
-        }
-
+    @Script("TD_neo_Andy")
+    public static void TD_neo_Andy(ScriptManager sm) {
+        sm.sayOk("Hi, I am Andy, the time traveler from a not so distant future. I have come to avert the creation of machines by the greedy people of this time. They went berserk on my time and consumed everything to dust. I must stop it at any cost!");
     }
 }

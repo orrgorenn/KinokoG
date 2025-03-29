@@ -1278,11 +1278,17 @@ public final class AdminCommands {
         user.write(MessagePacket.system("  level : %d", mobTemplate.getLevel()));
         List<Reward> mobRewards = RewardProvider.getMobRewards(mobTemplate.getId());
         for (var reward : mobRewards) {
-            if(reward.isMoney() || reward.isQuest()) {
+            if(reward.isMoney()) {
                 continue;
             }
             final String itemName = StringProvider.getItemName(reward.getItemId());
-            user.write(MessagePacket.system("[%s] (%.2f%%)", itemName, reward.getProb() * 100));
+            String message = String.format("  - %s (%.2f%%)", itemName, reward.getProb() * 100);
+
+            if (reward.isQuest()) {
+                message += String.format(" [quest: %s]", reward.getQuestId());
+            }
+
+            user.write(MessagePacket.system(message));
         }
     }
 

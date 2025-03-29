@@ -174,7 +174,7 @@ public class Zakum extends ScriptHandler {
                     }
                 });
 
-                sm.partyWarp(280020000, "sp");
+                sm.partyWarpInstance(280020000, "sp", 211042300, 30 * 60);
 
                 break;
 

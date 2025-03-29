@@ -260,7 +260,7 @@ public abstract class ItemHandler {
             }
 
             // Broadcast pet action
-            user.getField().broadcastPacket(PetPacket.petActionFeed(user, petIndex, success, false));
+            user.getField().broadcastPacket(PetPacket.petActionFeed(user, petIndex, success, target.getChatBalloon()));
         }
     }
 

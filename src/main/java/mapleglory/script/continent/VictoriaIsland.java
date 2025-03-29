@@ -529,8 +529,20 @@ public final class VictoriaIsland extends ScriptHandler {
     public static void pet_letter(ScriptManager sm) {
         // Trainer Frod : Pet Trainer (1012007)
         //   Henesys : Pet-Walking Road (100000202)
-        if(sm.hasItem(4031035, 1)) {
-            sm.sayNext("You have made it! Now let me see... you want to learn 'Follow the Lead' skill? Since you've made it so far, I'll teach you the skill!");
+        if(sm.removeItem(4031035, 1)) {
+            sm.sayNext("Eh, that's my brother's letter! " +
+                    "Probably scolding me for thinking I'm not working and stuff...Eh? " +
+                    "Ahhh...you followed my brother's advice and trained your pet and got up here, huh? " +
+                    "Nice!! Since you worked hard to get here, I'll boost your intimacy level with your pet.");
+
+            sm.sayOk("What do you think? Don't you think you have gotten much closer with your pet? " +
+                    "If you have time, train your pet again on this obstacle course...of course, with my brother's permission.");
+            // TODO: Add closeness
+            // Closeness
+        } else {
+            sm.sayOk("My brother told me to take care of the pet obstacle course, " +
+                    "but ... since I'm so far away from him, I can't help but wanting to goof around ...hehe, " +
+                    "since I don't see him in sight, might as well just chill for a few minutes.");
             sm.removeItem(4031035);
             sm.addSkill(8, 1, 1);
             sm.sayOk("There you go! Have fun!");
@@ -1043,5 +1055,97 @@ public final class VictoriaIsland extends ScriptHandler {
         } else {
             sm.sayOk("You still don't understand what's going on? I'll explain it to you again if you talk to me one more time.");
         }
+    }
+
+    @Script("q2148s")
+    public static void q2148s(ScriptManager sm) {
+        sm.sayOk("Thank you so much.");
+        sm.forceCompleteQuest(2148);
+    }
+
+    @Script("q2149s")
+    public static void q2149s(ScriptManager sm) {
+        sm.sayOk("Thank you so much.");
+        sm.forceCompleteQuest(2149);
+    }
+
+    @Script("q2150s")
+    public static void q2150s(ScriptManager sm) {
+        sm.sayOk("Thank you so much.");
+        sm.forceCompleteQuest(2150);
+    }
+
+    @Script("q2151s")
+    public static void q2151s(ScriptManager sm) {
+        sm.sayOk("Thank you so much.");
+        sm.forceCompleteQuest(2151);
+    }
+
+    @Script("q2152s")
+    public static void q2152s(ScriptManager sm) {
+        sm.sayOk("Thank you so much.");
+        sm.forceCompleteQuest(2152);
+    }
+
+    @Script("s4strike")
+    public static void s4strike(ScriptManager sm) {
+        sm.sayOk("Who are you talking to? Me? If you're just bored, go bother somebody else.");
+    }
+
+    @Script("s4mind_in")
+    public static void s4mind_in(ScriptManager sm) {
+        sm.sayOk("Anyone can work out in the training room. If you're a true Pirate, you should be working out here at least once a day.");
+    }
+
+    @Script("multipet_success")
+    public static void multipet_success(ScriptManager sm) {
+        if (!sm.hasQuestStarted(4646) || sm.hasQuestCompleted(4646)) {
+            sm.setPlayerAsSpeaker(true);
+            sm.sayOk(blue("(I couldn't find anything.)"));
+            return;
+        }
+
+        sm.setPlayerAsSpeaker(true);
+        if (!sm.askYesNo("(I can see something covered in grass. Should I pull it out?)")) {
+            sm.sayOk(blue("(I didn't touch this hidden item covered in grass)"));
+            return;
+        }
+
+        if (!sm.addItem(4031921, 1)) {
+            // TODO: GMS-like
+            sm.sayOk("Please check whether your ETC. inventory is full.");
+            return;
+        }
+
+        sm.sayNext(blue("(I found the item that Pet Trainer Bartos hid... this note.)"));
+    }
+
+    @Script("multipet_fail")
+    public static void multipet_fail(ScriptManager sm) {
+        sm.setPlayerAsSpeaker(true);
+        if (!sm.askYesNo(blue("(I can see something covered in grass. Should I pull it out?)"))) {
+            sm.sayOk(blue("(I didn't think much of it, so I didn't touch it.)"));
+            return;
+        }
+
+        if (!sm.addItem(4031922, 1)) {
+            // TODO: GMS like
+            sm.setPlayerAsSpeaker(false);
+            sm.sayOk("Please check whether your ETC. inventory is full.");
+        }
+
+        sm.sayNext(blue("(Yuck... it's pet poop!)"));
+    }
+
+    @Script("q4647e")
+    public static void q4647e(ScriptManager sm) {
+        if (!sm.removeItem(5460000, 1)) {
+            sm.sayOk("Get me the Pet Snack! It can be found in a very big shop...");
+            return;
+        }
+
+        sm.sayNext("You got the Pet Snack! Thanks! You can use these to feed multiple pets at once!");
+        sm.addSkill(8, 1, 1);
+        sm.forceCompleteQuest(4647);
     }
 }

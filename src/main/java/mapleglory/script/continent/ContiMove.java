@@ -824,4 +824,33 @@ public final class ContiMove extends ScriptHandler {
             }
         }
     }
+
+    @Script("ossyria3_1")
+    public static void ossyria3_1(ScriptManager sm) {
+        MagicSpot(sm, 2012014, 2012015, 200082100);
+    }
+
+    @Script("ossyria3_2")
+    public static void ossyria3_2(ScriptManager sm) {
+        MagicSpot(sm, 2012015, 2012014, 200080200);
+    }
+
+    private static void MagicSpot(ScriptManager sm, int npcFrom, int npcTo, int mapTo) {
+        if (!sm.hasItem(4001019, 1)) {
+            sm.sayOk("There is an " + blue(npcName(npcFrom)) + " that allows you to teleport from where you are to an " + blue(npcName(npcTo)) + ", but you can't activate it without the scroll.");
+            return;
+        }
+
+        if (!sm.askYesNo("You can use " + blue(itemName(4001019)) + " to activate " + blue(npcName(npcFrom)) + ". Will you teleport from where you are to " + blue(npcName(npcTo)) + "?")) {
+            sm.sayOk("Unable to activate #b#p{npcFrom}##k because you don't have #b#t4001019##k.");
+            return;
+        }
+
+        if (!sm.removeItem(4001019, 1)) {
+            sm.sayOk("Unable to activate " + blue(npcName(npcFrom)) + " because you don't have " + blue(itemName(4001019)) + ".");
+            return;
+        }
+
+        sm.warp(mapTo);
+    }
 }

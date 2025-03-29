@@ -460,7 +460,7 @@ public final class ExplorerQuest extends ScriptHandler {
             sm.sayBoth("These crystals can only be used here, so I'll just take them back.");
             sm.warp(120000101);
         } else {
-            if (sm.askYesNo("Hmmm... What is it? I don't think you have been able to gather up all #b15 " + itemName(item) + "#k yet... If it's too hard for you, then you can step out and try again later. Do you want to give up and step outside right now?")) {
+            if (!sm.askYesNo("Hmmm... What is it? I don't think you have been able to gather up all #b15 " + itemName(item) + "#k yet... If it's too hard for you, then you can step out and try again later. Do you want to give up and step outside right now?")) {
                 sm.sayOk("Good. You're showing me you don't want to give up this great opportunity. When you collect #b15 " + itemName(item) + "#k, then talk to me.");
                 return;
             }
@@ -822,13 +822,13 @@ public final class ExplorerQuest extends ScriptHandler {
                 adj = "strong";
                 job = "Brawler";
                 skill = "Flash Fist";
-                destination = 108000500;
+                destination = 108000502;
             } else {
                 item = 4031857;
                 adj = "quick";
                 job = "Gunslinger";
                 skill = "Double Shot";
-                destination = 108000502;
+                destination = 108000500;
             }
 
             sm.sayNext("Okay, now I'll take you to the test room. Here are the instructions: defeat the Octopirates and gather #b15 " + itemName(item) + "#k. The Octopirates you'll see here are highly trained and are very " + adj + ", so I suggest you really buckle down and get ready for this.");

@@ -194,6 +194,7 @@ public final class UserRemote {
         outPacket.encodeInt(user.getCharacterId());
         secondaryStat.encodeForRemote(flag, outPacket);
         outPacket.encodeShort(0); // tDelay
+        outPacket.encodeByte(0); // IsMovementAffectingStat
         return outPacket;
     }
 
