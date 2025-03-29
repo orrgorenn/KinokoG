@@ -23,6 +23,7 @@ import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.world.field.Field;
+import mapleglory.world.field.mob.Mob;
 import mapleglory.world.field.mob.MobAppearType;
 import mapleglory.world.item.Item;
 import mapleglory.world.quest.QuestRecordType;
@@ -442,28 +443,20 @@ public class Zakum extends ScriptHandler {
             return;
         }
 
-        final Field newField;
-        final Optional<Field> tryField = sm.getField().getFieldStorage().getFieldById(ZAKUM_BOSS_MAP);
-        if (tryField.isPresent()) {
-            newField = tryField.get();
-            if (newField.getUserPool().getCount() > 0) {
-                sm.sayNext("Another party has already started this quest. Please try again later.");
-                return;
-            }
-        }
-
         sm.setQRValue(QuestRecordType.Zakum, "1");
         sm.playPortalSE();
-        sm.partyWarp(280030000, "st00");
+        sm.partyWarpInstance(ZAKUM_BOSS_MAP, "st00", 211042301, 60 * 60);
     }
 
     @Script("boss")
     public static void boss(ScriptManager sm) {
         // boss (2111001)
         //   Last Mission : Zakum's Altar (280030000)
+        sm.soundEffect("Bgm06/FinalFight");
         sm.broadcastMessage("Zakum is summoned by the force of eye of fire.");
-        for (int i = 8800000; i <= 8800010; i++) {
-            sm.spawnMob(i, MobAppearType.EFFECT, -10, -215, false);
+        sm.spawnMob(8800000, MobAppearType.SUSPENDED, -11, -215, false);
+        for (int i = 0; i < 8; i++) {
+            sm.spawnMob(8800003 + i, MobAppearType.REGEN, -11, -215, false);
         }
     }
 }

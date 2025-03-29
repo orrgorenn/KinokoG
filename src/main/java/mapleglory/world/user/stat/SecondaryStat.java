@@ -1,5 +1,6 @@
 package mapleglory.world.user.stat;
 
+import mapleglory.packet.user.UserRemote;
 import mapleglory.provider.EtcProvider;
 import mapleglory.provider.ItemProvider;
 import mapleglory.provider.SkillProvider;
@@ -27,12 +28,15 @@ import mapleglory.world.job.resistance.Mechanic;
 import mapleglory.world.job.resistance.WildHunter;
 import mapleglory.world.skill.SkillConstants;
 import mapleglory.world.skill.SkillManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.*;
 import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
 public final class SecondaryStat {
+    private static final Logger log = LogManager.getLogger(SecondaryStat.class);
     private final Map<CharacterTemporaryStat, TemporaryStatOption> temporaryStats = new EnumMap<>(CharacterTemporaryStat.class);
     private int pad;
     private int pdd;
@@ -221,6 +225,9 @@ public final class SecondaryStat {
                     case Poison -> {
                         outPacket.encodeShort(getOption(cts).nOption); // overwritten with 1
                         outPacket.encodeInt(getOption(cts).rOption);
+                    }
+                    default -> {
+                        log.warn("Missing handle for cts {}", cts);
                     }
                 }
             }
