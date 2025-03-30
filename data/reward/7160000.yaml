@@ -43,4 +43,5 @@ rewards:
   - [ 4130007, 1, 1, 0.000300 ] # Two-Handed Mace Forging Stimulator
   - [ 4130011, 1, 1, 0.000300 ] # Staff Production Stimulator
   - [ 4131007, 1, 1, 0.000300 ] # Pole Arm Forging Manual
+  - [ 2290279, 1, 1, 0.000100 ] # [Mastery Book] Bots 'n Tots 20
   - [ 4031171, 1, 1, 0.400000, 7101 ] # Mysterious Powder

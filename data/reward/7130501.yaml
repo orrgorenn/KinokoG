@@ -31,4 +31,5 @@ rewards:
   - [ 4130008, 1, 1, 0.000300 ] # Spear Forging Stimulator
   - [ 4130010, 1, 1, 0.000300 ] # Wand Production Stimulator
   - [ 4130020, 1, 1, 0.000300 ] # Bottomwear Production Stimulator
+  - [ 2290279, 1, 1, 0.000100 ] # [Mastery Book] Bots 'n Tots 20
   - [ 4031412, 1, 1, 0.100000, 3712 ] # Black Soul of Dark Rash

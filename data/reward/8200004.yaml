@@ -31,3 +31,4 @@ rewards:
   - [ 4020009, 1, 1, 0.001000 ] # Piece of Time
   - [ 4130004, 1, 1, 0.000300 ] # One-Handed Blunt Weapon Forging Stimulator
   - [ 4130017, 1, 1, 0.000300 ] # Gun Production Stimulator
+  - [ 2290278, 1, 1, 0.000100 ] # [Mastery Book] Missile Tank 30

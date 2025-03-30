@@ -694,6 +694,10 @@ public final class CashItemHandler extends ItemHandler {
                     final int sItemId = inPacket.decodeInt();
                     log.debug(sItemId);
                 }
+                case MONEYPOCKET -> {
+                    final Optional<ItemRewardInfo> itemRewardInfoResult = ItemProvider.getItemRewardInfo(itemId);
+                    log.debug(itemRewardInfoResult);
+                }
                 case null -> {
                     log.error("Unknown cash item type for item ID : {}", item.getItemId());
                     user.dispose();

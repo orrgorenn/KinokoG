@@ -34,4 +34,9 @@ public class LHC extends ScriptHandler {
         sm.playPortalSE();
         sm.warp(211060401);
     }
+
+    @Script("vanleonItem0")
+    public static void vanleonItem0(ScriptManager sm) {
+        sm.message("Not implemented yet.");
+    }
 }

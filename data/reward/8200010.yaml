@@ -25,3 +25,4 @@ rewards:
   - [ 4020009, 1, 1, 0.001000 ] # Piece of Time
   - [ 4130001, 1, 1, 0.000300 ] # Shoes Production Stimulator
   - [ 4130010, 1, 1, 0.000300 ] # Wand Production Stimulator
+  - [ 2290283, 1, 1, 0.000100 ] # [Mastery Book] Laser Blast 30

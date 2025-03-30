@@ -42,6 +42,7 @@ rewards:
   - [ 4130003, 1, 1, 0.000300 ] # One-Handed Axe Forging Stimulator
   - [ 4130008, 1, 1, 0.000300 ] # Spear Forging Stimulator
   - [ 4130022, 1, 1, 0.000300 ] # Shield Production Stimulator
+  - [ 2290278, 1, 1, 0.000100 ] # [Mastery Book] Missile Tank 30
   - [ 4031458, 1, 1, 0.010000, 6231 ] # Thanatos's Black Tornado
   - [ 4031453, 1, 1, 0.050000, 6291 ] # Magical Array of the Spirit
   - [ 4031170, 1, 1, 0.500000, 7100 ] # Tachion

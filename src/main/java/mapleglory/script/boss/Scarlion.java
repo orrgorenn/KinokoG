@@ -9,6 +9,7 @@ import mapleglory.world.field.mob.MobAppearType;
 import java.time.Instant;
 
 public class Scarlion extends ScriptHandler {
+    final static int TARGA_BOSS = 9420542;
     final static int SCARLION_BOSS = 9420546;
     @Script("MalaysiaBoss_GL")
     public static void MalaysiaBossGL(ScriptManager sm) {
@@ -23,8 +24,8 @@ public class Scarlion extends ScriptHandler {
     public static void myboss0(ScriptManager sm) {
         // myboss0 (5511000)
         //   Malaysia : Spooky World (551030200)
-        sm.broadcastMessage("Beware! The furious Scarlion has shown himself!");
-        sm.spawnMob(SCARLION_BOSS, MobAppearType.NORMAL, -527, 637, true);
+        sm.broadcastMessage("Beware! The furious Targa has shown himself!");
+        sm.spawnMob(TARGA_BOSS, MobAppearType.NORMAL, -527, 637, true);
     }
 
     @Script("myboss1")
@@ -40,12 +41,8 @@ public class Scarlion extends ScriptHandler {
         // Aldol (9201134)
         //   Malaysia : Spooky World (551030200)
         if(sm.askYesNo("Do you want to go out?")) {
-            final Field field = sm.getField();
-            field.setMobSpawn(false);
-            field.getMobPool().respawnMobs(Instant.MAX);
+            sm.getField().reset();
             sm.partyWarp(551030100, "sp");
-            sm.setReactorState(5511000, 0);
-            sm.setReactorState(5511001, 0);
         }
     }
 }

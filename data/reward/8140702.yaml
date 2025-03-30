@@ -30,3 +30,5 @@ rewards:
   - [ 4130004, 1, 1, 0.000300 ] # One-Handed Blunt Weapon Forging Stimulator
   - [ 4130005, 1, 1, 0.000300 ] # Two-Handed Sword Forging Stimulator
   - [ 4130015, 1, 1, 0.000300 ] # Claw Production Stimulator
+  - [ 2290282, 1, 1, 0.000100 ] # [Mastery Book] Laser Blast 20
+  - [ 2290283, 1, 1, 0.000100 ] # [Mastery Book] Laser Blast 30
