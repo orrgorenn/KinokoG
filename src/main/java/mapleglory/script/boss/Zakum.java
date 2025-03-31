@@ -42,6 +42,7 @@ public class Zakum extends ScriptHandler {
         // Adobis (2030008)
         //   El Nath : The Door to Zakum (211042300)
         //   Dead Mine : The Door to Chaos Zakum (211042301)
+        AtomicBoolean shouldStop = new AtomicBoolean(false);
         if (sm.getLevel() < 50) {
             sm.sayOk("Please come back to me when you've become stronger.  I've seen a few adventurers in my day, and you're far too weak to complete my tasks.");
             return;
@@ -81,14 +82,25 @@ public class Zakum extends ScriptHandler {
                 sm.removeItem(4001016);
                 sm.removeItem(4001018);
                 sm.forceStartQuest(100200);
-                sm.getField().getUserPool().forEachPartyMember(sm.getUser(), (member) -> {
+                for (var member : sm.getField().getUserPool().getPartyMembers(sm.getUser().getPartyId())) {
                     try (var lockedMember = member.acquire()) {
                         final User partyMember = lockedMember.get();
 
-                        if(!partyMember.getQuestManager().hasQuestStarted(7000000)) {
-                            sm.sayOk("There's a member of your party that hasn't received the quest from the chief of the occupation at El Nath. Every single one of the party members must receive the quest from the chiefs of their respective occupation in order to do this.");
-                            return;
+                        if (!partyMember.getQuestManager().hasQuestStarted(7000000)) {
+                            sm.message("There's a member of your party that hasn't received the quest from the chief of the occupation at El Nath.");
+                            shouldStop.set(true);
+                            break;
                         }
+                    }
+                }
+
+                if (shouldStop.get()) {
+                    return;
+                }
+
+                sm.getField().getUserPool().forEachPartyMember(sm.getUser(), (member) -> {
+                    try (var lockedMember = member.acquire()) {
+                        final User partyMember = lockedMember.get();
 
                         partyMember.getInventoryManager().removeItem(4001015, partyMember.getInventoryManager().getItemCount(4001015));
                         partyMember.getInventoryManager().removeItem(4001016, partyMember.getInventoryManager().getItemCount(4001016));
@@ -110,7 +122,6 @@ public class Zakum extends ScriptHandler {
                 }
 
                 // Check if Quest 1 is completed
-                AtomicBoolean shouldStop = new AtomicBoolean(false);
                 sm.getField().getUserPool().forEachPartyMember(sm.getUser(), (member) -> {
                     try (var lockedMember = member.acquire()) {
                         final User partyMember = lockedMember.get();
@@ -120,6 +131,7 @@ public class Zakum extends ScriptHandler {
                         }
                     }
                 });
+
                 if (!sm.hasQuestCompleted(100200) || shouldStop.get()) {
                     sm.sayOk("It doesn't look like you or someone from your party have cleared the previous stage yet. Please beat the previous stage before moving onto the next level.");
                     return;
@@ -135,6 +147,7 @@ public class Zakum extends ScriptHandler {
                         }
                     }
                 });
+
                 if(sm.hasQuestStarted(100200) || shouldStop.get()) {
                     sm.sayOk("It seems like you or someone from your party in the middle of the 1st stage. You must first clear this one before moving on to Level 2. Please clear the 1st stage first.");
                     return;
@@ -149,6 +162,7 @@ public class Zakum extends ScriptHandler {
                         }
                     }
                 });
+
                 if (sm.hasQuestStarted(100201) || shouldStop.get()) {
                     if(!sm.askYesNo("Hmmm ... you or someone from your party must have tried this quest before and gave up midway through. What do you think? Do you want to retry this level?")) {
                         sm.sayOk("I see ... but if you ever decide to change your mind, then talk to me.");
@@ -165,6 +179,7 @@ public class Zakum extends ScriptHandler {
                     sm.sayOk("I see ... but if you ever decide to change your mind, then talk to me.");
                     return;
                 }
+
                 sm.sayNext("Alright! From here on out, you'll be transported to the map where obstacles will be aplenty. There will be a person standing at the deepest part of the map, and if you talk to her, you'll find an item that will be used as a material to create an item that summons the boss of Zakum Dungeon. Please get me that item. Good luck!");
                 sm.forceStartQuest(100201);
                 sm.getField().getUserPool().forEachPartyMember(sm.getUser(), (member) -> {
@@ -331,27 +346,7 @@ public class Zakum extends ScriptHandler {
             }
 
             sm.addItem(4001018, 1);
-            sm.getField().getUserPool().forEachPartyMember(sm.getUser(), (member) -> {
-                try (var lockedMember = member.acquire()) {
-                    final User partyMember = lockedMember.get();
-
-                    if(!partyMember.getInventoryManager().canAddItem(4001018, 1)) {
-                        sm.message("Someone from the party can't receive the #b#t4001018##k.");
-                        return;
-                    }
-
-                    Optional<ItemInfo> itemInfoResult = ItemProvider.getItemInfo(4001018);
-                    if (itemInfoResult.isEmpty()) {
-                        log.error("Could not find item info for item ID: {}", 4001018);
-                        return;
-                    }
-
-                    Item rewardItem = itemInfoResult.get().createItem(partyMember.getNextItemSn(), 1);
-                    partyMember.getInventoryManager().addItem(rewardItem);
-                }
-            });
-
-            sm.partyWarp(211042300, "sp");
+            sm.warp(211042300, "sp");
         } else {
             sm.message("Currently, this portal doesn't work.");
         }
