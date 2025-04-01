@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import static mapleglory.script.quest.ExplorerQuest.*;
+
 public final class VictoriaIsland extends ScriptHandler {
     public static final int TICKET_TO_CONSTRUCTION_SITE_B1 = 4031036;
     public static final int TICKET_TO_CONSTRUCTION_SITE_B2 = 4031037;
@@ -1147,5 +1149,35 @@ public final class VictoriaIsland extends ScriptHandler {
         sm.sayNext("You got the Pet Snack! Thanks! You can use these to feed multiple pets at once!");
         sm.addSkill(8, 1, 1);
         sm.forceCompleteQuest(4647);
+    }
+
+    @Script("tutorialNPC")
+    public static void tutorialNPC(ScriptManager sm) {
+        if (sm.getLevel() <= 10 && sm.getJob() == Job.BEGINNER) {
+            int fieldId = sm.getFieldId();
+
+            switch (fieldId) {
+                case 120000101 -> {
+                    sm.setSpeakerId(1090000);
+                    kairinT(sm);
+                }
+                case 102000003 -> {
+                    sm.setSpeakerId(1022000);
+                    fighter(sm);
+                }
+                case 103000003 -> {
+                    sm.setSpeakerId(1052001);
+                    rogue(sm);
+                }
+                case 100000201 -> {
+                    sm.setSpeakerId(1012100);
+                    bowman(sm);
+                }
+                case 101000003 -> {
+                    sm.setSpeakerId(1032001);
+                    magician(sm);
+                }
+            }
+        }
     }
 }

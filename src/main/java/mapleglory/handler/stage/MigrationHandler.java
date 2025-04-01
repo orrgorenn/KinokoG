@@ -142,7 +142,9 @@ public final class MigrationHandler {
                 }
 
                 final Item item = itemEntryResult.get().getValue();
-                if (item.getItemType() != ItemType.PET || item.getDateExpire().isBefore(Instant.now())) {
+                if (item.getItemType() != ItemType.PET ||
+                        item.getDateExpire() == null ||
+                        item.getDateExpire().isBefore(Instant.now())) {
                     // Invalid pet or expired
                     continue;
                 }

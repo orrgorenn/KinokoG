@@ -404,7 +404,7 @@ public class Zakum extends ScriptHandler {
         // Amon (2030010)
         //   Adobis's Mission I : Breath of Lava <Level 1> (280020000)
         //   Adobis's Mission I : Breath of Lava <Level 2> (280020001)
-        //   Last Mission : Zakum's Altar (280030000)
+        //   Last Mission : akum's Altar (280030000)
         //   Last Mission : Chaos Zakum's Altar (280030001)
         if (sm.getFieldId() == 280030000) {
             boolean exit = false;
