@@ -30,7 +30,7 @@ jobs:
       - name: Download large build files from Google Drive
         run: |
           mkdir -p ~/wz  # Ensure the directory exists
-          gdown --id 1EJfQtXv8xofabqSPpJs7oOgtanAVtEKv -O wz.tar
+          gdown --id 12JtBKaC2FNzERMMhpZ7hVFCaGATfDVKT -O wz.tar
           tar -xvf wz.tar -C ~/wz
 
       - name: Create .env file from GitHub Secrets
