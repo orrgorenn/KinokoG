@@ -23,3 +23,4 @@ rewards:
   - [ 4010004, 1, 1, 0.002000 ] # Silver Ore
   - [ 4020003, 1, 1, 0.002000 ] # Emerald Ore
   - [ 4031146, 1, 1, 0.500000, 2065 ] # Animal Fossil
+  - [ 4032317, 1, 1, 0.050000, 21717 ] # Dejected Green Mushroom Puppet

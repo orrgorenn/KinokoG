@@ -19,7 +19,6 @@ items:
   - [ 2010004, 310, 1, 100 ] # Lemon
   - [ 2020028, 3000, 1, 100 ] # Chocolate
   - [ 2030000, 400, 1, 100 ] # Return Scroll - Nearest Town
-  - [ 2030019, 500, 1, 100 ] # Nautilus Return Scroll
   - [ 2060000, 1, 1, 2000 ] # Arrow for Bow
   - [ 2061000, 1, 1, 2000 ] # Arrow for Crossbow
   - [ 2070000, 500, 500, 500 ] # Subi Throwing-Stars

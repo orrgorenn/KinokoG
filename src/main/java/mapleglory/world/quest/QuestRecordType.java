@@ -33,6 +33,8 @@ public enum QuestRecordType {
     AranTutorial(21002),            // Aran Tutorial
     AranGuideEffect(21003),         // Aran Tutorial Effects
     AranHelperClear(21019),         // Aran Tutorial Helper
+    SecondJobAran(21203),
+    PuppeteersWarning(21760),
     EvanDragonEyes(22012),
     EvanDreamEffect(22013),
     EvanTutorialEffect(22014),

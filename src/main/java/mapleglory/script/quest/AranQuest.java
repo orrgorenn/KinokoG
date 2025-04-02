@@ -1,12 +1,16 @@
 package mapleglory.script.quest;
 
 import mapleglory.packet.user.UserLocal;
+import mapleglory.provider.reward.Reward;
 import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.script.common.ScriptMessageParam;
+import mapleglory.world.field.Field;
 import mapleglory.world.job.Job;
 import mapleglory.world.quest.QuestRecordType;
+
+import java.util.List;
 
 public final class AranQuest extends ScriptHandler {
     @Script("rien")
@@ -156,11 +160,219 @@ public final class AranQuest extends ScriptHandler {
     @Script("q21200s")
     public static void q21200s(ScriptManager sm) {
         // In Search of Its Rightful Owner (21200 - start)
-        sm.setSpeakerId(1510009);
-        if (sm.askYesNo("How is your training going? Wow, you've reached such a high level! That's amazing. I knew you would do just fine on Victorial Island... Oh, look at me. I'm wasting your time. I know you're busy, but you'll have to return to the island for a bit.")) {
+        sm.setSpeakerId(1201000);
+        if (sm.askAccept("How is your training going? Wow, you've reached such a high level! That's amazing. I knew you would do just fine on Victorial Island... Oh, look at me. I'm wasting your time. I know you're busy, but you'll have to return to the island for a bit.")) {
             sm.forceStartQuest(21200);
-            sm.sayNext("Your #b#p1201001##k in #b#m140000000##k is acting strange all of a sudden. According to the records, the Polearm acts this way when it is calling for its master. #bPerhaps it's calling for you#k. Please return to the island and check things out.");
+            sm.sayNext("Your " + blue(npcName(1201001)) + " in " + blue(mapName(140000000)) + " is acting strange all of a sudden. According to the records, the Polearm acts this way when it is calling for its master. #bPerhaps it's calling for you#k. Please return to the island and check things out.");
         }
         sm.dispose();
+    }
+
+    @Script("q21200e")
+    public static void q21200e(ScriptManager sm) {
+        sm.sayNext("Hmmmmmm mmmm mmmmm....");
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth(blue("(Giant Pole Arm is buzzing, but who's that boy standing there?)"));
+        sm.sayBoth(blue("(I've never met him before. He doesn't look human.)"));
+        sm.setPlayerAsSpeaker(false);
+        sm.sayBoth("Hey Aran! Do you still not hear me? Seriously, can't you hear me? Ahhh, this is frustrating!");
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth(blue("(Whoa, who was that? Sounds like an angry boy...)"));
+        sm.setPlayerAsSpeaker(false);
+        sm.sayBoth("Seriously, the one master I had turned out to be trapped in ice for hundreds of years, abandoning the weapon, and now the 'master' can't even hear me?");
+        sm.sayBoth("Who are you?");
+        sm.sayBoth("Aran? Do you hear me now? It's me, it's me! I'm your weapon " + blue("Maha the pole arm!") + "!");
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth(blue("(...Maha? Giant pole Arm actually talks?)"));
+        sm.setPlayerAsSpeaker(false);
+        sm.sayBoth("Why do you have that look on your face like you can't believe it? I see that you have lost all your memories, but... did you also forget about me? How can you do that to me??");
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth("I'm sorry, but seriously... I don't remember a thing.");
+        sm.setPlayerAsSpeaker(false);
+        if (sm.askYesNo("Is that all you can say after all those years? I'm sorry? Do you understand how bored I was all by myself for hundreds of years? Bring it out if you can. Bring your memories out! Bring them all out! Dig them up if you need to!")) {
+            sm.setPlayerAsSpeaker(true);
+            sm.sayBoth(blue("(The voice that claims to be Maha the Giant Pole Arm seem quite perturbed. This conversation is going nowhere. I better talk to Lirin first.)"));
+            sm.setPlayerAsSpeaker(false);
+            sm.forceCompleteQuest(21200);
+            sm.forceStartQuest(21202);
+            sm.forceStartQuest(21203);
+
+            if (!sm.askYesNo("Would you like to skip the video clip?  Even if you skip the scene, game play will not be affected.")) {
+                sm.warp(914090200);
+            }
+        } else {
+            sm.sayOk("Hey, at least you tell me you tried!");
+        }
+    }
+
+    @Script("q29924s")
+    public static void q29924s(ScriptManager sm) {
+        if (sm.hasItem(1142129, 1) || sm.addItem(1142129, 1)) {
+            sm.forceStartQuest(29924);
+            sm.forceCompleteQuest(29924);
+        }
+    }
+
+    @Script("q21714s")
+    public static void q21714s(ScriptManager sm) {
+        //
+        sm.sayNext("I don't know how you knew this, but I guessed it right away. Not long ago, the "  + mobName(1110100) +" in the southern part of the Magic Forest suddenly became violent. Many " + mobName(1110100) + " became very strange and gloomy.");
+        sm.sayBoth("I heard that this phenomenon seems to have occurred in many places, so I asked around and it seems that all the abnormal phenomena are related to some kind of doll. Dolls... are really very strange.");
+        sm.sayBoth("I don't know if the rumors are true, but maybe the incident with " + mobName(1110100) + " is also related to the doll. I don't know why you want to know why " + mobName(1110100) + " became violent, but if you want to know, you can investigate with me. How about it? Are you willing?");
+        if (sm.askYesNo("I don't know if it's true as the rumors say, that the reason for the change in " + mobName(1110100) + " is the puppet... Please go hunting " + red("25 " + mobName(1110130)) + " and find " + blue(mobName(1110130) + "'s puppet."))) {
+            sm.forceStartQuest(21714);
+        }
+    }
+
+    @Script("q21716s")
+    public static void q21716s(ScriptManager sm) {
+        sm.sayNext("What did " + npcName(1032112) + " say?");
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth(blue("(You tell her what " + npcName(1032112) + " observed.)"));
+        sm.setPlayerAsSpeaker(false);
+        if (!sm.askAccept("A kid with a puppet? That seems very suspicious. I am sure that kid is the reason the Green Mushrooms have suddenly turned violent.")) {
+            sm.sayOk("What? I don't think there are any suspects besides that kid. Please think again.");
+            return;
+        }
+
+        sm.sayNext("How dare this kid wreak havoc in the South Forest. Who knows how long it will take to restore the forest... I'll have to devote most of my time cleaning up the mess.");
+        sm.forceStartQuest(21716);
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth(blue("(You were able to find out what caused the changes in the Green Mushrooms. You should report " + npcName(1002104) + " and deliver the information you've collected.)"));
+        sm.setPlayerAsSpeaker(false);
+    }
+
+    @Script("q21719s")
+    public static void q21719s(ScriptManager sm) {
+        sm.sayNext("Aren't you the one that used to be in " + mapName(101000000) + " until not too long ago? I finally found you! Do you know how long it took for me to finally find you?");
+        sm.sayBoth("Who are you?");
+        if (sm.askAccept("Me? If you want to know, stop by my cave. I'll even send you an invitation. You'll be directly sent to my cave as soon as you accept. Look forward to seeing you there.")) {
+            sm.forceCompleteQuest(21719);
+            sm.warp(910510200);
+        }
+    }
+
+    @Script("dollMaster00")
+    public static void dollMaster00(ScriptManager sm) {
+        sm.sayNext("I'm Francis, the puppeteer of the Black Wings. How dare you disturb my puppets. It really upsets me, but i'll let it slide this time. I'll catch you doing it again though, I swear in the name of the Black Wings, I will make you pay for it.");
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth(blue("(The Black Wings? Huh? Who are they? And how is all this related to the Black Mage? Hm, maybe you should report this info to Tru.)"));
+        sm.setPlayerAsSpeaker(false);
+        sm.setQRValue(QuestRecordType.PuppeteersWarning, "0");
+        sm.warp(104000004);
+    }
+
+    @Script("q21720e")
+    public static void q21720e(ScriptManager sm) {
+        sm.sayNext("What can I do for you? Tru sent me a message saying that you've been training diligently in Victoria Island while helping him with his work. What is it? What? The Black Wings?");
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth(blue("(You tell her about the Puppeteer and the Black Wings, and about their mission.)"));
+        sm.setPlayerAsSpeaker(false);
+        sm.sayBoth("I see... I didn''t know there was a group called the Black Wings... They must be fools if they're trying to revive the Black Mage, knowing how dangerous he is.");
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth("That... That's true... " + blue("(She's definitely not afraid to speak her mind.)"));
+        sm.setPlayerAsSpeaker(false);
+        sm.sayBoth("The Book of Prophecy states that the hero will revive and fight against the Black Mage. I wasn't sure if that was true, but this confirms that the Black Mage is still around.");
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth("Aren't you scared?");
+        sm.setPlayerAsSpeaker(false);
+        if (sm.askYesNo("Scared? Pfft. Who cares if the Black Mage appears. You'll be here to protect us. If anything, this makes me want to prepare you for the big battle. Ah, that reminds me, I found a #bskill#k. Would you like to see it?")) {
+            sm.forceStartQuest(21720);
+            sm.forceCompleteQuest(21720);
+            sm.addSkill(21001003, 0, 20);
+            sm.getUser().addQuestExp(3900);
+            sm.reservedEffect("Effect/BasicEff.img/AranGetSkill");
+            sm.setPlayerAsSpeaker(true);
+            sm.sayBoth(blue("(You remembered the Polearm Booster skill!)"));
+            sm.setPlayerAsSpeaker(false);
+            sm.sayBoth("This skill was found in an ancient incomprehensible script. I had a hunch it might be a skill you used in the past, and I think I was right. You're not as strong as you used to be, but you'll get there, in time.");
+            sm.sayBoth("You are steadily becoming more powerful, and I''ll be here to keep motivating you. You have nothing to be afraid of. You will not lose the battle. You didn't emerge from ice only to lose to the Black Mage, did you? This time, you''ll finish him, once and for all!");
+            sm.sayBoth("To do so, there''s only one thing you can do. Train, train, train. Head to Victoria Island and continue training. Let''s make sure you become so powerful that the Black Mage doesn't stand a chance!");
+        }
+    }
+
+    @Script("rienCaveEnter")
+    public static void rienCaveEnter(ScriptManager sm) {
+        if (sm.hasQuestStarted(21201) || sm.hasQuestStarted(21302)) {
+            sm.playPortalSE();
+            sm.warp(140030000);
+        } else {
+            sm.message("Something seems to be blocking this portal!");
+        }
+    }
+
+    @Script("enterMCave")
+    public static void enterMCave(ScriptManager sm) {
+        if (sm.hasQuestStarted(21201)) {
+            sm.playPortalSE();
+            sm.warpInstance(914021000, "out00", 140030000, 60 * 30);
+            sm.setQRValue(QuestRecordType.SecondJobAran, "0");
+        } else if (sm.hasQuestStarted(21302) && !sm.hasQuestCompleted(21302)) {
+            // 914022100 - sharp
+            // 914022000 - black crow
+            sm.playPortalSE();
+            sm.setQRValue(QuestRecordType.SecondJobAran, "1");
+            sm.warpInstance(914022100, "out00", 140030000, 60 * 30);
+        } else {
+            sm.sayOk("You have already passed your test, there is no need to access the mirror again.");
+        }
+    }
+
+    @Script("moveBefore")
+    public static void moveBefore(ScriptManager sm) {
+        sm.playPortalSE();
+        sm.warp(sm.getFieldId() - 10, "west00");
+    }
+
+    @Script("q21202e")
+    public static void q21202e(ScriptManager sm) {
+        sm.sayNext("Hah! You have proven your worth.. and you shall get what you want; the best pole arm possible!");
+
+        if (sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 30) * 3) {
+            sm.sayOk("You still have way too much #bSP#k with you. You can't earn a new title like that. I strongly urge you to use more SP on your 1st and second level skills.");
+            return;
+        }
+
+        sm.setPlayerAsSpeaker(true);
+        sm.sayNext("My memories are returning...");
+        sm.setPlayerAsSpeaker(false);
+
+        sm.setJob(Job.ARAN_2);
+        sm.removeItem(4032311, 30);
+        sm.forceCompleteQuest(21201);
+        sm.forceCompleteQuest(21202);
+
+        sm.sayOk("Haha! You've got what you want, now leave!");
+    }
+
+    @Script("q29925s")
+    public static void q29925s(ScriptManager sm) {
+        if (sm.hasItem(1142130, 1)) {
+            sm.addItem(1142130, 1);
+        }
+        sm.forceStartQuest(29925);
+        sm.forceCompleteQuest(29925);
+    }
+
+    @Script("q21300s")
+    public static void q21300s(ScriptManager sm) {
+        sm.setSpeakerId(1201000);
+        sm.sayNext("How is the training going? Hm, Lv. 60? You still have a long way to go, but it's definitely praiseworthy compared to the first time I met you. Continue to train diligently, and I'm sure you'll regain your strength soon!");
+        if (sm.askYesNo("But first, you must head to " + blue(mapName(140000000)) + " your " + blue(npcName(1201001)) + " is acting weird again. I think it has something to tell you. It might be able to restore your abilities, so please hurry.")) {
+            sm.forceStartQuest(21300);
+            sm.sayOk("Anyway, I thought it was really something that a weapon had its own identity, but this weapon gets extremely annoying. It cries, saying that I'm not paying attention to its needs, and now... Oh, please keep this a secret from the Polearm. I don't think it's a good idea to upset the weapon any more than I already have.");
+        }
+    }
+
+    @Script("periItem0")
+    public static void periItem0(ScriptManager sm) {
+        sm.dropRewards(List.of(
+                Reward.item(4032319, 1, 1, 0.6)
+        ));
+    }
+
+    @Script("q21717s")
+    public static void q21717s(ScriptManager sm) {
+
     }
 }

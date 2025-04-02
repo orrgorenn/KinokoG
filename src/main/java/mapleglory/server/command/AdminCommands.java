@@ -54,6 +54,7 @@ import mapleglory.world.user.stat.*;
 
 import java.lang.reflect.Method;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static mapleglory.handler.user.item.CashItemHandler.formatSpeakerMessage;
 
@@ -429,6 +430,109 @@ public final class AdminCommands {
             user.warp(targetField, portalResult.get(), false, false);
         }
     }
+
+    @Command({ "mapto", "warpto" })
+    @Arguments("character name to warp to")
+    @Permission("gm")
+    public static void mapto(User user, String[] args) {
+        user.getConnectedServer().submitUserQueryRequestAll((queryResult) -> {
+            RemoteUser targetUser = null;
+
+            for (RemoteUser remoteUser : queryResult) {
+                if (remoteUser.getCharacterName().equalsIgnoreCase(args[1])) {
+                    targetUser = remoteUser;
+                    break;
+                }
+            }
+
+            if (targetUser == null) {
+                user.write(MessagePacket.system("Could not find a character with the name: %s", args[1]));
+                return;
+            }
+
+            Optional<Field> fieldResult = user.getConnectedServer().getFieldById(targetUser.getFieldId());
+            if (fieldResult.isEmpty()) {
+                user.write(MessagePacket.system("Could not resolve field ID: %d", targetUser.getFieldId()));
+                return;
+            }
+
+            Field targetField = fieldResult.get();
+            Optional<PortalInfo> portalResult = targetField.getPortalByName("sp");
+            if (portalResult.isEmpty()) {
+                user.write(MessagePacket.system("Could not resolve portal 'sp' for field ID: %d", targetUser.getFieldId()));
+                return;
+            }
+
+            try (var locked = user.acquire()) {
+                user.warp(targetField, portalResult.get(), false, false);
+            }
+        });
+    }
+
+    @Command({ "warpfrom", "wf" })
+    @Arguments("character name to warp and field id")
+    @Permission("gm")
+    public static void warpfrom(User user, String[] args) {
+        if (args.length < 3) {
+            user.write(MessagePacket.system("Usage: @warpfrom [characterName] [fieldId]"));
+            return;
+        }
+
+        String targetName = args[1];
+        int targetFieldId;
+
+        try {
+            targetFieldId = Integer.parseInt(args[2]);
+        } catch (NumberFormatException e) {
+            user.write(MessagePacket.system("Invalid field ID: %s", args[2]));
+            return;
+        }
+
+        user.getConnectedServer().submitUserQueryRequestAll((queryResult) -> {
+            RemoteUser targetRemoteUser = null;
+
+            for (RemoteUser remoteUser : queryResult) {
+                if (remoteUser.getCharacterName().equalsIgnoreCase(targetName)) {
+                    targetRemoteUser = remoteUser;
+                    break;
+                }
+            }
+
+            if (targetRemoteUser == null) {
+                user.write(MessagePacket.system("Could not find a character with the name: %s", targetName));
+                return;
+            }
+
+            Optional<Field> fieldResult = user.getConnectedServer().getFieldById(targetFieldId);
+            if (fieldResult.isEmpty()) {
+                user.write(MessagePacket.system("Could not resolve field ID: %d", targetFieldId));
+                return;
+            }
+
+            Field destinationField = fieldResult.get();
+            Optional<PortalInfo> portalResult = destinationField.getPortalByName("sp");
+            if (portalResult.isEmpty()) {
+                user.write(MessagePacket.system("Could not resolve portal 'sp' for field ID: %d", targetFieldId));
+                return;
+            }
+
+            PortalInfo pi = portalResult.get();
+
+            Optional<User> targetUserOpt = user.getConnectedServer().getUserByCharacterId(targetRemoteUser.getCharacterId());
+            if (targetUserOpt.isEmpty()) {
+                user.write(MessagePacket.system("Target user %s is not currently connected to this server.", targetName));
+                return;
+            }
+
+            User targetUser = targetUserOpt.get();
+            try (var locked = targetUser.acquire()) {
+                targetUser.warp(destinationField, pi, false, false);
+            }
+            user.write(MessagePacket.system("Warped %s to field %d.", targetName, targetFieldId));
+
+        });
+    }
+
 
     @Command("reactor")
     @Arguments("reactor template ID")

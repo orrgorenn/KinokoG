@@ -34,3 +34,4 @@ rewards:
   - [ 4010003, 1, 1, 0.002000 ] # Adamantium Ore
   - [ 4020003, 1, 1, 0.002000 ] # Emerald Ore
   - [ 4032461, 1, 1, 0.050000, 22531 ] # Zombie Mushroom Doll
+  - [ 4032321, 1, 1, 0.050000, 21727 ] # Annoyed Zombie Mushroom Doll

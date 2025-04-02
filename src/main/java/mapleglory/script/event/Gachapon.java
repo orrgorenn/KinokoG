@@ -132,23 +132,24 @@ public class Gachapon extends ScriptHandler {
     }
 
     public static void handleGachapon(ScriptManager sm, String location, String gachaName) {
-        if(!sm.askYesNo("You have a #b#t" + GACHAPON_TICKET + "##k. Would you like to use it?")) {
-            return;
-        }
-
         if (!sm.hasItem(GACHAPON_TICKET, 1)) {
             sm.sayOk("It doesn't seem like you have a Gachapon ticket. Please purchase one and try again.");
             return;
         }
 
-        Tuple<Integer, Integer> item = GachaponHandler.rollGachapon(gachaName);
-        if (!sm.canAddItem(item.getLeft(), item.getRight())) {
-            sm.sayOk("Please make room in your inventory.");
+        if (
+                sm.getUser().getInventoryManager().getEquipInventory().getRemaining() < 1
+                        || sm.getUser().getInventoryManager().getConsumeInventory().getRemaining() < 1
+                        || sm.getUser().getInventoryManager().getEtcInventory().getRemaining() < 1
+                        || sm.getUser().getInventoryManager().getInstallInventory().getRemaining() < 1
+        ) {
+            sm.sayOk("Please make room in your EQP, USE, ETC, and SET-UP inventories.");
             return;
         }
 
-        sm.removeItem(GACHAPON_TICKET, 1);
+        Tuple<Integer, Integer> item = GachaponHandler.rollGachapon(gachaName);
         sm.addItem(item.getLeft(), item.getRight());
+        sm.removeItem(GACHAPON_TICKET, 1);
         sm.sayNext("You have obtained #b#t" + item.getLeft() + "##k from " + location + ".\r\nThank you for using our Gachapon services. Please come again!");
     }
 }

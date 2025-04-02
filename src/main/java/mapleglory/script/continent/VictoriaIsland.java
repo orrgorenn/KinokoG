@@ -1180,4 +1180,11 @@ public final class VictoriaIsland extends ScriptHandler {
             }
         }
     }
+
+    @Script("rowen")
+    public static void rowen(ScriptManager sm) {
+        if (sm.hasQuestStarted(21714)) {
+            sm.warp(910100002);
+        }
+    }
 }
