@@ -7,6 +7,7 @@ import mapleglory.database.DatabaseConnection;
 import mapleglory.database.table.AccountTable;
 import mapleglory.server.ServerConfig;
 import mapleglory.server.cashshop.CashItemInfo;
+import mapleglory.util.DurationTypeAdapter;
 import mapleglory.util.InstantTypeAdapter;
 import mapleglory.util.Util;
 import mapleglory.world.item.Item;
@@ -21,6 +22,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Collections;
 import java.util.List;
@@ -34,6 +36,7 @@ public class MysqlAccountAccessor implements AccountAccessor {
     private static final Logger log = LoggerFactory.getLogger(MysqlAccountAccessor.class);
     Gson gson = new GsonBuilder()
             .registerTypeAdapter(Instant.class, new InstantTypeAdapter())
+            .registerTypeAdapter(Duration.class, new DurationTypeAdapter())
             .create();
     private Account loadAccount(ResultSet rs) {
         try {
@@ -266,6 +269,9 @@ public class MysqlAccountAccessor implements AccountAccessor {
 
     @Override
     public boolean saveAccount(Account account) {
+        String selectQuery = "SELECT " + AccountTable.NX_PREPAID + " FROM " + AccountTable.getTableName() + " WHERE " +
+                AccountTable.ACCOUNT_ID + " = ?";
+
         String updateQuery = "UPDATE " + AccountTable.getTableName() + " SET " +
                 AccountTable.CHARACTER_SLOTS + " = ?, " +
                 AccountTable.NX_CREDIT + " = ?, " +
@@ -278,27 +284,46 @@ public class MysqlAccountAccessor implements AccountAccessor {
                 AccountTable.WISHLIST + " = ? " +
                 "WHERE " + AccountTable.ACCOUNT_ID + " = ?";
 
-        try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(updateQuery)) {
+        try (Connection con = DatabaseConnection.getConnection()) {
 
-            // Setting parameters in PreparedStatement
-            ps.setInt(1, account.getSlotCount());
-            ps.setInt(2, account.getNxCredit());
-            ps.setInt(3, account.getNxPrepaid());
-            ps.setInt(4, account.getMaplePoint());
+            // Step 1: Check if there is any nx_prepaid in the DB
+            try (PreparedStatement selectPs = con.prepareStatement(selectQuery)) {
+                selectPs.setInt(1, account.getId());
 
-            // Convert Lists to JSON String
-            ps.setString(5, Util.convertListToJson(account.getTrunk().getItems()));
-            ps.setInt(6, account.getTrunk().getSize());
-            ps.setInt(7, account.getTrunk().getMoney());
+                try (ResultSet rs = selectPs.executeQuery()) {
+                    if (rs.next()) {
+                        int dbPrepaid = rs.getInt(AccountTable.NX_PREPAID);
 
-            ps.setString(8, Util.convertListToJson(account.getLocker().getCashItems()));
-            ps.setString(9, Util.convertListToJson(account.getWishlist()));
+                        if (dbPrepaid > 0) {
+                            // Move it to credit and zero it out
+                            log.info("Moving vote NX to credit for {}.", account.getUsername());
+                            account.setNxCredit(account.getNxCredit() + dbPrepaid);
+                            account.setNxPrepaid(0);
+                        }
+                    }
+                }
+            }
 
-            ps.setInt(10, account.getId());
+            // Step 2: Save updated values
+            try (PreparedStatement ps = con.prepareStatement(updateQuery)) {
+                ps.setInt(1, account.getSlotCount());
+                ps.setInt(2, account.getNxCredit());
+                ps.setInt(3, account.getNxPrepaid());
+                ps.setInt(4, account.getMaplePoint());
 
-            int rowsUpdated = ps.executeUpdate();
-            return rowsUpdated > 0;
+                // Convert Lists to JSON String
+                ps.setString(5, Util.convertListToJson(account.getTrunk().getItems()));
+                ps.setInt(6, account.getTrunk().getSize());
+                ps.setInt(7, account.getTrunk().getMoney());
+
+                ps.setString(8, Util.convertListToJson(account.getLocker().getCashItems()));
+                ps.setString(9, Util.convertListToJson(account.getWishlist()));
+
+                ps.setInt(10, account.getId());
+
+                int rowsUpdated = ps.executeUpdate();
+                return rowsUpdated > 0;
+            }
 
         } catch (SQLException e) {
             log.error("SQL error updating account ID {}: {}", account.getId(), e.getMessage());

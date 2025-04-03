@@ -9,6 +9,7 @@ items:
   - [ 1332013, 15000 ] # Stinger
   - [ 1332010, 22000 ] # Iron Dagger
   - [ 1332004, 38000 ] # Forked Dagger
+  - [ 1342001, 42000 ] # Guardian Katara
   - [ 1332012, 40000 ] # Reef Claw
   - [ 1332009, 44500 ] # Cass
   - [ 1322009, 20000 ] # Plunger
@@ -20,7 +21,7 @@ items:
   - [ 1442000, 3000 ] # Pole Arm
   - [ 1472000, 3000 ] # Garnier
   - [ 1342000, 10000 ] # Champion Katara
-  - [ 1342000, 42000 ] # Guardian Katara
+  - [ 1342001, 42000 ] # Guardian Katara
   - [ 1002125, 900 ] # Black Ghetto Beanie
   - [ 1002001, 3000 ] # Metal Gear
   - [ 1002110, 4000 ] # Black Thief Hood

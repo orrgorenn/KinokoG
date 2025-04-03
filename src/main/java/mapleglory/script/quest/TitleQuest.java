@@ -262,14 +262,15 @@ public final class TitleQuest extends ScriptHandler {
                 "\n" +
                 "#fUI/UIWindow.img/QuestIcon/4/0#\n" +
                 " #v1142108:# #t1142108# 1");
-        if (!sm.canAddItem(1142108, 1)) {
+        if (sm.hasItem(1142108, 1)) {
+            sm.forceCompleteQuest(29901);
+            return;
+        }
+        if (!sm.addItem(1142108, 1)) {
             sm.sayOk("Make some room in your inventory and talk back to me.");
             return;
         }
-        if (sm.canAddItem(1142108,1) && !sm.hasItem(1142108, 1) && sm.getUser().getJob() % 100 > 0 && sm.getUser().getJob() < 1000) {
-            sm.addItem(1142108, 1);
-            sm.forceCompleteQuest(29901);
-        }
+        sm.forceCompleteQuest(29901);
     }
 
     @Script("q29902e")
@@ -279,14 +280,15 @@ public final class TitleQuest extends ScriptHandler {
                 "\n" +
                 "#fUI/UIWindow.img/QuestIcon/4/0#\n" +
                 " #v1142109:# #t1142109# 1");
-        if (!sm.canAddItem(1142109, 1)) {
+        if (sm.hasItem(1142109, 1)) {
+            sm.forceCompleteQuest(29902);
+            return;
+        }
+        if (!sm.addItem(1142109, 1)) {
             sm.sayOk("Make some room in your inventory and talk back to me.");
             return;
         }
-        if (sm.canAddItem(1142109,1) && !sm.hasItem(1142109, 1) && sm.getUser().is3rdJob()) {
-            sm.addItem(1142109, 1);
-            sm.forceCompleteQuest(29902);
-        }
+        sm.forceCompleteQuest(29902);
     }
 
     @Script("q29903e")
@@ -296,14 +298,14 @@ public final class TitleQuest extends ScriptHandler {
                 "\n" +
                 "#fUI/UIWindow.img/QuestIcon/4/0#\n" +
                 " #v1142110:# #t1142110# 1");
-        if (!sm.canAddItem(1142110, 1)) {
+        if (sm.hasItem(1142110, 1)) {
+            sm.forceCompleteQuest(29903);
+        }
+        if (!sm.addItem(1142110, 1)) {
             sm.sayOk("Make some room in your inventory and talk back to me.");
             return;
         }
-        if (sm.canAddItem(1142110,1) && !sm.hasItem(1142110, 1) && sm.getUser().is4thJob()) {
-            sm.addItem(1142110, 1);
-            sm.forceCompleteQuest(29903);
-        }
+        sm.forceCompleteQuest(29903);
     }
 
     @Script("q29002s")

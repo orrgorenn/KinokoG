@@ -17,6 +17,7 @@ rewards:
   - [ 1092025, 1, 1, 0.000100 ] # Gold Aquila Shield
   - [ 1092026, 1, 1, 0.000100 ] # Bronze Kalkan
   - [ 1092028, 1, 1, 0.000100 ] # Gold Kalkan
+  - [ 1342008, 1, 1, 0.002500 ] # Meteor Katara
   - [ 1412009, 1, 1, 0.000100 ] # Helios
   - [ 1422010, 1, 1, 0.000100 ] # Gigantic Sledge
   - [ 2000005, 1, 1, 0.001000 ] # Power Elixir

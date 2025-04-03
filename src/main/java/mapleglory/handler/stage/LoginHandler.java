@@ -22,6 +22,7 @@ import mapleglory.server.node.Client;
 import mapleglory.server.node.LoginServerNode;
 import mapleglory.server.packet.InPacket;
 import mapleglory.server.packet.OutPacket;
+import mapleglory.util.DurationTypeAdapter;
 import mapleglory.util.InstantTypeAdapter;
 import mapleglory.util.Util;
 import mapleglory.world.GameConstants;
@@ -42,6 +43,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
@@ -54,6 +56,7 @@ public final class LoginHandler {
 
     static Gson gson = new GsonBuilder()
             .registerTypeAdapter(Instant.class, new InstantTypeAdapter())
+            .registerTypeAdapter(Duration.class, new DurationTypeAdapter())
             .create();
 
     @Handler(InHeader.CheckPassword)

@@ -12,6 +12,8 @@ rewards:
   - [ 1060080, 1, 1, 0.000100 ] # Red Orientican Pants
   - [ 1060085, 1, 1, 0.000100 ] # Brown China Pants
   - [ 1082004, 1, 1, 0.000100 ] # Venon
+  - [ 1342006, 1, 1, 0.002500 ] # Blazing Dragon Katara
+  - [ 1342007, 1, 1, 0.002500 ] # Bloodsoaked Katara
   - [ 1492008, 1, 1, 0.000100 ] # Burning Hell
   - [ 2000002, 1, 1, 0.010000 ] # White Potion
   - [ 2000003, 1, 1, 0.010000 ] # Blue Potion

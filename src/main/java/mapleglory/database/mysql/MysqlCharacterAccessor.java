@@ -8,6 +8,7 @@ import mapleglory.database.CharacterInfo;
 import mapleglory.database.DatabaseConnection;
 import mapleglory.database.table.CharacterTable;
 import mapleglory.server.rank.CharacterRank;
+import mapleglory.util.DurationTypeAdapter;
 import mapleglory.util.InstantTypeAdapter;
 import mapleglory.util.Util;
 import mapleglory.world.item.Inventory;
@@ -26,6 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,6 +37,7 @@ public class MysqlCharacterAccessor implements CharacterAccessor {
     private static final Logger log = LoggerFactory.getLogger(MysqlCharacterAccessor.class);
     Gson gson = new GsonBuilder()
             .registerTypeAdapter(Instant.class, new InstantTypeAdapter())
+            .registerTypeAdapter(Duration.class, new DurationTypeAdapter())
             .create();
     @Override
     public boolean checkCharacterNameAvailable(String name) {

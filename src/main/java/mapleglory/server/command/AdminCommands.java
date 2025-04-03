@@ -767,8 +767,8 @@ public final class AdminCommands {
         final int nx = Integer.parseInt(args[1]);
         try (var lockedAccount = user.getAccount().acquire()) {
             final Account account = lockedAccount.get();
-            account.setNxPrepaid(nx);
-            user.write(MessagePacket.system("Set NX prepaid to %d", nx));
+            account.setNxCredit(nx);
+            user.write(MessagePacket.system("Set NX credit to %d", nx));
         }
     }
 

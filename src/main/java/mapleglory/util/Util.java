@@ -10,6 +10,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
+import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 import java.util.function.ToDoubleFunction;
@@ -126,6 +127,7 @@ public final class Util {
     public static String convertListToJson(List<?> list) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(Instant.class, new InstantTypeAdapter())
+                .registerTypeAdapter(Duration.class, new DurationTypeAdapter())
                 .create();
         return gson.toJson(list); // Convert list to JSON string
     }

@@ -318,6 +318,12 @@ public final class AranQuest extends ScriptHandler {
         }
     }
 
+    @Script("moveNext")
+    public static void moveNext(ScriptManager sm) {
+        sm.playPortalSE();
+        sm.warp(sm.getFieldId() + 10, "east00");
+    }
+
     @Script("moveBefore")
     public static void moveBefore(ScriptManager sm) {
         sm.playPortalSE();

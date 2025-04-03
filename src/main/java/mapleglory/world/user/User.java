@@ -51,6 +51,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiPredicate;
@@ -88,6 +89,9 @@ public final class User extends Life implements Lockable<User> {
     private int dojoEnergy;
     private Instant lastFameTime;
     private List<Tuple<Instant, Integer>> lastMonthFame;
+    private long dpsStart = -1;
+    private long damageDealt = 0;
+    private ScheduledFuture<?> dpsTask;
 
     public User(Client client, CharacterData characterData) {
         this.client = client;
@@ -262,6 +266,13 @@ public final class User extends Life implements Lockable<User> {
     public boolean hasAlliance() {
         return getAllianceId() != 0;
     }
+
+    public long getDpsStart() { return dpsStart; }
+    public void setDpsStart(long dpsStart) { this.dpsStart = dpsStart; }
+    public long getDpsDamage() { return damageDealt; }
+    public void setDpsDamage(long damageDealt) { this.damageDealt = damageDealt; }
+    public ScheduledFuture<?> getDpsTask() { return dpsTask; }
+    public void setDpsTask(ScheduledFuture<?> dpsTask) { this.dpsTask = dpsTask; }
 
     public Dialog getDialog() {
         return dialog;

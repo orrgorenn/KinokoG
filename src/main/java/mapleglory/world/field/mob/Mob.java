@@ -41,6 +41,7 @@ import org.apache.logging.log4j.Logger;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -72,6 +73,7 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
     private Instant nextRecovery;
     private Instant removeAfter;
     private Instant nextDropItem;
+    private boolean dpsDummy = false;
 
     public Mob(MobTemplate template, MobSpawnPoint spawnPoint, int x, int y, int fh) {
         this.template = template;
@@ -106,6 +108,9 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
     }
 
     public int getMaxHp() {
+        if (isDpsDummy()) {
+            return Integer.MAX_VALUE;
+        }
         return template.getMaxHp();
     }
 
@@ -131,6 +136,14 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
 
     public boolean isDamagedByMob() {
         return template.isDamagedByMob();
+    }
+
+    public boolean isDpsDummy() {
+        return template.getId() == 9001007;
+    }
+
+    public void setDpsDummy(boolean dpsDummy) {
+        this.dpsDummy = dpsDummy;
     }
 
     public Map<ElementAttribute, DamagedAttribute> getDamagedElemAttr() {
@@ -385,22 +398,50 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
         // Apply damage and show mob hp indicator
         final int actualDamage = Math.min(getHp(), totalDamage);
         damageDone.put(attacker.getCharacterId(), damageDone.getOrDefault(attacker.getCharacterId(), 0) + actualDamage);
-        updateHp(getHp() - actualDamage);
-        // Handle death
-        if (getHp() <= 0) {
-            if (getController() != null) {
-                getController().write(changeControllerPacket(false));
+        if (isDpsDummy()) {
+            long now = System.currentTimeMillis();
+
+            if (attacker.getDpsStart() == -1) {
+                // First hit — start tracking
+                attacker.setDpsStart(now);
+                attacker.setDpsDamage(actualDamage);
+
+                ScheduledFuture<?> task = ServerExecutor.schedule(attacker.getField(), () -> {
+                    try (var locked = attacker.acquire()) {
+                        long totalDPSDamage = locked.get().getDpsDamage();
+                        long elapsed = System.currentTimeMillis() - locked.get().getDpsStart();
+                        double dps = elapsed > 0 ? (totalDPSDamage * 1000.0 / elapsed) : 0;
+                        locked.get().write(MessagePacket.system(String.format("DPS 15s: %.2f", dps)));
+                        locked.get().setDpsStart(-1);
+                        locked.get().setDpsDamage(0);
+                        locked.get().setDpsTask(null);
+                    }
+                }, 15, TimeUnit.SECONDS);
+
+                attacker.setDpsTask(task);
+
+            } else {
+                // Still tracking
+                attacker.setDpsDamage(attacker.getDpsDamage() + totalDamage);
             }
-            if (getField().getMobPool().removeMob(this, leaveType)) {
-                distributeExp();
-                dropRewards(attacker, delay);
-                spawnRevives(delay);
-            }
-            if (template.getHpTagColor() != 0 && template.getHpTagBgColor() != 0) {
-                getField().broadcastPacket(FieldEffectPacket.mobHpTag(getId(), 0, getMaxHp(), template.getHpTagColor(), template.getHpTagBgColor()));
-            }
-            if (spawnPoint != null) {
-                spawnPoint.setNextMobRespawn();
+        } else {
+            updateHp(getHp() - actualDamage);
+            // Handle death
+            if (getHp() <= 0) {
+                if (getController() != null) {
+                    getController().write(changeControllerPacket(false));
+                }
+                if (getField().getMobPool().removeMob(this, leaveType)) {
+                    distributeExp();
+                    dropRewards(attacker, delay);
+                    spawnRevives(delay);
+                }
+                if (template.getHpTagColor() != 0 && template.getHpTagBgColor() != 0) {
+                    getField().broadcastPacket(FieldEffectPacket.mobHpTag(getId(), 0, getMaxHp(), template.getHpTagColor(), template.getHpTagBgColor()));
+                }
+                if (spawnPoint != null) {
+                    spawnPoint.setNextMobRespawn();
+                }
             }
         }
     }

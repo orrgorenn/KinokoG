@@ -21,6 +21,7 @@ rewards:
   - [ 1102030, 1, 1, 0.000100 ] # Black Seraph Cape
   - [ 1302016, 1, 1, 0.000100 ] # Yellow Umbrella
   - [ 1332022, 1, 1, 0.000100 ] # Angelic Betrayal
+  - [ 1342009, 1, 1, 0.002500 ] # Dragon Katara
   - [ 1372016, 1, 1, 0.000100 ] # Phoenix Wand
   - [ 1412009, 1, 1, 0.000100 ] # Helios
   - [ 1452010, 1, 1, 0.000100 ] # Blue Hinkel

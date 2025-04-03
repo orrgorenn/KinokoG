@@ -13,6 +13,7 @@ rewards:
   - [ 1060080, 1, 1, 0.000100 ] # Red Orientican Pants
   - [ 1060085, 1, 1, 0.000100 ] # Brown China Pants
   - [ 1082004, 1, 1, 0.000100 ] # Venon
+  - [ 1342007, 1, 1, 0.002500 ] # Bloodsoaked Katara
   - [ 2000002, 1, 1, 0.010000 ] # White Potion
   - [ 2000003, 1, 1, 0.010000 ] # Blue Potion
   - [ 2040425, 1, 1, 0.000100 ] # Scroll for Topwear for LUK 60%

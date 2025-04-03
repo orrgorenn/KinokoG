@@ -369,4 +369,14 @@ public class ElNath extends ScriptHandler {
         sm.sayNext("Please come see me now. As you may already know, I am in the #bbasement of the Chief's Residence in El Nath#k.");
         sm.forceStartQuest(3116);
     }
+
+    @Script("enterRider")
+    public static void enterRider(ScriptManager sm) {
+        if (sm.hasQuestStarted(21610) && sm.hasItem(4001193, 1)) {
+            sm.playPortalSE();
+            sm.warpInstance(921110000, "sp", 211050000, 3 * 60);
+        } else {
+            sm.message("Only attendants of the 2nd Wolf Riding quest may enter this field.");
+        }
+    }
 }

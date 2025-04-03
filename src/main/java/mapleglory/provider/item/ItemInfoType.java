@@ -5,6 +5,10 @@ import java.util.Map;
 
 public enum ItemInfoType {
     cash,
+    meso,
+    mesomin,
+    mesomax,
+    mesostdev,
     price,
     unitPrice,
     slotMax,
