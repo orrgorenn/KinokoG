@@ -23,13 +23,13 @@ rewards:
   - [ 2044602, 1, 1, 0.000100 ] # Scroll for Crossbow for ATT 10%
   - [ 2044902, 1, 1, 0.000100 ] # Scroll for Gun for ATT 10%
   - [ 2049000, 1, 1, 0.000100 ] # Clean Slate Scroll 1%
-  - [ 2290012, 1, 1, 0.000100 ] # [Mastery Book] Blast
-  - [ 2290014, 1, 1, 0.000100 ] # [Mastery Book] Guardian
-  - [ 2290050, 1, 1, 0.000100 ] # [Mastery Book] Angel Ray
-  - [ 2290062, 1, 1, 0.000100 ] # [Mastery Book] Phoenix
-  - [ 2290070, 1, 1, 0.000100 ] # [Mastery Book] Piercing Arrow
-  - [ 2290086, 1, 1, 0.000100 ] # [Mastery Book] Ninja Storm
-  - [ 2290108, 1, 1, 0.000100 ] # [Mastery Book] Speed Infusion
+  - [ 2290012, 1, 1, 0.002500 ] # [Mastery Book] Blast
+  - [ 2290014, 1, 1, 0.002500 ] # [Mastery Book] Guardian
+  - [ 2290050, 1, 1, 0.002500 ] # [Mastery Book] Angel Ray
+  - [ 2290062, 1, 1, 0.002500 ] # [Mastery Book] Phoenix
+  - [ 2290070, 1, 1, 0.002500 ] # [Mastery Book] Piercing Arrow
+  - [ 2290086, 1, 1, 0.002500 ] # [Mastery Book] Ninja Storm
+  - [ 2290108, 1, 1, 0.002500 ] # [Mastery Book] Speed Infusion
   - [ 2330005, 1, 1, 0.000400 ] # Eternal Bullet
   - [ 4000244, 1, 1, 0.001000 ] # Dragon Spirit
   - [ 4000245, 1, 1, 0.001000 ] # Dragon Scale

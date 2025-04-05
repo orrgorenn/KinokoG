@@ -15,9 +15,9 @@ rewards:
   - [ 2022003, 1, 1, 0.010000 ] # Unagi
   - [ 2044101, 1, 1, 0.000100 ] # Scroll for Two-handed Axe for ATT 60%
   - [ 2044501, 1, 1, 0.000100 ] # Scroll for Bow for ATT 60%
-  - [ 2290006, 1, 1, 0.000100 ] # [Mastery Book] Power Stance
-  - [ 2290133, 1, 1, 0.000100 ] # [Mastery Book] Final Blow 30
-  - [ 2290147, 1, 1, 0.000100 ] # [Mastery Book] Blaze 30
+  - [ 2290006, 1, 1, 0.002500 ] # [Mastery Book] Power Stance
+  - [ 2290133, 1, 1, 0.002500 ] # [Mastery Book] Final Blow 30
+  - [ 2290147, 1, 1, 0.002500 ] # [Mastery Book] Blaze 30
   - [ 2330005, 1, 1, 0.000400 ] # Eternal Bullet
   - [ 4000453, 1, 1, 0.200000 ] # Blue Heart
   - [ 4000459, 1, 1, 0.200000 ] # Black Armor Fragment

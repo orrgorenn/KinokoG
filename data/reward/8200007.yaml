@@ -17,8 +17,8 @@ rewards:
   - [ 2040302, 1, 1, 0.000100 ] # Scroll for Earring for INT 10%
   - [ 2040701, 1, 1, 0.000100 ] # Scroll for Shoes for DEX 60%
   - [ 2044301, 1, 1, 0.000100 ] # Scroll for Spear for ATT 60%
-  - [ 2290007, 1, 1, 0.000100 ] # [Mastery Book] Power Stance
-  - [ 2290150, 1, 1, 0.000100 ] # [Mastery Book] Soul Stone 20
+  - [ 2290007, 1, 1, 0.002500 ] # [Mastery Book] Power Stance
+  - [ 2290150, 1, 1, 0.002500 ] # [Mastery Book] Soul Stone 20
   - [ 2330005, 1, 1, 0.000400 ] # Eternal Bullet
   - [ 4000452, 1, 1, 0.200000 ] # Blue Helmet
   - [ 4000459, 1, 1, 0.200000 ] # Black Armor Fragment

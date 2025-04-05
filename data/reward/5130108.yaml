@@ -36,5 +36,5 @@ rewards:
   - [ 4130002, 1, 1, 0.000300 ] # One-Handed Sword Forging Stimulator
   - [ 4130014, 1, 1, 0.000300 ] # Dagger Forging Stimulator
   - [ 4130015, 1, 1, 0.000300 ] # Claw Production Stimulator
-  - [ 2290280, 1, 1, 0.000100 ] # [Mastery Book] Bots 'n Tots 30
+  - [ 2290280, 1, 1, 0.002500 ] # [Mastery Book] Bots 'n Tots 30
   - [ 4031218, 1, 1, 0.010000, 3071 ] # The Contract of Darkness

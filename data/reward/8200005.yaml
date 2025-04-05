@@ -15,7 +15,7 @@ rewards:
   - [ 2022003, 1, 1, 0.010000 ] # Unagi
   - [ 2040931, 1, 1, 0.000100 ] # Scroll for Shield for STR 60%
   - [ 2044012, 1, 1, 0.000100 ] # Scroll for Two-Handed Sword for Accuracy 60%
-  - [ 2290079, 1, 1, 0.000100 ] # [Mastery Book] Venomous Star/Venomous Stab
+  - [ 2290079, 1, 1, 0.002500 ] # [Mastery Book] Venomous Star/Venomous Stab
   - [ 4000449, 1, 1, 0.200000 ] # Blue Cloth
   - [ 4000451, 1, 1, 0.200000 ] # Neutral Mask
   - [ 4004000, 1, 1, 0.001000 ] # Power Crystal Ore

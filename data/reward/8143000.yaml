@@ -37,7 +37,7 @@ rewards:
   - [ 4130011, 1, 1, 0.000300 ] # Staff Production Stimulator
   - [ 4130016, 1, 1, 0.000300 ] # Knuckler Production Stimulator
   - [ 4130017, 1, 1, 0.000300 ] # Gun Production Stimulator
-  - [ 2290281, 1, 1, 0.000100 ] # [Mastery Book] Amplifier: AF-11 20
+  - [ 2290281, 1, 1, 0.002500 ] # [Mastery Book] Amplifier: AF-11 20
   - [ 4031170, 1, 1, 0.500000, 7100 ] # Tachion
   - [ 4031175, 1, 1, 0.450000, 7101 ] # Tachion
   - [ 4031176, 1, 1, 0.050000, 7104 ] # Piece of Cracked Dimension A

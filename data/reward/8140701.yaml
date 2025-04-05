@@ -16,8 +16,8 @@ rewards:
   - [ 2040925, 1, 1, 0.000100 ] # Scroll for Shield for LUK 10%
   - [ 2044101, 1, 1, 0.000100 ] # Scroll for Two-handed Axe for ATT 60%
   - [ 2044601, 1, 1, 0.000100 ] # Scroll for Crossbow for ATT 60%
-  - [ 2290122, 1, 1, 0.000100 ] # [Mastery Book] Battleship Torpedo
-  - [ 2290140, 1, 1, 0.000100 ] # [Mastery Book] Illusion 20
+  - [ 2290122, 1, 1, 0.002500 ] # [Mastery Book] Battleship Torpedo
+  - [ 2290140, 1, 1, 0.002500 ] # [Mastery Book] Illusion 20
   - [ 2330004, 1, 1, 0.000400 ] # Shiny Bullet
   - [ 4000244, 1, 1, 0.001000 ] # Dragon Spirit
   - [ 4000245, 1, 1, 0.001000 ] # Dragon Scale

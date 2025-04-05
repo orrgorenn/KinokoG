@@ -17,7 +17,7 @@ rewards:
   - [ 2043301, 1, 1, 0.000100 ] # Scroll for Dagger for ATT 60%
   - [ 2049000, 1, 1, 0.000100 ] # Clean Slate Scroll 1%
   - [ 2049001, 1, 1, 0.000100 ] # Clean Slate Scroll 3%
-  - [ 2290050, 1, 1, 0.000100 ] # [Mastery Book] Angel Ray
+  - [ 2290050, 1, 1, 0.002500 ] # [Mastery Book] Angel Ray
   - [ 2386033, 1, 1, 0.020000 ] # Imperial Guard Card
   - [ 4000557, 1, 1, 0.400000 ] # Imperial Guard Vacuum Tube
   - [ 4004003, 1, 1, 0.001000 ] # LUK Crystal Ore

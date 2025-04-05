@@ -9,7 +9,7 @@ rewards:
   - [ 2000006, 1, 1, 0.010000 ] # Mana Elixir
   - [ 2043802, 1, 1, 0.010000 ] # Scroll for Staff for Magic Attack 10%
   - [ 2044702, 1, 1, 0.000100 ] # Scroll for Claw for ATT 10%
-  - [ 2290099, 1, 1, 0.000100 ] # [Mastery Book] Energy Orb
+  - [ 2290099, 1, 1, 0.002500 ] # [Mastery Book] Energy Orb
   - [ 2330004, 1, 1, 0.000400 ] # Shiny Bullet
   - [ 4000429, 1, 1, 0.400000 ] # Sweat Bead
   - [ 4006000, 1, 1, 0.000700 ] # The Magic Rock

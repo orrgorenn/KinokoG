@@ -28,8 +28,8 @@ rewards:
   - [ 2040513, 1, 1, 0.000100 ] # Scroll for Overall Armor for INT 60%
   - [ 2040929, 1, 1, 0.000100 ] # Scroll for Shield for STR 100%
   - [ 2049100, 1, 1, 0.000001 ] # Chaos Scroll 60%
-  - [ 2290132, 1, 1, 0.000100 ] # [Mastery Book] Final Blow 20
-  - [ 2290146, 1, 1, 0.000100 ] # [Mastery Book] Blaze 20
+  - [ 2290132, 1, 1, 0.002500 ] # [Mastery Book] Final Blow 20
+  - [ 2290146, 1, 1, 0.002500 ] # [Mastery Book] Blaze 20
   - [ 4000182, 1, 1, 0.400000 ] # Lime Powder Bottle
   - [ 4004000, 1, 1, 0.001000 ] # Power Crystal Ore
   - [ 4007002, 1, 1, 0.000300 ] # Magic Powder (Blue)

@@ -16,10 +16,10 @@ rewards:
   - [ 2040927, 1, 1, 0.000100 ] # Scroll for Shield for HP 60%
   - [ 2044412, 1, 1, 0.000100 ] # Scroll for Pole-Arm for Accuracy 60%
   - [ 2044702, 1, 1, 0.000100 ] # Scroll for Claw for ATT 10%
-  - [ 2290056, 1, 1, 0.000100 ] # [Mastery Book] Bow Expert
-  - [ 2290136, 1, 1, 0.000100 ] # [Mastery Book] Combo Tempest 20
-  - [ 2290275, 1, 1, 0.000100 ] # [Mastery Book] Giant Robot SG-88 20
-  - [ 2290281, 1, 1, 0.000100 ] # [Mastery Book] Amplifier: AF-11 20
+  - [ 2290056, 1, 1, 0.002500 ] # [Mastery Book] Bow Expert
+  - [ 2290136, 1, 1, 0.002500 ] # [Mastery Book] Combo Tempest 20
+  - [ 2290275, 1, 1, 0.002500 ] # [Mastery Book] Giant Robot SG-88 20
+  - [ 2290281, 1, 1, 0.002500 ] # [Mastery Book] Amplifier: AF-11 20
   - [ 2330004, 1, 1, 0.000400 ] # Shiny Bullet
   - [ 4000447, 1, 1, 0.200000 ] # Green Helmet
   - [ 4000459, 1, 1, 0.200000 ] # Black Armor Fragment

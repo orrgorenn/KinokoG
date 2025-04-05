@@ -22,16 +22,16 @@ rewards:
   - [ 2044201, 1, 1, 0.000100 ] # Scroll for Two-handed BW for ATT 60%
   - [ 2044214, 1, 1, 0.000100 ] # Scroll for Two-Handed BW for Accuracy 10%
   - [ 2044801, 1, 1, 0.000100 ] # Scroll for Knuckle for Attack 60%
-  - [ 2290002, 1, 1, 0.000100 ] # [Mastery Book] Achilles
-  - [ 2290009, 1, 1, 0.000100 ] # [Mastery Book] Advanced Combo Attack
-  - [ 2290034, 1, 1, 0.000100 ] # [Mastery Book]  Holy Shield
-  - [ 2290053, 1, 1, 0.000100 ] # [Mastery Book] Sharp Eyes
-  - [ 2290058, 1, 1, 0.000100 ] # [Mastery Book] Hamstring Shot
-  - [ 2290068, 1, 1, 0.000100 ] # [Mastery Book] Blind
-  - [ 2290090, 1, 1, 0.000100 ] # [Mastery Book] Boomerang Step
-  - [ 2290121, 1, 1, 0.000100 ] # [Mastery Book] Battleship Torpedo
-  - [ 2290130, 1, 1, 0.000100 ] # [Mastery Book] Freeze Standing 20
-  - [ 2290144, 1, 1, 0.000100 ] # [Mastery Book] Magic Mastery 20
+  - [ 2290002, 1, 1, 0.002500 ] # [Mastery Book] Achilles
+  - [ 2290009, 1, 1, 0.002500 ] # [Mastery Book] Advanced Combo Attack
+  - [ 2290034, 1, 1, 0.002500 ] # [Mastery Book]  Holy Shield
+  - [ 2290053, 1, 1, 0.002500 ] # [Mastery Book] Sharp Eyes
+  - [ 2290058, 1, 1, 0.002500 ] # [Mastery Book] Hamstring Shot
+  - [ 2290068, 1, 1, 0.002500 ] # [Mastery Book] Blind
+  - [ 2290090, 1, 1, 0.002500 ] # [Mastery Book] Boomerang Step
+  - [ 2290121, 1, 1, 0.002500 ] # [Mastery Book] Battleship Torpedo
+  - [ 2290130, 1, 1, 0.002500 ] # [Mastery Book] Freeze Standing 20
+  - [ 2290144, 1, 1, 0.002500 ] # [Mastery Book] Magic Mastery 20
   - [ 2330005, 1, 1, 0.000400 ] # Eternal Bullet
   - [ 4000244, 1, 1, 0.001000 ] # Dragon Spirit
   - [ 4000245, 1, 1, 0.001000 ] # Dragon Scale

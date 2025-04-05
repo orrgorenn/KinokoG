@@ -17,9 +17,9 @@ rewards:
   - [ 2040707, 1, 1, 0.000100 ] # Scroll for Shoes for Speed 60%
   - [ 2044212, 1, 1, 0.000100 ] # Scroll for Two-Handed BW for Accuracy 60%
   - [ 2044401, 1, 1, 0.000100 ] # Scroll for Pole Arm for ATT 60%
-  - [ 2290066, 1, 1, 0.000100 ] # [Mastery Book] Marksman Boost
-  - [ 2290131, 1, 1, 0.000100 ] # [Mastery Book] Freeze Standing 30
-  - [ 2290145, 1, 1, 0.000100 ] # [Mastery Book] Magic Mastery 30
+  - [ 2290066, 1, 1, 0.002500 ] # [Mastery Book] Marksman Boost
+  - [ 2290131, 1, 1, 0.002500 ] # [Mastery Book] Freeze Standing 30
+  - [ 2290145, 1, 1, 0.002500 ] # [Mastery Book] Magic Mastery 30
   - [ 2330004, 1, 1, 0.000400 ] # Shiny Bullet
   - [ 4000445, 1, 1, 0.200000 ] # Green Cone Hat
   - [ 4000446, 1, 1, 0.200000 ] # Smiley Mask

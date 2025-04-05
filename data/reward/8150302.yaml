@@ -18,13 +18,13 @@ rewards:
   - [ 2040302, 1, 1, 0.000100 ] # Scroll for Earring for INT 10%
   - [ 2044301, 1, 1, 0.000100 ] # Scroll for Spear for ATT 60%
   - [ 2044402, 1, 1, 0.000100 ] # Scroll for Pole Arm for ATT 10%
-  - [ 2290010, 1, 1, 0.000100 ] # [Mastery Book] Brandish
-  - [ 2290019, 1, 1, 0.000100 ] # [Mastery Book] Divine Charge
-  - [ 2290026, 1, 1, 0.000100 ] # [Mastery Book] Big Bang
-  - [ 2290076, 1, 1, 0.000100 ] # [Mastery Book] Shadow Shifter
-  - [ 2290119, 1, 1, 0.000100 ] # [Mastery Book] Battleship Cannon
-  - [ 2290128, 1, 1, 0.000100 ] # [Mastery Book] High Mastery 20
-  - [ 2290142, 1, 1, 0.000100 ] # [Mastery Book] Flame Wheel 20
+  - [ 2290010, 1, 1, 0.002500 ] # [Mastery Book] Brandish
+  - [ 2290019, 1, 1, 0.002500 ] # [Mastery Book] Divine Charge
+  - [ 2290026, 1, 1, 0.002500 ] # [Mastery Book] Big Bang
+  - [ 2290076, 1, 1, 0.002500 ] # [Mastery Book] Shadow Shifter
+  - [ 2290119, 1, 1, 0.002500 ] # [Mastery Book] Battleship Cannon
+  - [ 2290128, 1, 1, 0.002500 ] # [Mastery Book] High Mastery 20
+  - [ 2290142, 1, 1, 0.002500 ] # [Mastery Book] Flame Wheel 20
   - [ 4000244, 1, 1, 0.001000 ] # Dragon Spirit
   - [ 4000245, 1, 1, 0.001000 ] # Dragon Scale
   - [ 4000270, 1, 1, 0.400000 ] # Wyvern Toenail

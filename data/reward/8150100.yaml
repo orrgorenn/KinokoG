@@ -23,7 +23,7 @@ rewards:
   - [ 2041001, 1, 1, 0.000100 ] # Scroll for Cape for Magic Def. 60%
   - [ 2041013, 1, 1, 0.000100 ] # Scroll for Cape for STR 60%
   - [ 2044902, 1, 1, 0.000100 ] # Scroll for Gun for ATT 10%
-  - [ 2290118, 1, 1, 0.000100 ] # [Mastery Book] Rapid Fire
+  - [ 2290118, 1, 1, 0.002500 ] # [Mastery Book] Rapid Fire
   - [ 4000180, 1, 1, 0.400000 ] # Shark Denture
   - [ 4004002, 1, 1, 0.001000 ] # DEX Crystal Ore
   - [ 4006000, 1, 1, 0.000700 ] # The Magic Rock

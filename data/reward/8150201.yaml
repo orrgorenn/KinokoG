@@ -26,14 +26,14 @@ rewards:
   - [ 2044210, 1, 1, 0.000100 ] # Scroll for Two-Handed BW for Accuracy 100%
   - [ 2044802, 1, 1, 0.000100 ] # Scroll for Knuckle for ATT 10%
   - [ 2049100, 1, 1, 0.000001 ] # Chaos Scroll 60%
-  - [ 2290004, 1, 1, 0.000100 ] # [Mastery Book] Rush
-  - [ 2290006, 1, 1, 0.000100 ] # [Mastery Book] Power Stance
-  - [ 2290024, 1, 1, 0.000100 ] # [Mastery Book] Mana Reflection
-  - [ 2290036, 1, 1, 0.000100 ] # [Mastery Book] Fire Demon
-  - [ 2290056, 1, 1, 0.000100 ] # [Mastery Book] Bow Expert
-  - [ 2290072, 1, 1, 0.000100 ] # [Mastery Book] Frostprey
-  - [ 2290078, 1, 1, 0.000100 ] # [Mastery Book] Venomous Star/Venomous Stab
-  - [ 2290117, 1, 1, 0.000100 ] # [Mastery Book] Rapid Fire
+  - [ 2290004, 1, 1, 0.002500 ] # [Mastery Book] Rush
+  - [ 2290006, 1, 1, 0.002500 ] # [Mastery Book] Power Stance
+  - [ 2290024, 1, 1, 0.002500 ] # [Mastery Book] Mana Reflection
+  - [ 2290036, 1, 1, 0.002500 ] # [Mastery Book] Fire Demon
+  - [ 2290056, 1, 1, 0.002500 ] # [Mastery Book] Bow Expert
+  - [ 2290072, 1, 1, 0.002500 ] # [Mastery Book] Frostprey
+  - [ 2290078, 1, 1, 0.002500 ] # [Mastery Book] Venomous Star/Venomous Stab
+  - [ 2290117, 1, 1, 0.002500 ] # [Mastery Book] Rapid Fire
   - [ 4000244, 1, 1, 0.001000 ] # Dragon Spirit
   - [ 4000245, 1, 1, 0.001000 ] # Dragon Scale
   - [ 4000267, 1, 1, 0.400000 ] # Skull Shoulder Pad

@@ -14,7 +14,7 @@ rewards:
   - [ 2040924, 1, 1, 0.000100 ] # Scroll for Shield for LUK 60%
   - [ 2044001, 1, 1, 0.000100 ] # Scroll for Two-handed Sword for ATT 60%
   - [ 2044601, 1, 1, 0.000100 ] # Scroll for Crossbow for ATT 60%
-  - [ 2290039, 1, 1, 0.000100 ] # [Mastery Book] Elquines
+  - [ 2290039, 1, 1, 0.002500 ] # [Mastery Book] Elquines
   - [ 2330005, 1, 1, 0.000400 ] # Eternal Bullet
   - [ 4000454, 1, 1, 0.200000 ] # Red Cloth
   - [ 4000456, 1, 1, 0.200000 ] # Frowny Mask
@@ -26,5 +26,5 @@ rewards:
   - [ 4020009, 1, 1, 0.001000 ] # Piece of Time
   - [ 4130000, 1, 1, 0.000300 ] # Gloves Production Stimulator
   - [ 4130009, 1, 1, 0.000300 ] # Pole Arm Forging Stimulator
-  - [ 2290283, 1, 1, 0.000100 ] # [Mastery Book] Laser Blast 30
+  - [ 2290283, 1, 1, 0.002500 ] # [Mastery Book] Laser Blast 30
   - [ 2044601, 1, 1, 0.000300 ] # Scroll for Crossbow for ATT 60%

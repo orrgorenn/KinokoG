@@ -14,10 +14,10 @@ rewards:
   - [ 2041008, 1, 1, 0.000100 ] # Scroll for Cape for HP 10%
   - [ 2044201, 1, 1, 0.000100 ] # Scroll for Two-handed BW for ATT 60%
   - [ 2044602, 1, 1, 0.000100 ] # Scroll for Crossbow for ATT 10%
-  - [ 2290046, 1, 1, 0.000100 ] # [Mastery Book] Blizzard
-  - [ 2290137, 1, 1, 0.000100 ] # [Mastery Book] Combo Tempest 30
-  - [ 2290152, 1, 1, 0.000100 ] # [Mastery Book] Blessing of the Onyx 30
-  - [ 2290280, 1, 1, 0.000100 ] # [Mastery Book] Bots 'n Tots 30
+  - [ 2290046, 1, 1, 0.002500 ] # [Mastery Book] Blizzard
+  - [ 2290137, 1, 1, 0.002500 ] # [Mastery Book] Combo Tempest 30
+  - [ 2290152, 1, 1, 0.002500 ] # [Mastery Book] Blessing of the Onyx 30
+  - [ 2290280, 1, 1, 0.002500 ] # [Mastery Book] Bots 'n Tots 30
   - [ 2330005, 1, 1, 0.000400 ] # Eternal Bullet
   - [ 4000457, 1, 1, 0.200000 ] # Red Helmet
   - [ 4000459, 1, 1, 0.200000 ] # Black Armor Fragment

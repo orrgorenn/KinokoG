@@ -20,12 +20,12 @@ rewards:
   - [ 2044110, 1, 1, 0.000100 ] # Scroll for Two-Handed Axe for Accuracy 100%
   - [ 2044702, 1, 1, 0.000100 ] # Scroll for Claw for ATT 10%
   - [ 2049000, 1, 1, 0.000100 ] # Clean Slate Scroll 1%
-  - [ 2290030, 1, 1, 0.000100 ] # [Mastery Book] Paralyze
-  - [ 2290044, 1, 1, 0.000100 ] # [Mastery Book] Ifrit
-  - [ 2290054, 1, 1, 0.000100 ] # [Mastery Book] Dragon's Breath
-  - [ 2290066, 1, 1, 0.000100 ] # [Mastery Book] Marksman Boost
-  - [ 2290092, 1, 1, 0.000100 ] # [Mastery Book] Assassinate
-  - [ 2290103, 1, 1, 0.000100 ] # [Mastery Book] Demolition
+  - [ 2290030, 1, 1, 0.002500 ] # [Mastery Book] Paralyze
+  - [ 2290044, 1, 1, 0.002500 ] # [Mastery Book] Ifrit
+  - [ 2290054, 1, 1, 0.002500 ] # [Mastery Book] Dragon's Breath
+  - [ 2290066, 1, 1, 0.002500 ] # [Mastery Book] Marksman Boost
+  - [ 2290092, 1, 1, 0.002500 ] # [Mastery Book] Assassinate
+  - [ 2290103, 1, 1, 0.002500 ] # [Mastery Book] Demolition
   - [ 4000244, 1, 1, 0.001000 ] # Dragon Spirit
   - [ 4000245, 1, 1, 0.001000 ] # Dragon Scale
   - [ 4000272, 1, 1, 0.400000 ] # Egg Shell
@@ -39,4 +39,4 @@ rewards:
   - [ 4130004, 1, 1, 0.000300 ] # One-Handed Blunt Weapon Forging Stimulator
   - [ 4130006, 1, 1, 0.000300 ] # Two-Handed Axe Forging Stimulator
   - [ 4130008, 1, 1, 0.000300 ] # Spear Forging Stimulator
-  - [ 2290283, 1, 1, 0.000100 ] # [Mastery Book] Laser Blast 30
+  - [ 2290283, 1, 1, 0.002500 ] # [Mastery Book] Laser Blast 30

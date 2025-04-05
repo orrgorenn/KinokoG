@@ -17,9 +17,9 @@ rewards:
   - [ 2043002, 1, 1, 0.000100 ] # Scroll for One-Handed Sword for ATT 10%
   - [ 2043114, 1, 1, 0.000100 ] # Scroll for One-Handed Axe for Accuracy 10%
   - [ 2044901, 1, 1, 0.000100 ] # Scroll for Gun for Attack 60%
-  - [ 2290120, 1, 1, 0.000100 ] # [Mastery Book] Battleship Cannon
-  - [ 2290127, 1, 1, 0.000100 ] # [Mastery Book] Overswing 30
-  - [ 2290141, 1, 1, 0.000100 ] # [Mastery Book] Illusion 30
+  - [ 2290120, 1, 1, 0.002500 ] # [Mastery Book] Battleship Cannon
+  - [ 2290127, 1, 1, 0.002500 ] # [Mastery Book] Overswing 30
+  - [ 2290141, 1, 1, 0.002500 ] # [Mastery Book] Illusion 30
   - [ 4000244, 1, 1, 0.001000 ] # Dragon Spirit
   - [ 4000245, 1, 1, 0.001000 ] # Dragon Scale
   - [ 4000268, 1, 1, 0.400000 ] # Wyvern Wing

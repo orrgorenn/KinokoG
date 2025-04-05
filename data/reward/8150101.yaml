@@ -24,9 +24,9 @@ rewards:
   - [ 2041022, 1, 1, 0.000100 ] # Scroll for Cape for LUK 60%
   - [ 2043001, 1, 1, 0.000100 ] # Scroll for One-Handed Sword for ATT 60%
   - [ 2049100, 1, 1, 0.000001 ] # Chaos Scroll 60%
-  - [ 2290042, 1, 1, 0.000100 ] # [Mastery Book] Ice Demon
-  - [ 2290052, 1, 1, 0.000100 ] # [Mastery Book] Sharp Eyes
-  - [ 2290102, 1, 1, 0.000100 ] # [Mastery Book] Demolition
+  - [ 2290042, 1, 1, 0.002500 ] # [Mastery Book] Ice Demon
+  - [ 2290052, 1, 1, 0.002500 ] # [Mastery Book] Sharp Eyes
+  - [ 2290102, 1, 1, 0.002500 ] # [Mastery Book] Demolition
   - [ 4000181, 1, 1, 0.400000 ] # Frozen Shark's Fin
   - [ 4006000, 1, 1, 0.000700 ] # The Magic Rock
   - [ 4006001, 1, 1, 0.000700 ] # The Summoning Rock

@@ -14,8 +14,8 @@ rewards:
   - [ 2022003, 1, 1, 0.010000 ] # Unagi
   - [ 2040501, 1, 1, 0.000100 ] # Scroll for Overall Armor for DEX 60%
   - [ 2043701, 1, 1, 0.000100 ] # Scroll for Wand for Magic Attack 60%
-  - [ 2290093, 1, 1, 0.000100 ] # [Mastery Book] Assassinate
-  - [ 2290139, 1, 1, 0.000100 ] # [Mastery Book] Combo Barrier 30
+  - [ 2290093, 1, 1, 0.002500 ] # [Mastery Book] Assassinate
+  - [ 2290139, 1, 1, 0.002500 ] # [Mastery Book] Combo Barrier 30
   - [ 2330005, 1, 1, 0.000400 ] # Eternal Bullet
   - [ 4000458, 1, 1, 0.200000 ] # Red Heart
   - [ 4000459, 1, 1, 0.200000 ] # Black Armor Fragment

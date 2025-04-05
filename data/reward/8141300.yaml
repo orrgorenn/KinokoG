@@ -28,7 +28,7 @@ rewards:
   - [ 2040618, 1, 1, 0.000100 ] # Scroll for Bottomwear for Jump 60%
   - [ 2040627, 1, 1, 0.000100 ] # Scroll for Bottomwear for DEX 10%
   - [ 2040701, 1, 1, 0.000100 ] # Scroll for Shoes for DEX 60%
-  - [ 2290098, 1, 1, 0.000100 ] # [Mastery Book] Dragon Strike
+  - [ 2290098, 1, 1, 0.002500 ] # [Mastery Book] Dragon Strike
   - [ 4000183, 1, 1, 0.400000 ] # Ink Bottle
   - [ 4004004, 1, 1, 0.001000 ] # Dark Crystal Ore
   - [ 4006000, 1, 1, 0.000700 ] # The Magic Rock

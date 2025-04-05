@@ -36,6 +36,6 @@ rewards:
   - [ 4130001, 1, 1, 0.000300 ] # Shoes Production Stimulator
   - [ 4130005, 1, 1, 0.000300 ] # Two-Handed Sword Forging Stimulator
   - [ 4130020, 1, 1, 0.000300 ] # Bottomwear Production Stimulator
-  - [ 2290284, 1, 1, 0.000100 ] # [Mastery Book] Satellite Safety 25
+  - [ 2290284, 1, 1, 0.002500 ] # [Mastery Book] Satellite Safety 25
   - [ 4031170, 1, 1, 0.500000, 7100 ] # Tachion
   - [ 4031175, 1, 1, 0.400000, 7101 ] # Tachion
