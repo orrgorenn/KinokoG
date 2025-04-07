@@ -3,10 +3,7 @@ package mapleglory.script.boss;
 import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
-import mapleglory.world.field.Field;
 import mapleglory.world.field.mob.MobAppearType;
-
-import java.time.Instant;
 
 public class Scarlion extends ScriptHandler {
     final static int TARGA_BOSS = 9420542;

@@ -203,6 +203,8 @@ public interface ScriptManager {
 
     void spawnNpc(int templateId, int x, int y, boolean isFlip, boolean originalField);
 
+    void openShopNPC(int templateId);
+
     void removeNpc(int templateId);
 
     void spawnReactor(int templateId, int x, int y, boolean isFlip, int reactorTime, boolean originalField);

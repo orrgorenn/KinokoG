@@ -24,6 +24,7 @@ public enum QuestRecordType {
     MorensNewDiscovery(6029),
 
     UnityPortal(7050),              // Dimensional Mirror Return Map
+    MemoryKeeper(7081),
     FreeMarket(7600),               // Free Market Return Map
     TatamoLikeness(7810),           // Chief Tatamo Magic Seed Discount
     WorldTour(8792),                // World Tour Return Map

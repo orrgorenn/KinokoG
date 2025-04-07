@@ -23,6 +23,8 @@ import mapleglory.world.field.mob.MobLeaveType;
 import mapleglory.world.field.npc.Npc;
 import mapleglory.world.field.reactor.Reactor;
 import mapleglory.world.user.User;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -38,9 +40,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public final class Field {
     private static final Logger log = LogManager.getLogger(Field.class);

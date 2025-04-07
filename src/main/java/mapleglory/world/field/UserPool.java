@@ -218,6 +218,8 @@ public final class UserPool extends FieldObjectPool<User> {
                 for (int skillId : resetCooltimes) {
                     user.write(UserLocal.skillCooltimeSet(skillId, 0));
                 }
+                // Update pets
+                user.updatePets(now);
                 // Expire summoned
                 user.removeSummoned((summoned) -> now.isAfter(summoned.getExpireTime()));
                 // Expire town portal
@@ -239,20 +241,9 @@ public final class UserPool extends FieldObjectPool<User> {
                         user.setOpenGate(null);
                     }
                 }
-                // Update Pets
-                final InventoryManager im = user.getInventoryManager();
-                for (java.util.Map.Entry<Integer, Item> entry : im.getCashInventory().getItems().entrySet()) {
-                    final int position = entry.getKey();
-                    final Item item = entry.getValue();
-
-                    if (item.getItemType() == ItemType.PET) {
-                        if (item.getPetData().update(now, item)) {
-                            user.write(WvsContext.inventoryOperation(InventoryOperation.position(InventoryType.CASH, position, position), false));
-                        }
-                    }
-                }
                 // Expire items
                 if (now.isAfter(user.getNextCheckItemExpire())) {
+                    final InventoryManager im = user.getInventoryManager();
                     user.setNextCheckItemExpire(now.plus(ServerConfig.ITEM_EXPIRE_INTERVAL, ChronoUnit.SECONDS));
                     boolean itemExpired = false;
                     for (InventoryType inventoryType : List.of(InventoryType.EQUIPPED, InventoryType.EQUIP, InventoryType.CONSUME, InventoryType.INSTALL, InventoryType.ETC)) {

@@ -20,6 +20,7 @@ import mapleglory.provider.reactor.ReactorTemplate;
 import mapleglory.provider.reward.Reward;
 import mapleglory.provider.skill.SkillInfo;
 import mapleglory.server.dialog.ScriptDialog;
+import mapleglory.server.dialog.shop.ShopDialog;
 import mapleglory.server.event.EventState;
 import mapleglory.server.event.EventType;
 import mapleglory.server.field.Instance;
@@ -808,6 +809,20 @@ public final class ScriptManagerImpl implements ScriptManager {
                 isFlip
         );
         targetField.getNpcPool().addNpc(npc);
+    }
+
+    @Override
+    public void openShopNPC(int templateId) {
+        final Optional<Npc> npcResult = field.getNpcPool().getByTemplateId(templateId);
+        if (npcResult.isEmpty()) {
+            throw new ScriptError("Could not find npc with template ID : %d", templateId);
+        }
+        final Npc npc = npcResult.get();
+        if (ShopProvider.isShop(npc.getTemplateId())) {
+            final ShopDialog shopDialog = ShopDialog.from(npc.getTemplate());
+            user.setDialog(shopDialog);
+            user.write(FieldPacket.openShopDlg(user, shopDialog));
+        }
     }
 
     @Override

@@ -1,7 +1,7 @@
 package mapleglory.database;
 
-import mapleglory.database.table.*;
 import mapleglory.database.mysql.*;
+import mapleglory.database.table.*;
 
 public final class DatabaseManager {
     private static IdAccessor idAccessor;

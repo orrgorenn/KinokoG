@@ -6,7 +6,6 @@ import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.script.common.ScriptMessageParam;
-import mapleglory.world.field.Field;
 import mapleglory.world.job.Job;
 import mapleglory.world.quest.QuestRecordType;
 

@@ -5,9 +5,9 @@ import mapleglory.database.DatabaseConnection;
 import mapleglory.database.GuildAccessor;
 import mapleglory.database.table.GuildTable;
 import mapleglory.server.guild.Guild;
-import mapleglory.server.guild.GuildRanking;
 import mapleglory.server.guild.GuildBoardEntry;
 import mapleglory.server.guild.GuildMember;
+import mapleglory.server.guild.GuildRanking;
 import mapleglory.util.Util;
 
 import java.io.IOException;
@@ -15,11 +15,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Optional;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MysqlGuildAccessor implements GuildAccessor {

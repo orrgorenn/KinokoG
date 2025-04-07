@@ -46,7 +46,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.Instant;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 public final class MigrationHandler {
     private static final Logger log = LogManager.getLogger(MigrationHandler.class);
@@ -131,17 +133,14 @@ public final class MigrationHandler {
             cs.setPetSn2(0);
             cs.setPetSn3(0);
             // Resolve pets
-            final Inventory cashInventory = user.getInventoryManager().getCashInventory();
             for (long petSn : pets) {
-                final Optional<Map.Entry<Integer, Item>> itemEntryResult = cashInventory.getItems().entrySet().stream()
-                        .filter((entry) -> entry.getValue().getItemSn() == petSn)
-                        .findFirst();
+                final Optional<Tuple<Integer, Item>> itemEntryResult = user.getInventoryManager().getItemBySn(InventoryType.CASH, petSn);
                 if (itemEntryResult.isEmpty()) {
                     // Item not found
                     continue;
                 }
 
-                final Item item = itemEntryResult.get().getValue();
+                final Item item = itemEntryResult.get().getRight();
                 if (item.getItemType() != ItemType.PET ||
                         item.getDateExpire() == null ||
                         item.getDateExpire().isBefore(Instant.now())) {

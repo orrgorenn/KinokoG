@@ -1,6 +1,8 @@
 package mapleglory.database.mysql;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import io.netty.handler.timeout.TimeoutException;
 import mapleglory.database.AccountAccessor;
 import mapleglory.database.DatabaseConnection;
@@ -28,9 +30,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class MysqlAccountAccessor implements AccountAccessor {
     private static final Logger log = LoggerFactory.getLogger(MysqlAccountAccessor.class);

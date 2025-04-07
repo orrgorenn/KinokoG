@@ -2,6 +2,7 @@ package mapleglory.world.user;
 
 import mapleglory.handler.user.FriendHandler;
 import mapleglory.packet.stage.StagePacket;
+import mapleglory.packet.user.PetPacket;
 import mapleglory.packet.user.UserLocal;
 import mapleglory.packet.user.UserRemote;
 import mapleglory.packet.world.FriendPacket;
@@ -35,7 +36,10 @@ import mapleglory.world.item.InventoryManager;
 import mapleglory.world.item.Item;
 import mapleglory.world.job.Job;
 import mapleglory.world.quest.QuestManager;
-import mapleglory.world.skill.*;
+import mapleglory.world.skill.FameConstants;
+import mapleglory.world.skill.PassiveSkillData;
+import mapleglory.world.skill.SkillConstants;
+import mapleglory.world.skill.SkillManager;
 import mapleglory.world.user.data.ConfigManager;
 import mapleglory.world.user.data.MapTransferInfo;
 import mapleglory.world.user.data.MiniGameRecord;
@@ -741,6 +745,19 @@ public final class User extends Life implements Lockable<User> {
         getPets().remove(petIndex);
         setPetSn(petIndex, 0, false);
         return true;
+    }
+
+    public void updatePets(Instant now) {
+        final var iter = pets.iterator();
+        while (iter.hasNext()) {
+            final Pet pet = iter.next();
+            if (pet.update(now)) {
+                final int petIndex = pet.getPetIndex();
+                setPetSn(petIndex, 0, false);
+                getField().broadcastPacket(PetPacket.petDeactivated(this, petIndex, 1)); // The pet went back home because it's hungry.
+                iter.remove();
+            }
+        }
     }
 
 

@@ -104,60 +104,76 @@ public final class ContiMove extends ScriptHandler {
         final EventType eventType;
         final String moveType;
         final int waitingField;
+        final int endField;
         switch (sm.getFieldId()) {
             case ContiMoveVictoria.ORBIS_STATION_VICTORIA_BOUND -> {
                 // Orbis : Station <Victoria Bound>
                 eventType = EventType.CM_VICTORIA;
                 moveType = "ship";
                 waitingField = ContiMoveVictoria.PRE_DEPARTURE_VICTORIA_BOUND;
+                endField = 104020110;
             }
             case ContiMoveVictoria.STATION_TO_ORBIS -> {
                 // Port Road : Station to Orbis
                 eventType = EventType.CM_VICTORIA;
                 moveType = "ship";
                 waitingField = ContiMoveVictoria.PRE_DEPARTURE_TO_ORBIS;
+                endField = 200000100;
             }
             case ContiMoveLudibrium.ORBIS_STATION_LUDIBRIUM -> {
                 // Orbis : Station <Ludibrium>
                 eventType = EventType.CM_LUDIBRIUM;
                 moveType = "ship";
                 waitingField = ContiMoveLudibrium.BEFORE_THE_DEPARTURE_TO_LUDIBRIUM;
+                endField = 220000100;
             }
             case ContiMoveLudibrium.LUDIBRIUM_STATION_ORBIS -> {
                 // Ludibrium : Station <Orbis>
                 eventType = EventType.CM_LUDIBRIUM;
                 moveType = "ship";
                 waitingField = ContiMoveLudibrium.BEFORE_THE_DEPARTURE_TO_ORBIS;
+                endField = 200000100;
             }
             case ContiMoveLeafre.ORBIS_STATION_TO_LEAFRE -> {
                 // Orbis : Cabin <To Leafre>
                 eventType = EventType.CM_LEAFRE;
                 moveType = "ship";
                 waitingField = ContiMoveLeafre.ORBIS_CABIN_TO_LEAFRE;
+                endField = 240000100;
             }
             case ContiMoveLeafre.LEAFRE_STATION -> {
                 // Leafre : Station
                 eventType = EventType.CM_LEAFRE;
                 moveType = "ship";
                 waitingField = ContiMoveLeafre.BEFORE_TAKEOFF_TO_ORBIS;
+                endField = 200000100;
             }
             case ContiMoveAriant.ORBIS_STATION_TO_ARIANT -> {
                 // Orbis : Station <To Ariant>
                 eventType = EventType.CM_ARIANT;
                 moveType = "genie";
                 waitingField = ContiMoveAriant.BEFORE_TAKEOFF_TO_ARIANT;
+                endField = 260000100;
             }
             case ContiMoveAriant.ARIANT_STATION_PLATFORM -> {
                 // Ariant : Ariant Station Platform
                 eventType = EventType.CM_ARIANT;
                 moveType = "genie";
                 waitingField = ContiMoveAriant.BEFORE_TAKEOFF_TO_ORBIS;
+                endField = 200000100;
             }
             default -> {
                 throw new ScriptError("Tried to board ship from field ID : %d", sm.getFieldId());
             }
         }
         final EventState eventState = sm.getEventState(eventType);
+        if (sm.hasItem(4322000, 1)) {
+            if (sm.askYesNo("Skip travel using your Fast Travel Ticket?")) {
+                sm.warp(endField);
+                return;
+            }
+        }
+
         if (eventState == EventState.CONTIMOVE_BOARDING) {
             if (sm.askYesNo(String.format("This will not be a short flight, so you need to take care of some things, I suggest you do that first before getting on board. Do you still wish to board the %s?", moveType))) {
                 sm.warp(waitingField);
@@ -398,7 +414,7 @@ public final class ContiMove extends ScriptHandler {
         //   Port Road : Station to Ereve (104020120)
         Map<Integer, String> answers = new HashMap<>();
         answers.put(0, "Yes, I would like to travel,");
-        if (sm.hasItem(4322000, 1)) {
+            if (sm.hasItem(4322000, 1)) {
             answers.put(answers.size(), "Skip travel using Fast Travel Ticket");
         }
         final int selection = sm.askMenu("Eh... So... Um... Are you trying to leave Victoria to go to a different region? You can take this boat to #eEreve#n. There, you will see bright sunlight shining on the leaves and feel a gentle breeze on your skin. It's where Shinsoo and Empress Cygnus are. Would you like to go to Ereve?\r\n\r\nIt will take about #e2 minutes#n and it will cost you #e1000#n Mesos.", answers);
@@ -553,27 +569,43 @@ public final class ContiMove extends ScriptHandler {
     public static void contimoveEliEde(ScriptManager sm) {
         // Ace : Pilot (2150010)
         //   Port Road : Station to Edelstein (104020130)
-        if (sm.askYesNo("Do you want to go to Edelstein? The fee is 800 Mesos. Hop on if you want to go.")) {
+        Map<Integer, String> answers = new HashMap<>();
+        answers.put(0, "Edelstein (800 mesos)");
+        if (sm.hasItem(4322000, 1)) {
+            answers.put(answers.size(), "Skip travel using Fast Travel Ticket");
+        }
+        final int answer = sm.askMenu("Do you want to go to Edelstein? The fee is 800 Mesos. Hop on if you want to go.", answers);
+        if (answer == 0) {
             if (sm.addMoney(-800)) {
                 // On Voyage : Edelstein Bound -> Edelstein : Edelstein Temporary Airport
                 sm.warpInstance(200090700, "sp", 310000010, 300);
             } else {
                 sm.sayNext("Are you sure you have enough mesos?");
             }
+        } else if (answer == 1) {
+            sm.warp(310000010);
         }
     }
 
     @Script("contimoveOrbEde")
     public static void contimoveOrbEde(ScriptManager sm) {
-        // Ace : Pilot (2150009)
-        //   Orbis : Station <Edelstein Bound> (200000170)
-        if (sm.askYesNo("Do you want to go to Edelstein? The fee is 800 Mesos. Hop on if you want to go.")) {
+        // Ace : Pilot (2150010)
+        //   Port Road : Station to Edelstein (104020130)
+        Map<Integer, String> answers = new HashMap<>();
+        answers.put(0, "Edelstein (800 mesos)");
+        if (sm.hasItem(4322000, 1)) {
+            answers.put(answers.size(), "Skip travel using Fast Travel Ticket");
+        }
+        final int answer = sm.askMenu("Do you want to go to Edelstein? The fee is 800 Mesos. Hop on if you want to go.", answers);
+        if (answer == 0) {
             if (sm.addMoney(-800)) {
                 // On Voyage : Edelstein Bound -> Edelstein : Edelstein Temporary Airport
-                sm.warpInstance(200090600, "sp", 310000010, 180);
+                sm.warpInstance(200090700, "sp", 310000010, 300);
             } else {
                 sm.sayNext("Are you sure you have enough mesos?");
             }
+        } else if (answer == 1) {
+            sm.warp(310000010);
         }
     }
 

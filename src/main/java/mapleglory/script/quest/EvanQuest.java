@@ -352,12 +352,20 @@ public final class EvanQuest extends ScriptHandler {
     public static void enterDollcave(ScriptManager sm) {
         // South Rocky Mountain : Rocky Wasteland (102010100)
         //   in00 (502, 1901)
-        if (sm.hasQuestStarted(22549) || sm.hasQuestCompleted(22549)) {
+        if (sm.hasQuestStarted(21728)) {
+            Dollcave(sm);
+        } else if (sm.hasQuestCompleted(20730)) {
             sm.playPortalSE();
             sm.warp(910050300, "out00");
-            return;
+        } else {
+            sm.message("A mysterious force prevents you from entering.");
         }
-        sm.message("A mysterious force prevents you from entering.");
+    }
+
+    @Script("Dollcave")
+    public static void Dollcave(ScriptManager sm) {
+        sm.playPortalSE();
+        sm.warpInstance(910510001, "out00", 102010100, 60 * 30);
     }
 
     @Script("evanGolemDoor")

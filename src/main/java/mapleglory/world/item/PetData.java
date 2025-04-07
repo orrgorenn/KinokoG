@@ -1,20 +1,10 @@
 package mapleglory.world.item;
 
-import mapleglory.provider.ItemProvider;
 import mapleglory.provider.StringProvider;
 import mapleglory.provider.item.ItemInfo;
-import mapleglory.provider.item.ItemInfoType;
-import mapleglory.server.netty.CentralServerHandler;
 import mapleglory.server.packet.OutPacket;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.time.Instant;
-import java.time.Duration;
-import java.util.Optional;
 
 public final class PetData {
-    private static final Logger log = LogManager.getLogger(PetData.class);
     private String petName;
     private byte level;
     private byte fullness;
@@ -22,8 +12,6 @@ public final class PetData {
     private short petSkill;
     private short petAttribute;
     private int remainLife;
-    private Duration remainHungriness = Duration.ofMillis(36000);
-    private Instant lastUpdated = Instant.MIN;
 
     public PetData() {
     }
@@ -104,51 +92,6 @@ public final class PetData {
 
     public void setRemainLife(int remainLife) {
         this.remainLife = remainLife;
-    }
-
-    public Duration getRemainHungriness() {
-        return remainHungriness;
-    }
-
-    public void setRemainHungriness(Duration remainHungriness) {
-        this.remainHungriness = remainHungriness;
-    }
-
-    public boolean update(Instant now, Item item) {
-        boolean shouldUpdate = false;
-        Duration tElapsed = Duration.between(lastUpdated, now);
-        lastUpdated = now;
-
-        if (remainHungriness.compareTo(tElapsed) < 0) {
-            ItemInfo itemInfo = ItemProvider.getItemInfo(item.getItemId()).orElseThrow();
-            int hungry = itemInfo.getInfo(ItemInfoType.hungry);
-            int bound = Math.max(1, 36 - 6 * hungry);
-            int newHungrinessSeconds = (int) (Math.random() * bound) + 60;
-            Duration newDuration = Duration.ofSeconds(newHungrinessSeconds);
-            setRemainHungriness(newDuration);
-
-            if (getFullness() > 0) {
-                byte newFullness = (byte) (getFullness() - 1);
-                setFullness(newFullness);
-            }
-
-            shouldUpdate = true;
-        } else {
-            Duration newDuration = getRemainHungriness().minus(tElapsed);
-            setRemainHungriness(newDuration);
-        }
-
-        if (getFullness() == 0) {
-            if (getTameness() > 0) {
-                setTameness((byte) (getTameness() - 1));
-            }
-
-            setFullness((byte) 5);
-
-            shouldUpdate = true;
-        }
-
-        return shouldUpdate;
     }
 
     public static PetData from(ItemInfo itemInfo) {

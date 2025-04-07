@@ -24,6 +24,7 @@ import mapleglory.server.header.InHeader;
 import mapleglory.server.packet.InPacket;
 import mapleglory.server.packet.OutPacket;
 import mapleglory.server.user.RemoteUser;
+import mapleglory.util.Tuple;
 import mapleglory.util.Util;
 import mapleglory.world.field.Field;
 import mapleglory.world.field.MapleTvMessage;
@@ -441,14 +442,12 @@ public final class CashItemHandler extends ItemHandler {
                         return;
                     }
                     // Resolve pet item
-                    final Optional<Map.Entry<Integer, Item>> itemEntry = im.getCashInventory().getItems().entrySet().stream()
-                            .filter((entry) -> entry.getValue().getItemSn() == pet.getItemSn())
-                            .findFirst();
-                    if (itemEntry.isEmpty()) {
+                    final Optional<Tuple<Integer, Item>> itemEntryResult = im.getItemBySn(InventoryType.CASH, pet.getItemSn());
+                    if (itemEntryResult.isEmpty()) {
                         throw new IllegalStateException("Could not resolve target pet item");
                     }
-                    final int petPosition = itemEntry.get().getKey();
-                    final Item petItem = itemEntry.get().getValue();
+                    final int petPosition = itemEntryResult.get().getLeft();
+                    final Item petItem = itemEntryResult.get().getRight();
                     // Consume item
                     final Optional<InventoryOperation> removeItemResult = im.removeItem(position, item, 1);
                     if (removeItemResult.isEmpty()) {

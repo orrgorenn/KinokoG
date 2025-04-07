@@ -16,22 +16,16 @@
 
 package mapleglory.script.boss;
 
-import mapleglory.provider.ItemProvider;
-import mapleglory.provider.item.ItemInfo;
 import mapleglory.provider.reward.Reward;
 import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
-import mapleglory.world.field.Field;
-import mapleglory.world.field.mob.Mob;
 import mapleglory.world.field.mob.MobAppearType;
-import mapleglory.world.item.Item;
 import mapleglory.world.quest.QuestRecordType;
 import mapleglory.world.user.User;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Zakum extends ScriptHandler {

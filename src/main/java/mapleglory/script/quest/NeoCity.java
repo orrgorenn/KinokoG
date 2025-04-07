@@ -3,11 +3,9 @@ package mapleglory.script.quest;
 import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
-import mapleglory.world.field.Field;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public final class NeoCity extends ScriptHandler {
     @Script("TD_NC_title")

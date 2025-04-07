@@ -54,7 +54,6 @@ import mapleglory.world.user.stat.*;
 
 import java.lang.reflect.Method;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static mapleglory.handler.user.item.CashItemHandler.formatSpeakerMessage;
 

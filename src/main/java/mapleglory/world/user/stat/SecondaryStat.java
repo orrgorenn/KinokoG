@@ -1,6 +1,5 @@
 package mapleglory.world.user.stat;
 
-import mapleglory.packet.user.UserRemote;
 import mapleglory.provider.EtcProvider;
 import mapleglory.provider.ItemProvider;
 import mapleglory.provider.SkillProvider;

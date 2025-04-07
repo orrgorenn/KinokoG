@@ -5,16 +5,13 @@ import mapleglory.packet.user.UserLocal;
 import mapleglory.packet.user.UserRemote;
 import mapleglory.packet.world.WvsContext;
 import mapleglory.util.Locked;
+import mapleglory.util.Tuple;
 import mapleglory.world.GameConstants;
-import mapleglory.world.item.InventoryManager;
-import mapleglory.world.item.InventoryOperation;
-import mapleglory.world.item.Item;
-import mapleglory.world.item.PetData;
+import mapleglory.world.item.*;
 import mapleglory.world.user.Pet;
 import mapleglory.world.user.User;
 import mapleglory.world.user.effect.Effect;
 
-import java.util.Map;
 import java.util.Optional;
 
 public final class QuestPetAct implements QuestAct {
@@ -45,14 +42,12 @@ public final class QuestPetAct implements QuestAct {
         }
         // Resolve pet item
         final InventoryManager im = user.getInventoryManager();
-        final Optional<Map.Entry<Integer, Item>> itemEntry = im.getCashInventory().getItems().entrySet().stream()
-                .filter((entry) -> entry.getValue().getItemSn() == pet.getItemSn())
-                .findFirst();
-        if (itemEntry.isEmpty()) {
+        final Optional<Tuple<Integer, Item>> itemEntryResult = im.getItemBySn(InventoryType.CASH, pet.getItemSn());
+        if (itemEntryResult.isEmpty()) {
             throw new IllegalStateException("Could not resolve pet item");
         }
-        final int position = itemEntry.get().getKey();
-        final Item item = itemEntry.get().getValue();
+        final int position = itemEntryResult.get().getLeft();
+        final Item item = itemEntryResult.get().getRight();
         final PetData petData = item.getPetData();
 
         // Increase tameness (closeness)
