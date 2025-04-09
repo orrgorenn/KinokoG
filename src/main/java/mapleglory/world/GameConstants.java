@@ -13,10 +13,10 @@ import java.util.List;
 public final class GameConstants {
     // RATES --------------------------------------------------------------------------------------------------
 
-    public static final int EXP_RATE = 12;
-    public static final int MESO_RATE = 4;
-    public static final int DROP_RATE = 4;
-    public static final int QUEST_RATE = 4;
+    public static final int EXP_RATE = 14;
+    public static final int MESO_RATE = 7;
+    public static final int DROP_RATE = 7;
+    public static final int QUEST_RATE = 7;
 
     // USER CONSTANTS --------------------------------------------------------------------------------------------------
 
