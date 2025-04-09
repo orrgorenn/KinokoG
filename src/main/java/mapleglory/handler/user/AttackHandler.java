@@ -31,6 +31,7 @@ import mapleglory.world.field.summoned.Summoned;
 import mapleglory.world.field.summoned.SummonedAssistType;
 import mapleglory.world.field.summoned.SummonedMoveAbility;
 import mapleglory.world.item.*;
+import mapleglory.world.job.Job;
 import mapleglory.world.job.JobConstants;
 import mapleglory.world.job.cygnus.BlazeWizard;
 import mapleglory.world.job.cygnus.DawnWarrior;
@@ -514,6 +515,7 @@ public final class AttackHandler {
                 // Handle skills
                 handlePickpocket(user, attack, mob);
                 handleOwlSpirit(user, attack, mob.getMaxHp() == totalDamage);
+                handleDragonWisdom(user, totalDamage);
                 if (attack.skillId == Aran.COMBO_TEMPEST) {
                     // client sends normal damage for bosses, normal mobs are set to 1 hp
                     if (!mob.isBoss()) {
@@ -617,6 +619,27 @@ public final class AttackHandler {
         }
         if (!drops.isEmpty()) {
             user.getField().getDropPool().addDrops(drops, DropEnterType.CREATE, mob.getX(), mob.getY() - GameConstants.DROP_HEIGHT, 0, 120);
+        }
+    }
+
+    private static void handleDragonWisdom(User user, int totalDamage) {
+        // Resolve skill info
+        final int skillId = Warrior.DRAGON_WISDOM;
+        final Optional<SkillInfo> skillInfoResult = SkillProvider.getSkillInfoById(skillId);
+        if (skillInfoResult.isEmpty()) {
+            log.warn("Could not resolve skill info for dragon wisdom skill ID : {}", skillId);
+            return;
+        }
+        final SkillInfo si = skillInfoResult.get();
+        final int slv = user.getSkillLevel(skillId);
+        // Calculate HP regen
+        if (slv > 0) {
+            if (Util.succeedProp(si.getValue(SkillStat.prop, slv))) {
+                final int hpRecovery = totalDamage * si.getValue(SkillStat.x, slv) / 100;
+                user.addHp(hpRecovery);
+                user.write(UserLocal.effect(Effect.incDecHpEffect(hpRecovery)));
+                user.getField().broadcastPacket(UserRemote.effect(user, Effect.incDecHpEffect(hpRecovery)), user);
+            }
         }
     }
 

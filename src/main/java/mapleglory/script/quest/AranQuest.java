@@ -378,6 +378,15 @@ public final class AranQuest extends ScriptHandler {
 
     @Script("q21717s")
     public static void q21717s(ScriptManager sm) {
+        sm.message("Quest not implemented, please let GM know.");
+    }
 
+    @Script("q21600s")
+    public static void q21600s(ScriptManager sm) {
+        sm.sayNext("Hey, Aran. You seem pretty strong, since that time from when you got freed from the glacier. Suitable enough to #bride a wolf#k, if you ask me.");
+        if (sm.askAccept("Picked your interest, huh? Very well, first you must make your way to #bAqua#k, there is a person there who makes #rfood for wolf cubs#k. Bring one portion to me, and I shall deem you able to tame and take care of one. What do you say, will you try for it?")) {
+            sm.forceStartQuest(21600);
+            sm.sayBoth("Alright. The one you must meet is #bNanuke#k, she is on top of a #rsnowy whale#k, somewhere in the ocean. Good luck!");
+        }
     }
 }

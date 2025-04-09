@@ -10,7 +10,7 @@ items:
   - [ 2001002, 4000, 1, 100 ] # Red Bean Sundae
   - [ 2020012, 4500, 1, 100 ] # Melting Cheese
   - [ 2020014, 8100, 1, 100 ] # Sunrise Dew
-  - [ 2022002, 1000 ] # Cider
+  - [ 2022002, 1000, 1, 100 ] # Cider
   - [ 2060003, 40, 1, 1000 ] # Red Arrow for Bow
   - [ 2070000, 500, 500, 500 ] # Subi Throwing-Stars
   - [ 2330000, 500, 500, 500 ] # Bullet

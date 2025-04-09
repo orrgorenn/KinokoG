@@ -71,4 +71,10 @@ public class TempleOfTime extends ScriptHandler {
         sm.forceCompleteQuest(questId);
         sm.setQRValue(QuestRecordType.MemoryKeeper, "1");
     }
+
+    @Script("q3514e")
+    public static void q3514e(ScriptManager sm) {
+        sm.sayOk("Hah... I found that very amusing. Very well, I'll unfreeze your memories.");
+        sm.forceCompleteQuest(3514);
+    }
 }

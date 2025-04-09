@@ -813,15 +813,17 @@ public final class ScriptManagerImpl implements ScriptManager {
 
     @Override
     public void openShopNPC(int templateId) {
-        final Optional<Npc> npcResult = field.getNpcPool().getByTemplateId(templateId);
-        if (npcResult.isEmpty()) {
-            throw new ScriptError("Could not find npc with template ID : %d", templateId);
-        }
-        final Npc npc = npcResult.get();
-        if (ShopProvider.isShop(npc.getTemplateId())) {
-            final ShopDialog shopDialog = ShopDialog.from(npc.getTemplate());
-            user.setDialog(shopDialog);
-            user.write(FieldPacket.openShopDlg(user, shopDialog));
+        try (var locked = user.acquire()) {
+            final Optional<Npc> npcResult = field.getNpcPool().getByTemplateId(templateId);
+            if (npcResult.isEmpty()) {
+                throw new ScriptError("Could not find npc with template ID : %d", templateId);
+            }
+            final Npc npc = npcResult.get();
+            if (ShopProvider.isShop(npc.getTemplateId())) {
+                final ShopDialog shopDialog = ShopDialog.from(npc.getTemplate());
+                user.setDialog(shopDialog);
+                user.write(FieldPacket.openShopDlg(user, shopDialog));
+            }
         }
     }
 

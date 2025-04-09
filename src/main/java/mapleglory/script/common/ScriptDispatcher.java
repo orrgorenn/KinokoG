@@ -1,5 +1,6 @@
 package mapleglory.script.common;
 
+import mapleglory.packet.world.MessagePacket;
 import mapleglory.provider.map.PortalInfo;
 import mapleglory.world.GameConstants;
 import mapleglory.world.field.Field;
@@ -81,6 +82,7 @@ public final class ScriptDispatcher {
         // Resolve script handler
         final Method handler = scriptMap.get(scriptName);
         if (handler == null) {
+            user.write(MessagePacket.system("Not implemented, please let the GM know (" + scriptName + ")."));
             log.error("Could not resolve {} script with name : {}", scriptType, scriptName);
             if (scriptType == ScriptType.ITEM || scriptType == ScriptType.PORTAL) {
                 user.dispose();
