@@ -57,16 +57,14 @@ public final class MiniRoomPool extends FieldObjectPool<MiniRoom> {
                     while (userIter.hasNext()) {
                         final var entry = userIter.next();
                         final int userIndex = entry.getKey();
-                        try (var locked = entry.getValue().acquire()) {
-                            final User user = locked.get();
-                            if (userIndex == 0) {
-                                user.write(MiniRoomPacket.leave(userIndex, leaveRequests.get(user)));
-                            } else {
-                                user.write(MiniRoomPacket.leave(userIndex, MiniRoomLeaveType.HostOut));
-                            }
-                            user.setDialog(null);
-                            userIter.remove();
+                        final User user = entry.getValue();
+                        if (userIndex == 0) {
+                            user.write(MiniRoomPacket.leave(userIndex, leaveRequests.get(user)));
+                        } else {
+                            user.write(MiniRoomPacket.leave(userIndex, MiniRoomLeaveType.HostOut));
                         }
+                        user.setDialog(null);
+                        userIter.remove();
                     }
                     iter.remove();
                     if (miniRoom.getType().isBalloon()) {
@@ -77,14 +75,12 @@ public final class MiniRoomPool extends FieldObjectPool<MiniRoom> {
                     var leaveIter = leaveRequests.entrySet().iterator();
                     while (leaveIter.hasNext()) {
                         final var entry = leaveIter.next();
-                        try (var locked = entry.getKey().acquire()) {
-                            final User user = locked.get();
-                            final int userIndex = miniRoom.getUserIndex(user);
-                            miniRoom.broadcastPacket(MiniRoomPacket.leave(userIndex, entry.getValue()));
-                            user.setDialog(null);
-                            miniRoom.removeUser(userIndex);
-                            leaveIter.remove();
-                        }
+                        final User user = entry.getKey();
+                        final int userIndex = miniRoom.getUserIndex(user);
+                        miniRoom.broadcastPacket(MiniRoomPacket.leave(userIndex, entry.getValue()));
+                        user.setDialog(null);
+                        miniRoom.removeUser(userIndex);
+                        leaveIter.remove();
                     }
                     miniRoom.updateBalloon();
                 }

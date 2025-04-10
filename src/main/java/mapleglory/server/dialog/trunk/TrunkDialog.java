@@ -5,7 +5,6 @@ import mapleglory.packet.world.WvsContext;
 import mapleglory.provider.npc.NpcTemplate;
 import mapleglory.server.dialog.Dialog;
 import mapleglory.server.packet.InPacket;
-import mapleglory.util.Locked;
 import mapleglory.world.item.*;
 import mapleglory.world.user.User;
 import mapleglory.world.user.stat.Stat;
@@ -32,8 +31,7 @@ public final class TrunkDialog implements Dialog {
         return npcTemplate.getTrunkGet();
     }
 
-    public void handlePacket(Locked<User> locked, InPacket inPacket) {
-        final User user = locked.get();
+    public void handlePacket(User user, InPacket inPacket) {
         final int type = inPacket.decodeByte();
         final TrunkRequestType requestType = TrunkRequestType.getByValue(type);
         if (requestType == null) {

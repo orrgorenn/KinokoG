@@ -2,7 +2,6 @@ package mapleglory.provider.quest.check;
 
 import mapleglory.provider.quest.QuestMobData;
 import mapleglory.provider.wz.property.WzListProperty;
-import mapleglory.util.Locked;
 import mapleglory.world.quest.QuestManager;
 import mapleglory.world.quest.QuestRecord;
 import mapleglory.world.user.User;
@@ -26,8 +25,8 @@ public final class QuestMobCheck implements QuestCheck {
     }
 
     @Override
-    public boolean check(Locked<User> locked) {
-        final QuestManager qm = locked.get().getQuestManager();
+    public boolean check(User user) {
+        final QuestManager qm = user.getQuestManager();
         final Optional<QuestRecord> questRecordResult = qm.getQuestRecord(questId);
         if (questRecordResult.isEmpty()) {
             return false;

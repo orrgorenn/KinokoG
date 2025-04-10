@@ -14,9 +14,9 @@ import mapleglory.provider.skill.SkillStat;
 import mapleglory.server.header.InHeader;
 import mapleglory.server.header.OutHeader;
 import mapleglory.server.packet.InPacket;
-import mapleglory.util.Locked;
 import mapleglory.util.Util;
 import mapleglory.world.GameConstants;
+import mapleglory.world.autoban.AutoBanFactory;
 import mapleglory.world.field.Field;
 import mapleglory.world.field.affectedarea.AffectedArea;
 import mapleglory.world.field.drop.Drop;
@@ -118,9 +118,7 @@ public final class AttackHandler {
             attack.dropExplodeDelay = inPacket.decodeShort();
         }
 
-        try (var locked = user.acquire()) {
-            handleAttack(locked, attack);
-        }
+        handleAttack(user, attack);
     }
 
     @Handler(InHeader.UserShootAttack)
@@ -178,9 +176,7 @@ public final class AttackHandler {
             inPacket.decodeInt(); // tReserveSpark
         }
 
-        try (var locked = user.acquire()) {
-            handleAttack(locked, attack);
-        }
+        handleAttack(user, attack);
     }
 
     @Handler(InHeader.UserMagicAttack)
@@ -230,9 +226,7 @@ public final class AttackHandler {
             attack.dragonY = inPacket.decodeShort();
         }
 
-        try (var locked = user.acquire()) {
-            handleAttack(locked, attack);
-        }
+        handleAttack(user, attack);
     }
 
     @Handler(InHeader.UserBodyAttack)
@@ -271,9 +265,7 @@ public final class AttackHandler {
         attack.userX = inPacket.decodeShort(); // GetPos()->x
         attack.userY = inPacket.decodeShort(); // GetPos()->y
 
-        try (var locked = user.acquire()) {
-            handleAttack(locked, attack);
-        }
+        handleAttack(user, attack);
     }
 
     private static void decodeMobAttackInfo(InPacket inPacket, Attack attack) {
@@ -304,8 +296,7 @@ public final class AttackHandler {
         }
     }
 
-    private static void handleAttack(Locked<User> locked, Attack attack) {
-        final User user = locked.get();
+    private static void handleAttack(User user, Attack attack) {
         final Field field = user.getField();
         // Assign attack random
         for (AttackInfo ai : attack.getAttackInfo()) {
@@ -352,7 +343,7 @@ public final class AttackHandler {
             }
             final SkillInfo si = skillInfoResult.get();
             if (si.getLevelDataCrc(attack.slv) != attack.crc) {
-                log.warn("Received mismatching CRC for skill ID : {}", attack.skillId);
+                log.warn("Received mismatching CRC for user {} for skill ID : {}", user, attack.skillId);
             }
         }
 
@@ -491,73 +482,78 @@ public final class AttackHandler {
         // Process attack
         int hpGain = 0;
         int mpGain = 0;
+
+        int totalMobsHit = attack.getAttackInfo().size();
+        int mobCount = field.getMobPool().getCount();
+        if (totalMobsHit > mobCount) {
+            AutoBanFactory.MOB_COUNT.autoban(user, "Skill: " + attack.skillId + "; Count: " + totalMobsHit + " Max: " + mobCount);
+            return;
+        }
+
         for (AttackInfo ai : attack.getAttackInfo()) {
             final Optional<Mob> mobResult = field.getMobPool().getById(ai.mobId);
             if (mobResult.isEmpty()) {
                 continue;
             }
-            // Acquire mob
-            try (var lockedMob = mobResult.get().acquire()) {
-                // Verify damage
-                if (attack.isMagicAttack()) {
-                    CalcDamage.calcMDamage(locked, lockedMob, attack, ai);
-                } else {
-                    CalcDamage.calcPDamage(locked, lockedMob, attack, ai);
+            final Mob mob = mobResult.get();
+            // Verify damage
+            if (attack.isMagicAttack()) {
+                CalcDamage.calcMDamage(user, mob, attack, ai);
+            } else {
+                CalcDamage.calcPDamage(user, mob, attack, ai);
+            }
+            // Skill specific handling
+            if (attack.skillId != 0) {
+                SkillProcessor.processAttack(user, mob, attack, ai.delay);
+            }
+            // Process damage
+            int totalDamage = Arrays.stream(ai.damage).sum();
+            int mpDamage = 0;
+            // Handle skills
+            handlePickpocket(user, attack, mob);
+            handleOwlSpirit(user, attack, mob.getMaxHp() == totalDamage);
+            handleDragonWisdom(user, totalDamage);
+            if (attack.skillId == Aran.COMBO_TEMPEST) {
+                // client sends normal damage for bosses, normal mobs are set to 1 hp
+                if (!mob.isBoss()) {
+                    totalDamage = mob.getHp() - 1;
                 }
-                // Skill specific handling
-                if (attack.skillId != 0) {
-                    SkillProcessor.processAttack(locked, lockedMob, attack, ai.delay);
-                }
-                // Process damage
-                final Mob mob = lockedMob.get();
-                int totalDamage = Arrays.stream(ai.damage).sum();
-                int mpDamage = 0;
-                // Handle skills
-                handlePickpocket(user, attack, mob);
-                handleOwlSpirit(user, attack, mob.getMaxHp() == totalDamage);
-                handleDragonWisdom(user, totalDamage);
-                if (attack.skillId == Aran.COMBO_TEMPEST) {
-                    // client sends normal damage for bosses, normal mobs are set to 1 hp
-                    if (!mob.isBoss()) {
-                        totalDamage = mob.getHp() - 1;
-                    }
-                } else if (attack.skillId == Warrior.HEAVENS_HAMMER) {
-                    // client sends 1 damage, calculate damage = Math.min(damage, mob.getHp() - 1)
-                    totalDamage = calculateHeavensHammer(user, mob);
-                } else if (attack.skillId == Thief.DRAIN || attack.skillId == NightWalker.VAMPIRE) {
-                    // cannot absorb more than half of your max hp or more than the enemy's max hp
-                    final int absorbAmount = totalDamage * user.getSkillStatValue(attack.skillId, SkillStat.x) / 100;
-                    hpGain += Math.min(Math.min(absorbAmount, user.getMaxHp() / 2), mob.getMaxHp());
-                } else if (attack.skillId == WildHunter.SWIPE) {
-                    // cannot absorb more than 15% of your max hp or more than the enemy's max hp
-                    final int absorbAmount = totalDamage * user.getSkillStatValue(attack.skillId, SkillStat.x) / 100;
-                    hpGain += Math.min(Math.min(absorbAmount, user.getMaxHp() * 15 / 100), mob.getMaxHp());
-                } else if (attack.skillId == Pirate.ENERGY_DRAIN || attack.skillId == ThunderBreaker.ENERGY_DRAIN) {
-                    hpGain += totalDamage * user.getSkillStatValue(attack.skillId, SkillStat.x) / 100;
-                } else if (attack.skillId != 0) {
-                    mpDamage = calculateMpEater(user, mob);
-                }
-                if (user.getSecondaryStat().hasOption(CharacterTemporaryStat.ComboDrain)) {
-                    final int absorbAmount = totalDamage * user.getSecondaryStat().getOption(CharacterTemporaryStat.ComboDrain).nOption / 100;
-                    hpGain += Math.min(absorbAmount, user.getMaxHp() / 10);
-                }
-                // Process damage
-                mob.damage(user, totalDamage, attack.skillId == Thief.MESO_EXPLOSION ? attack.dropExplodeDelay : ai.delay);
-                mob.setMp(mob.getMp() - mpDamage);
-                mpGain += mpDamage;
-                // Process on-hit effects
-                if (mob.getHp() > 0) {
-                    handleHamString(user, mob, ai.delay);
-                    handleBlind(user, mob, ai.delay);
-                    handleVenom(user, mob, ai.delay);
-                    handleWeaponCharge(user, mob, ai.delay);
-                    handleEvanSlow(user, mob, ai.delay);
-                    handleMortalBlow(user, mob, ai.delay);
-                }
-                // Process on-kill effects
-                if (mob.getHp() <= 0) {
-                    handleRevive(user, mob);
-                }
+            } else if (attack.skillId == Warrior.HEAVENS_HAMMER) {
+                // client sends 1 damage, calculate damage = Math.min(damage, mob.getHp() - 1)
+                totalDamage = calculateHeavensHammer(user, mob);
+            } else if (attack.skillId == Thief.DRAIN || attack.skillId == NightWalker.VAMPIRE) {
+                // cannot absorb more than half of your max hp or more than the enemy's max hp
+                final int absorbAmount = totalDamage * user.getSkillStatValue(attack.skillId, SkillStat.x) / 100;
+                hpGain += Math.min(Math.min(absorbAmount, user.getMaxHp() / 2), mob.getMaxHp());
+            } else if (attack.skillId == WildHunter.SWIPE) {
+                // cannot absorb more than 15% of your max hp or more than the enemy's max hp
+                final int absorbAmount = totalDamage * user.getSkillStatValue(attack.skillId, SkillStat.x) / 100;
+                hpGain += Math.min(Math.min(absorbAmount, user.getMaxHp() * 15 / 100), mob.getMaxHp());
+            } else if (attack.skillId == Pirate.ENERGY_DRAIN || attack.skillId == ThunderBreaker.ENERGY_DRAIN) {
+                hpGain += totalDamage * user.getSkillStatValue(attack.skillId, SkillStat.x) / 100;
+            } else if (attack.skillId != 0) {
+                mpDamage = calculateMpEater(user, mob);
+            }
+            if (user.getSecondaryStat().hasOption(CharacterTemporaryStat.ComboDrain)) {
+                final int absorbAmount = totalDamage * user.getSecondaryStat().getOption(CharacterTemporaryStat.ComboDrain).nOption / 100;
+                hpGain += Math.min(absorbAmount, user.getMaxHp() / 10);
+            }
+            // Process damage
+            mob.damage(user, totalDamage, attack.skillId == Thief.MESO_EXPLOSION ? attack.dropExplodeDelay : ai.delay);
+            mob.setMp(mob.getMp() - mpDamage);
+            mpGain += mpDamage;
+            // Process on-hit effects
+            if (mob.getHp() > 0) {
+                handleHamString(user, mob, ai.delay);
+                handleBlind(user, mob, ai.delay);
+                handleVenom(user, mob, ai.delay);
+                handleWeaponCharge(user, mob, ai.delay);
+                handleEvanSlow(user, mob, ai.delay);
+                handleMortalBlow(user, mob, ai.delay);
+            }
+            // Process on-kill effects
+            if (mob.getHp() <= 0) {
+                handleRevive(user, mob);
             }
         }
 

@@ -2,7 +2,6 @@ package mapleglory.provider.quest.act;
 
 import mapleglory.packet.user.QuestPacket;
 import mapleglory.provider.ItemProvider;
-import mapleglory.util.Locked;
 import mapleglory.world.user.User;
 
 public final class QuestBuffAct implements QuestAct {
@@ -13,17 +12,17 @@ public final class QuestBuffAct implements QuestAct {
     }
 
     @Override
-    public boolean canAct(Locked<User> locked, int rewardIndex) {
+    public boolean canAct(User user, int rewardIndex) {
         if (ItemProvider.getItemInfo(buffItemId).isEmpty()) {
-            locked.get().write(QuestPacket.failedUnknown());
+            user.write(QuestPacket.failedUnknown());
             return false;
         }
         return true;
     }
 
     @Override
-    public boolean doAct(Locked<User> locked, int rewardIndex) {
-        locked.get().setConsumeItemEffect(ItemProvider.getItemInfo(buffItemId).orElseThrow());
+    public boolean doAct(User user, int rewardIndex) {
+        user.setConsumeItemEffect(ItemProvider.getItemInfo(buffItemId).orElseThrow());
         return true;
     }
 }

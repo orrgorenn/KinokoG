@@ -6,10 +6,13 @@ import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.script.common.ScriptMessageParam;
+import mapleglory.world.field.Field;
+import mapleglory.world.field.mob.MobAppearType;
 import mapleglory.world.job.Job;
 import mapleglory.world.quest.QuestRecordType;
 
 import java.util.List;
+import java.util.Optional;
 
 public final class AranQuest extends ScriptHandler {
     @Script("rien")
@@ -388,5 +391,47 @@ public final class AranQuest extends ScriptHandler {
             sm.forceStartQuest(21600);
             sm.sayBoth("Alright. The one you must meet is #bNanuke#k, she is on top of a #rsnowy whale#k, somewhere in the ocean. Good luck!");
         }
+    }
+
+    @Script("enterDollcave")
+    public static void enterDollcave(ScriptManager sm) {
+        // South Rocky Mountain : Rocky Wasteland (102010100)
+        //   in00 (502, 1901)
+        if (sm.hasQuestStarted(21728)) {
+            sm.setQRValue(QuestRecordType.ThePuppeteersCave, "0");
+            sm.message("Ah, the entrance is blocked by a powerful force? I see, give me some time to think of a solution...");
+        } else if (sm.hasQuestCompleted(21730)) {
+            sm.setSpeakerId(1063011);
+            String password = sm.askText("A suspicious voice pierces through the silence. " + blue("Password:"), "", 5, 40);
+            if (password.equals("Francis is a genius Puppeteer!")) {
+                sm.playPortalSE();
+                sm.warpInstance(910510001, "out00", 102010100, 60 * 10);
+            }
+        } else {
+            sm.message("A mysterious force prevents you from entering.");
+        }
+    }
+
+    @Script("DollMaster")
+    public static void DollMaster(ScriptManager sm) {
+        if (sm.getJob() != Job.ARAN_1 && sm.getJob() != Job.ARAN_2 && sm.getJob() != Job.ARAN_4 && sm.getJob() != Job.ARAN_4) {
+            sm.sayNext("What the... you don't belong here!");
+            return;
+        }
+
+        sm.sayNext("You again! How in the world did you get in? I thought i warned you not to stand in my way!");
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth(blue("What exactly are you trying to do? Why are you controlling these monsters? Tell me what the black Wings are up to!"));
+        sm.setPlayerAsSpeaker(false);
+        sm.sayNext("Hmm, I don't have to tell you anything! Now prepare to die!");
+
+        sm.removeNpc(1104000);
+        sm.spawnMob(9300344, MobAppearType.REGEN, 540, 245, false);
+    }
+
+    @Script("q21729s")
+    public static void q21729s(ScriptManager sm) {
+        sm.sayNext("Okay, you should not return to #bTru#k for further details on your next steps. ... Oh wait!! I remembered something. See the #rMysterious Statue#k over there? That statue has it's origins unknwown, and there's something scribbled onto it that resembles something big, it probably is the password for the cave? #rGet the password there#k, it may help you on your journey.");
+        sm.forceStartQuest(21729);
     }
 }

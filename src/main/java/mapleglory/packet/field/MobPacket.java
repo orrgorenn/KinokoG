@@ -111,6 +111,13 @@ public final class MobPacket {
         return outPacket;
     }
 
+    public static OutPacket mobSuspendReset(Mob mob, boolean suspendReset) {
+        final OutPacket outPacket = OutPacket.of(OutHeader.MobSuspendReset);
+        outPacket.encodeInt(mob.getId()); // dwMobID
+        outPacket.encodeByte(suspendReset ? 1 : 0);
+        return outPacket;
+    }
+
     public static OutPacket mobAffected(Mob mob, int skillId, int delay) {
         final OutPacket outPacket = OutPacket.of(OutHeader.MobAffected);
         outPacket.encodeInt(mob.getId()); // dwMobID

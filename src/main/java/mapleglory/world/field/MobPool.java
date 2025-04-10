@@ -10,21 +10,26 @@ import mapleglory.util.BitFlag;
 import mapleglory.util.Rect;
 import mapleglory.world.GameConstants;
 import mapleglory.world.field.mob.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.time.Instant;
 import java.util.*;
 import java.util.function.Consumer;
 
 public final class MobPool extends FieldObjectPool<Mob> {
+    private static final Logger log = LogManager.getLogger(MobPool.class);
     private final List<MobSpawnPoint> mobSpawnPoints;
     private final int mobCapacityMin;
     private final int mobCapacityMax;
+    private int mobSubCount;
 
     public MobPool(Field field) {
         super(field);
         this.mobSpawnPoints = initializeMobSpawnPoints(field);
         this.mobCapacityMin = initializeMobCapacity(field);
         this.mobCapacityMax = mobCapacityMin * 2;
+        this.mobSubCount = -1;
     }
 
     public Optional<Mob> getByTemplateId(int templateId) {
@@ -39,6 +44,15 @@ public final class MobPool extends FieldObjectPool<Mob> {
         if (mob.getSummonType() != MobAppearType.SUSPENDED.getValue()) {
             mob.setSummonType(MobAppearType.NORMAL.getValue());
         }
+
+        if (mob.getMobType() == MobType.SUB_MOB.getValue()) {
+            if (mobSubCount < 0) {
+                mobSubCount = 1;
+            } else {
+                mobSubCount += 1;
+            }
+        }
+
         field.getUserPool().assignController(mob);
     }
 
@@ -46,6 +60,21 @@ public final class MobPool extends FieldObjectPool<Mob> {
         if (!removeObject(mob)) {
             return false;
         }
+        // Handle SubMobs
+        if (mob.getMobType() == MobType.SUB_MOB.getValue()) {
+            this.mobSubCount -= 1;
+        }
+
+        if (this.mobSubCount == 0) {
+            for (Mob fieldMob : getObjects()) {
+                try (var lockedFieldMob = fieldMob.acquire()) {
+                    if (fieldMob.getMobType() == MobType.PARENT_MOB.getValue()) {
+                        field.broadcastPacket(MobPacket.mobSuspendReset(fieldMob, true));
+                    }
+                }
+            }
+        }
+
         // Send MobLeaveField after processing attack
         ServerExecutor.submit(field, () -> {
             field.broadcastPacket(MobPacket.mobLeaveField(mob, leaveType));

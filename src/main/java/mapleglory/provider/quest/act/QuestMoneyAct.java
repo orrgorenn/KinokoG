@@ -3,7 +3,6 @@ package mapleglory.provider.quest.act;
 import mapleglory.packet.user.QuestPacket;
 import mapleglory.packet.world.MessagePacket;
 import mapleglory.packet.world.WvsContext;
-import mapleglory.util.Locked;
 import mapleglory.world.item.InventoryManager;
 import mapleglory.world.user.User;
 import mapleglory.world.user.stat.Stat;
@@ -16,8 +15,7 @@ public final class QuestMoneyAct implements QuestAct {
     }
 
     @Override
-    public boolean canAct(Locked<User> locked, int rewardIndex) {
-        final User user = locked.get();
+    public boolean canAct(User user, int rewardIndex) {
         final long newMoney = ((long) user.getInventoryManager().getMoney()) + money;
         if (newMoney > Integer.MAX_VALUE || newMoney < 0) {
             user.write(QuestPacket.failedMeso());
@@ -27,8 +25,7 @@ public final class QuestMoneyAct implements QuestAct {
     }
 
     @Override
-    public boolean doAct(Locked<User> locked, int rewardIndex) {
-        final User user = locked.get();
+    public boolean doAct(User user, int rewardIndex) {
         final InventoryManager im = user.getInventoryManager();
         if (!im.addMoney(money)) {
             return false;

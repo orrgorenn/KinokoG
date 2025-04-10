@@ -50,6 +50,7 @@ public class MysqlAccountAccessor implements AccountAccessor {
             account.setNxPrepaid(rs.getInt(AccountTable.NX_PREPAID));
             account.setMaplePoint(rs.getInt(AccountTable.MAPLE_POINT));
             account.setGM(rs.getInt(AccountTable.GM));
+            account.setIsBanned(rs.getBoolean(AccountTable.BANNED));
 
             final Trunk trunk = new Trunk(rs.getInt(AccountTable.TRUNK_SIZE));
             final String rsItems = rs.getString(AccountTable.TRUNK_ITEMS);
@@ -326,6 +327,27 @@ public class MysqlAccountAccessor implements AccountAccessor {
 
         } catch (SQLException e) {
             log.error("SQL error updating account ID {}: {}", account.getId(), e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean banAccount(int accountId, String reason) {
+        String updateQuery = "UPDATE " + AccountTable.getTableName() + " SET " +
+                AccountTable.BANNED + " = 1, " +
+                AccountTable.BAN_REASON + " = ? " +
+                "WHERE " + AccountTable.ACCOUNT_ID + " = ?";
+
+        try (Connection con = DatabaseConnection.getConnection()) {
+            try (PreparedStatement ps = con.prepareStatement(updateQuery)) {
+                ps.setInt(1, accountId);
+                ps.setString(2, reason);
+
+                int rowsUpdated = ps.executeUpdate();
+                return rowsUpdated > 0;
+            }
+        } catch (SQLException e) {
+            log.error("SQL error updating account ID {}: {}", accountId, e.getMessage());
             return false;
         }
     }

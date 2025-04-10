@@ -2,24 +2,19 @@ package mapleglory.server.field;
 
 import mapleglory.packet.field.FieldPacket;
 import mapleglory.server.node.ChannelServerNode;
-import mapleglory.util.Lockable;
 import mapleglory.world.user.User;
 
 import java.time.Instant;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
-public final class Instance implements Lockable<Instance> {
-    private final Lock lock = new ReentrantLock();
+public final class Instance {
     private final int instanceId;
     private final int returnMap;
-    private final Map<Integer, User> userMap;
-    private final Map<String, String> variables;
+    private final ConcurrentHashMap<Integer, User> userMap;
+    private final ConcurrentHashMap<String, String> variables;
     private final ChannelServerNode channelServerNode;
     private final Instant expireTime;
 
@@ -79,15 +74,5 @@ public final class Instance implements Lockable<Instance> {
 
     public void setVariable(String key, String value) {
         variables.put(key, value);
-    }
-
-    @Override
-    public void lock() {
-        lock.lock();
-    }
-
-    @Override
-    public void unlock() {
-        lock.unlock();
     }
 }

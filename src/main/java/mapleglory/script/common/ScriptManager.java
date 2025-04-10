@@ -8,6 +8,7 @@ import mapleglory.util.Tuple;
 import mapleglory.world.field.Field;
 import mapleglory.world.field.FieldObject;
 import mapleglory.world.field.mob.MobAppearType;
+import mapleglory.world.field.mob.MobType;
 import mapleglory.world.item.BodyPart;
 import mapleglory.world.item.InventoryType;
 import mapleglory.world.job.Job;
@@ -189,6 +190,10 @@ public interface ScriptManager {
 
     int getFieldId();
 
+    default void spawnMob(int templateId, MobAppearType appearType, int x, int y, boolean isLeft, MobType mobType) {
+        spawnMob(templateId, appearType.getValue(), x, y, isLeft, mobType.getValue());
+    }
+
     default void spawnMob(int templateId, MobAppearType appearType, int x, int y, boolean isLeft) {
         spawnMob(templateId, appearType.getValue(), x, y, isLeft);
     }
@@ -196,6 +201,8 @@ public interface ScriptManager {
     default void spawnMobInMap(int templateId, MobAppearType appearType, int x, int y, boolean isLeft, Field customField) {
         spawnMob(templateId, appearType.getValue(), x, y, isLeft, customField);
     }
+
+    void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft, int mobType);
 
     void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft);
 

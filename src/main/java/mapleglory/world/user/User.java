@@ -1,6 +1,8 @@
 package mapleglory.world.user;
 
+import mapleglory.database.DatabaseManager;
 import mapleglory.handler.user.FriendHandler;
+import mapleglory.packet.stage.CashShopPacket;
 import mapleglory.packet.stage.StagePacket;
 import mapleglory.packet.user.PetPacket;
 import mapleglory.packet.user.UserLocal;
@@ -14,6 +16,8 @@ import mapleglory.provider.item.ItemSpecType;
 import mapleglory.provider.map.Foothold;
 import mapleglory.provider.map.PortalInfo;
 import mapleglory.provider.skill.SkillStat;
+import mapleglory.server.cashshop.CashItemFailReason;
+import mapleglory.server.cashshop.CashItemResultType;
 import mapleglory.server.dialog.Dialog;
 import mapleglory.server.dialog.ScriptDialog;
 import mapleglory.server.dialog.miniroom.MiniRoom;
@@ -26,6 +30,7 @@ import mapleglory.util.BitFlag;
 import mapleglory.util.Lockable;
 import mapleglory.util.Tuple;
 import mapleglory.world.GameConstants;
+import mapleglory.world.autoban.AutoBanManager;
 import mapleglory.world.field.Field;
 import mapleglory.world.field.OpenGate;
 import mapleglory.world.field.TownPortal;
@@ -75,6 +80,7 @@ public final class User extends Life implements Lockable<User> {
 
     private final List<Pet> pets = new ArrayList<>();
     private final Map<Integer, List<Summoned>> summoned = new HashMap<>(); // skill id -> list of summons
+    private final Map<Integer, Instant> schedules = new HashMap<>();
     private final AtomicInteger fieldKey = new AtomicInteger(0);
 
     private int messengerId;
@@ -96,11 +102,13 @@ public final class User extends Life implements Lockable<User> {
     private long dpsStart = -1;
     private long damageDealt = 0;
     private ScheduledFuture<?> dpsTask;
+    private AutoBanManager abManager;
 
     public User(Client client, CharacterData characterData) {
         this.client = client;
         this.characterData = characterData;
         this.nextCheckItemExpire = Instant.MIN;
+        this.abManager = new AutoBanManager(this);
     }
 
     public Client getClient() {
@@ -199,6 +207,18 @@ public final class User extends Life implements Lockable<User> {
 
     public Map<Integer, List<Summoned>> getSummoned() {
         return summoned;
+    }
+
+    public Map<Integer, Instant> getSchedules() {
+        return schedules;
+    }
+
+    public Instant getSchedule(int skillId) {
+        return schedules.getOrDefault(skillId, Instant.MAX);
+    }
+
+    public void setSchedule(int skillId, Instant nextSchedule) {
+        schedules.put(skillId, nextSchedule);
     }
 
     public byte getFieldKey() {
@@ -598,6 +618,27 @@ public final class User extends Life implements Lockable<User> {
         write(UserLocal.skillCooltimeSet(skillId, cooltime));
     }
 
+    public List<Integer> expireSkillCooltime(Instant now) {
+        final List<Integer> resetCooltimes = new ArrayList<>();
+        final var iter = getSkillManager().getSkillCooltimes().entrySet().iterator();
+        while (iter.hasNext()) {
+            final Map.Entry<Integer, Instant> entry = iter.next();
+            final int skillId = entry.getKey();
+            // Battleship durability is stored as cooltime
+            if (skillId == SkillConstants.BATTLESHIP_DURABILITY) {
+                continue;
+            }
+            // Check skill cooltime and remove
+            final Instant nextAvailable = entry.getValue();
+            if (now.isBefore(nextAvailable)) {
+                continue;
+            }
+            iter.remove();
+            resetCooltimes.add(skillId);
+        }
+        return resetCooltimes;
+    }
+
     public void setConsumeItemEffect(ItemInfo itemInfo) {
         // Apply recovery and resolve stat ups
         int statUpDuration = 0;
@@ -806,6 +847,32 @@ public final class User extends Life implements Lockable<User> {
         return Optional.of(summonedList.getFirst());
     }
 
+    // AUTOBAN  --------------------------------------------------------------------------------------------------------
+
+    public void ban(String reason) {
+        getAccount().setIsBanned(true);
+        if (!DatabaseManager.accountAccessor().banAccount(getAccountId(), reason)) {
+            log.error("Failed to ban account {}", getAccount());
+        }
+        logout(true);
+    }
+
+    public void autoban(String reason) {
+        if (this.getAccount().isGM() || this.isBanned()) {
+            return;
+        }
+
+        this.ban(reason);
+    }
+
+    public boolean isBanned() {
+        return getAccount().getIsBanned();
+    }
+
+    public AutoBanManager getAbManager() {
+        return this.abManager;
+    }
+
 
     // OTHER HELPER METHODS --------------------------------------------------------------------------------------------
 
@@ -919,5 +986,10 @@ public final class User extends Life implements Lockable<User> {
     @Override
     public void unlock() {
         lock.unlock();
+    }
+
+    @Override
+    public String toString() {
+        return "<Character id=" + getCharacterId() + " name=" + getCharacterName() + ">";
     }
 }

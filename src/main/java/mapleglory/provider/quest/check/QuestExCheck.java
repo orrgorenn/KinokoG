@@ -3,7 +3,6 @@ package mapleglory.provider.quest.check;
 import mapleglory.provider.ProviderError;
 import mapleglory.provider.WzProvider;
 import mapleglory.provider.wz.property.WzListProperty;
-import mapleglory.util.Locked;
 import mapleglory.world.quest.QuestRecord;
 import mapleglory.world.quest.QuestState;
 import mapleglory.world.user.User;
@@ -31,8 +30,8 @@ public final class QuestExCheck implements QuestCheck {
     }
 
     @Override
-    public boolean check(Locked<User> locked) {
-        final Optional<QuestRecord> questRecordResult = locked.get().getQuestManager().getQuestRecord(getQuestId());
+    public boolean check(User user) {
+        final Optional<QuestRecord> questRecordResult = user.getQuestManager().getQuestRecord(getQuestId());
         if (questRecordResult.isEmpty()) {
             return false;
         }

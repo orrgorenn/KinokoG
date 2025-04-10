@@ -18,4 +18,6 @@ public interface AccountAccessor {
     boolean saveAccount(Account account);
 
     void setLoggedStatus(Account account, boolean status);
+
+    boolean banAccount(int accountId, String reason);
 }

@@ -2,7 +2,6 @@ package mapleglory.provider.quest.check;
 
 import mapleglory.provider.WzProvider;
 import mapleglory.provider.wz.property.WzListProperty;
-import mapleglory.util.Locked;
 import mapleglory.world.user.User;
 
 import java.util.Collections;
@@ -17,9 +16,8 @@ public final class QuestJobCheck implements QuestCheck {
     }
 
     @Override
-    public boolean check(Locked<User> locked) {
-        final int jobId = locked.get().getJob();
-        return jobs.contains(jobId);
+    public boolean check(User user) {
+        return jobs.contains(user.getJob());
     }
 
     public static QuestJobCheck from(WzListProperty jobList) {

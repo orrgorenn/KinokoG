@@ -19,6 +19,7 @@ public final class Account implements Lockable<Account> {
     private Locker locker;
     private List<Integer> wishlist;
     private int gm;
+    private boolean isBanned;
 
     // TRANSIENT
     private int channelId = -1;
@@ -57,6 +58,14 @@ public final class Account implements Lockable<Account> {
     }
     public void setGM(int currentGm) {
         this.gm = currentGm;
+    }
+
+    public void setIsBanned(boolean isBanned) {
+        this.isBanned = isBanned;
+    }
+
+    public boolean getIsBanned() {
+        return this.isBanned;
     }
 
     public int getNxPrepaid() {

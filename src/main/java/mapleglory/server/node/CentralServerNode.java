@@ -4,7 +4,6 @@ import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import mapleglory.packet.CentralPacket;
-import mapleglory.server.ServerConstants;
 import mapleglory.server.guild.Guild;
 import mapleglory.server.guild.GuildMember;
 import mapleglory.server.guild.GuildRank;
@@ -42,8 +41,12 @@ public final class CentralServerNode extends Node {
 
     private final CompletableFuture<?> initializeFuture = new CompletableFuture<>();
     private final CompletableFuture<?> shutdownFuture = new CompletableFuture<>();
+    private final int port;
     private ChannelFuture centralServerFuture;
 
+    public CentralServerNode(int port) {
+        this.port = port;
+    }
 
     // CHANNEL METHODS -------------------------------------------------------------------------------------------------
 
@@ -200,9 +203,9 @@ public final class CentralServerNode extends Node {
                 ch.attr(RemoteServerNode.NODE_KEY).set(new RemoteServerNode(ch));
                 ch.writeAndFlush(CentralPacket.initializeRequest());
             }
-        }, ServerConstants.CENTRAL_PORT);
+        }, port);
         centralServerFuture.sync();
-        log.info("Central server listening on port {}", ServerConstants.CENTRAL_PORT);
+        log.info("Central server listening on port {}", port);
 
         // Wait for child node connections
         final Instant start = Instant.now();

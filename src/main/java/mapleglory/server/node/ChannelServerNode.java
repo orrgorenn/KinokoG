@@ -3,10 +3,7 @@ package mapleglory.server.node;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.handler.logging.LogLevel;
-import io.netty.handler.logging.LoggingHandler;
 import mapleglory.packet.CentralPacket;
-import mapleglory.packet.stage.LoginPacket;
 import mapleglory.server.ServerConfig;
 import mapleglory.server.ServerConstants;
 import mapleglory.server.event.EventManager;
@@ -266,19 +263,7 @@ public final class ChannelServerNode extends ServerNode {
 
         // Start channel server
         final ChannelServerNode self = this;
-        channelServerFuture = startServer(new ChannelInitializer<>() {
-            @Override
-            protected void initChannel(SocketChannel ch) {
-                ch.pipeline().addLast(new LoggingHandler(LogLevel.DEBUG));
-                ch.pipeline().addLast(new PacketDecoder(), new ChannelPacketHandler(), new PacketEncoder());
-                final Client c = new Client(self, ch);
-                c.setSendIv(getNewIv());
-                c.setRecvIv(getNewIv());
-                c.setClientKey(getNewClientKey());
-                c.write(LoginPacket.connect(c.getRecvIv(), c.getSendIv()));
-                ch.attr(NettyClient.CLIENT_KEY).set(c);
-            }
-        }, channelPort);
+        channelServerFuture = startServer(new PacketChannelInitializer(new ChannelPacketHandler(), self), channelPort);
 
         new Thread(() -> {
             try {
@@ -323,5 +308,10 @@ public final class ChannelServerNode extends ServerNode {
         centralClientFuture.channel().writeAndFlush(CentralPacket.shutdownResult(channelId, true));
         centralClientFuture.channel().close().sync();
         log.info("Central client {} closed", channelId + 1);
+    }
+
+    @Override
+    public boolean isInitialized() {
+        return true;
     }
 }

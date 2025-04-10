@@ -4,7 +4,6 @@ import mapleglory.server.dialog.Dialog;
 import mapleglory.server.packet.InPacket;
 import mapleglory.server.packet.OutPacket;
 import mapleglory.util.Lockable;
-import mapleglory.util.Locked;
 import mapleglory.world.field.FieldObjectImpl;
 import mapleglory.world.user.User;
 import org.apache.logging.log4j.LogManager;
@@ -38,7 +37,7 @@ public abstract class MiniRoom extends FieldObjectImpl implements Dialog, Lockab
 
     public abstract int getMaxUsers();
 
-    public abstract void handlePacket(Locked<User> locked, MiniRoomProtocol mrp, InPacket inPacket);
+    public abstract void handlePacket(User user, MiniRoomProtocol mrp, InPacket inPacket);
 
     public abstract void leaveUnsafe(User user);
 

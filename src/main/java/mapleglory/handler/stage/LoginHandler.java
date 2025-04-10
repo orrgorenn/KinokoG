@@ -102,8 +102,6 @@ public final class LoginHandler {
                 c.write(LoginPacket.checkPasswordResultFail(LoginResultType.ImpossibleIP));
                 return;
             }
-            DatabaseManager.accountAccessor().setLoggedStatus(account, true);
-            DatabaseManager.activeMachineAccessor().addNewInstance(account.getId(), readableMachineId, "0");
 
             c.setAccount(account);
             c.setMachineId(machineId);

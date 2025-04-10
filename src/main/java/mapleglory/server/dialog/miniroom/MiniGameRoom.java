@@ -4,7 +4,6 @@ import mapleglory.packet.field.MiniRoomPacket;
 import mapleglory.packet.user.UserPacket;
 import mapleglory.server.node.ServerExecutor;
 import mapleglory.server.packet.InPacket;
-import mapleglory.util.Locked;
 import mapleglory.world.user.User;
 import mapleglory.world.user.data.MiniGameRecord;
 
@@ -30,8 +29,7 @@ public abstract class MiniGameRoom extends MiniRoom {
     }
 
     @Override
-    public void handlePacket(Locked<User> locked, MiniRoomProtocol mrp, InPacket inPacket) {
-        final User user = locked.get();
+    public void handlePacket(User user, MiniRoomProtocol mrp, InPacket inPacket) {
         final User other = getOther(user);
         if (other == null) {
             log.error("Received mini room action {} without another player in the mini game room", mrp);

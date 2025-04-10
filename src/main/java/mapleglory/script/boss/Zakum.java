@@ -21,6 +21,7 @@ import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.world.field.mob.MobAppearType;
+import mapleglory.world.field.mob.MobType;
 import mapleglory.world.quest.QuestRecordType;
 import mapleglory.world.user.User;
 
@@ -443,9 +444,9 @@ public class Zakum extends ScriptHandler {
         //   Last Mission : Zakum's Altar (280030000)
         sm.soundEffect("Bgm06/FinalFight");
         sm.broadcastMessage("Zakum is summoned by the force of eye of fire.");
-        sm.spawnMob(8800000, MobAppearType.SUSPENDED, -11, -215, false);
+        sm.spawnMob(8800000, MobAppearType.SUSPENDED, -11, -215, false, MobType.PARENT_MOB);
         for (int i = 0; i < 8; i++) {
-            sm.spawnMob(8800003 + i, MobAppearType.REGEN, -11, -215, false);
+            sm.spawnMob(8800003 + i, MobAppearType.REGEN, -11, -215, false, MobType.SUB_MOB);
         }
     }
 }

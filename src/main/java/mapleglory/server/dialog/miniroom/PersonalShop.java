@@ -6,7 +6,6 @@ import mapleglory.packet.world.WvsContext;
 import mapleglory.provider.ItemProvider;
 import mapleglory.provider.item.ItemInfo;
 import mapleglory.server.packet.InPacket;
-import mapleglory.util.Locked;
 import mapleglory.world.GameConstants;
 import mapleglory.world.item.*;
 import mapleglory.world.user.User;
@@ -61,8 +60,7 @@ public final class PersonalShop extends MiniRoom {
     }
 
     @Override
-    public void handlePacket(Locked<User> locked, MiniRoomProtocol mrp, InPacket inPacket) {
-        final User user = locked.get();
+    public void handlePacket(User user, MiniRoomProtocol mrp, InPacket inPacket) {
         switch (mrp) {
             case PSP_PutItem -> {
                 final int targetType = inPacket.decodeByte(); // nTI
@@ -229,8 +227,8 @@ public final class PersonalShop extends MiniRoom {
         getField().broadcastPacket(UserPacket.userMiniRoomBalloon(getUser(0), this));
     }
 
-    public void closeShop(Locked<User> lockedOwner, MiniRoomLeaveType leaveType) {
-        closeShopUnsafe(lockedOwner.get(), leaveType);
+    public void closeShop(User user, MiniRoomLeaveType leaveType) {
+        closeShopUnsafe(user, leaveType);
     }
 
     private void closeShopUnsafe(User owner, MiniRoomLeaveType leaveType) {

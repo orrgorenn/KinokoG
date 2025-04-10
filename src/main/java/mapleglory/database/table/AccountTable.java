@@ -27,6 +27,8 @@ public final class AccountTable {
     public static final String WISHLIST = "wishlist";
     public static final String LOGGED_IN = "logged_in";
     public static final String GM = "gm";
+    public static final String BANNED = "banned";
+    public static final String BAN_REASON = "ban_reason";
     private static final String tableName = "account";
 
     public static String getTableName() {
@@ -49,7 +51,10 @@ public final class AccountTable {
                 AccountTable.TRUNK_MONEY + " INT, " +
                 AccountTable.LOCKER_ITEMS + " JSON, " +
                 AccountTable.WISHLIST + " JSON, " +
-                AccountTable.LOGGED_IN + " BOOL" +
+                AccountTable.LOGGED_IN + " BOOL, " +
+                AccountTable.GM + " BOOL, " +
+                AccountTable.BANNED + " BOOL, " +
+                AccountTable.BAN_REASON + " TEXT" +
                 ")";
 
         try (Connection con = DatabaseConnection.getConnection();

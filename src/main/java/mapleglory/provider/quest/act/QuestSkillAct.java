@@ -5,7 +5,6 @@ import mapleglory.provider.SkillProvider;
 import mapleglory.provider.quest.QuestSkillData;
 import mapleglory.provider.skill.SkillInfo;
 import mapleglory.provider.wz.property.WzListProperty;
-import mapleglory.util.Locked;
 import mapleglory.world.skill.SkillRecord;
 import mapleglory.world.user.User;
 
@@ -21,13 +20,12 @@ public final class QuestSkillAct implements QuestAct {
     }
 
     @Override
-    public boolean canAct(Locked<User> locked, int rewardIndex) {
+    public boolean canAct(User user, int rewardIndex) {
         return true;
     }
 
     @Override
-    public boolean doAct(Locked<User> locked, int rewardIndex) {
-        final User user = locked.get();
+    public boolean doAct(User user, int rewardIndex) {
         for (QuestSkillData qsd : skills) {
             if (!qsd.getJobs().contains(user.getJob())) {
                 continue;

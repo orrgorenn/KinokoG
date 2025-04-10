@@ -68,9 +68,7 @@ public abstract class Event {
             return;
         }
         sourceFieldResult.get().getUserPool().forEach((user) -> {
-            try (var locked = user.acquire()) {
-                locked.get().warp(destinationField, destinationPortal, false, false);
-            }
+            user.warp(destinationField, destinationPortal, false, false);
         });
     }
 

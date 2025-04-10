@@ -37,6 +37,7 @@ import mapleglory.world.field.drop.DropEnterType;
 import mapleglory.world.field.drop.DropOwnType;
 import mapleglory.world.field.mob.Mob;
 import mapleglory.world.field.mob.MobAppearType;
+import mapleglory.world.field.mob.MobType;
 import mapleglory.world.field.npc.Npc;
 import mapleglory.world.field.reactor.Reactor;
 import mapleglory.world.item.*;
@@ -754,6 +755,26 @@ public final class ScriptManagerImpl implements ScriptManager {
     }
 
     @Override
+    public void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft, int mobType) {
+        final Optional<MobTemplate> mobTemplateResult = MobProvider.getMobTemplate(templateId);
+        if (mobTemplateResult.isEmpty()) {
+            throw new ScriptError("Could not resolve mob template ID : %d", templateId);
+        }
+        final Optional<Foothold> footholdResult = user.getField().getFootholdBelow(x, y - GameConstants.REACTOR_SPAWN_HEIGHT);
+        final Mob mob = new Mob(
+                mobTemplateResult.get(),
+                null,
+                x,
+                y,
+                footholdResult.map(Foothold::getSn).orElse(0)
+        );
+        mob.setLeft(isLeft);
+        mob.setSummonType(summonType);
+        mob.setMobType(mobType);
+        user.getField().getMobPool().addMob(mob);
+    }
+
+    @Override
     public void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft) {
         final Optional<MobTemplate> mobTemplateResult = MobProvider.getMobTemplate(templateId);
         if (mobTemplateResult.isEmpty()) {
@@ -813,17 +834,15 @@ public final class ScriptManagerImpl implements ScriptManager {
 
     @Override
     public void openShopNPC(int templateId) {
-        try (var locked = user.acquire()) {
-            final Optional<Npc> npcResult = field.getNpcPool().getByTemplateId(templateId);
-            if (npcResult.isEmpty()) {
-                throw new ScriptError("Could not find npc with template ID : %d", templateId);
-            }
-            final Npc npc = npcResult.get();
-            if (ShopProvider.isShop(npc.getTemplateId())) {
-                final ShopDialog shopDialog = ShopDialog.from(npc.getTemplate());
-                user.setDialog(shopDialog);
-                user.write(FieldPacket.openShopDlg(user, shopDialog));
-            }
+        final Optional<Npc> npcResult = field.getNpcPool().getByTemplateId(templateId);
+        if (npcResult.isEmpty()) {
+            throw new ScriptError("Could not find npc with template ID : %d", templateId);
+        }
+        final Npc npc = npcResult.get();
+        if (ShopProvider.isShop(npc.getTemplateId())) {
+            final ShopDialog shopDialog = ShopDialog.from(npc.getTemplate());
+            user.setDialog(shopDialog);
+            user.write(FieldPacket.openShopDlg(user, shopDialog));
         }
     }
 

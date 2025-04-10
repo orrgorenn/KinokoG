@@ -1,7 +1,6 @@
 package mapleglory.server.dialog.miniroom;
 
 import mapleglory.server.packet.InPacket;
-import mapleglory.util.Locked;
 import mapleglory.world.user.User;
 
 public final class EntrustedShop extends MiniRoom {
@@ -44,7 +43,7 @@ public final class EntrustedShop extends MiniRoom {
     }
 
     @Override
-    public void handlePacket(Locked<User> locked, MiniRoomProtocol mrp, InPacket inPacket) {
+    public void handlePacket(User user, MiniRoomProtocol mrp, InPacket inPacket) {
 
     }
 

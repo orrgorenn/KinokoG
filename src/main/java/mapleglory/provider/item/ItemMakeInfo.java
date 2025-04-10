@@ -3,7 +3,6 @@ package mapleglory.provider.item;
 import mapleglory.provider.ProviderError;
 import mapleglory.provider.WzProvider;
 import mapleglory.provider.wz.property.WzListProperty;
-import mapleglory.util.Locked;
 import mapleglory.util.Triple;
 import mapleglory.util.Tuple;
 import mapleglory.world.item.InventoryManager;
@@ -97,8 +96,7 @@ public final class ItemMakeInfo {
         return randomReward;
     }
 
-    public boolean canCreateItem(Locked<User> locked, boolean catalyst, List<Integer> gems) {
-        final User user = locked.get();
+    public boolean canCreateItem(User user, boolean catalyst, List<Integer> gems) {
         final InventoryManager im = user.getInventoryManager();
         final int makerSkillId = SkillConstants.getNoviceSkillAsRace(Beginner.MAKER, user.getJob());
         if (getReqSkillLevel() != 0 && user.getSkillLevel(makerSkillId) < getReqSkillLevel()) {
@@ -158,8 +156,8 @@ public final class ItemMakeInfo {
         return true;
     }
 
-    public boolean canAddReward(Locked<User> locked) {
-        final InventoryManager im = locked.get().getInventoryManager();
+    public boolean canAddReward(User user) {
+        final InventoryManager im = user.getInventoryManager();
         if (!im.canAddItem(getItemId(), 1)) {
             return false;
         }

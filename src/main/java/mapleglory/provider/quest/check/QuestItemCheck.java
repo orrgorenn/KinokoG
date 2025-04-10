@@ -2,7 +2,6 @@ package mapleglory.provider.quest.check;
 
 import mapleglory.provider.quest.QuestItemData;
 import mapleglory.provider.wz.property.WzListProperty;
-import mapleglory.util.Locked;
 import mapleglory.world.item.Inventory;
 import mapleglory.world.item.InventoryManager;
 import mapleglory.world.item.Item;
@@ -23,8 +22,7 @@ public final class QuestItemCheck implements QuestCheck {
     }
 
     @Override
-    public boolean check(Locked<User> locked) {
-        final User user = locked.get();
+    public boolean check(User user) {
         final InventoryManager im = user.getInventoryManager();
         final List<QuestItemData> filteredItems = getFilteredItems(user.getGender(), user.getJob());
         for (QuestItemData itemData : filteredItems) {

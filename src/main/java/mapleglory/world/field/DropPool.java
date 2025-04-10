@@ -6,7 +6,6 @@ import mapleglory.packet.world.WvsContext;
 import mapleglory.provider.QuestProvider;
 import mapleglory.provider.map.Foothold;
 import mapleglory.provider.quest.QuestInfo;
-import mapleglory.util.Locked;
 import mapleglory.util.Rect;
 import mapleglory.world.GameConstants;
 import mapleglory.world.field.drop.Drop;
@@ -58,15 +57,13 @@ public final class DropPool extends FieldObjectPool<Drop> {
         // Handle quest drops
         if (drop.isQuest()) {
             field.getUserPool().forEach((user) -> {
-                try (var locked = user.acquire()) {
-                    final Optional<QuestRecord> questRecordResult = locked.get().getQuestManager().getQuestRecord(drop.getQuestId());
-                    if (questRecordResult.isEmpty() || questRecordResult.get().getState() != QuestState.PERFORM) {
-                        return;
-                    }
-                    final Optional<QuestInfo> questInfoResult = QuestProvider.getQuestInfo(drop.getQuestId());
-                    if (questInfoResult.isPresent() && questInfoResult.get().hasRequiredItem(user, drop.getItem().getItemId())) {
-                        return;
-                    }
+                final Optional<QuestRecord> questRecordResult = user.getQuestManager().getQuestRecord(drop.getQuestId());
+                if (questRecordResult.isEmpty() || questRecordResult.get().getState() != QuestState.PERFORM) {
+                    return;
+                }
+                final Optional<QuestInfo> questInfoResult = QuestProvider.getQuestInfo(drop.getQuestId());
+                if (questInfoResult.isPresent() && questInfoResult.get().hasRequiredItem(user, drop.getItem().getItemId())) {
+                    return;
                 }
                 user.write(FieldPacket.dropEnterField(drop, enterType, delay));
             });
@@ -113,8 +110,7 @@ public final class DropPool extends FieldObjectPool<Drop> {
         return true;
     }
 
-    public void pickUpDrop(Locked<User> locked, Drop drop, DropLeaveType leaveType, int petIndex) {
-        final User user = locked.get();
+    public void pickUpDrop(User user, Drop drop, DropLeaveType leaveType, int petIndex) {
         // Verify user can pick up drop
         if (!drop.canPickUp(user)) {
             return;

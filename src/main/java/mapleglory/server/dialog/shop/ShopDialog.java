@@ -10,7 +10,6 @@ import mapleglory.provider.skill.SkillStat;
 import mapleglory.server.dialog.Dialog;
 import mapleglory.server.packet.InPacket;
 import mapleglory.server.packet.OutPacket;
-import mapleglory.util.Locked;
 import mapleglory.world.GameConstants;
 import mapleglory.world.item.*;
 import mapleglory.world.job.cygnus.NightWalker;
@@ -34,8 +33,7 @@ public final class ShopDialog implements Dialog {
         this.items = items;
     }
 
-    public void handlePacket(Locked<User> locked, InPacket inPacket) {
-        final User user = locked.get();
+    public void handlePacket(User user, InPacket inPacket) {
         final int type = inPacket.decodeByte();
         final ShopRequestType requestType = ShopRequestType.getByValue(type);
         if (requestType == null) {

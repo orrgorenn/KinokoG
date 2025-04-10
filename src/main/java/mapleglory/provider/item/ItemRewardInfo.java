@@ -3,7 +3,6 @@ package mapleglory.provider.item;
 import mapleglory.provider.ProviderError;
 import mapleglory.provider.WzProvider;
 import mapleglory.provider.wz.property.WzListProperty;
-import mapleglory.util.Locked;
 import mapleglory.world.item.InventoryManager;
 import mapleglory.world.user.User;
 
@@ -27,8 +26,8 @@ public class ItemRewardInfo {
         return entries;
     }
 
-    public boolean canAddReward(Locked<User> locked) {
-        final InventoryManager im = locked.get().getInventoryManager();
+    public boolean canAddReward(User user) {
+        final InventoryManager im = user.getInventoryManager();
         for (ItemRewardEntry entry : getEntries()) {
             if (!im.canAddItem(entry.getItemId(), entry.getCount())) {
                 return false;

@@ -1,5 +1,6 @@
 package mapleglory.server.netty;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import mapleglory.handler.Handler;
@@ -20,6 +21,7 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
 
+@ChannelHandler.Sharable
 public abstract class PacketHandler extends SimpleChannelInboundHandler<InPacket> {
     private static final Logger log = LogManager.getLogger(PacketHandler.class);
     private final Map<InHeader, Method> handlerMap;

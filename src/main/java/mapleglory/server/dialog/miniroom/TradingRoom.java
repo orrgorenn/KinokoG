@@ -7,7 +7,6 @@ import mapleglory.packet.world.WvsContext;
 import mapleglory.provider.ItemProvider;
 import mapleglory.provider.item.ItemInfo;
 import mapleglory.server.packet.InPacket;
-import mapleglory.util.Locked;
 import mapleglory.world.GameConstants;
 import mapleglory.world.item.*;
 import mapleglory.world.user.User;
@@ -40,8 +39,7 @@ public final class TradingRoom extends MiniRoom {
     }
 
     @Override
-    public void handlePacket(Locked<User> locked, MiniRoomProtocol mrp, InPacket inPacket) {
-        final User user = locked.get();
+    public void handlePacket(User user, MiniRoomProtocol mrp, InPacket inPacket) {
         final User other = getOther(user);
         if (other == null) {
             log.error("Received trading room action {} without another player in the trading room", mrp);
@@ -113,8 +111,8 @@ public final class TradingRoom extends MiniRoom {
      *
      * @see User#isLocked()
      */
-    public void cancelTrade(Locked<User> locked, MiniRoomLeaveType leaveType) {
-        cancelTradeUnsafe(locked.get(), leaveType);
+    public void cancelTrade(User user, MiniRoomLeaveType leaveType) {
+        cancelTradeUnsafe(user, leaveType);
     }
 
     private void cancelTradeUnsafe(User user, MiniRoomLeaveType leaveType) {
