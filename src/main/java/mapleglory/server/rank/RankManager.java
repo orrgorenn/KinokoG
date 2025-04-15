@@ -3,6 +3,8 @@ package mapleglory.server.rank;
 import mapleglory.database.DatabaseManager;
 import mapleglory.server.guild.GuildRanking;
 import mapleglory.server.node.ServerExecutor;
+import mapleglory.world.job.JobConstants;
+import mapleglory.world.user.AvatarData;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -54,8 +56,11 @@ public final class RankManager {
         refreshSchedule.cancel(true);
     }
 
-    public static Optional<CharacterRank> getCharacterRank(int characterId) {
-        return Optional.ofNullable(currentCharacterRanks.get(characterId));
+    public static Optional<CharacterRank> getCharacterRank(AvatarData avatarData) {
+        if (JobConstants.isAdminJob(avatarData.getJob()) || JobConstants.isManagerJob(avatarData.getJob())) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(currentCharacterRanks.get(avatarData.getCharacterId()));
     }
 
     public static List<GuildRanking> getGuildRankings() {

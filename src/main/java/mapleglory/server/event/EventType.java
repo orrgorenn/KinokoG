@@ -8,7 +8,9 @@ public enum EventType {
     CM_ELEVATOR,
     CM_SUBWAY,
     CM_AIRPORT,
-    PQ_MU_LUNG_DOJO;
+    PQ_MU_LUNG_DOJO,
+    PQ_BALROG,
+    PQ_N_BALROG;
 
     public static EventType getByName(String name) {
         for (EventType type : values()) {

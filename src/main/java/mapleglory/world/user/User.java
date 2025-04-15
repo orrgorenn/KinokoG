@@ -2,7 +2,6 @@ package mapleglory.world.user;
 
 import mapleglory.database.DatabaseManager;
 import mapleglory.handler.user.FriendHandler;
-import mapleglory.packet.stage.CashShopPacket;
 import mapleglory.packet.stage.StagePacket;
 import mapleglory.packet.user.PetPacket;
 import mapleglory.packet.user.UserLocal;
@@ -16,11 +15,10 @@ import mapleglory.provider.item.ItemSpecType;
 import mapleglory.provider.map.Foothold;
 import mapleglory.provider.map.PortalInfo;
 import mapleglory.provider.skill.SkillStat;
-import mapleglory.server.cashshop.CashItemFailReason;
-import mapleglory.server.cashshop.CashItemResultType;
 import mapleglory.server.dialog.Dialog;
 import mapleglory.server.dialog.ScriptDialog;
 import mapleglory.server.dialog.miniroom.MiniRoom;
+import mapleglory.server.event.EventType;
 import mapleglory.server.guild.GuildRank;
 import mapleglory.server.node.ChannelServerNode;
 import mapleglory.server.node.Client;
@@ -65,6 +63,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public final class User extends Life implements Lockable<User> {
     private static final Logger log = LoggerFactory.getLogger(User.class);
@@ -87,6 +86,7 @@ public final class User extends Life implements Lockable<User> {
     private PartyInfo partyInfo;
     private GuildInfo guildInfo;
 
+    private List<EventCoolDown> cooldowns = new ArrayList<>();
     private Dialog dialog;
     private Dragon dragon;
     private TownPortal townPortal;
@@ -320,6 +320,36 @@ public final class User extends Life implements Lockable<User> {
         } else {
             setDialog(null);
         }
+    }
+
+    public EventCoolDown getCoolDownByType(EventType eventType) {
+        return this.cooldowns.stream().filter(eventCoolDown -> eventCoolDown.getEventType() == eventType).toList().getFirst();
+    }
+
+    public void addCoolDown(EventType eventType, long time) {
+        addCoolDown(eventType, 1, System.currentTimeMillis() + time);
+    }
+
+    public void addCoolDown(EventType eventType, int amountDone, long nextReset) {
+        EventCoolDown cd = this.cooldowns.stream().filter(eventCoolDown -> eventCoolDown.getEventType() == eventType).findFirst().orElse(null);
+        if (cd == null) {
+            cd = new EventCoolDown(eventType, amountDone, nextReset);
+            this.cooldowns.add(cd);
+        } else {
+            cd.setNextResetTime(nextReset);
+            cd.setAmountDone(amountDone);
+        }
+    }
+
+    public int getEventAmountDone(EventType eventType) {
+        EventCoolDown cd = this.cooldowns.stream().filter(eventCoolDown -> eventCoolDown.getEventType() == eventType).findFirst().orElse(null);
+        if (cd == null) {
+            return 0;
+        }
+        if (System.currentTimeMillis() > cd.getNextResetTime()) {
+            cd.setAmountDone(0);
+        }
+        return cd.getAmountDone();
     }
 
     public Dragon getDragon() {

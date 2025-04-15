@@ -3,8 +3,11 @@ package mapleglory.script.continent;
 import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
+import mapleglory.world.field.Field;
+import mapleglory.world.field.mob.MobAppearType;
 import mapleglory.world.quest.QuestRecordType;
 
+import java.util.List;
 import java.util.Map;
 
 public class Orbis extends ScriptHandler {
@@ -103,6 +106,25 @@ public class Orbis extends ScriptHandler {
             }
         } else {
             sm.sayOk(goAway);
+        }
+    }
+
+    @Script("enterNepenthes")
+    public static void enterNepenthes(ScriptManager sm) {
+        if (sm.hasQuestStarted(21739)) {
+            sm.playPortalSE();
+            sm.warpInstance(List.of(920030000, 920030001), "sp", 200060000, 60 * 15);
+
+        } else {
+            sm.playPortalSE();
+            sm.warp(200060001);
+        }
+    }
+
+    @Script("sealGarden")
+    public static void sealGarden(ScriptManager sm) {
+        if (sm.hasQuestStarted(21739)) {
+            sm.spawnMob(9300348, MobAppearType.NORMAL, 591, -34, false);
         }
     }
 }

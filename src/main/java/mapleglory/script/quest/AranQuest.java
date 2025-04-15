@@ -54,8 +54,15 @@ public final class AranQuest extends ScriptHandler {
     public static void enterInfo(ScriptManager sm) {
         // Lith Harbor : Lith Harbor (104000000)
         //   in03 (405, 406)
-        sm.playPortalSE();
-        sm.warp(104000004, "out00");
+        if (sm.hasQuestStarted(21733)) {
+            Field field = sm.getField().getFieldStorage().getFieldById(104000004).orElseThrow();
+            sm.warpInstance(field.getFieldId(), "sp", 104000000, 10 * 60);
+            sm.spawnMob(9300345, MobAppearType.REGEN, 183, 120, false);
+            sm.setQRValue(QuestRecordType.GatheringStrangeInformation, "2");
+        } else {
+            sm.playPortalSE();
+            sm.warp(104000004, "out00");
+        }
     }
 
     @Script("q21100s")
@@ -433,5 +440,129 @@ public final class AranQuest extends ScriptHandler {
     public static void q21729s(ScriptManager sm) {
         sm.sayNext("Okay, you should not return to #bTru#k for further details on your next steps. ... Oh wait!! I remembered something. See the #rMysterious Statue#k over there? That statue has it's origins unknwown, and there's something scribbled onto it that resembles something big, it probably is the password for the cave? #rGet the password there#k, it may help you on your journey.");
         sm.forceStartQuest(21729);
+    }
+
+    @Script("q21733s")
+    public static void q21733s(ScriptManager sm) {
+        sm.sayNext("Aran, We've have been caught off guard. We are under attack! Get here ASAP.");
+        sm.forceStartQuest(21733);
+    }
+
+    @Script("q21733e")
+    public static void q21733e(ScriptManager sm) {
+        sm.sayNext("Aran, thank you very much! Somehow the Puppeteer managed to bypass the security of Lith Harbor. He must've been seeking revenge because of the other day. Luckily, you came by. Nicely done!");
+        sm.sayBoth("I will teach you the #rPolearm Mastery#k skill, to reward your actions here. You will be able to improve your accuracy and the overall mastery of your polearm arts.");
+        sm.getUser().addQuestExp(8000);
+        sm.addSkill(21100000, 0, 20);
+        sm.forceCompleteQuest(21733);
+    }
+
+    @Script("q21734s")
+    public static void q21734s(ScriptManager sm) {
+        sm.sayNext("Are you busy? I have been looking all over Victoria Island in search of valuable information and found something that might intrigue you. It's about #o9300346#...");
+        sm.sayBoth("I don't know if you know this, but ever since you taught #o9300346# a lesson, the entrance to the Evil Eye Cave doesn't work. It looks like #o9300346# has moved to a new hideout.");
+        if (sm.askAccept("I received a report that someone witnessed  #o9300346# entering a #bsmall cabin#k in #b#m105040200##k of #m105040300#. I heard it from a reliable source, so it's probably true. Rush over and defeat #r#o9300346##k.")) {
+            sm.forceStartQuest(21734);
+        }
+    }
+
+    @Script("q21734e")
+    public static void q21734e(ScriptManager sm) {
+        sm.sayNext("You must have come back after defeating #o9300346#... But what's with the long face? Did something happen?");
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth(blue("(You explain there wasn't any information on #t4032323#.)"));
+        sm.setPlayerAsSpeaker(false);
+        sm.sayPrev("Ah, that's what's bothering you. Hahaha, you don't have to worry about that.");
+        sm.getUser().addQuestExp(17100);
+        sm.forceCompleteQuest(21734);
+    }
+
+    @Script("enterDollWay")
+    public static void enterDollWay(ScriptManager sm) {
+        if (sm.hasQuestStarted(21734)) {
+            sm.warpInstance(910510100, "sp", 101040311, 60 * 10);
+        } else {
+            sm.message("(You do not want to enter. This place looks quite creepy. Maybe you'll try again later.)");
+        }
+    }
+
+    @Script("dollCave02")
+    public static void dollCave02(ScriptManager sm) {
+
+    }
+
+    @Script("DollWayKeeper1")
+    public static void DollWayKeeper1(ScriptManager sm) {
+        if (sm.askYesNo("Will you exit this trial?")) {
+            sm.warp(101040311);
+        }
+    }
+
+    @Script("DollWayKeeper2")
+    public static void DollWayKeeper2(ScriptManager sm) {
+        if (sm.askYesNo("Ahead awaits the Master himself. Are you ready to face him?")) {
+            sm.warpInstance(910510202, "sp", 101040311, 60 * 10);
+            sm.spawnMob(9300346, MobAppearType.NORMAL, 95, 200, false);
+        }
+    }
+
+    @Script("q21735s")
+    public static void q21735s(ScriptManager sm) {
+        sm.sayNext("Seal Stone of Victoria Island? I got it already. Take a look!\r\n\r\n#i4032323#");
+        sm.sayBoth("!!\\r\\n...How did you get this?");
+        if (sm.askAccept("After being ambushed by the Puppeteer last time, I used every source of information I could find to look through every single corner of Victoria Island, and that's how I found it. I can't just take it and not dish back, you know? Our goal is to take away what they are looking for first. Wouldn't that be considered a great revenge?")) {
+            if (!sm.hasItem(4032323, 1) && !sm.addItem(4032323, 1)) {
+                sm.sayOk("Please free a slot on your ETC inventory before receiving the item.");
+                return;
+            }
+
+            sm.forceStartQuest(21735);
+
+            sm.sayNext("But the Black Wings already know me. Holding on to this may not be the smartest idea, and you holding on to it might mean losing it in a battle. I think we should let #bLilin#k hold on to it.");
+            sm.sayBoth("The island of Rien used to be only populated by the Rien race, and it's covered with spells that disable other humans from entering the island, so even someone from the Black Wings will not find it easy to find this place. Tell this to Lilin.");
+            sm.sayBoth("I will no longer give you tasks that have to do with gathering up information. I think you already know a thing or two about the world of Maple, so... you should now be able to gather up information on your own!");
+            sm.sayPrev("If nothing else, I want you to really work on gathering up valuable information on the Black Wings. Furthermore, #bkeep asking around for the existence of the Seal Stone, and let me know if you find anything.#k");
+        }
+    }
+
+    @Script("q21735e")
+    public static void q21735e(ScriptManager sm) {
+        sm.sayNext("I've been receiving updates about the Black Wings from Tru. I heard he even got attacked not too long ago. What about you? Are you alright? Mmm... Is this really the #t4032323#? So Tru did end up finding the #t4032323# before they could.");
+        if (sm.askYesNo("I don't know what this item even does, but I do know that it has something to do with the Black Mage. As long as they are looking for this, we'll have to protect it. No matter what it takes, you must become stronger.")) {
+            sm.removeItem(4032323);
+            sm.addSkill(21100005, 0, 20);
+            sm.forceCompleteQuest(21735);
+            sm.sayNext("Okay, the document that was recently deciphered had a new skill called #bCombo Drain#k. You used to use this skill, right? Nowadays, I only need to take just a glimpse of the skills, and I already know if you used it in real combat.");
+            sm.sayPrev("Black Wings... I am sure their plan does not end here. Please tell Mr. Truth to keep digging up new information on the Black Wings. As for you, please keep training.");
+        }
+    }
+
+    @Script("q21736s")
+    public static void q21736s(ScriptManager sm) {
+        sm.sayNext("Long time no see! You've leveled up a lot since the last time we met. You must be training really hard. Always hard-working. I'm not surprised. It's exactly what a hero like you would do. I'm sure #p1201000# will be happy to hear about your progress.");
+        sm.sayBoth("Anyway, enough small talk. I realized that it might be more effective to search for information in places outside Victoria Island as well, so I've begun investigating in Ossyria. I began with #b#m200000000##k and immediately hit the jackpot.");
+        if (sm.askAccept("It seems like something strange is happening in #m200000000# in Ossyria. It's a bit different from when we were dealing with the puppeteer, but my instincts tell me it has to do with the Black Wings. Please head over to #m200000000#.")) {
+            sm.forceStartQuest(21736);
+        }
+    }
+
+    @Script("q29928s")
+    public static void q29928s(ScriptManager sm) {
+        if (sm.canAddItem(1142133, 1) && !sm.hasItem(1142133, 1) && sm.getLevel() >= 200 && ((sm.getJob().getJobId() / 100)) == 21) {
+            sm.addItem(1142133, 1);
+        }
+
+        sm.forceStartQuest(29928);
+        sm.forceCompleteQuest(29928);
+    }
+
+    @Script("q29928e")
+    public static void q29928e(ScriptManager sm) {
+        if (sm.canAddItem(1142133, 1) && !sm.hasItem(1142133, 1) && sm.getLevel() >= 200 && ((sm.getJob().getJobId() / 100)) == 21) {
+            sm.addItem(1142133, 1);
+        }
+
+        sm.forceStartQuest(29928);
+        sm.forceCompleteQuest(29928);
     }
 }

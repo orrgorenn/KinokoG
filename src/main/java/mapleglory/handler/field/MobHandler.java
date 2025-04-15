@@ -126,7 +126,6 @@ public final class MobHandler {
         }
 
         if (mobResult.isEmpty()) {
-            log.error("Received MobApplyCtrl for invalid object with ID : {} (user: {} | fieldId: {})", objectId, user.getCharacterName(), field.getFieldId());
             return;
         }
         final Mob mob = mobResult.get();

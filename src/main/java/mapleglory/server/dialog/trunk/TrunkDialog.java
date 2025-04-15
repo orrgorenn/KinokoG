@@ -2,6 +2,8 @@ package mapleglory.server.dialog.trunk;
 
 import mapleglory.packet.field.TrunkPacket;
 import mapleglory.packet.world.WvsContext;
+import mapleglory.provider.ItemProvider;
+import mapleglory.provider.item.ItemInfo;
 import mapleglory.provider.npc.NpcTemplate;
 import mapleglory.server.dialog.Dialog;
 import mapleglory.server.packet.InPacket;
@@ -97,8 +99,21 @@ public final class TrunkDialog implements Dialog {
                         user.write(TrunkPacket.serverMsg("Due to an error, the trade did not happen."));
                         return;
                     }
+                    // Check if item can be stored
+                    final Optional<ItemInfo> itemInfoResult = ItemProvider.getItemInfo(itemId);
+                    if (itemInfoResult.isEmpty()) {
+                        log.error("Could not resolve item info for item ID : {}", itemId);
+                        user.write(TrunkPacket.serverMsg("Due to an error, the trade did not happen."));
+                        return;
+                    }
+                    final ItemInfo itemInfo = itemInfoResult.get();
+                    if (itemInfo.isTradeBlock(item)) {
+                        log.error("Tried to store an untradable item into trunk");
+                        user.write(TrunkPacket.serverMsg("Due to an error, the trade did not happen."));
+                        return;
+                    }
                     // Check if trunk has space for item
-                    if (trunk.getRemaining() == 0) {
+                    if (!trunk.canAddItem(item, quantity)) {
                         user.write(TrunkPacket.of(TrunkResultType.PutNoSpace));
                         return;
                     }
@@ -115,7 +130,7 @@ public final class TrunkDialog implements Dialog {
                         partialItem.setItemSn(user.getNextItemSn());
                         partialItem.setQuantity((short) quantity);
                         partialItem.setPossibleTrading(false);
-                        trunk.getItems().add(partialItem);
+                        trunk.addItem(partialItem);
                     } else {
                         // Move full item
                         final Optional<InventoryOperation> removeItemResult = im.removeItem(position, item);
@@ -123,7 +138,7 @@ public final class TrunkDialog implements Dialog {
                             throw new IllegalStateException("Could not remove item from inventory");
                         }
                         item.setPossibleTrading(false);
-                        trunk.getItems().add(item);
+                        trunk.addItem(item);
                         user.write(WvsContext.inventoryOperation(removeItemResult.get(), false));
                     }
                     // Update client

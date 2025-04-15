@@ -6,6 +6,7 @@ import mapleglory.world.job.Job;
 import mapleglory.world.job.JobConstants;
 import mapleglory.world.job.cygnus.*;
 import mapleglory.world.job.explorer.*;
+import mapleglory.world.job.gm.Admin;
 import mapleglory.world.job.legend.Aran;
 import mapleglory.world.job.legend.Evan;
 import mapleglory.world.job.resistance.BattleMage;
@@ -44,6 +45,15 @@ public final class SkillConstants {
     }
 
     public static int getNoviceSkillAsRace(int skillId, int jobId) {
+        if (skillId == Beginner.FOLLOW_THE_LEAD) {
+            return switch (JobConstants.getNoviceSkillRootFromJob(jobId)) {
+                case 1000 -> 10000018;
+                case 2000 -> 20000024;
+                case 2001 -> 20011024;
+                case 3000 -> 30001024;
+                default -> Beginner.FOLLOW_THE_LEAD;
+            };
+        }
         if (JobConstants.isEvanJob(jobId)) {
             return skillId + 20010000;
         } else {
@@ -262,7 +272,7 @@ public final class SkillConstants {
     }
 
     public static boolean isPartySkill(int skillId) {
-        if (skillId == Magician.HEAL) {
+        if (skillId == Magician.HEAL || skillId == Admin.HEAL_DISPEL) {
             // CUserLocal::DoActiveSkill_Heal
             return true;
         }

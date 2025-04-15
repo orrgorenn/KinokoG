@@ -949,6 +949,47 @@ public final class ScriptManagerImpl implements ScriptManager {
     }
 
     @Override
+    public void addCooldownTimeForParty(EventType eventType, long time) {
+        final List<User> members = field.getUserPool().getPartyMembers(user.getPartyId());
+        for (User member : members) {
+            member.addCoolDown(eventType, time);
+        }
+    }
+
+    private long getMillisecondsUntilEventReset(EventType eventType) {
+        long remainingTime = getEventAmountDone(eventType) == 0 ? 0 : user.getCoolDownByType(eventType).getNextResetTime() - System.currentTimeMillis();
+        return remainingTime < 0 ? 0 : remainingTime;
+    }
+
+    @Override
+    public String getTimeUntilEventReset(EventType eventType) {
+        long msTillReset = getMillisecondsUntilEventReset(eventType);
+        long days = TimeUnit.MILLISECONDS.toDays(msTillReset);
+        long hours = TimeUnit.MILLISECONDS.toHours(msTillReset) % TimeUnit.DAYS.toHours(1);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(msTillReset) % TimeUnit.HOURS.toMinutes(1);
+        return (days > 0 ? days + " day(s) " : "") + (hours > 0 ? hours + " hour(s) " : "") + (minutes > 0 ? minutes + " minute(s) " : "");
+    }
+
+    @Override
+    public int getEventAmountDone(EventType eventType) {
+        return user.getEventAmountDone(eventType);
+    }
+
+    @Override
+    public boolean partyHasCoolDown(EventType eventType, int runsPerDay) {
+        final List<User> members = field.getUserPool().getPartyMembers(user.getPartyId());
+        for (User member : members) {
+            if (member.getAccount().isGM()) {
+                return false;
+            }
+            if (member.getEventAmountDone(eventType) >= runsPerDay) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public EventState getEventState(EventType eventType) {
         final Optional<EventState> eventStateResult = user.getConnectedServer().getEventState(eventType);
         if (eventStateResult.isEmpty()) {
@@ -999,14 +1040,18 @@ public final class ScriptManagerImpl implements ScriptManager {
         }
     }
 
+    public Mob waitForMobDeath(int mobTemplateId) {
+        while (true) {
+            Mob mob = getField().getMobPool().getByTemplateId(mobTemplateId).orElseThrow();
+        }
+    }
+
     @Override
     public void addExpAll(int exp) {
         addExp(exp);
         field.getUserPool().forEach((member) -> {
             if (member.getCharacterId() != user.getCharacterId()) {
-                try (var lockedMember = member.acquire()) {
-                    member.addQuestExp(exp);
-                }
+                member.addQuestExp(exp);
             }
         });
     }

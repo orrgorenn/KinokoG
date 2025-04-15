@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicLong;
 public final class InventoryManagerTest {
     public static final int RED_POTION = 2000000;
     public static final int ORANGE_POTION = 2000001;
+    public static final int SUBI_THROWING_STARS = 2070000;
     private static final AtomicLong testItemSnCounter = new AtomicLong(1);
 
     @Test
@@ -121,14 +122,28 @@ public final class InventoryManagerTest {
                 createItem(RED_POTION, 100)
         )));
 
-        Assertions.assertTrue(im.addItem(createItem(RED_POTION, 50)).isPresent());
-        Assertions.assertTrue(im.canAddItems(Set.of(
-                createItem(ORANGE_POTION, 100),
-                createItem(ORANGE_POTION, 100),
-                createItem(ORANGE_POTION, 100),
-                createItem(RED_POTION, 50),
-                createItem(RED_POTION, 100)
-        )));
+        im.getConsumeInventory().getItems().put(1, createItem(ORANGE_POTION, 80));
+        im.getConsumeInventory().getItems().put(2, createItem(ORANGE_POTION, 70));
+        im.getConsumeInventory().getItems().put(3, createItem(ORANGE_POTION, 60));
+        im.getConsumeInventory().getItems().put(4, createItem(ORANGE_POTION, 50));
+        im.getConsumeInventory().getItems().put(5, createItem(ORANGE_POTION, 40));
+        Assertions.assertTrue(im.canAddItem(createItem(ORANGE_POTION, 50)));
+        Assertions.assertTrue(im.addItem(createItem(ORANGE_POTION, 50)).isPresent());
+    }
+
+    @Test
+    public void testRechargeableItems() {
+        final InventoryManager im = new InventoryManager();
+        im.setConsumeInventory(new Inventory(2));
+
+        Assertions.assertTrue(im.canAddItem(createItem(SUBI_THROWING_STARS, 400)));
+        Assertions.assertTrue(im.addItem(createItem(SUBI_THROWING_STARS, 400)).isPresent());
+
+        Assertions.assertTrue(im.canAddItem(createItem(SUBI_THROWING_STARS, 80000)));
+        Assertions.assertTrue(im.addItem(createItem(SUBI_THROWING_STARS, 80000)).isPresent());
+
+        Assertions.assertFalse(im.canAddItem(createItem(SUBI_THROWING_STARS, 400)));
+        Assertions.assertFalse(im.addItem(createItem(SUBI_THROWING_STARS, 400)).isPresent());
     }
 
     @BeforeAll

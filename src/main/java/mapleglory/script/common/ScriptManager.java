@@ -229,6 +229,14 @@ public interface ScriptManager {
 
     boolean checkParty(int memberCount, int levelMin);
 
+    void addCooldownTimeForParty(EventType eventType, long time);
+
+    String getTimeUntilEventReset(EventType eventType);
+
+    int getEventAmountDone(EventType eventType);
+
+    boolean partyHasCoolDown(EventType eventType, int runsPerDay);
+
     EventState getEventState(EventType eventType);
 
     String getAreaCheck();

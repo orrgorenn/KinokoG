@@ -2,6 +2,7 @@ package mapleglory.provider.quest.check;
 
 import mapleglory.provider.WzProvider;
 import mapleglory.provider.wz.property.WzListProperty;
+import mapleglory.world.job.JobConstants;
 import mapleglory.world.user.User;
 
 import java.util.Collections;
@@ -17,7 +18,11 @@ public final class QuestJobCheck implements QuestCheck {
 
     @Override
     public boolean check(User user) {
-        return jobs.contains(user.getJob());
+        final int jobId = user.getJob();
+        if (JobConstants.isAdminJob(jobId)) {
+            return true;
+        }
+        return jobs.contains(jobId);
     }
 
     public static QuestJobCheck from(WzListProperty jobList) {

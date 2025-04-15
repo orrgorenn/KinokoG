@@ -20,6 +20,7 @@ import mapleglory.world.item.Item;
 import mapleglory.world.job.Job;
 import mapleglory.world.job.cygnus.*;
 import mapleglory.world.job.explorer.*;
+import mapleglory.world.job.gm.Admin;
 import mapleglory.world.job.legend.Aran;
 import mapleglory.world.job.legend.Evan;
 import mapleglory.world.job.resistance.BattleMage;
@@ -506,6 +507,9 @@ public abstract class SkillProcessor {
             }
             case MECHANIC_1, MECHANIC_2, MECHANIC_3, MECHANIC_4 -> {
                 Mechanic.handleSkill(user, skill);
+            }
+            case GM, SUPER_GM -> {
+                Admin.handleSkill(user, skill);
             }
             default -> {
                 log.error("Unhandled skill {}", skill.skillId);

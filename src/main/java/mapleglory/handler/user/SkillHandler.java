@@ -21,6 +21,7 @@ import mapleglory.world.job.JobConstants;
 import mapleglory.world.job.explorer.Magician;
 import mapleglory.world.job.explorer.Thief;
 import mapleglory.world.job.explorer.Warrior;
+import mapleglory.world.job.gm.Admin;
 import mapleglory.world.job.legend.Evan;
 import mapleglory.world.job.resistance.BattleMage;
 import mapleglory.world.job.resistance.Citizen;
@@ -85,7 +86,7 @@ public final class SkillHandler {
         if (SkillConstants.isPartySkill(skill.skillId) && inPacket.getRemaining() > 2) {
             // CUserLocal::SendSkillUseRequest
             skill.affectedMemberBitMap = inPacket.decodeByte();
-            if (skill.skillId == Magician.DISPEL) {
+            if (skill.skillId == Magician.DISPEL || skill.skillId == Admin.HEAL_DISPEL) {
                 inPacket.decodeShort(); // tDelay
             }
         }
@@ -115,7 +116,7 @@ public final class SkillHandler {
             return;
         }
         // Check seal
-        if (user.getSecondaryStat().hasOption(CharacterTemporaryStat.Seal)) {
+        if (user.getSecondaryStat().hasOption(CharacterTemporaryStat.Seal) && skill.skillId != Magician.DISPEL) {
             log.error("Tried to use skill {} while sealed", skill.skillId);
             user.dispose();
             return;

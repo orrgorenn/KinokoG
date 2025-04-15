@@ -37,6 +37,7 @@ public enum QuestRecordType {
     SecondJobAran(21203),
     PuppeteersWarning(21760),
     ThePuppeteersCave(21761),
+    GatheringStrangeInformation(21762),
     EvanDragonEyes(22012),
     EvanDreamEffect(22013),
     EvanTutorialEffect(22014),

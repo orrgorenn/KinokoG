@@ -257,7 +257,7 @@ public final class SkillInfo {
         return new SkillInfo(
                 skillId,
                 maxLevel,
-                WzProvider.getInteger(skillProp.get("masterLevel"), maxLevel),
+                WzProvider.getInteger(skillProp.get("masterLevel"), 0),
                 WzProvider.getInteger(skillProp.get("invisible"), 0) != 0,
                 WzProvider.getInteger(skillProp.get("combatOrders"), 0) != 0,
                 WzProvider.getInteger(skillProp.get("psd"), 0) != 0,
@@ -322,7 +322,7 @@ public final class SkillInfo {
         return new SkillInfo(
                 skillId,
                 maxLevel,
-                WzProvider.getInteger(skillProp.get("masterLevel"), maxLevel),
+                WzProvider.getInteger(skillProp.get("masterLevel"), 0),
                 WzProvider.getInteger(skillProp.get("invisible"), 0) != 0,
                 WzProvider.getInteger(skillProp.get("combatOrders"), 0) != 0,
                 WzProvider.getInteger(skillProp.get("psd"), 0) != 0,

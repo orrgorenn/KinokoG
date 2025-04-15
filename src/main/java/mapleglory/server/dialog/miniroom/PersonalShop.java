@@ -95,7 +95,7 @@ public final class PersonalShop extends MiniRoom {
                     return;
                 }
                 final ItemInfo itemInfo = itemInfoResult.get();
-                if ((item.hasAttribute(ItemAttribute.EQUIP_BINDED) || itemInfo.isQuest() || itemInfo.isTradeBlock()) && !item.isPossibleTrading()) {
+                if (itemInfo.isTradeBlock(item) || itemInfo.isAccountSharable()) {
                     log.error("Tried to put an untradable item into personal shop");
                     user.dispose();
                     return;

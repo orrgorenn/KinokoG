@@ -465,10 +465,15 @@ public class MysqlCharacterAccessor implements CharacterAccessor {
                 Timestamp timestamp = rs.getTimestamp(CharacterTable.MAX_LEVEL_TIME);
                 Instant maxLevelTime = (timestamp != null) ? timestamp.toInstant() : null;
 
+                final int jobId = characterStat.getJob();
+                if (JobConstants.isAdminJob(jobId) || JobConstants.isManagerJob(jobId)) {
+                    continue;
+                }
+
                 // ✅ Add to list
                 rankDataList.add(new CharacterRankData(
                         characterId,
-                        JobConstants.getJobCategory(characterStat.getJob()),
+                        JobConstants.getJobCategory(jobId),
                         characterStat.getCumulativeExp(),
                         maxLevelTime
                 ));

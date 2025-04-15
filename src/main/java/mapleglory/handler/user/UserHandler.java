@@ -7,15 +7,13 @@ import mapleglory.packet.field.*;
 import mapleglory.packet.stage.CashShopPacket;
 import mapleglory.packet.user.*;
 import mapleglory.packet.world.*;
-import mapleglory.provider.EtcProvider;
-import mapleglory.provider.ItemProvider;
-import mapleglory.provider.QuestProvider;
-import mapleglory.provider.ShopProvider;
+import mapleglory.provider.*;
 import mapleglory.provider.item.ItemInfo;
 import mapleglory.provider.item.ItemInfoType;
 import mapleglory.provider.item.ItemMakeInfo;
 import mapleglory.provider.map.PortalInfo;
 import mapleglory.provider.quest.QuestInfo;
+import mapleglory.provider.skill.SkillInfo;
 import mapleglory.script.common.ScriptAnswer;
 import mapleglory.script.common.ScriptDispatcher;
 import mapleglory.script.common.ScriptMessageType;
@@ -106,7 +104,8 @@ public final class UserHandler {
         // CUserLocal::HandleXKeyDown, CWvsContext::SendGetUpFromChairRequest
         final short fieldSeatId = inPacket.decodeShort();
         user.setPortableChairId(0);
-        user.write(UserLocal.sitResult(fieldSeatId != -1, fieldSeatId)); // broadcast not required
+        user.write(UserLocal.sitResult(fieldSeatId != -1, fieldSeatId));
+        user.getField().broadcastPacket(UserRemote.setActivePortableChair(user, 0), user);
     }
 
     @Handler(InHeader.UserPortableChairSitRequest)
@@ -406,10 +405,8 @@ public final class UserHandler {
         }
         final ItemInfo itemInfo = itemInfoResult.get();
         if (newPos == 0) {
-            // CDraggableItem::ThrowItem - item is deleted if (binded || quest || tradeBlock) && POSSIBLE_TRADING attribute not set
-            final DropEnterType dropEnterType = ((item.hasAttribute(ItemAttribute.EQUIP_BINDED) || itemInfo.isQuest() || itemInfo.isTradeBlock()) && !item.isPossibleTrading()) ?
-                    DropEnterType.FADING_OUT :
-                    DropEnterType.CREATE;
+            // CDraggableItem::ThrowItem
+            final DropEnterType dropEnterType = (itemInfo.isTradeBlock(item) || itemInfo.isAccountSharable()) ? DropEnterType.FADING_OUT : DropEnterType.CREATE;
             if (item.getItemType() == ItemType.BUNDLE && !ItemConstants.isRechargeableItem(item.getItemId()) &&
                     item.getQuantity() > count) {
                 // Update item count
@@ -595,6 +592,16 @@ public final class UserHandler {
     public static void handleUserSkillUpRequest(User user, InPacket inPacket) {
         inPacket.decodeInt(); // update_time
         final int skillId = inPacket.decodeInt(); // nSkillID
+        // Resolve skill info
+        final Optional<SkillInfo> skillInfoResult = SkillProvider.getSkillInfoById(skillId);
+        if (skillInfoResult.isEmpty()) {
+            log.error("Could not resolve skill info for skill ID : {}", skillId);
+            user.dispose();
+            return;
+        }
+        final SkillInfo skillInfo = skillInfoResult.get();
+
+        // Resolve skill record
         final SkillManager sm = user.getSkillManager();
         final Optional<SkillRecord> skillRecordResult = sm.getSkill(skillId);
         if (skillRecordResult.isEmpty()) {
@@ -603,11 +610,21 @@ public final class UserHandler {
             return;
         }
         final SkillRecord skillRecord = skillRecordResult.get();
-        if (skillRecord.getSkillLevel() >= skillRecord.getMasterLevel()) {
-            log.warn("<User: {}> Tried to add a skill {} at master level {}/{}", user.getCharacterName(), skillId, skillRecord.getSkillLevel(), skillRecord.getMasterLevel());
-            user.dispose();
-            return;
+        // Check skill level
+        if (SkillConstants.isSkillNeedMasterLevel(skillId)) {
+            if (skillRecord.getSkillLevel() >= skillRecord.getMasterLevel()) {
+                log.error("Tried to add a skill {} at master level {}/{}", skillId, skillRecord.getSkillLevel(), skillRecord.getMasterLevel());
+                user.dispose();
+                return;
+            }
+        } else {
+            if (skillRecord.getSkillLevel() >= skillInfo.getMaxLevel()) {
+                log.error("Tried to add a skill {} at max level {}/{}", skillId, skillRecord.getSkillLevel(), skillInfo.getMaxLevel());
+                user.dispose();
+                return;
+            }
         }
+
         final int skillRoot = SkillConstants.getSkillRoot(skillId);
         if (JobConstants.isBeginnerJob(skillRoot)) {
             // Check if valid beginner skill

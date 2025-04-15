@@ -13,6 +13,7 @@ import mapleglory.util.Util;
 import mapleglory.world.job.Job;
 import mapleglory.world.job.JobConstants;
 import mapleglory.world.quest.QuestRecordType;
+import mapleglory.world.user.AvatarData;
 
 import java.util.HashMap;
 import java.util.List;
@@ -1036,7 +1037,7 @@ public final class VictoriaIsland extends ScriptHandler {
     @Script("rank_user")
     public static void rank_user(ScriptManager sm) {
         // TODO: Make sure GMS-like
-        final Optional<CharacterRank> characterRankResult = RankManager.getCharacterRank(sm.getUser().getCharacterId());
+        final Optional<CharacterRank> characterRankResult = RankManager.getCharacterRank(AvatarData.from(sm.getUser().getCharacterData()));
         if (characterRankResult.isPresent()) {
             CharacterRank rank = characterRankResult.get();
             String jobBranchName = sm.getJob().getJobBranchName();
