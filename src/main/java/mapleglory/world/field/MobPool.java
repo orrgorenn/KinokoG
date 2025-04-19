@@ -8,6 +8,7 @@ import mapleglory.script.party.KerningPQ;
 import mapleglory.server.node.ServerExecutor;
 import mapleglory.util.BitFlag;
 import mapleglory.util.Rect;
+import mapleglory.world.BossConstants;
 import mapleglory.world.GameConstants;
 import mapleglory.world.field.mob.*;
 import org.apache.logging.log4j.LogManager;
@@ -67,10 +68,8 @@ public final class MobPool extends FieldObjectPool<Mob> {
 
         if (this.mobSubCount == 0) {
             for (Mob fieldMob : getObjects()) {
-                try (var lockedFieldMob = fieldMob.acquire()) {
-                    if (fieldMob.getMobType() == MobType.PARENT_MOB.getValue()) {
-                        field.broadcastPacket(MobPacket.mobSuspendReset(fieldMob, true));
-                    }
+                if (fieldMob.getMobType() == MobType.PARENT_MOB.getValue()) {
+                    field.broadcastPacket(MobPacket.mobSuspendReset(fieldMob, true));
                 }
             }
         }
@@ -91,6 +90,18 @@ public final class MobPool extends FieldObjectPool<Mob> {
                 // Hidden Street : First Time Together <Last Stage>
                 field.broadcastPacket(FieldEffectPacket.screen("quest/party/clear"));
                 field.broadcastPacket(FieldEffectPacket.sound("Party1/Clear"));
+            }
+            // Handle BalrogPQ
+            case BossConstants.BALROG_NORMAL_BATTLE_MAP -> {
+                switch (mob.getTemplateId()) {
+                    case 8830009 -> {
+                        for (Mob fieldMob : getObjects()) {
+                            if (fieldMob.getTemplateId() == 8830013) {
+                                field.broadcastPacket(MobPacket.mobSuspendReset(fieldMob, true));
+                            }
+                        }
+                    }
+                }
             }
         }
         return true;

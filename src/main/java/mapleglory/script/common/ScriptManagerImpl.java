@@ -37,6 +37,7 @@ import mapleglory.world.field.drop.DropEnterType;
 import mapleglory.world.field.drop.DropOwnType;
 import mapleglory.world.field.mob.Mob;
 import mapleglory.world.field.mob.MobAppearType;
+import mapleglory.world.field.mob.MobLeaveType;
 import mapleglory.world.field.mob.MobType;
 import mapleglory.world.field.npc.Npc;
 import mapleglory.world.field.reactor.Reactor;
@@ -599,30 +600,30 @@ public final class ScriptManagerImpl implements ScriptManager {
     }
 
     @Override
-    public String getQRValue(QuestRecordType questRecordType) {
-        final Optional<QuestRecord> questRecordResult = user.getQuestManager().getQuestRecord(questRecordType.getQuestId());
+    public String getQRValue(int questId) {
+        final Optional<QuestRecord> questRecordResult = user.getQuestManager().getQuestRecord(questId);
         return questRecordResult.map(QuestRecord::getValue).orElse("");
     }
 
     @Override
-    public boolean hasQRValue(QuestRecordType questRecordType, String value) {
-        return Arrays.asList(getQRValue(questRecordType).split(";")).contains(value);
+    public boolean hasQRValue(int questId, String value) {
+        return Arrays.asList(getQRValue(questId).split(";")).contains(value);
     }
 
     @Override
-    public void setQRValue(QuestRecordType questRecordType, String value) {
-        final QuestRecord qr = user.getQuestManager().setQuestInfoEx(questRecordType.getQuestId(), value);
+    public void setQRValue(int questId, String value) {
+        final QuestRecord qr = user.getQuestManager().setQuestInfoEx(questId, value);
         user.write(MessagePacket.questRecord(qr));
         user.validateStat();
     }
 
     @Override
-    public void addQRValue(QuestRecordType questRecordType, String value) {
-        final String existingValue = getQRValue(questRecordType);
+    public void addQRValue(int questId, String value) {
+        final String existingValue = getQRValue(questId);
         if (existingValue == null || existingValue.isEmpty()) {
-            setQRValue(questRecordType, value);
+            setQRValue(questId, value);
         } else {
-            setQRValue(questRecordType, String.format("%s;%s", existingValue, value));
+            setQRValue(questId, String.format("%s;%s", existingValue, value));
         }
     }
 
@@ -752,6 +753,22 @@ public final class ScriptManagerImpl implements ScriptManager {
     @Override
     public int getFieldId() {
         return field.getFieldId();
+    }
+
+    @Override
+    public void killMob(int mobTemplateId) {
+        final Optional<Mob> mobResult = user.getField().getMobPool().getByTemplateId(mobTemplateId);
+        if (mobResult.isEmpty()) {
+            throw new ScriptError("Could not resolve mob template ID : %d", mobTemplateId);
+        }
+
+        Mob mob = mobResult.get();
+        user.getField().getMobPool().forEach((field_mob) -> {
+            if (field_mob == mob) {
+                message("Setting HP to 0 -- mob id " + mob.getTemplateId());
+                mob.setHp(0);
+            }
+        });
     }
 
     @Override

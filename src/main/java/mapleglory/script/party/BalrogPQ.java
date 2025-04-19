@@ -4,12 +4,14 @@ import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.server.event.EventType;
+import mapleglory.server.node.ServerExecutor;
 import mapleglory.world.BossConstants;
 import mapleglory.world.field.mob.MobAppearType;
 import mapleglory.world.field.mob.MobType;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class BalrogPQ extends ScriptHandler {
     @Script("balog_accept")
@@ -46,9 +48,15 @@ public class BalrogPQ extends ScriptHandler {
 
     @Script("easy_balog_summon")
     public static void easy_balog_summon(ScriptManager sm) {
-        sm.spawnMob(BossConstants.BALROG_NORMAL_BODY, MobAppearType.SUSPENDED, BossConstants.BALROG_SPAWN_X, BossConstants.BALROG_SPAWN_Y, true, MobType.PARENT_MOB);
-        sm.spawnMob(8830009, MobAppearType.REGEN, BossConstants.BALROG_SPAWN_X, BossConstants.BALROG_SPAWN_Y, true, MobType.SUB_MOB);
-        sm.spawnMob(8830013, MobAppearType.REGEN, BossConstants.BALROG_SPAWN_X, BossConstants.BALROG_SPAWN_Y, true, MobType.SUB_MOB);
+        if (sm.getUser().isPartyLeader()) {
+            sm.spawnMob(BossConstants.BALROG_NORMAL_BODY, MobAppearType.SUSPENDED, BossConstants.BALROG_SPAWN_X, BossConstants.BALROG_SPAWN_Y, true);
+            sm.spawnMob(8830009, MobAppearType.NORMAL, BossConstants.BALROG_SPAWN_X, BossConstants.BALROG_SPAWN_Y, true);
+            sm.spawnMob(8830013, MobAppearType.NORMAL, BossConstants.BALROG_SPAWN_X, BossConstants.BALROG_SPAWN_Y, true);
+
+            ServerExecutor.schedule(sm.getUser(), () -> {
+                sm.killMob(8830013);
+            }, BossConstants.BALROG_RELEASE_LEFT_CLAW_INTERVAL, TimeUnit.SECONDS);
+        }
     }
 
     @Script("balog_summon")

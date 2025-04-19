@@ -79,6 +79,7 @@ public final class PetHandler {
                 }
                 // Create and add pet
                 final Pet pet = Pet.from(user, item);
+                pet.setPosition(user.getField(), user.getX(), user.getY());
                 // Update client
                 user.getField().broadcastPacket(PetPacket.petActivated(user, pet));
                 user.write(PetPacket.petLoadExceptionList(user, pet.getPetIndex(), pet.getItemSn(), user.getConfigManager().getPetExceptionList()));

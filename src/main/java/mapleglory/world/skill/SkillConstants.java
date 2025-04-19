@@ -47,10 +47,10 @@ public final class SkillConstants {
     public static int getNoviceSkillAsRace(int skillId, int jobId) {
         if (skillId == Beginner.FOLLOW_THE_LEAD) {
             return switch (JobConstants.getNoviceSkillRootFromJob(jobId)) {
-                case 1000 -> 10000018;
-                case 2000 -> 20000024;
-                case 2001 -> 20011024;
-                case 3000 -> 30001024;
+                case 1000 -> Noblesse.FOLLOW_THE_LEAD;
+                case 2000 -> Aran.FOLLOW_THE_LEAD;
+                case 2001 -> Evan.FOLLOW_THE_LEAD;
+                case 3000 -> Citizen.FOLLOW_THE_LEAD;
                 default -> Beginner.FOLLOW_THE_LEAD;
             };
         }

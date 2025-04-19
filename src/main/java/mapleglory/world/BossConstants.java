@@ -2,7 +2,8 @@ package mapleglory.world;
 
 public final class BossConstants {
     public static final int BALROG_ENTRY_MAP = 105100100; // Balrog Temple : Bottom of the Temple
-    public static final short BALROG_TIME_LIMIT = 1800; // 30 min
+    public static final short BALROG_TIME_LIMIT = 3600; // 30 min
+    public static final short BALROG_RELEASE_LEFT_CLAW_INTERVAL = 60; // 10 minutes
     public static final int BALROG_RUNS_PER_DAY = 1;
     public static final short BALROG_SPAWN_X = 412;
     public static final short BALROG_SPAWN_Y = 258;

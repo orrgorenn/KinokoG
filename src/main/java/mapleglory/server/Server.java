@@ -46,7 +46,7 @@ public final class Server {
         };
 
         // Schedule the heartbeat to run every 60 seconds
-        scheduler.scheduleAtFixedRate(heartbeatTask, 0, 60, TimeUnit.SECONDS);
+        // scheduler.scheduleAtFixedRate(heartbeatTask, 0, 60, TimeUnit.SECONDS);
     }
 
     private static void startSendingHeartbeat() throws Exception {
