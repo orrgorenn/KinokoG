@@ -1,6 +1,7 @@
 # Twisted Jester (9400640)
 
 rewards:
+  - [ 0, 177, 264, 0.600000 ]
   - [ 4006001, 1, 1, 0.007000 ] # The Summoning Rock
   - [ 2000006, 1, 1, 0.010000 ] # Mana Elixir
   - [ 2043701, 1, 1, 0.000100 ] # Scroll for Wand for Magic Attack 60%
