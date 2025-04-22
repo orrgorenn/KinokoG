@@ -1,9 +1,8 @@
 package mapleglory.provider.quest.act;
 
 import mapleglory.packet.world.MessagePacket;
+import mapleglory.util.Util;
 import mapleglory.world.user.User;
-
-import static mapleglory.world.GameConstants.QUEST_RATE;
 
 public final class QuestExpAct implements QuestAct {
     private final int exp;
@@ -19,7 +18,7 @@ public final class QuestExpAct implements QuestAct {
 
     @Override
     public boolean doAct(User user, int rewardIndex) {
-        user.addExp(exp * QUEST_RATE);
+        user.addExp(exp * Util.getQuestRateByMap(user.getFieldId()));
         user.write(MessagePacket.incExp(exp, 0, true, true));
         return true;
     }

@@ -15,6 +15,8 @@ import java.time.Instant;
 import java.util.*;
 import java.util.function.ToDoubleFunction;
 
+import static mapleglory.world.GameConstants.*;
+
 public final class Util {
     private static final Dotenv dotenv = Dotenv.load();
     private static final HexFormat hexFormat = HexFormat.ofDelimiter(" ").withUpperCase();
@@ -144,5 +146,33 @@ public final class Util {
             e.printStackTrace();
             return "{}";
         }
+    }
+
+    public static int getExpRateByMap(int fieldId) {
+        if (fieldId < 100000000) {
+            return 1;
+        }
+        return EXP_RATE;
+    }
+
+    public static int getDropRateByMap(int fieldId) {
+        if (fieldId < 100000000) {
+            return 1;
+        }
+        return DROP_RATE;
+    }
+
+    public static int getQuestRateByMap(int fieldId) {
+        if (fieldId < 100000000) {
+            return 1;
+        }
+        return QUEST_RATE;
+    }
+
+    public static int getMesoRateByMap(int fieldId) {
+        if (fieldId < 100000000) {
+            return 1;
+        }
+        return MESO_RATE;
     }
 }

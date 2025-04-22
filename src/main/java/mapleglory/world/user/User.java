@@ -502,7 +502,7 @@ public final class User extends Life implements Lockable<User> {
     }
 
     public void addExp(int exp) {
-        final Map<Stat, Object> addExpResult = getCharacterStat().addExp(exp, getBasicStat().getInt(), false);
+        final Map<Stat, Object> addExpResult = getCharacterStat().addExp(exp, getBasicStat().getInt(), false, getFieldId());
         write(WvsContext.statChanged(addExpResult, true));
         // Level up
         if (addExpResult.containsKey(Stat.LEVEL)) {
@@ -519,7 +519,7 @@ public final class User extends Life implements Lockable<User> {
     }
 
     public void addQuestExp(int exp) {
-        final Map<Stat, Object> addExpResult = getCharacterStat().addExp(exp, getBasicStat().getInt(), true);
+        final Map<Stat, Object> addExpResult = getCharacterStat().addExp(exp, getBasicStat().getInt(), true, getFieldId());
         write(WvsContext.statChanged(addExpResult, true));
         // Level up
         if (addExpResult.containsKey(Stat.LEVEL)) {

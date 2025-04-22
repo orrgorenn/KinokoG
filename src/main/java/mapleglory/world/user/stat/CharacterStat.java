@@ -9,8 +9,6 @@ import mapleglory.world.job.JobConstants;
 import java.util.EnumMap;
 import java.util.Map;
 
-import static mapleglory.world.GameConstants.QUEST_RATE;
-
 public final class CharacterStat implements Encodable {
     private int id;
     private String name;
@@ -344,12 +342,12 @@ public final class CharacterStat implements Encodable {
         return statMap;
     }
 
-    public Map<Stat, Object> addExp(int delta, int totalInt, boolean addQuestRate) {
+    public Map<Stat, Object> addExp(int delta, int totalInt, boolean addQuestRate, int fieldId) {
         final Map<Stat, Object> statMap = new EnumMap<>(Stat.class);
         if (getLevel() >= GameConstants.getLevelMax(job)) {
             return statMap;
         }
-        long newExp = ((long) getExp()) + (addQuestRate ? (long) delta * QUEST_RATE : delta);
+        long newExp = ((long) getExp()) + (addQuestRate ? (long) delta * Util.getQuestRateByMap(fieldId) : delta);
         while (newExp >= GameConstants.getNextLevelExp(getLevel())) {
             newExp -= GameConstants.getNextLevelExp(getLevel());
             statMap.putAll(levelUp(totalInt));

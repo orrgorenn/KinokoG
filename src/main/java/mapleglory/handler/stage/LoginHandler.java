@@ -118,6 +118,11 @@ public final class LoginHandler {
         c.write(LoginPacket.latestConnectedWorld(ServerConfig.WORLD_ID));
     }
 
+    @Handler(InHeader.LogoutWorld)
+    public static void handleLogoutWorld(Client c, InPacket inPacket) {
+        c.getServerNode().removeClient(c);
+    }
+
     @Handler(InHeader.ViewAllChar)
     public static void handleViewAllChar(Client c, InPacket inPacket) {
         c.write(LoginPacket.viewAllCharResult());

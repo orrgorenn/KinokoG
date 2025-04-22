@@ -379,4 +379,10 @@ public final class WvsContext {
         }
         return outPacket;
     }
+
+    public static OutPacket OnMerchantResult() {
+        final OutPacket outPacket = OutPacket.of(OutHeader.EntrustedShopCheckResult);
+        outPacket.encodeInt(7);
+        return outPacket;
+    }
 }

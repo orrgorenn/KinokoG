@@ -262,6 +262,11 @@ public final class UserHandler {
         shopDialog.handlePacket(user, inPacket);
     }
 
+    @Handler(InHeader.UserEntrustedShopRequest)
+    public static void handleUserEntrustedShopRequest(User user, InPacket inPacket) {
+        user.write(WvsContext.OnMerchantResult());
+    }
+
     @Handler(InHeader.UserTrunkRequest)
     public static void handleUserTrunkRequest(User user, InPacket inPacket) {
         if (!(user.getDialog() instanceof TrunkDialog trunkDialog)) {

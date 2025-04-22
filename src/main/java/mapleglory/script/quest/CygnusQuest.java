@@ -499,6 +499,16 @@ public final class CygnusQuest extends ScriptHandler {
         }
     }
 
+    @Script("q20520s")
+    public static void q20520s(ScriptManager sm) {
+        sm.sayNext("Wow, you have already reach Level 50, yet why are you still walking around like that? I mean, you've reached Level 50, but you are still walking around with your own feet. That's unusual behavior for a Knight like you.");
+        if (sm.askAccept("Well, I suppose it's up to you, but by doing that, you also risk marring the pride and honor of the Empress. This is why I am here to give you a helpful pointer. It's called #bMonster Riding#k. Of course you're interested in this, right?")) {
+            sm.forceStartQuest(20520);
+            sm.sayOk("There's a special mount that only the Cygnus Knights can enjoy. If you are interested, visit #bEreve#k. I will give you more information on it.");
+            sm.forceCompleteQuest(20520);
+        }
+    }
+
     @Script("q20600s")
     public static void q20600s(ScriptManager sm) {
         // [Skill] Training Never Ends
@@ -511,7 +521,7 @@ public final class CygnusQuest extends ScriptHandler {
     @Script("q20610s")
     public static void q20610s(ScriptManager sm) {
         // [Skill] Training Still Never Ends
-        if(sm.askAccept("Have you mastered your new skills? Since it looks like you have mastered those skills, it's time for you to learn a #bnew skill#k, don't you think so?")) {
+        if (sm.askAccept("Have you mastered your new skills? Since it looks like you have mastered those skills, it's time for you to learn a #bnew skill#k, don't you think so?")) {
             sm.forceCompleteQuest(20610);
             sm.sayOk("#bChief Knights#k must have acquired another skill. I strongly suggest you go there and learn that skill with them as well. Maybe the Chief Knight may object to it, but mastering the skill is all about your ability to make a specific skill your own.");
         } else {

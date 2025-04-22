@@ -442,7 +442,7 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
                     getController().write(changeControllerPacket(false));
                 }
                 if (getField().getMobPool().removeMob(this, leaveType)) {
-                    distributeExp();
+                    distributeExp(attacker);
                     dropRewards(attacker, delay);
                     spawnRevives(delay);
                 }
@@ -487,9 +487,9 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
      * Exp for other members : (0.4 * level / totalPartyLevel) + partyBonus
      * </pre>
      */
-    private void distributeExp() {
+    private void distributeExp(User attacker) {
         // Calculate exp split based on damage dealt
-        final int totalExp = getExp() * EXP_RATE;
+        final int totalExp = getExp() * Util.getExpRateByMap(attacker.getFieldId());
         final Map<User, Integer> expSplit = new HashMap<>(); // user -> exp
         final Map<Integer, Set<User>> partyMembers = new HashMap<>(); // party id -> members
         for (var entry : damageDone.entrySet()) {
@@ -628,7 +628,7 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
 
     private Optional<Drop> createDrop(User owner, Reward reward) {
         // Drop probability
-        double probability = reward.getProb() * DROP_RATE;
+        double probability = reward.getProb() * Util.getDropRateByMap(owner.getFieldId());
         if (owner.getSecondaryStat().hasOption(CharacterTemporaryStat.ItemUpByItem)) {
             final double multiplier = (owner.getSecondaryStat().getOption(CharacterTemporaryStat.ItemUpByItem).nOption + 100) / 100.0;
             probability = probability * multiplier;
@@ -642,7 +642,7 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
         }
         // Create drop
         if (reward.isMoney()) {
-            int money = Util.getRandom(reward.getMin(), reward.getMax()) * MESO_RATE;
+            int money = Util.getRandom(reward.getMin(), reward.getMax()) * Util.getMesoRateByMap(owner.getFieldId());
             if (money <= 0) {
                 return Optional.empty();
             }

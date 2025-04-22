@@ -45,4 +45,10 @@ public class LHC extends ScriptHandler {
     public static void vanleonItem0(ScriptManager sm) {
         sm.message("Not implemented yet.");
     }
+
+    @Script("q3162s")
+    public static void q3162s(ScriptManager sm) {
+        sm.sayNext("Royal Guard Ani comes out every hour, but right now he's not feeling like fighting.");
+        sm.forceStartQuest(3162);
+    }
 }

@@ -565,4 +565,36 @@ public final class AranQuest extends ScriptHandler {
         sm.forceStartQuest(29928);
         sm.forceCompleteQuest(29928);
     }
+
+    @Script("q21750e")
+    public static void q21750e(ScriptManager sm) {
+        sm.sayNext("Aran...? Are my eyes deceiving me? Is it really you, Aran? You're alive? Oh, thank goodness! Thank you, Aran. Thank you!");
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth("I'm very sorry, but I don't remember you.");
+        sm.setPlayerAsSpeaker(false);
+        sm.sayBoth("What...? What do you mean? Aran, it's you, isn't it? You're Aran. You're the hero that saved us. Aran, don't you remember?");
+        sm.setPlayerAsSpeaker(true);
+        sm.sayBoth(blue("(You explain the situation as well as you can.)"));
+        sm.setPlayerAsSpeaker(false);
+        if (sm.askAccept("I see... I didn't realize you lost your memory. I can't believe you woke up hundreds of years later. This must be the past for you then.")) {
+            sm.forceCompleteQuest(21750);
+            sm.sayNext("Let me reintroduce myself then. My name is Athena Pierce. Athena Pierce is #ba good friend of Aran#k. A few months ago, I fled and you left to battle the Black Mage on your own.");
+            sm.sayBoth("While you were fighting against the Black Mage, the rest of us were able to board an ark and escape to Victoria Island, although we ended up in this forest instead of the south plains due to a dragon attack.");
+            sm.sayBoth("But we couldn't just sit and do nothing, so we decided to settle and start new lives here. We've been slowly establishing a town in hopes of starting anew.");
+            sm.sayBoth("Because we're trying to establish a town here in Victoria Island, where we know no one, all of our young men are out pulling their weight. Here, there are only women, children, and the injured.");
+            sm.sayPrev("But, Aran, how did you get here anyway?");
+        }
+    }
+
+    @Script("q23907s")
+    public static void q23907s(ScriptManager sm) {
+        sm.forceStartQuest(23907);
+        sm.forceCompleteQuest(23907);
+    }
+
+    @Script("q23907e")
+    public static void q23907e(ScriptManager sm) {
+        sm.forceStartQuest(23907);
+        sm.forceCompleteQuest(23907);
+    }
 }

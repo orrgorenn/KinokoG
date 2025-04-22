@@ -182,13 +182,12 @@ public final class Warrior extends SkillProcessor {
             // PALADIN
             case THREATEN:
                 skill.forEachAffectedMob(field, (mob) -> {
-                    if (!mob.isBoss()) {
-                        mob.setTemporaryStat(Map.of(
-                                MobTemporaryStat.PAD, MobStatOption.of(si.getValue(SkillStat.x, slv), skillId, si.getDuration(slv)),
-                                MobTemporaryStat.PDR, MobStatOption.of(si.getValue(SkillStat.y, slv), skillId, si.getDuration(slv)),
-                                MobTemporaryStat.Blind, MobStatOption.of(si.getValue(SkillStat.z, slv), skillId, si.getValue(SkillStat.subTime, slv) * 1000)
-                        ), 0);
-                    }
+                    // TODO: make sure doesn't supposed to work on bosses
+                    mob.setTemporaryStat(Map.of(
+                            MobTemporaryStat.PAD, MobStatOption.of(si.getValue(SkillStat.x, slv), skillId, si.getDuration(slv)),
+                            MobTemporaryStat.PDR, MobStatOption.of(si.getValue(SkillStat.y, slv), skillId, si.getDuration(slv)),
+                            MobTemporaryStat.Blind, MobStatOption.of(si.getValue(SkillStat.z, slv), skillId, si.getValue(SkillStat.subTime, slv) * 1000)
+                    ), 0);
                 });
                 return;
             case HP_RECOVERY:
